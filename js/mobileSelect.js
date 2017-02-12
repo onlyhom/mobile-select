@@ -17,6 +17,7 @@ window.MobileSelect = (function() {
 	//构造器
 	function MobileSelect(config) {
 		this.mobileSelect;
+		this.wheelsData = config.wheels;
 		this.renderWheel(config.wheels);
 		this.trigger = document.querySelector(config.trigger);
 	    this.wheel = getClass(this.mobileSelect,'wheel');   //wheel 数组
@@ -26,6 +27,7 @@ window.MobileSelect = (function() {
     	this.closeBtn = this.mobileSelect.querySelector('.cancel');
 	    this.grayLayer = this.mobileSelect.querySelector('.grayLayer');
 	    this.popUp = this.mobileSelect.querySelector('.content');
+	    this.titleText = config.title;
 	    this.startY;
 	    this.moveEndY;
 	    this.moveY;
@@ -39,7 +41,6 @@ window.MobileSelect = (function() {
 	    config.callback ? this.callback = config.callback : this.callback = function(){};
 	    config.limit ? this.limit = config.limit : this.limit = function(){};
 	    config.position ? this.initPosition = config.position : this.initPosition = [];
-	    config.title ? this.titleText = config.title : this.titleText = '';
 
 	    this.init(config);
 		this.fixRowStyle();
@@ -88,7 +89,7 @@ window.MobileSelect = (function() {
 					},false);
 					_this.wheel[i].addEventListener('mouseup', function () {
 						_this.dragClick(event,_this,this.firstChild,i);
-					},false); 
+					},true); 
 
 					var curWheelLi = _this.slider[i].getElementsByTagName('li');
 					for(var j=0; j<curWheelLi.length;j++){
@@ -116,7 +117,7 @@ window.MobileSelect = (function() {
 		    		i==_this.wheel.length-1 ? tempValue += _this.getValue(i) : tempValue += _this.getValue(i)+' ';
 		    	}
 		    	_this.trigger.value = tempValue;
-		    	_this.callback(_this.getIndexArr());
+		    	_this.callback(_this.getIndexArr(),_this.getJson());
 		    });
 
 		    _this.trigger.addEventListener('click',function(){
@@ -145,12 +146,12 @@ window.MobileSelect = (function() {
 			}
 		},
 
-		renderWheel: function(wheels){
+		renderWheel: function(wheelsData){
 			var _this = this;
 			_this.mobileSelect = document.createElement("div");
 			_this.mobileSelect.className = "mobileSelect";
 			_this.mobileSelect.innerHTML = 
-		    '<div class="grayLayer">'+
+		    	'<div class="grayLayer"></div>'+
 		        '<div class="content">'+
 		            '<div class="btnBar">'+
 		                '<div class="fixWidth">'+
@@ -167,17 +168,22 @@ window.MobileSelect = (function() {
 		                    '<div class="shadowMask"></div>'+
 		                '</div>'+
 		            '</div>'+
-		        '</div>'+
-		    '</div>';
+		        '</div>';
 		    document.body.appendChild(_this.mobileSelect);
 
 			//根据数据长度来渲染
+
 			var tempHtml='';
-			for(var i=0; i<wheels.length; i++){
+			for(var i=0; i<wheelsData.length; i++){ //列
 				tempHtml += '<div class="wheel"><ul class="selectContainer">';
-				for(var j=0; j<wheels[i].data.length; j++){
-					//wheels[i].data[j];
-					tempHtml += '<li>'+wheels[i].data[j]+'</li>'
+				if(typeof(wheelsData[0].data[0])=='object'){
+					for(var j=0; j<wheelsData[i].data.length; j++){ //行
+						tempHtml += '<li data-id="'+wheelsData[i].data[j].id+'">'+wheelsData[i].data[j].value+'</li>'
+					}
+				}else{
+					for(var j=0; j<wheelsData[i].data.length; j++){ //行
+						tempHtml += '<li>'+wheelsData[i].data[j]+'</li>'
+					}
 				}
 				tempHtml += '</ul></div>'
 				_this.mobileSelect.querySelector('.wheels').innerHTML = tempHtml;
@@ -211,6 +217,17 @@ window.MobileSelect = (function() {
 	    	var temp = [];
 	    	for(var i=0; i<_this.curDistance.length; i++){
 	    		temp.push(_this.getIndex(_this.curDistance[i]));
+	    	}
+	    	return temp;
+	    },
+
+	    getJson: function(){
+	    	var _this = this;
+	    	var temp = [];
+	    	if(typeof(_this.wheelsData[0].data[0])=='object'){
+		    	for(var i=0; i<_this.curDistance.length; i++){
+		    		temp.push(_this.wheelsData[i].data[_this.getIndex(_this.curDistance[i])]);
+		    	}
 	    	}
 	    	return temp;
 	    },
