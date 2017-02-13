@@ -281,6 +281,7 @@ window.MobileSelect = (function() {
 	    		case "touchstart":
 			        _this.startY = event.touches[0].clientY;
 			        _this.oldMoveY = _this.startY;
+			        console.log('start');
 	    			break;
 
 	    		case "touchend":
@@ -308,7 +309,7 @@ window.MobileSelect = (function() {
 			                _this.movePosition(theSlider, _this.curDistance[index]);
 			            }, 100);
 			        }
-
+			        console.log('end');
 			        _this.limit(_this.getIndexArr());
 	    			break;
 
@@ -321,6 +322,7 @@ window.MobileSelect = (function() {
 			        _this.curDistance[index] = _this.curDistance[index] + _this.offset;
 			        _this.movePosition(theSlider, _this.curDistance[index]);
 			        _this.oldMoveY = _this.moveY;
+			        console.log('move');
 	    			break;
 	    	}
 	    },

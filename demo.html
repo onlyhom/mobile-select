@@ -27,6 +27,7 @@
     <input type="text" id="trigger2" placeholder="双项选择">
     <input type="text" id="trigger3" placeholder="三项选择">
     <input type="text" id="trigger4" placeholder="多项选择">
+    <input type="text" id="trigger5" placeholder="Json格式数据">
 </div>
 
 
@@ -85,9 +86,7 @@ var mobileSelect3 = new MobileSelect({
             ],
     position:[0, 0, 0], 
     limit:function(indexArr){ 
-        //indexArr 是当前选中项的索引数组 
-        //可根据返回的这个数组 做一些扩展功能
-        console.log(indexArr);
+        console.log(indexArr); //返回选中的索引
         console.log('滑动时触发');
     },
     callback:function(indexArr){
@@ -109,9 +108,7 @@ var mobileSelect4 = new MobileSelect({
             ],
     position:[0, 1, 0, 1, 0], 
     limit:function(indexArr){ 
-        //indexArr 是当前选中项的索引数组 
-        //可根据返回的这个数组 做一些扩展功能
-        console.log(indexArr);
+        console.log(indexArr); //返回选中的索引
         console.log('滑动时触发');
     },
     callback:function(indexArr){
@@ -120,6 +117,35 @@ var mobileSelect4 = new MobileSelect({
         console.log('点击选择后触发');
     }
 });
+
+
+var mobileSelect5 = new MobileSelect({
+    trigger: '#trigger5',
+    title: 'Json格式',
+    wheels: [
+                {data:[
+                    {id:'1',value:'附近'},
+                    {id:'2',value:'上城区'},
+                    {id:'3',value:'下城区'},
+                    {id:'4',value:'江干区'},
+                    {id:'5',value:'拱墅区'},
+                    {id:'6',value:'西湖区'}
+                ]},
+                {data:[
+                    {id:'1',value:'1000米'},
+                    {id:'2',value:'2000米'},
+                    {id:'3',value:'3000米'},
+                    {id:'4',value:'5000米'},
+                    {id:'5',value:'10000米'}
+                ]}
+            ],
+    position:[1,1],
+    callback:function(indexArr, data){
+        console.log(indexArr); //返回选中的索引
+        console.log(data); //返回选中的json 数组
+    } 
+});
+
 
 </script>
 

@@ -19,7 +19,7 @@
 .mobileSelect .content {
   width: 100%;
   display: block;
-  position: absolute;
+  position: fixed;
   z-index: 889;
   color: black;
   -webkit-transition: all 0.4s;
