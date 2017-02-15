@@ -164,7 +164,7 @@ body {
 .contain{max-width: 640px; margin: 0 auto; position: relative;}
 
 .fixWidth{
-  width: 94%;
+  width: 90%;
   margin: 0 auto;
   position: relative;
 }
