@@ -1,9 +1,4 @@
 window.MobileSelect = (function() {
-
-//兼容性做好
-//优化好getValue
-
-
     function getID(string){
     	return document.getElementById(string);
     }
@@ -18,16 +13,19 @@ window.MobileSelect = (function() {
 	function MobileSelect(config) {
 		this.mobileSelect;
 		this.wheelsData = config.wheels;
-		this.renderWheel(config.wheels);
+	    this.jsonType =  false;
+	    this.jsonData = [];
+	    this.checkDataType();
+		this.renderWheels(this.wheelsData);
 		this.trigger = document.querySelector(config.trigger);
 	    this.wheel = getClass(this.mobileSelect,'wheel');   //wheel 数组
 	    this.slider = getClass(this.mobileSelect,'selectContainer'); // slider 数组
+	    this.wheels = this.mobileSelect.querySelector('.wheels');   //wheels
 	    this.liHeight = this.mobileSelect.querySelector('li').offsetHeight;
 	    this.ensureBtn = this.mobileSelect.querySelector('.ensure');
     	this.closeBtn = this.mobileSelect.querySelector('.cancel');
 	    this.grayLayer = this.mobileSelect.querySelector('.grayLayer');
 	    this.popUp = this.mobileSelect.querySelector('.content');
-	    this.titleText = config.title;
 	    this.startY;
 	    this.moveEndY;
 	    this.moveY;
@@ -38,35 +36,126 @@ window.MobileSelect = (function() {
 	    this.curDistance = [];
 	    this.clickStatus = false;
 
-	    config.callback ? this.callback = config.callback : this.callback = function(){};
-	    config.limit ? this.limit = config.limit : this.limit = function(){};
-	    config.position ? this.initPosition = config.position : this.initPosition = [];
+	    this.deepArr = [];
+	    this.displayJson = []; 
 
+	    this.callback = config.callback ? config.callback : function(){};
+	    this.limit = config.limit ? config.limit : function(){};
+	    this.initPosition = config.position ? config.position : [];
+	    this.titleText = config.title ? config.title : '';
+	    this.cascade = config.cascade ? config.cascade && this.jsonType : false; //是否级联
 	    this.init(config);
-		this.fixRowStyle();
-
+		this.fixRowStyle(); //修正列数
 	}
 	
 	MobileSelect.prototype = {
 		constructor: MobileSelect,
-
 		init: function(config){
 			var _this = this; 
 			_this.trigger.readOnly=true;
 			_this.trigger.style.cursor='pointer';
-			_this.mobileSelect.querySelector('.title').innerHTML = this.titleText;
+			_this.setTitle(_this.titleText);
+
+			if (_this.cascade) {
+				_this.initCascade();
+			}
 
 			//定位 初始位置
 			if(_this.initPosition.length == 0){
 				for(var i=0; i<_this.slider.length; i++){
 					_this.initPosition.push(0);
-					_this.initCurDistance(_this.initPosition); 
 				}
-			}else{
-				_this.initCurDistance(_this.initPosition);
 			}
+			_this.initCurDistance(_this.initPosition);
+			//初始位置 END
+
+			_this.addListenerAll();
 
 
+			//按钮监听
+		    _this.closeBtn.addEventListener('click',function(){
+		    	_this.mobileSelect.classList.remove('mobileSelect-show');
+		    });
+
+		    _this.ensureBtn.addEventListener('click',function(){
+		    	_this.mobileSelect.classList.remove('mobileSelect-show');
+		    	if(_this.cascade){
+
+		    	}else{
+			    	var tempValue ='';
+			    	for(var i=0; i<_this.wheel.length; i++){
+			    		i==_this.wheel.length-1 ? tempValue += _this.getValue(i) : tempValue += _this.getValue(i)+' ';
+			    	}
+			    	_this.trigger.value = tempValue;
+			    	_this.callback(_this.getIndexArr(),_this.getJson());
+		    	}
+		    });
+
+		    _this.trigger.addEventListener('click',function(){
+		    	_this.mobileSelect.classList.add('mobileSelect-show');
+		    });
+
+		    _this.grayLayer.addEventListener('click',function(){
+		    	_this.mobileSelect.classList.remove('mobileSelect-show');
+		    });
+
+		    _this.popUp.addEventListener('click',function(){ //阻止冒泡
+		    	event.stopPropagation(); 
+		    });
+		},
+
+		setTitle: function(string){
+			var _this = this;
+			_this.titleText = string;
+			_this.mobileSelect.querySelector('.title').innerHTML = _this.titleText;
+		},
+
+		renderWheels: function(wheelsData){
+			var _this = this;
+			_this.mobileSelect = document.createElement("div");
+			_this.mobileSelect.className = "mobileSelect";
+			_this.mobileSelect.innerHTML = 
+		    	'<div class="grayLayer"></div>'+
+		        '<div class="content">'+
+		            '<div class="btnBar">'+
+		                '<div class="fixWidth">'+
+		                    '<div class="cancel">取消</div>'+
+		                    '<div class="title"></div>'+
+		                    '<div class="ensure">选择</div>'+
+		                '</div>'+
+		            '</div>'+
+		            '<div class="panel">'+
+		                '<div class="fixWidth">'+
+		                	'<div class="wheels">'+
+			                '</div>'+
+		                    '<div class="selectLine"></div>'+
+		                    '<div class="shadowMask"></div>'+
+		                '</div>'+
+		            '</div>'+
+		        '</div>';
+		    document.body.appendChild(_this.mobileSelect);
+
+			//根据数据长度来渲染
+
+			var tempHTML='';
+			for(var i=0; i<wheelsData.length; i++){ //列
+				tempHTML += '<div class="wheel"><ul class="selectContainer">';
+				if(_this.jsonType){
+					for(var j=0; j<wheelsData[i].data.length; j++){ //行
+						tempHTML += '<li data-id="'+wheelsData[i].data[j].id+'">'+wheelsData[i].data[j].value+'</li>';
+					}
+				}else{
+					for(var j=0; j<wheelsData[i].data.length; j++){ //行
+						tempHTML += '<li>'+wheelsData[i].data[j]+'</li>';
+					}
+				}
+				tempHTML += '</ul></div>';
+			}
+			_this.mobileSelect.querySelector('.wheels').innerHTML = tempHTML;
+		},
+
+		addListenerAll: function(){
+			var _this = this;
 			for(var i=0; i<_this.slider.length; i++){
 				//手势监听
 				(function (i) {
@@ -102,38 +191,10 @@ window.MobileSelect = (function() {
 
 				})(i);
 			}
-
-			//_this.addListenerAll();
-
-			//按钮监听
-		    _this.closeBtn.addEventListener('click',function(){
-		    	_this.mobileSelect.classList.remove('mobileSelect-show');
-		    });
-
-		    _this.ensureBtn.addEventListener('click',function(){
-		    	_this.mobileSelect.classList.remove('mobileSelect-show');
-		    	var tempValue ='';
-		    	for(var i=0; i<_this.wheel.length; i++){
-		    		i==_this.wheel.length-1 ? tempValue += _this.getValue(i) : tempValue += _this.getValue(i)+' ';
-		    	}
-		    	_this.trigger.value = tempValue;
-		    	_this.callback(_this.getIndexArr(),_this.getJson());
-		    });
-
-		    _this.trigger.addEventListener('click',function(){
-		    	_this.mobileSelect.classList.add('mobileSelect-show');
-		    });
-
-		    _this.grayLayer.addEventListener('click',function(){
-		    	_this.mobileSelect.classList.remove('mobileSelect-show');
-		    });
-
-		    _this.popUp.addEventListener('click',function(){ //阻止冒泡
-		    	event.stopPropagation(); 
-		    });
 		},
 
 		updateListenerLi:function(sliderIndex){
+			//console.log('监听每个单项点击');
 			var _this = this;
 			//监听每个单项点击
 			var curWheelLi = _this.slider[sliderIndex].getElementsByTagName('li');
@@ -146,61 +207,157 @@ window.MobileSelect = (function() {
 			}
 		},
 
-		renderWheel: function(wheelsData){
+		checkDataType: function(){ 
 			var _this = this;
-			_this.mobileSelect = document.createElement("div");
-			_this.mobileSelect.className = "mobileSelect";
-			_this.mobileSelect.innerHTML = 
-		    	'<div class="grayLayer"></div>'+
-		        '<div class="content">'+
-		            '<div class="btnBar">'+
-		                '<div class="fixWidth">'+
-		                    '<div class="cancel">取消</div>'+
-		                    '<div class="title"></div>'+
-		                    '<div class="ensure">选择</div>'+
-		                '</div>'+
-		            '</div>'+
-		            '<div class="panel">'+
-		                '<div class="fixWidth">'+
-		                	'<div class="wheels">'+
-			                '</div>'+
-		                    '<div class="selectLine"></div>'+
-		                    '<div class="shadowMask"></div>'+
-		                '</div>'+
-		            '</div>'+
-		        '</div>';
-		    document.body.appendChild(_this.mobileSelect);
-
-			//根据数据长度来渲染
-
-			var tempHtml='';
-			for(var i=0; i<wheelsData.length; i++){ //列
-				tempHtml += '<div class="wheel"><ul class="selectContainer">';
-				if(typeof(wheelsData[0].data[0])=='object'){
-					for(var j=0; j<wheelsData[i].data.length; j++){ //行
-						tempHtml += '<li data-id="'+wheelsData[i].data[j].id+'">'+wheelsData[i].data[j].value+'</li>'
-					}
-				}else{
-					for(var j=0; j<wheelsData[i].data.length; j++){ //行
-						tempHtml += '<li>'+wheelsData[i].data[j]+'</li>'
-					}
-				}
-				tempHtml += '</ul></div>'
-				_this.mobileSelect.querySelector('.wheels').innerHTML = tempHtml;
+			if(typeof(_this.wheelsData[0].data[0])=='object'){
+				_this.jsonType = true;
+				_this.jsonData = _this.wheelsData[0].data;
 			}
 		},
 
-		updateWheel: function(sliderIndex,data){
+		initCascade: function(){
 			var _this = this;
-			var tempHtml='';
-			for(var j=0; j<data.length; j++){
-				tempHtml += '<li>'+data[j]+'</li>'
+			_this.displayJson.push(_this.generateArrData(_this.jsonData));
+			_this.checkArrDeep(_this.jsonData[0]);
+			console.log('将要显示的json:'); 
+			console.log(_this.displayJson);
+
+			_this.updateWheels();
+		},
+
+		generateArrData: function (targetArr) {
+			var tempArr = [];
+			for(var i=0; i<targetArr.length; i++){
+				tempArr.push({
+					"id": targetArr[i].id,
+					"value": targetArr[i].value
+				});	
 			}
-			_this.slider[sliderIndex].innerHTML = tempHtml;
+			return tempArr;
+		},
+
+		checkArrDeep: function (parent) { //检测子节点深度  修改 displayJson
+			var _this = this;
+			if ('childs' in parent && parent.childs.length > 0) {
+				_this.displayJson.push(_this.generateArrData(parent.childs)) ; //生成子节点数组
+				_this.checkArrDeep(parent.childs[0]);//检测下一个子节点
+			}
+		},
+
+		checkRange: function(index, posIndexArr){ //改变的第几个、 位置索引数组
+			var _this = this;
+			var deleteNum = _this.displayJson.length-1-index;
+			for(var i=0; i<deleteNum; i++){
+				_this.displayJson.pop(); //修改 displayJson
+			}
+
+			switch (index){
+				case 0:
+					//console.log('改变第1个');
+					_this.checkArrDeep(_this.jsonData[posIndexArr[0]]);
+				break;
+
+				case 1:
+					//console.log('改变第2个');
+					_this.checkArrDeep(_this.jsonData[posIndexArr[0]].childs[posIndexArr[1]]);
+				break;
+
+				case 2:
+					//console.log('改变第3个');
+					_this.checkArrDeep(_this.jsonData[posIndexArr[0]].childs[posIndexArr[1]].childs[posIndexArr[2]]);
+				break;
+
+				case 3:
+					_this.checkArrDeep(_this.jsonData[posIndexArr[0]].childs[posIndexArr[1]].childs[posIndexArr[2]].childs[posIndexArr[3]]);
+				break;
+			}
+
+			console.log(_this.displayJson);
+			_this.updateWheels();
+			_this.fixRowStyle();
+
+			//复原位置*********************
+			var tempPosArr = posIndexArr;
+			if(_this.slider.length > posIndexArr.length){
+				for(var i=0; i<_this.slider.length - posIndexArr.length; i++){
+					tempPosArr.push(0);
+				}	
+			}else if(_this.slider.length < posIndexArr.length){
+				for(var i=0; i<posIndexArr.length - _this.slider.length; i++){
+					tempPosArr.pop();
+				}	
+			}
+			_this.initCurDistance(tempPosArr);
+
+		},
+
+		updateWheels: function(){
+			var _this = this;
+
+			//删除多余的wheel
+			if(_this.wheel.length > _this.displayJson.length){
+				var count = _this.wheel.length - _this.displayJson.length;
+				for(var i=0; i<count; i++){
+					_this.wheels.removeChild(_this.wheel[_this.wheel.length-1]);
+				}
+			}
+
+			for(var i=0; i<_this.displayJson.length; i++){ //列
+				(function (i) {
+					_this.updateWheel2(i,_this.displayJson[i]);
+				})(i);
+			}
+		},
+
+		updateWheel2: function(sliderIndex, data){ 
+			var _this = this;
+			var tempHTML='';
+
+			if(_this.wheel[sliderIndex]){
+				//console.log('插入Li');
+				for(var j=0; j<data.length; j++){ //行
+					tempHTML += '<li data-id="'+data[j].id+'">'+data[j].value+'</li>';
+				}
+				_this.slider[sliderIndex].innerHTML = tempHTML;
+
+			}else{
+				var tempWheel = document.createElement("div");
+				tempWheel.className = "wheel";
+
+				tempHTML = '<ul class="selectContainer">';
+				for(var j=0; j<data.length; j++){ //行
+					tempHTML += '<li data-id="'+data[j].id+'">'+data[j].value+'</li>';
+				}
+				tempHTML += '</ul>';
+				tempWheel.innerHTML = tempHTML;
+
+				//给wheel添加监听
+				tempWheel.addEventListener('touchstart', function () {
+					_this.touch(event,_this,this.firstChild,sliderIndex);
+				},false);
+				tempWheel.addEventListener('touchend', function () {
+					_this.touch(event,_this,this.firstChild,sliderIndex);
+				},false);
+				tempWheel.addEventListener('touchmove', function () {
+					_this.touch(event,_this,this.firstChild,sliderIndex);
+				},false);
+
+		    	_this.wheels.appendChild(tempWheel); 
+			}
 			_this.updateListenerLi(sliderIndex);
 		},
 
-		fixRowStyle: function(length){
+		updateWheel: function(sliderIndex, data){
+			var _this = this;
+			var tempHTML='';
+			for(var j=0; j<data.length; j++){
+				tempHTML += '<li>'+data[j]+'</li>'
+			}
+			_this.slider[sliderIndex].innerHTML = tempHTML;
+			_this.updateListenerLi(sliderIndex);
+		},
+
+		fixRowStyle: function(){
 			var _this = this;
 			var width = (100/_this.wheel.length).toFixed(2);
 			for(var i=0; i<_this.wheel.length; i++){
@@ -281,7 +438,6 @@ window.MobileSelect = (function() {
 	    		case "touchstart":
 			        _this.startY = event.touches[0].clientY;
 			        _this.oldMoveY = _this.startY;
-			        console.log('start');
 	    			break;
 
 	    		case "touchend":
@@ -309,8 +465,16 @@ window.MobileSelect = (function() {
 			                _this.movePosition(theSlider, _this.curDistance[index]);
 			            }, 100);
 			        }
-			        console.log('end');
+
+
 			        _this.limit(_this.getIndexArr());
+
+			        if(_this.cascade){
+				        var tempPosArr = _this.getIndexArr();
+				        tempPosArr[index] = _this.getIndex(_this.curDistance[index]);
+			        	_this.checkRange(index, tempPosArr);
+			        }
+
 	    			break;
 
 	    		case "touchmove":
@@ -322,7 +486,6 @@ window.MobileSelect = (function() {
 			        _this.curDistance[index] = _this.curDistance[index] + _this.offset;
 			        _this.movePosition(theSlider, _this.curDistance[index]);
 			        _this.oldMoveY = _this.moveY;
-			        console.log('move');
 	    			break;
 	    	}
 	    },
@@ -384,6 +547,12 @@ window.MobileSelect = (function() {
 	    singleClick: function(event, _this, theLi, index, sliderIndex){
 	        _this.curDistance[sliderIndex] = (2-index)*_this.liHeight;
 	        _this.movePosition(theLi.parentNode, _this.curDistance[sliderIndex]);
+	        if(_this.cascade){
+		        var tempPosArr = _this.getIndexArr();
+		        tempPosArr[sliderIndex] = _this.getIndex(_this.curDistance[sliderIndex]);
+	        	_this.checkRange(sliderIndex, tempPosArr);
+	        }
+
 	    }
 
 	};
