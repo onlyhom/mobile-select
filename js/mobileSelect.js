@@ -342,6 +342,16 @@ window.MobileSelect = (function() {
 					_this.touch(event,_this,this.firstChild,sliderIndex);
 				},false);
 
+				tempWheel.addEventListener('mousedown', function () {
+					_this.dragClick(event,_this,this.firstChild,sliderIndex);
+				},false);
+				tempWheel.addEventListener('mousemove', function () {
+					_this.dragClick(event,_this,this.firstChild,sliderIndex);
+				},false);
+				tempWheel.addEventListener('mouseup', function () {
+					_this.dragClick(event,_this,this.firstChild,sliderIndex);
+				},false);
+
 		    	_this.wheels.appendChild(tempWheel); 
 			}
 			_this.updateListenerLi(sliderIndex);
@@ -525,8 +535,13 @@ window.MobileSelect = (function() {
 			            }, 100);
 			        }
 
-			        _this.limit(_this.getIndexArr());
 			        _this.clickStatus = false;
+			        _this.limit(_this.getIndexArr());
+			        if(_this.cascade){
+				        var tempPosArr = _this.getIndexArr();
+				        tempPosArr[index] = _this.getIndex(_this.curDistance[index]);
+			        	_this.checkRange(index, tempPosArr);
+			        }
 	    			break;
 
 	    		case "mousemove":
@@ -552,7 +567,6 @@ window.MobileSelect = (function() {
 		        tempPosArr[sliderIndex] = _this.getIndex(_this.curDistance[sliderIndex]);
 	        	_this.checkRange(sliderIndex, tempPosArr);
 	        }
-
 	    }
 
 	};
