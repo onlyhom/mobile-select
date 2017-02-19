@@ -1,12 +1,7 @@
 window.MobileSelect = (function() {
-    function getID(string){
-    	return document.getElementById(string);
-    }
+
 	function getClass(dom,string) {
 		return dom.getElementsByClassName(string);
-	}
-	function getTag(dom,string) {
-		return dom.getElementsByTagName(string);
 	}
 
 	//构造器
@@ -66,11 +61,9 @@ window.MobileSelect = (function() {
 					_this.initPosition.push(0);
 				}
 			}
-			_this.initCurDistance(_this.initPosition);
-			//初始位置 END
 
+			_this.setCurDistance(_this.initPosition);
 			_this.addListenerAll();
-
 
 			//按钮监听
 		    _this.closeBtn.addEventListener('click',function(){
@@ -94,12 +87,10 @@ window.MobileSelect = (function() {
 		    _this.trigger.addEventListener('click',function(){
 		    	_this.mobileSelect.classList.add('mobileSelect-show');
 		    });
-
 		    _this.grayLayer.addEventListener('click',function(){
 		    	_this.mobileSelect.classList.remove('mobileSelect-show');
 		    });
-
-		    _this.popUp.addEventListener('click',function(){ //阻止冒泡
+		    _this.popUp.addEventListener('click',function(){
 		    	event.stopPropagation(); 
 		    });
 		},
@@ -159,49 +150,43 @@ window.MobileSelect = (function() {
 			for(var i=0; i<_this.slider.length; i++){
 				//手势监听
 				(function (i) {
-					_this.wheel[i].addEventListener('touchstart', function () {
-						_this.touch(event,_this,this.firstChild,i);
-					},false);
-					_this.wheel[i].addEventListener('touchend', function () {
-						_this.touch(event,_this,this.firstChild,i);
-					},false);
-					_this.wheel[i].addEventListener('touchmove', function () {
-						_this.touch(event,_this,this.firstChild,i);
-					},false);
-
-					//PC拖拽监听
-					_this.wheel[i].addEventListener('mousedown', function () {
-						_this.dragClick(event,_this,this.firstChild,i);
-					},false);
-					_this.wheel[i].addEventListener('mousemove', function () {
-						_this.dragClick(event,_this,this.firstChild,i);
-					},false);
-					_this.wheel[i].addEventListener('mouseup', function () {
-						_this.dragClick(event,_this,this.firstChild,i);
-					},true); 
-
-					var curWheelLi = _this.slider[i].getElementsByTagName('li');
-					for(var j=0; j<curWheelLi.length;j++){
-						(function (j,i) {
-							curWheelLi[j].addEventListener('click',function(){
-								_this.singleClick(event,_this,this,j,i);
-							},false);
-						})(j,i);
-					}
-
+					_this.addListenerWheel(_this.wheel[i], i);
+					_this.addListenerLi(i);
 				})(i);
 			}
 		},
 
-		updateListenerLi:function(sliderIndex){
-			//console.log('监听每个单项点击');
+		addListenerWheel: function(theWheel, index){
 			var _this = this;
-			//监听每个单项点击
+			theWheel.addEventListener('touchstart', function () {
+				_this.touch(event, this.firstChild, index);
+			},false);
+			theWheel.addEventListener('touchend', function () {
+				_this.touch(event, this.firstChild, index);
+			},false);
+			theWheel.addEventListener('touchmove', function () {
+				_this.touch(event, this.firstChild, index);
+			},false);
+
+			//PC拖拽监听
+			theWheel.addEventListener('mousedown', function () {
+				_this.dragClick(event, this.firstChild, index);
+			},false);
+			theWheel.addEventListener('mousemove', function () {
+				_this.dragClick(event, this.firstChild, index);
+			},false);
+			theWheel.addEventListener('mouseup', function () {
+				_this.dragClick(event, this.firstChild, index);
+			},true); 
+		},
+
+		addListenerLi:function(sliderIndex){
+			var _this = this;
 			var curWheelLi = _this.slider[sliderIndex].getElementsByTagName('li');
 			for(var j=0; j<curWheelLi.length;j++){
 				(function (j) {
 					curWheelLi[j].addEventListener('click',function(){
-						_this.singleClick(event,_this,this,j,sliderIndex);
+						_this.singleClick(this, j, sliderIndex);
 					},false);
 				})(j);
 			}
@@ -219,9 +204,8 @@ window.MobileSelect = (function() {
 			var _this = this;
 			_this.displayJson.push(_this.generateArrData(_this.jsonData));
 			_this.checkArrDeep(_this.jsonData[0]);
-			console.log('将要显示的json:'); 
-			console.log(_this.displayJson);
-
+			//console.log('将要显示的json:'); 
+			//console.log(_this.displayJson);
 			_this.updateWheels();
 		},
 
@@ -244,56 +228,50 @@ window.MobileSelect = (function() {
 			}
 		},
 
-		checkRange: function(index, posIndexArr){ //改变的第几个、 位置索引数组
+		checkRange: function(index, posIndexArr){
 			var _this = this;
 			var deleteNum = _this.displayJson.length-1-index;
 			for(var i=0; i<deleteNum; i++){
 				_this.displayJson.pop(); //修改 displayJson
 			}
-
-			switch (index){
-				case 0:
-					//console.log('改变第1个');
-					_this.checkArrDeep(_this.jsonData[posIndexArr[0]]);
-				break;
-
-				case 1:
-					//console.log('改变第2个');
-					_this.checkArrDeep(_this.jsonData[posIndexArr[0]].childs[posIndexArr[1]]);
-				break;
-
-				case 2:
-					//console.log('改变第3个');
-					_this.checkArrDeep(_this.jsonData[posIndexArr[0]].childs[posIndexArr[1]].childs[posIndexArr[2]]);
-				break;
-
-				case 3:
-					_this.checkArrDeep(_this.jsonData[posIndexArr[0]].childs[posIndexArr[1]].childs[posIndexArr[2]].childs[posIndexArr[3]]);
-				break;
+			var resultNode;
+			for (var i = 0; i <= index; i++){
+				if (i == 0)
+					resultNode = _this.jsonData[posIndexArr[0]];
+				else {
+					resultNode = resultNode.childs[posIndexArr[i]];
+				}
 			}
-
-			console.log(_this.displayJson);
+			_this.checkArrDeep(resultNode);
+			//console.log(_this.displayJson);
 			_this.updateWheels();
 			_this.fixRowStyle();
+			_this.setCurDistance(_this.resetPostion(index, posIndexArr));
+		},
 
-			//复原位置*********************
+		resetPostion: function(index, posIndexArr){
+			var _this = this;
 			var tempPosArr = posIndexArr;
-			if(_this.slider.length > posIndexArr.length){
-				for(var i=0; i<_this.slider.length - posIndexArr.length; i++){
+			var tempCount;
+			if(_this.slider.length > posIndexArr.length){ 
+				tempCount = _this.slider.length - posIndexArr.length;
+				for(var i=0; i<tempCount; i++){  
 					tempPosArr.push(0);
-				}	
+				}
 			}else if(_this.slider.length < posIndexArr.length){
-				for(var i=0; i<posIndexArr.length - _this.slider.length; i++){
+				tempCount = posIndexArr.length - _this.slider.length;
+				for(var i=0; i<tempCount; i++){
 					tempPosArr.pop();
 				}	
 			}
-			_this.initCurDistance(tempPosArr);
-
+			for(var i=index+1; i< tempPosArr.length; i++){
+				tempPosArr[i] = 0;
+			} 
+			return tempPosArr;
 		},
 
 		updateWheels: function(){
 			var _this = this;
-
 			//删除多余的wheel
 			if(_this.wheel.length > _this.displayJson.length){
 				var count = _this.wheel.length - _this.displayJson.length;
@@ -304,57 +282,30 @@ window.MobileSelect = (function() {
 
 			for(var i=0; i<_this.displayJson.length; i++){ //列
 				(function (i) {
-					_this.updateWheel2(i,_this.displayJson[i]);
+					var tempHTML='';
+					if(_this.wheel[i]){
+						//console.log('插入Li');
+						for(var j=0; j<_this.displayJson[i].length; j++){ //行
+							tempHTML += '<li data-id="'+_this.displayJson[i][j].id+'">'+_this.displayJson[i][j].value+'</li>';
+						}
+						_this.slider[i].innerHTML = tempHTML;
+
+					}else{
+						var tempWheel = document.createElement("div");
+						tempWheel.className = "wheel";
+						tempHTML = '<ul class="selectContainer">';
+						for(var j=0; j<_this.displayJson[i].length; j++){ //行
+							tempHTML += '<li data-id="'+_this.displayJson[i][j].id+'">'+_this.displayJson[i][j].value+'</li>';
+						}
+						tempHTML += '</ul>';
+						tempWheel.innerHTML = tempHTML;
+
+						_this.addListenerWheel(tempWheel, i);
+				    	_this.wheels.appendChild(tempWheel); 
+					}
+					_this.addListenerLi(i);
 				})(i);
 			}
-		},
-
-		updateWheel2: function(sliderIndex, data){ 
-			var _this = this;
-			var tempHTML='';
-
-			if(_this.wheel[sliderIndex]){
-				//console.log('插入Li');
-				for(var j=0; j<data.length; j++){ //行
-					tempHTML += '<li data-id="'+data[j].id+'">'+data[j].value+'</li>';
-				}
-				_this.slider[sliderIndex].innerHTML = tempHTML;
-
-			}else{
-				var tempWheel = document.createElement("div");
-				tempWheel.className = "wheel";
-
-				tempHTML = '<ul class="selectContainer">';
-				for(var j=0; j<data.length; j++){ //行
-					tempHTML += '<li data-id="'+data[j].id+'">'+data[j].value+'</li>';
-				}
-				tempHTML += '</ul>';
-				tempWheel.innerHTML = tempHTML;
-
-				//给wheel添加监听
-				tempWheel.addEventListener('touchstart', function () {
-					_this.touch(event,_this,this.firstChild,sliderIndex);
-				},false);
-				tempWheel.addEventListener('touchend', function () {
-					_this.touch(event,_this,this.firstChild,sliderIndex);
-				},false);
-				tempWheel.addEventListener('touchmove', function () {
-					_this.touch(event,_this,this.firstChild,sliderIndex);
-				},false);
-
-				tempWheel.addEventListener('mousedown', function () {
-					_this.dragClick(event,_this,this.firstChild,sliderIndex);
-				},false);
-				tempWheel.addEventListener('mousemove', function () {
-					_this.dragClick(event,_this,this.firstChild,sliderIndex);
-				},false);
-				tempWheel.addEventListener('mouseup', function () {
-					_this.dragClick(event,_this,this.firstChild,sliderIndex);
-				},false);
-
-		    	_this.wheels.appendChild(tempWheel); 
-			}
-			_this.updateListenerLi(sliderIndex);
 		},
 
 		updateWheel: function(sliderIndex, data){
@@ -364,7 +315,7 @@ window.MobileSelect = (function() {
 				tempHTML += '<li>'+data[j]+'</li>'
 			}
 			_this.slider[sliderIndex].innerHTML = tempHTML;
-			_this.updateListenerLi(sliderIndex);
+			_this.addListenerLi(sliderIndex);
 		},
 
 		fixRowStyle: function(){
@@ -403,7 +354,7 @@ window.MobileSelect = (function() {
 			return 80-index*this.liHeight;
 	    },
 
-	    initCurDistance: function(indexArr){
+	    setCurDistance: function(indexArr){
 	    	var _this = this;
 	    	var temp = [];
 	    	for(var i=0; i<_this.slider.length; i++){
@@ -412,7 +363,6 @@ window.MobileSelect = (function() {
 	    	}
 	    	_this.curDistance = temp;
 	    },
-
 
 	    fixPosition: function(distance){
 	        return -(this.getIndex(distance)-2)*this.liHeight;
@@ -442,7 +392,8 @@ window.MobileSelect = (function() {
 	    	return _this.slider[sliderIndex].getElementsByTagName('li')[index].innerHTML;
 	    },
 
-	    touch: function(event, _this, theSlider, index){
+	    touch: function(event, theSlider, index){
+	    	var _this = this;
 	    	event = event || window.event;
 	    	switch(event.type){
 	    		case "touchstart":
@@ -500,7 +451,8 @@ window.MobileSelect = (function() {
 	    	}
 	    },
 
-	    dragClick: function(event, _this, theSlider, index){
+	    dragClick: function(event, theSlider, index){
+	    	var _this = this;
 	    	event = event || window.event;
 	    	switch(event.type){
 	    		case "mousedown":
@@ -559,13 +511,16 @@ window.MobileSelect = (function() {
 	    	}
 	    },
 
-	    singleClick: function(event, _this, theLi, index, sliderIndex){
-	        _this.curDistance[sliderIndex] = (2-index)*_this.liHeight;
-	        _this.movePosition(theLi.parentNode, _this.curDistance[sliderIndex]);
+	    singleClick: function(theLi, index, sliderIndex){
+	    	var _this = this;
 	        if(_this.cascade){
 		        var tempPosArr = _this.getIndexArr();
-		        tempPosArr[sliderIndex] = _this.getIndex(_this.curDistance[sliderIndex]);
+		        tempPosArr[sliderIndex] = index;
 	        	_this.checkRange(sliderIndex, tempPosArr);
+
+	        }else{
+		        _this.curDistance[sliderIndex] = (2-index)*_this.liHeight;
+		        _this.movePosition(theLi.parentNode, _this.curDistance[sliderIndex]);
 	        }
 	    }
 
