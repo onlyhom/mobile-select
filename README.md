@@ -8,5 +8,9 @@
 ###demo示例：
 ![Image text](http://p1.bqimg.com/4851/0e072a9fae72e0a0.gif)
 
+###点击也可移动：
+![Image text](http://p1.bqimg.com/4851/7f418e0d32501348.gif)
+
 ###使用limit函数：
 ![Image text](http://p1.bqimg.com/4851/a3a6b83fe0f43169.gif)
+
