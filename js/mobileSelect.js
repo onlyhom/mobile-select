@@ -72,16 +72,12 @@ window.MobileSelect = (function() {
 
 		    _this.ensureBtn.addEventListener('click',function(){
 		    	_this.mobileSelect.classList.remove('mobileSelect-show');
-		    	if(_this.cascade){
-
-		    	}else{
-			    	var tempValue ='';
-			    	for(var i=0; i<_this.wheel.length; i++){
-			    		i==_this.wheel.length-1 ? tempValue += _this.getValue(i) : tempValue += _this.getValue(i)+' ';
-			    	}
-			    	_this.trigger.value = tempValue;
-			    	_this.callback(_this.getIndexArr(),_this.getJson());
+			    var tempValue ='';
+		    	for(var i=0; i<_this.wheel.length; i++){
+		    		i==_this.wheel.length-1 ? tempValue += _this.getValue(i) : tempValue += _this.getValue(i)+' ';
 		    	}
+		    	_this.trigger.value = tempValue;
+		    	_this.callback(_this.getIndexArr(),_this.getJson());
 		    });
 
 		    _this.trigger.addEventListener('click',function(){
@@ -342,7 +338,13 @@ window.MobileSelect = (function() {
 	    getJson: function(){
 	    	var _this = this;
 	    	var temp = [];
-	    	if(typeof(_this.wheelsData[0].data[0])=='object'){
+	    	var positionArr = _this.getIndexArr();
+	    	if(_this.cascade){
+		    	for(var i=0; i<_this.wheel.length; i++){
+		    		temp.push(_this.displayJson[i][positionArr[i]]);
+		    	}
+	    	}
+	    	else if(_this.jsonType){
 		    	for(var i=0; i<_this.curDistance.length; i++){
 		    		temp.push(_this.wheelsData[i].data[_this.getIndex(_this.curDistance[i])]);
 		    	}

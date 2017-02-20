@@ -27,8 +27,8 @@
         <input type="text" id="trigger1" placeholder="单项选择">
         <input type="text" id="trigger2" placeholder="双项选择">
         <input type="text" id="trigger3" placeholder="多项选择">
-        <input type="text" id="trigger4" placeholder="Json格式数据"> 
-        <input type="text" id="trigger5" placeholder="Json格式数据-级联"> 
+        <input type="text" id="trigger4" placeholder="地区选择-级联"> 
+        <input type="text" id="trigger5" placeholder="车型选择-级联"> 
     </div>
 
 </div>
@@ -41,98 +41,6 @@
 var weekdayArr=['周日','周一','周二','周三','周四','周五','周六'];
 var timeArr = ['08:30','09:00','09:30','10:00','10:30','11:00','11:30','12:00','12:30','13:00','13:30','14:00','14:30','15:00','15:30','16:00','16:30','17:00','17:30','18:00','18:30','19:00','19:30','20:00','20:30','21:00'];
 var numArr=['1','2','3','4','5'];
-
-
-
-
-//----------------------------------------------------------
-
-//只有trigger 和 wheels 是必要参数  其他都是选填参数
-var mobileSelect1 = new MobileSelect({
-    trigger: '#trigger1', 
-    title: '单项选择',  
-    wheels: [
-                {data: weekdayArr}
-            ],
-    position:[2] //初始化定位 打开时默认选中的哪个  如果不填默认为0
-});
-
-
-var mobileSelect2 = new MobileSelect({
-    trigger: '#trigger2',
-    title: '双项选择',
-    wheels: [
-                {data: weekdayArr},
-                {data: timeArr}
-            ],
-    position:[1, 2], 
-    limit:function(indexArr){ 
-        //indexArr 是当前选中项的索引数组 
-        //可根据返回的这个数组 做一些扩展功能
-        console.log(indexArr);
-        console.log('滑动时触发');
-    },
-    callback:function(indexArr){
-        //indexArr 同上
-        //console.log(indexArr);
-        console.log('点击选择后触发');
-    }
-});
-
-
-var mobileSelect3 = new MobileSelect({
-    trigger: '#trigger3',
-    title: '多项选择',
-    wheels: [
-                {data: numArr},
-                {data: numArr},
-                {data: numArr},
-                {data: numArr},
-                {data: numArr}
-            ],
-    position:[0, 1, 0, 1, 0], 
-    limit:function(indexArr){ 
-        console.log(indexArr); //返回选中的索引
-        console.log('滑动时触发');
-    },
-    callback:function(indexArr){
-        //indexArr 同上
-        //console.log(indexArr);
-        console.log('点击选择后触发');
-    }
-});
-
-
-var mobileSelect4 = new MobileSelect({
-    trigger: '#trigger4',
-    title: 'Json格式',
-    wheels: [
-                {data:[
-                    {id:'1',value:'附近'},
-                    {id:'2',value:'上城区'},
-                    {id:'3',value:'下城区'},
-                    {id:'4',value:'江干区'},
-                    {id:'5',value:'拱墅区'},
-                    {id:'6',value:'西湖区'}
-                ]},
-                {data:[
-                    {id:'1',value:'1000米'},
-                    {id:'2',value:'2000米'},
-                    {id:'3',value:'3000米'},
-                    {id:'4',value:'5000米'},
-                    {id:'5',value:'10000米'}
-                ]}
-            ],
-    position:[1,1],
-    callback:function(indexArr, data){
-        console.log(indexArr); //返回选中的索引
-        console.log(data); //返回选中的json 数组
-    } 
-});
-
-
-
-
 
 var UplinkData =
 [
@@ -284,6 +192,97 @@ var UplinkData =
         ]
     }
 ];
+
+
+//----------------------------------------------------------
+
+//只有trigger 和 wheels 是必要参数  其他都是选填参数
+var mobileSelect1 = new MobileSelect({
+    trigger: '#trigger1', 
+    title: '单项选择',  
+    wheels: [
+                {data: weekdayArr}
+            ],
+    position:[2] //初始化定位 打开时默认选中的哪个  如果不填默认为0
+});
+
+
+var mobileSelect2 = new MobileSelect({
+    trigger: '#trigger2',
+    title: '双项选择',
+    wheels: [
+                {data: weekdayArr},
+                {data: timeArr}
+            ],
+    position:[1, 2], 
+    limit:function(indexArr){ 
+        //indexArr 是当前选中项的索引数组 
+        //可根据返回的这个数组 做一些扩展功能
+        //console.log(indexArr);
+    },
+    callback:function(indexArr,data){
+        //indexArr 同上
+        console.log(data);
+    }
+});
+
+
+var mobileSelect3 = new MobileSelect({
+    trigger: '#trigger3',
+    title: '多项选择',
+    wheels: [
+                {data: numArr},
+                {data: numArr},
+                {data: numArr},
+                {data: numArr},
+                {data: numArr}
+            ],
+    position:[0, 1, 0, 1, 0], 
+    limit:function(indexArr){ 
+        console.log(indexArr); //返回选中的索引
+    },
+    callback:function(indexArr){
+        //indexArr 同上
+        //console.log(indexArr);
+    }
+});
+
+
+var mobileSelect4 = new MobileSelect({
+    trigger: '#trigger4',
+    title: '地区选择',
+    cascade: true,
+    wheels: [
+                {data:[
+                    {
+                        id:'1',
+                        value:'附近',
+                        childs:[
+                            {id:'1',value:'1000米'},
+                            {id:'2',value:'2000米'},
+                            {id:'3',value:'3000米'},
+                            {id:'4',value:'5000米'},
+                            {id:'5',value:'10000米'}
+                        ]
+                    },
+                    {id:'2',value:'上城区'},
+                    {id:'3',value:'下城区'},
+                    {id:'4',value:'江干区'},
+                    {id:'5',value:'拱墅区'},
+                    {id:'6',value:'西湖区'}
+                ]}
+            ],
+    callback:function(indexArr, data){
+        //console.log(indexArr); //返回选中的索引
+        console.log(data); //返回选中的json 数组
+    } 
+});
+
+
+
+
+
+
 var mobileSelect5 = new MobileSelect({
     trigger: '#trigger5',
     title: '车型选择',
@@ -295,6 +294,7 @@ var mobileSelect5 = new MobileSelect({
         // console.log(indexArr);
     },
     callback:function(indexArr, data){
+        console.log(data);
     } 
 });
 
