@@ -58,8 +58,11 @@ var mobileSelect1 = new MobileSelect({
 
 json格式-非联动
 ```
-var mobileSelect6 = new MobileSelect({
-    trigger: '#trigger6',
+<input type="text" id="area">
+
+<script type="text/javascript">
+var mobileSelect2 = new MobileSelect({
+    trigger: '#area',
     title: '地区选择',
     wheels: [
                 {data:[
@@ -79,18 +82,22 @@ var mobileSelect6 = new MobileSelect({
                 ]}
             ],
     callback:function(indexArr, data){
-        console.log(data); //返回选中的json 数组
+        console.log(data); //返回选中的json数据
     } 
 });
+</script>
 ```
 
 
 
 json格式-联动
 ```
+<input type="text" id="area2">
+
+<script type="text/javascript">
   var addressLocation = new MobileSelect({
-      trigger: '#id',
-      title: '标题',
+      trigger: '#area2',
+      title: '地区选择-联动',
       wheels: [
                   {data:[
                       {
@@ -113,9 +120,10 @@ json格式-联动
               ],
       position:[0,1],
       callback:function(indexArr, data){
-          console.log(data);
+          console.log(data); //返回选中的json数据
       } 
   });
+  </script>
 ```
 
 
@@ -141,10 +149,4 @@ json格式-联动
 - 选择当天日期时，不得超过今天已过时辰。
 - 选择取车时间后，还车时间不得超过取车时间（包括日期和时间）。
 
-
-
-![Image text](http://p1.bqimg.com/4851/a3a6b83fe0f43169.gif)
-
-
-
-
+![](http://p1.bpimg.com/567571/a3a6b83fe0f43169.gif)
