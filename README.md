@@ -6,7 +6,7 @@
 
 ##Features
 
-----
+
 - 原生js移动端选择控件，不依赖任何库  
 - 可传入普通数组或者json数组
 - 可根据传入的参数长度，自动渲染出对应的列数，支持单项到多项选择
@@ -20,12 +20,12 @@
 
 ##Demo
 
-----
+
 ![Image text](http://p1.bqimg.com/4851/0e072a9fae72e0a0.gif)
 
 ##Installation
 
-----
+
 
 ```
 <link rel="stylesheet" type="text/css" href="css/mobileSelect.css">
@@ -34,7 +34,7 @@
 
 ##Getting Started
 
-----
+
 
 普通数组格式-非联动
 ```
@@ -54,7 +54,7 @@ var mobileSelect1 = new MobileSelect({
 
 
 
-----
+
 
 json格式-非联动
 ```
@@ -84,7 +84,7 @@ var mobileSelect6 = new MobileSelect({
 });
 ```
 
-----
+
 
 json格式-联动
 ```
@@ -118,10 +118,10 @@ json格式-联动
   });
 ```
 
-----
+
 ##API
 
----
+
 |function|arguments| Description|
 | ------ |------| -----|
 |setTitle()| string |设置控件的标题|
@@ -129,12 +129,6 @@ json格式-联动
 |locatePostion()|sliderIndex, posIndex|传入位置数组，重定位轮子的位置|
 | callback() | indexArr, data | 点击-选择 后执行的回调函数，返回当前选中的索引、以及选中的json数组|
 |limit()|indexArr|每一次手势滑动结束后执行的回调函数,返回当前选中的索引|
-
-
------
-
-
-
 
 
 
@@ -148,10 +142,8 @@ json格式-联动
 - 选择取车时间后，还车时间不得超过取车时间（包括日期和时间）。
 
 
------
+
 ![Image text](http://p1.bqimg.com/4851/a3a6b83fe0f43169.gif)
-
-
 
 
 
