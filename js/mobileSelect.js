@@ -12,15 +12,8 @@ window.MobileSelect = (function() {
 	    this.jsonData = [];
 	    this.checkDataType();
 		this.renderWheels(this.wheelsData);
-		this.trigger = document.querySelector(config.trigger);
-	    this.wheel = getClass(this.mobileSelect,'wheel');   //wheel 数组
-	    this.slider = getClass(this.mobileSelect,'selectContainer'); // slider 数组
-	    this.wheels = this.mobileSelect.querySelector('.wheels');   //wheels
-	    this.liHeight = this.mobileSelect.querySelector('li').offsetHeight;
-	    this.ensureBtn = this.mobileSelect.querySelector('.ensure');
-    	this.closeBtn = this.mobileSelect.querySelector('.cancel');
-	    this.grayLayer = this.mobileSelect.querySelector('.grayLayer');
-	    this.popUp = this.mobileSelect.querySelector('.content');
+	    this.displayJson = []; 
+	    this.cascade = false;
 	    this.startY;
 	    this.moveEndY;
 	    this.moveY;
@@ -31,25 +24,32 @@ window.MobileSelect = (function() {
 	    this.curDistance = [];
 	    this.clickStatus = false;
 
-	    this.deepArr = [];
-	    this.displayJson = []; 
-
-	    this.callback = config.callback ? config.callback : function(){};
-	    this.limit = config.limit ? config.limit : function(){};
-	    this.initPosition = config.position ? config.position : [];
-	    this.titleText = config.title ? config.title : '';
-	    this.cascade = config.cascade ? config.cascade && this.jsonType : false; //是否级联
 	    this.init(config);
-		this.fixRowStyle(); //修正列数
 	}
 	
 	MobileSelect.prototype = {
 		constructor: MobileSelect,
 		init: function(config){
 			var _this = this; 
+
+			_this.trigger = document.querySelector(config.trigger);
+		    _this.wheel = getClass(_this.mobileSelect,'wheel');   //wheel 数组
+		    _this.slider = getClass(_this.mobileSelect,'selectContainer'); // slider 数组
+		    _this.wheels = _this.mobileSelect.querySelector('.wheels');   //wheels
+		    _this.liHeight = _this.mobileSelect.querySelector('li').offsetHeight;
+		    _this.ensureBtn = _this.mobileSelect.querySelector('.ensure');
+	    	_this.closeBtn = _this.mobileSelect.querySelector('.cancel');
+		    _this.grayLayer = _this.mobileSelect.querySelector('.grayLayer');
+		    _this.popUp = _this.mobileSelect.querySelector('.content');
+		    _this.callback = config.callback ? config.callback : function(){};
+		    _this.limit = config.limit ? config.limit : function(){};
+		    _this.initPosition = config.position ? config.position : [];
+		    _this.titleText = config.title ? config.title : '';
+
 			_this.trigger.readOnly=true;
 			_this.trigger.style.cursor='pointer';
 			_this.setTitle(_this.titleText);
+			_this.checkCascade();
 
 			if (_this.cascade) {
 				_this.initCascade();
@@ -89,6 +89,8 @@ window.MobileSelect = (function() {
 		    _this.popUp.addEventListener('click',function(){
 		    	event.stopPropagation(); 
 		    });
+
+			_this.fixRowStyle(); //修正列数
 		},
 
 		setTitle: function(string){
@@ -193,6 +195,21 @@ window.MobileSelect = (function() {
 			if(typeof(_this.wheelsData[0].data[0])=='object'){
 				_this.jsonType = true;
 				_this.jsonData = _this.wheelsData[0].data;
+			}
+		},
+
+		checkCascade: function(){
+			var _this = this;
+			if(_this.jsonType){ 
+				var node = _this.wheelsData[0].data;
+				for(var i=0; i<node.length; i++){
+					if('childs' in node[i] && node[i].childs.length > 0){
+						_this.cascade = true;
+						break;
+					}
+				}
+			}else{
+				_this.cascade = false;
 			}
 		},
 
@@ -323,7 +340,7 @@ window.MobileSelect = (function() {
 		},
 
 	    getIndex: function(distance){
-	        return Math.round((80-distance)/this.liHeight);
+	        return Math.round((2*this.liHeight-distance)/this.liHeight);
 	    },
 
 	    getIndexArr: function(){
@@ -353,7 +370,7 @@ window.MobileSelect = (function() {
 	    },
 
 	    calcDistance: function(index){
-			return 80-index*this.liHeight;
+			return 2*this.liHeight-index*this.liHeight;
 	    },
 
 	    setCurDistance: function(indexArr){
