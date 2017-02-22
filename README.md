@@ -27,7 +27,7 @@
 
 
 
-```
+```html
 <link rel="stylesheet" type="text/css" href="css/mobileSelect.css">
 <script src="js/mobileSelect.js" type="text/javascript"></script>
 ```
@@ -37,7 +37,7 @@
 
 
 普通数组格式-非联动
-```
+```html
 <input type="text" id="day">
 
 <script type="text/javascript">
@@ -57,7 +57,7 @@ var mobileSelect1 = new MobileSelect({
 
 
 json格式-非联动
-```
+```html
 <input type="text" id="area">
 
 <script type="text/javascript">
@@ -91,7 +91,7 @@ var mobileSelect2 = new MobileSelect({
 
 
 json格式-联动
-```
+```html
 <input type="text" id="area2">
 
 <script type="text/javascript">
