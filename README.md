@@ -129,16 +129,18 @@ json格式-联动
 
 ##API
 
-
-|function|arguments| Description|
+###功能函数：
+|Function|Arguments| Description|
 | ------ |------| -----|
 |setTitle()| string |设置控件的标题|
 |updateWheel()| sliderIndex, data | 重新渲染指定的轮子 |
 |locatePostion()|sliderIndex, posIndex|传入位置数组，重定位轮子的位置|
+
+###回调函数：
+|Function|Arguments| Description|
+| ------ |------| -----|
 | callback() | indexArr, data | 点击-选择 后执行的回调函数，返回当前选中的索引、以及选中的json数组|
 |limit()|indexArr|每一次手势滑动结束后执行的回调函数,返回当前选中的索引|
-
-
 
 
 
