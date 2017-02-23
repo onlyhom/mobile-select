@@ -11,8 +11,8 @@
 - 可传入普通数组或者json数组
 - 可根据传入的参数长度，自动渲染出对应的列数，支持单项到多项选择
 - 自动识别是否级联
-- 选择成功后，提供自定义回调函数  
-- 同样，每次滑动时，也调用另一个回调函数  
+- 选择成功后，提供自定义回调函数callback()  返回当前选择索引位置、以及选择的数据（数组/json）
+- 每次手势滑动结束后，也提供一个回调函数limit()  返回当前选择索引位置、以及选择的数据（数组/json）
 - 能够在已经实例化控件后，提供update函数，传其他参数再次渲染   
 - 提供重定位函数   
 
@@ -36,7 +36,7 @@
 
 
 
-普通数组格式-非联动
+####普通数组格式-非联动
 ```html
 <input type="text" id="day">
 
@@ -56,7 +56,7 @@ var mobileSelect1 = new MobileSelect({
 
 
 
-json格式-非联动
+####json格式-非联动
 ```html
 <input type="text" id="area">
 
@@ -90,7 +90,7 @@ var mobileSelect2 = new MobileSelect({
 
 
 
-json格式-联动
+####json格式-联动
 ```html
 <input type="text" id="area2">
 
@@ -139,8 +139,8 @@ json格式-联动
 ###回调函数：
 |Function|Arguments| Description|
 | ------ |------| -----|
-| callback() | indexArr, data | 点击-选择 后执行的回调函数，返回当前选中的索引、以及选中的json数组|
-|limit()|indexArr|每一次手势滑动结束后执行的回调函数,返回当前选中的索引|
+| callback() | indexArr, data | 点击-选择 后执行的回调函数，返回当前选择的索引位置、以及选择的数据（数组/json）|
+|limit()|indexArr, data |每一次手势滑动结束后执行的回调函数,返回当前选择的索引位置、以及选择的数据（数组/json）|
 
 
 
@@ -151,4 +151,4 @@ json格式-联动
 - 选择当天日期时，不得超过今天已过时辰。
 - 选择取车时间后，还车时间不得超过取车时间（包括日期和时间）。
 
-![](http://p1.bpimg.com/567571/a3a6b83fe0f43169.gif)
+![Image text](http://p1.bqimg.com/4851/a3a6b83fe0f43169.gif)

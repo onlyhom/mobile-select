@@ -365,6 +365,10 @@ window.MobileSelect = (function() {
 		    	for(var i=0; i<_this.curDistance.length; i++){
 		    		temp.push(_this.wheelsData[i].data[_this.getIndex(_this.curDistance[i])]);
 		    	}
+	    	}else{
+		    	for(var i=0; i<_this.curDistance.length; i++){
+		    		temp.push(_this.getValue(i));
+		    	}
 	    	}
 	    	return temp;
 	    },
@@ -447,7 +451,7 @@ window.MobileSelect = (function() {
 			        }
 
 
-			        _this.limit(_this.getIndexArr());
+			        _this.limit(_this.getIndexArr(),_this.getJson());
 
 			        if(_this.cascade){
 				        var tempPosArr = _this.getIndexArr();
@@ -507,7 +511,7 @@ window.MobileSelect = (function() {
 			        }
 
 			        _this.clickStatus = false;
-			        _this.limit(_this.getIndexArr());
+			        _this.limit(_this.getIndexArr(),_this.getJson());
 			        if(_this.cascade){
 				        var tempPosArr = _this.getIndexArr();
 				        tempPosArr[index] = _this.getIndex(_this.curDistance[index]);

@@ -215,14 +215,12 @@ var mobileSelect2 = new MobileSelect({
                 {data: timeArr}
             ],
     position:[1, 2], 
-    limit:function(indexArr){ 
+    limit:function(indexArr, data){ 
         //indexArr 是当前选中项的索引数组 
         //可根据返回的这个数组 做一些扩展功能
-        //console.log(indexArr);
-    },
-    callback:function(indexArr,data){
-        //indexArr 同上
         console.log(data);
+    },
+    callback:function(indexArr, data){
     }
 });
 
@@ -238,12 +236,9 @@ var mobileSelect3 = new MobileSelect({
                 {data: numArr}
             ],
     position:[0, 1, 0, 1, 0], 
-    limit:function(indexArr){ 
-        console.log(indexArr); //返回选中的索引
+    limit:function(indexArr, data){ 
     },
-    callback:function(indexArr){
-        //indexArr 同上
-        //console.log(indexArr);
+    callback:function(indexArr, data){
     }
 });
 
@@ -273,8 +268,7 @@ var mobileSelect4 = new MobileSelect({
                 ]}
             ],
     callback:function(indexArr, data){
-        //console.log(indexArr); //返回选中的索引
-        console.log(data); //返回选中的json 数组
+        console.log(data); 
     } 
 });
 
@@ -290,8 +284,8 @@ var mobileSelect5 = new MobileSelect({
     wheels: [
                 {data : UplinkData}
             ],
-    limit:function(indexArr){
-        // console.log(indexArr);
+    limit:function(indexArr, data){
+        console.log(data);
     },
     callback:function(indexArr, data){
         console.log(data);
