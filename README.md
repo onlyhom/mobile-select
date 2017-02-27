@@ -127,7 +127,7 @@ var mobileSelect2 = new MobileSelect({
   </script>
 ```
 #####效果图：
-![Image text](http://p1.bqimg.com/567571/4d0d03d902ebfa5e.gif)
+![Image text](https://raw.githubusercontent.com/onlyhom/img-folder/master/gif/%E7%BA%A7%E8%81%94.gif)
 
 
 
