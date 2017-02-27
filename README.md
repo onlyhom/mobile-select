@@ -11,7 +11,7 @@
 - 可传入普通数组或者json数组
 - 可根据传入的参数长度，自动渲染出对应的列数，支持单项到多项选择
 - 自动识别是否级联
-- 选择成功后，提供自定义回调函数callback()  返回当前选择索引位置、以及选择的数据（数组/json）
+- 选择成功后，提供自定义回调函数callback()  返回当前选择索引位置、以及选择的数据（数组/json）
 - 每次手势滑动结束后，也提供一个回调函数limit()  返回当前选择索引位置、以及选择的数据（数组/json）
 - 能够在已经实例化控件后，提供update函数，传其他参数再次渲染   
 - 提供重定位函数   
@@ -127,7 +127,24 @@ var mobileSelect2 = new MobileSelect({
 ```
 
 
-##API
+##Options
+
+
+|Option|Default|Type|Description |
+| ------ |------|-----|-----|
+|trigger|必填参数 无默认值|String| 触发对象的id/class/tag|
+|wheels|必填参数 无默认值|Array|需要显示的数据|
+|title|`''`|String|控件标题|
+|position|[0,0,0,…]|Array|初始化定位|
+| callback|function(indexArr, data){}|function | 选择成功后触发的回调函数，返回indexArr、data|
+|limit|function(indexArr, data){}|function|每一次手势滑动结束后触发的回调函数,返回indexArr、data|
+
+
+
+
+####注：回调函数中返回的参数含义如下
+ - indexArr是当前选择的索引数组 如[0,0,1] 
+ - data是当前选择的数据json数组 如[{id:'1',value:'hello'},{id:'2',value:'world'}]
 
 ###功能函数：
 |Function|Arguments| Description|
@@ -136,11 +153,7 @@ var mobileSelect2 = new MobileSelect({
 |updateWheel()| sliderIndex, data | 重新渲染指定的轮子 |
 |locatePostion()|sliderIndex, posIndex|传入位置数组，重定位轮子的位置|
 
-###回调函数：
-|Function|Arguments| Description|
-| ------ |------| -----|
-| callback() | indexArr, data | 点击-选择 后执行的回调函数，返回当前选择的索引位置、以及选择的数据（数组/json）|
-|limit()|indexArr, data |每一次手势滑动结束后执行的回调函数,返回当前选择的索引位置、以及选择的数据（数组/json）|
+
 
 
 
