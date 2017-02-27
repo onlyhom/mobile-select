@@ -87,7 +87,8 @@ var mobileSelect2 = new MobileSelect({
 });
 </script>
 ```
-
+效果图：
+![Image text](http://p1.bqimg.com/567571/d4e4bac29a9c6e87.gif)
 
 
 ####json格式-联动
@@ -125,6 +126,9 @@ var mobileSelect2 = new MobileSelect({
   });
   </script>
 ```
+效果图：
+![Image text](http://p1.bqimg.com/567571/4d0d03d902ebfa5e.gif)
+
 
 
 ##Options
