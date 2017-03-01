@@ -214,14 +214,7 @@ var mobileSelect2 = new MobileSelect({
                 {data: weekdayArr},
                 {data: timeArr}
             ],
-    position:[1, 2], 
-    limit:function(indexArr, data){ 
-        //indexArr 是当前选中项的索引数组 
-        //可根据返回的这个数组 做一些扩展功能
-        console.log(data);
-    },
-    callback:function(indexArr, data){
-    }
+    position:[1, 2]
 });
 
 
@@ -246,7 +239,6 @@ var mobileSelect3 = new MobileSelect({
 var mobileSelect4 = new MobileSelect({
     trigger: '#trigger4',
     title: '地区选择',
-    cascade: true,
     wheels: [
                 {data:[
                     {
@@ -266,10 +258,13 @@ var mobileSelect4 = new MobileSelect({
                     {id:'5',value:'拱墅区'},
                     {id:'6',value:'西湖区'}
                 ]}
-            ],
+            ],  
+    limit:function(indexArr, data){
+        console.log(data);
+    },
     callback:function(indexArr, data){
-        console.log(data); 
-    } 
+        console.log(data);
+    }  
 });
 
 
@@ -280,7 +275,6 @@ var mobileSelect4 = new MobileSelect({
 var mobileSelect5 = new MobileSelect({
     trigger: '#trigger5',
     title: '车型选择',
-    cascade: true,
     wheels: [
                 {data : UplinkData}
             ],
