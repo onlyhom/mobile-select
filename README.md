@@ -36,7 +36,7 @@
 
 
 
-####普通数组格式-非联动
+####①普通数组格式-非联动
 ```html
 <input type="text" id="day">
 
@@ -56,7 +56,7 @@ var mobileSelect1 = new MobileSelect({
 
 
 
-####json格式-非联动
+####②json格式-非联动
 ```html
 <input type="text" id="area">
 
@@ -91,7 +91,7 @@ var mobileSelect2 = new MobileSelect({
 ![Image text](http://p1.bqimg.com/567571/d4e4bac29a9c6e87.gif)
 
 
-####json格式-联动
+####③json格式-联动
 ```html
 <input type="text" id="area2">
 
@@ -168,4 +168,4 @@ var mobileSelect2 = new MobileSelect({
 - 选择当天日期时，不得超过今天已过时辰。
 - 选择取车时间后，还车时间不得超过取车时间（包括日期和时间）。
 
-![Image text](http://p1.bqimg.com/4851/a3a6b83fe0f43169.gif)
+![Image text](https://github.com/onlyhom/img-folder/blob/master/gif/limit%E5%87%BD%E6%95%B0.gif?raw=true)
