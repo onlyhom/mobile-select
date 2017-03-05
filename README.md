@@ -141,7 +141,7 @@ var mobileSelect2 = new MobileSelect({
 |title|`''`|String|控件标题|
 |position|[0,0,0,…]|Array|初始化定位|
 | callback|function(indexArr, data){}|function | 选择成功后触发的回调函数，返回indexArr、data|
-|limit|function(indexArr, data){}|function|每一次手势滑动结束后触发的回调函数,返回indexArr、data|
+|transitionEnd|function(indexArr, data){}|function|每一次手势滑动结束后触发的回调函数,返回indexArr、data|
 
 
 
