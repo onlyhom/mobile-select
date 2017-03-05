@@ -229,7 +229,7 @@ var mobileSelect3 = new MobileSelect({
                 {data: numArr}
             ],
     position:[0, 1, 0, 1, 0], 
-    limit:function(indexArr, data){ 
+    transitionEnd:function(indexArr, data){ 
     },
     callback:function(indexArr, data){
     }
@@ -259,7 +259,7 @@ var mobileSelect4 = new MobileSelect({
                     {id:'6',value:'西湖区'}
                 ]}
             ],  
-    limit:function(indexArr, data){
+    transitionEnd:function(indexArr, data){
         console.log(data);
     },
     callback:function(indexArr, data){
@@ -278,7 +278,7 @@ var mobileSelect5 = new MobileSelect({
     wheels: [
                 {data : UplinkData}
             ],
-    limit:function(indexArr, data){
+    transitionEnd:function(indexArr, data){
         console.log(data);
     },
     callback:function(indexArr, data){

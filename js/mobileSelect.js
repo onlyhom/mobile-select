@@ -42,7 +42,7 @@ window.MobileSelect = (function() {
 		    _this.grayLayer = _this.mobileSelect.querySelector('.grayLayer');
 		    _this.popUp = _this.mobileSelect.querySelector('.content');
 		    _this.callback = config.callback ? config.callback : function(){};
-		    _this.limit = config.limit ? config.limit : function(){};
+		    _this.transitionEnd = config.transitionEnd ? config.transitionEnd : function(){};
 		    _this.initPosition = config.position ? config.position : [];
 		    _this.titleText = config.title ? config.title : '';
 
@@ -451,7 +451,7 @@ window.MobileSelect = (function() {
 			        }
 
 
-			        _this.limit(_this.getIndexArr(),_this.getJson());
+			        _this.transitionEnd(_this.getIndexArr(),_this.getJson());
 
 			        if(_this.cascade){
 				        var tempPosArr = _this.getIndexArr();
@@ -511,7 +511,7 @@ window.MobileSelect = (function() {
 			        }
 
 			        _this.clickStatus = false;
-			        _this.limit(_this.getIndexArr(),_this.getJson());
+			        _this.transitionEnd(_this.getIndexArr(),_this.getJson());
 			        if(_this.cascade){
 				        var tempPosArr = _this.getIndexArr();
 				        tempPosArr[index] = _this.getIndex(_this.curDistance[index]);
