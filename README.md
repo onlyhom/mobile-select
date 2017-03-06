@@ -54,8 +54,6 @@ var mobileSelect1 = new MobileSelect({
 
 
 
-
-
 ####②json格式-非联动
 ```html
 <input type="text" id="area">
@@ -150,17 +148,47 @@ var mobileSelect2 = new MobileSelect({
  - indexArr是当前选择的索引数组 如[0,0,1] 
  - data是当前选择的数据json数组 如[{id:'1',value:'hello'},{id:'2',value:'world'}]
 
-###功能函数：
+##功能函数：
 |Function|Arguments| Description|
 | ------ |------| -----|
 |setTitle()| string |设置控件的标题|
 |updateWheel()| sliderIndex, data | 重新渲染指定的轮子 |
 |locatePostion()|sliderIndex, posIndex|传入位置数组，重定位轮子的位置|
 
+####注：回调函数中返回的参数含义如下
+ - sliderIndex 代表的是要修改的轮子的索引
+ - posIndex 代表位置索引
+ 
+####功能函数demo：  
+```html
+<input type="text" id="day">
 
+var mySelect = new MobileSelect({
+    trigger: '#day', 
+    wheels: [
+                {data:['周日','周一','周二','周三','周四','周五','周六']},
+                {data:['08:00','09:00','10:00','11:00','12:00','13:00','14:00']}
+            ],
+    position:[1,1] //初始化定位 两个轮子都选中在索引1的选项
+});
 
+//----------------------------------------------
+//进行基础的实例化之后，对实例用功能函数操作 
 
+// mySelect.setTitle('啦啦啦(๑•̀ㅁ•́ฅ)'); 
+// 设置控件的标题
 
+// mySelect.updateWheel(0,['sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday']);
+// 更新第0个轮子的数据，数据变为英文的星期几
+
+// mySelect.locatePostion(1,0);
+// 重新定位第1个轮子的位置，将第1个轮子的第0个数据改为当前选中。
+// (第1个轮子是指右边的轮子，左边的轮子是第0个)
+```   
+基础实例 → 功能函数操作后   
+
+![基础实例](https://github.com/onlyhom/img-folder/blob/master/QQscreenshot/before20170306234037.png?raw=true)
+![功能函数操作后](https://github.com/onlyhom/img-folder/blob/master/QQscreenshot/after-20170306233954.png?raw=true)
 
 ##项目demo：
 使用limit()、callback()、updateWheel()、locatePostion()函数实现如下功能：
