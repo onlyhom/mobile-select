@@ -155,7 +155,7 @@ var mobileSelect2 = new MobileSelect({
 |updateWheel()| sliderIndex, data | 重新渲染指定的轮子 |
 |locatePostion()|sliderIndex, posIndex|传入位置数组，重定位轮子的位置|
 
-####注：回调函数中返回的参数含义如下
+####注：功能函数中需要传递的参数含义如下
  - sliderIndex 代表的是要修改的轮子的索引
  - posIndex 代表位置索引
  
