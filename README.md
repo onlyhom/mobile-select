@@ -191,7 +191,7 @@ var mySelect = new MobileSelect({
 ![功能函数操作后](https://github.com/onlyhom/img-folder/blob/master/QQscreenshot/after-20170306233954.png?raw=true)
 
 ##项目demo：
-使用limit()、callback()、updateWheel()、locatePostion()函数实现如下功能：
+使用transitionEnd()、callback()、updateWheel()、locatePostion()函数实现如下功能：
 
 - 选择当天日期时，不得超过今天已过时辰。
 - 选择取车时间后，还车时间不得超过取车时间（包括日期和时间）。
