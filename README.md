@@ -4,7 +4,7 @@
 
 
 
-##Features
+## Features
 
 
 - 原生js移动端选择控件，不依赖任何库  
@@ -18,12 +18,12 @@
 
 
 
-##Demo
+## Demo
 
 
 ![Image text](http://p1.bqimg.com/4851/0e072a9fae72e0a0.gif)
 
-##Installation
+## Installation
 
 
 
@@ -32,11 +32,11 @@
 <script src="js/mobileSelect.js" type="text/javascript"></script>
 ```
 
-##Getting Started
+## Getting Started
 
 
 
-####①普通数组格式-非联动
+#### ①普通数组格式-非联动
 ```html
 <input type="text" id="day">
 
@@ -54,7 +54,7 @@ var mobileSelect1 = new MobileSelect({
 
 
 
-####②json格式-非联动
+#### ②json格式-非联动
 ```html
 <input type="text" id="area">
 
@@ -85,11 +85,11 @@ var mobileSelect2 = new MobileSelect({
 });
 </script>
 ```
-#####效果图：
+##### 效果图：
 ![Image text](http://p1.bqimg.com/567571/d4e4bac29a9c6e87.gif)
 
 
-####③json格式-联动
+#### ③json格式-联动
 ```html
 <input type="text" id="area2">
 
@@ -124,12 +124,12 @@ var mobileSelect2 = new MobileSelect({
   });
   </script>
 ```
-#####效果图：
+##### 效果图：
 ![Image text](https://raw.githubusercontent.com/onlyhom/img-folder/master/gif/%E7%BA%A7%E8%81%94.gif)
 
 
 
-##Options
+## Options
 
 
 |Option|Default|Type|Description |
@@ -144,22 +144,22 @@ var mobileSelect2 = new MobileSelect({
 
 
 
-####注：回调函数中返回的参数含义如下
+#### 注：回调函数中返回的参数含义如下
  - indexArr是当前选择的索引数组 如[0,0,1] 
  - data是当前选择的数据json数组 如[{id:'1',value:'hello'},{id:'2',value:'world'}]
 
-##功能函数：
+## 功能函数：
 |Function|Arguments| Description|
 | ------ |------| -----|
 |setTitle()| string |设置控件的标题|
 |updateWheel()| sliderIndex, data | 重新渲染指定的轮子 |
 |locatePostion()|sliderIndex, posIndex|传入位置数组，重定位轮子的位置|
 
-####注：功能函数中需要传递的参数含义如下
+#### 注：功能函数中需要传递的参数含义如下
  - sliderIndex 代表的是要修改的轮子的索引
  - posIndex 代表位置索引
  
-####功能函数demo：  
+#### 功能函数demo：  
 ```html
 <input type="text" id="day">
 
@@ -190,7 +190,7 @@ var mySelect = new MobileSelect({
 ![基础实例](https://github.com/onlyhom/img-folder/blob/master/QQscreenshot/before20170306234037.png?raw=true)
 ![功能函数操作后](https://github.com/onlyhom/img-folder/blob/master/QQscreenshot/after-20170306233954.png?raw=true)
 
-##项目demo：
+## 项目demo：
 使用transitionEnd()、callback()、updateWheel()、locatePostion()函数实现如下功能：
 
 - 选择当天日期时，不得超过今天已过时辰。
