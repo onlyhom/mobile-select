@@ -197,3 +197,12 @@ var mySelect = new MobileSelect({
 - 选择取车时间后，还车时间不得超过取车时间（包括日期和时间）。
 
 ![Image text](https://github.com/onlyhom/img-folder/blob/master/gif/limit%E5%87%BD%E6%95%B0.gif?raw=true)
+
+
+
+## License   
+
+[MIT LICENSE](https://github.com/onlyhom/mobileSelect.js/blob/master/LICENSE)
+
+Copyright (c) 2017-present, LIHONG OU(onlyhom)
+
