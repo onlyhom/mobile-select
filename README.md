@@ -1,20 +1,28 @@
 # mobileSelect.js    
 
-一款多功能的移动端滚动选择器，支持单选到多选、支持多级级联、提供自定义回调函数、提供update函数二次渲染、重定位函数、兼容pc端拖拽等等..
+[【中文版文档】](https://github.com/onlyhom/mobileSelect.js/blob/master/docs/README-CN.md)
+
+
+[![MIT License](https://img.shields.io/npm/l/express.svg)](https://github.com/onlyhom/mobileSelect.js/blob/master/LICENSE) [![downloads](https://img.shields.io/badge/downloads-1083-green.svg)]()  [![dependencies](https://img.shields.io/badge/dependencies-none-orange.svg)]() 
+
+
+
+
+A multi-function mobile phone scrolling selector, support single to multi-select, support multi-level cascade, provide custom callback function, provide update function redraw, relocation function, compatible pc drag and so on.
 
 
 
 ## Features
 
 
-- 原生js移动端选择控件，不依赖任何库  
-- 可传入普通数组或者json数组
-- 可根据传入的参数长度，自动渲染出对应的列数，支持单项到多项选择
-- 自动识别是否级联
-- 选择成功后，提供自定义回调函数callback()  返回当前选择索引位置、以及选择的数据（数组/json）
-- 每次手势滑动结束后，也提供一个回调函数transitionEnd()  返回当前选择索引位置、以及选择的数据（数组/json）
-- 能够在已经实例化控件后，提供update函数，传其他参数再次渲染   
-- 提供重定位函数   
+- A mobile phone select component with native js, do not rely on any library
+- Can be passed to an ordinary array or json array
+- According to the length of the parameters passed, automatically render the corresponding number of columns, support for individual to multiple options
+- Automatic identification is cascading
+- After successful selection, provide a custom callback function callback ()
+- After each gesture sliding, it also provides a callback function transitionEnd ()
+- Provide update () function, pass the other parameters to render again
+- Provide relocation function
 
 
 
@@ -36,7 +44,7 @@
 
 
 
-#### ①普通数组格式-非联动
+#### ①Ordinary array format - Non-cascade
 ```html
 <input type="text" id="day">
 
@@ -47,14 +55,14 @@ var mobileSelect1 = new MobileSelect({
     wheels: [
                 {data:['周日','周一','周二','周三','周四','周五','周六']}
             ],
-    position:[2] //初始化定位
+    position:[2] //Initialize positioning
 });
 </script>
 ```
 
 
 
-#### ②json格式-非联动
+#### ②Json format - Non-cascade
 ```html
 <input type="text" id="area">
 
@@ -80,16 +88,16 @@ var mobileSelect2 = new MobileSelect({
                 ]}
             ],
     callback:function(indexArr, data){
-        console.log(data); //返回选中的json数据
+        console.log(data); //Returns the selected json data
     } 
 });
 </script>
 ```
-##### 效果图：
+##### Example：
 ![Image text](http://p1.bqimg.com/567571/d4e4bac29a9c6e87.gif)
 
 
-#### ③json格式-联动
+#### ③Json format - Cascade
 ```html
 <input type="text" id="area2">
 
@@ -119,12 +127,12 @@ var mobileSelect2 = new MobileSelect({
               ],
       position:[0,1],
       callback:function(indexArr, data){
-          console.log(data); //返回选中的json数据
+          console.log(data); //Returns the selected json data
       } 
   });
   </script>
 ```
-##### 效果图：
+##### Example：
 ![Image text](https://raw.githubusercontent.com/onlyhom/img-folder/master/gif/%E7%BA%A7%E8%81%94.gif)
 
 
@@ -134,32 +142,32 @@ var mobileSelect2 = new MobileSelect({
 
 |Option|Default|Type|Description |
 | ------ |------|-----|-----|
-|trigger|必填参数 无默认值|String| 触发对象的id/class/tag|
-|wheels|必填参数 无默认值|Array|需要显示的数据|
-|title|`''`|String|控件标题|
-|position|[0,0,0,…]|Array|初始化定位|
-| callback|function(indexArr, data){}|function | 选择成功后触发的回调函数，返回indexArr、data|
-|transitionEnd|function(indexArr, data){}|function|每一次手势滑动结束后触发的回调函数,返回indexArr、data|
+|trigger|Required parameter No default value|String| The id/class/tag of the trigger object |
+|wheels|Required parameter No default value|Array|The data displayed on the wheel|
+|title|`''`|String|Component title|
+|position|[0,0,0,…]|Array|Initialize positioning|
+| callback|function(indexArr, data){}|function | Select the callback function triggered after successful, return parameter (indexArr, data)|
+|transitionEnd|function(indexArr, data){}|function|A callback function that after each gesture sliding, return parameter (indexArr, data)|
 
 
 
 
-#### 注：回调函数中返回的参数含义如下
- - indexArr是当前选择的索引数组 如[0,0,1] 
- - data是当前选择的数据json数组 如[{id:'1',value:'hello'},{id:'2',value:'world'}]
+#### Tips: The meaning of the parameters returned in the callback function is as follows
+ - **indexArr** is the currently selected index array, such as[0,0,1] 
+ - **data** is the currently selected json array, such as[{id:'1',value:'hello'},{id:'2',value:'world'}]
 
-## 功能函数：
+## Functions：
 |Function|Arguments| Description|
 | ------ |------| -----|
-|setTitle()| string |设置控件的标题|
-|updateWheel()| sliderIndex, data | 重新渲染指定的轮子 |
-|locatePostion()|sliderIndex, posIndex|传入位置数组，重定位轮子的位置|
+|setTitle()| string |Set the title of the component|
+|updateWheel()| sliderIndex, data | Re-render the specified wheel |
+|locatePostion()|sliderIndex, posIndex|Pass the position array parameter, relocate the position of the wheel|
 
-#### 注：功能函数中需要传递的参数含义如下
- - sliderIndex 代表的是要修改的轮子的索引
- - posIndex 代表位置索引
+#### Tips: The function parameters need to be passed as follows
+ - SliderIndex represents the index of the wheel to be modified
+ - PosIndex represents the location index
  
-#### 功能函数demo：  
+#### Demo of use the function ：  
 ```html
 <input type="text" id="day">
 
@@ -169,38 +177,39 @@ var mySelect = new MobileSelect({
                 {data:['周日','周一','周二','周三','周四','周五','周六']},
                 {data:['08:00','09:00','10:00','11:00','12:00','13:00','14:00']}
             ],
-    position:[1,1] //初始化定位 两个轮子都选中在索引1的选项
+    position:[1,1] //Initialize the positioning of both wheels are selected in the index 1 option
 });
 
 //----------------------------------------------
-//进行基础的实例化之后，对实例用功能函数操作 
+//After the basic instantiated, use the functions
 
-// mySelect.setTitle('啦啦啦(๑•̀ㅁ•́ฅ)'); 
-// 设置控件的标题
+mySelect.setTitle('啦啦啦(๑•̀ㅁ•́ฅ)'); 
+// Set the title of the component
 
-// mySelect.updateWheel(0,['sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday']);
-// 更新第0个轮子的数据，数据变为英文的星期几
+mySelect.updateWheel(0,['sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday']);
+// Update the 0th wheel of the data,the data from the Chinese week to the English week
 
-// mySelect.locatePostion(1,0);
-// 重新定位第1个轮子的位置，将第1个轮子的第0个数据改为当前选中。
-// (第1个轮子是指右边的轮子，左边的轮子是第0个)
+mySelect.locatePostion(1,0);
+// Reposition the position of the first wheel and change the 0th data of the first wheel to the current selection.
+// (The first wheel is the right wheel, the left side of the wheel is the first 0)
 ```   
-基础实例 → 功能函数操作后   
+Base example → Function after operation  
 
 ![基础实例](https://github.com/onlyhom/img-folder/blob/master/QQscreenshot/before20170306234037.png?raw=true)
 ![功能函数操作后](https://github.com/onlyhom/img-folder/blob/master/QQscreenshot/after-20170306233954.png?raw=true)
 
-## 项目demo：
-使用transitionEnd()、callback()、updateWheel()、locatePostion()函数实现如下功能：
+##  Project demo：
+Use the transitionEnd (), callback (), updateWheel (), locatePostion () functions to do the following:
 
-- 选择当天日期时，不得超过今天已过时辰。
-- 选择取车时间后，还车时间不得超过取车时间（包括日期和时间）。
+- choose the date of the day, not more than today has been too.
+- Select the time to take the car, the car must not exceed the time to take the car (including the date and time).
 
 ![Image text](https://github.com/onlyhom/img-folder/blob/master/gif/limit%E5%87%BD%E6%95%B0.gif?raw=true)
 
 
+## License
 
-## License   
+
 
 [MIT LICENSE](https://github.com/onlyhom/mobileSelect.js/blob/master/LICENSE)
 
