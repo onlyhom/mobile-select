@@ -1,6 +1,6 @@
 # mobileSelect.js    
 
-[【中文版文档】](https://github.com/onlyhom/mobileSelect.js/blob/master/docs/README-CN.md)
+[【中文文档】](https://github.com/onlyhom/mobileSelect.js/blob/master/docs/README-CN.md)
 
 
 [![MIT License](https://img.shields.io/npm/l/express.svg)](https://github.com/onlyhom/mobileSelect.js/blob/master/LICENSE) [![downloads](https://img.shields.io/badge/downloads-1083-green.svg)]()  [![dependencies](https://img.shields.io/badge/dependencies-none-orange.svg)]() 
