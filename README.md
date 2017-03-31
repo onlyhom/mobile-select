@@ -1,6 +1,6 @@
 # mobileSelect.js    
 
-[【中文文档】](https://github.com/onlyhom/mobileSelect.js/blob/master/docs/README-CN.md)
+
 
 
 [![MIT License](https://img.shields.io/npm/l/express.svg)](https://github.com/onlyhom/mobileSelect.js/blob/master/LICENSE) [![downloads](https://img.shields.io/badge/downloads-1083-green.svg)]()  [![dependencies](https://img.shields.io/badge/dependencies-none-orange.svg)]() 
@@ -10,7 +10,7 @@
 
 A multi-function mobile phone scrolling selector, support single to multi-select, support multi-level cascade, provide custom callback function, provide update function redraw, relocation function, compatible pc drag and so on.
 
-
+[【中文文档】](https://github.com/onlyhom/mobileSelect.js/blob/master/docs/README-CN.md)
 
 ## Features
 
