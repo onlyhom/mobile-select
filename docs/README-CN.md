@@ -1,15 +1,12 @@
-# mobileSelect.js    
-
-[English documents](https://github.com/onlyhom/mobileSelect.js)
-
+# mobileSelect.js
 
 [![MIT License](https://img.shields.io/npm/l/express.svg)](https://github.com/onlyhom/mobileSelect.js/blob/master/LICENSE) [![downloads](https://img.shields.io/badge/downloads-1083-green.svg)]()  [![dependencies](https://img.shields.io/badge/dependencies-none-orange.svg)]() 
 
+一款多功能的移动端滚动选择器，支持单选到多选、支持多级级联、提供自定义回调函数、提供update函数二次渲染、重定位函数、兼容pc端拖拽等等..    
 
-一款多功能的移动端滚动选择器，支持单选到多选、支持多级级联、提供自定义回调函数、提供update函数二次渲染、重定位函数、兼容pc端拖拽等等..
+ [【English documents】](https://github.com/onlyhom/mobileSelect.js) 
 
-## Features
-
+## 特性
 
 - 原生js移动端选择控件，不依赖任何库  
 - 可传入普通数组或者json数组
@@ -22,13 +19,11 @@
 
 
 
-## Demo
-
+## 演示
 
 ![Image text](http://p1.bqimg.com/4851/0e072a9fae72e0a0.gif)
 
-## Installation
-
+## 引入
 
 
 ```html
@@ -36,9 +31,7 @@
 <script src="js/mobileSelect.js" type="text/javascript"></script>
 ```
 
-## Getting Started
-
-
+## 快速入门
 
 #### ①普通数组格式-非联动
 ```html
@@ -133,8 +126,7 @@ var mobileSelect2 = new MobileSelect({
 
 
 
-## Options
-
+## 参数
 
 |Option|Default|Type|Description |
 | ------ |------|-----|-----|
@@ -204,7 +196,7 @@ var mySelect = new MobileSelect({
 
 
 
-## License
+## 许可证
 
 [MIT LICENSE](https://github.com/onlyhom/mobileSelect.js/blob/master/LICENSE)
 
