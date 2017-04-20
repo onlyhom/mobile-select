@@ -14,6 +14,10 @@ body,h1,h2,h3,h4,h5,h6,p,ul,ol,dd,form,span,samp,p,a{
     font-family:  "Microsoft YaHei", Helvetica, STHeiTi,"Helvetica Neue","微软雅黑",SimSun,sans-serif;
 }
 
+html,body{
+  background: white;
+  min-height: 100%;
+}
 
 
 ul,ol{
@@ -175,18 +179,16 @@ body {
   text-align: center;
 }
 
-.contain input{
-/*  display: inline-block;*/
+.contain .demo div{
   display: block;
   width: 100%;
   height: 40px;
   border-radius: 5px;
-/*  border: 1px solid #1e83d3;*/
   border: 1px solid #999;
   margin-bottom: 20px;
   text-align: center;
   font-size: 14px;
-/*  margin: 0 1%;*/
+  line-height: 40px;
 }
 
 

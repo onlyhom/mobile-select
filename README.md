@@ -46,7 +46,7 @@ A multi-function mobile phone scrolling selector, support single to multi-select
 
 #### ①Ordinary array format - Non-cascade
 ```html
-<input type="text" id="day">
+<div id="day"></div>
 
 <script type="text/javascript">
 var mobileSelect1 = new MobileSelect({
@@ -64,7 +64,7 @@ var mobileSelect1 = new MobileSelect({
 
 #### ②Json format - Non-cascade
 ```html
-<input type="text" id="area">
+<div id="area"></div>
 
 <script type="text/javascript">
 var mobileSelect2 = new MobileSelect({
@@ -99,7 +99,7 @@ var mobileSelect2 = new MobileSelect({
 
 #### ③Json format - Cascade
 ```html
-<input type="text" id="area2">
+<div id="area2"></div>
 
 <script type="text/javascript">
   var addressLocation = new MobileSelect({
@@ -169,7 +169,7 @@ var mobileSelect2 = new MobileSelect({
  
 #### Demo of use the function ：  
 ```html
-<input type="text" id="day">
+<div id="day"></div>
 
 var mySelect = new MobileSelect({
     trigger: '#day', 

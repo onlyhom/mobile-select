@@ -46,7 +46,6 @@ window.MobileSelect = (function() {
 		    _this.initPosition = config.position ? config.position : [];
 		    _this.titleText = config.title ? config.title : '';
 
-			_this.trigger.readOnly=true;
 			_this.trigger.style.cursor='pointer';
 			_this.setTitle(_this.titleText);
 			_this.checkCascade();
@@ -76,7 +75,7 @@ window.MobileSelect = (function() {
 		    	for(var i=0; i<_this.wheel.length; i++){
 		    		i==_this.wheel.length-1 ? tempValue += _this.getValue(i) : tempValue += _this.getValue(i)+' ';
 		    	}
-		    	_this.trigger.value = tempValue;
+		    	_this.trigger.innerHTML = tempValue;
 		    	_this.callback(_this.getIndexArr(),_this.getJson());
 		    });
 

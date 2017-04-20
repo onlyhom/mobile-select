@@ -1,4 +1,4 @@
-# mobileSelect.js
+ # mobileSelect.js
 
 [![MIT License](https://img.shields.io/npm/l/express.svg)](https://github.com/onlyhom/mobileSelect.js/blob/master/LICENSE) [![downloads](https://img.shields.io/badge/downloads-1083-green.svg)]()  [![dependencies](https://img.shields.io/badge/dependencies-none-orange.svg)]() 
 
@@ -35,7 +35,7 @@
 
 #### ①普通数组格式-非联动
 ```html
-<input type="text" id="day">
+<div id="day"></div>
 
 <script type="text/javascript">
 var mobileSelect1 = new MobileSelect({
@@ -53,7 +53,7 @@ var mobileSelect1 = new MobileSelect({
 
 #### ②json格式-非联动
 ```html
-<input type="text" id="area">
+<div id="area"></div>
 
 <script type="text/javascript">
 var mobileSelect2 = new MobileSelect({
@@ -88,7 +88,7 @@ var mobileSelect2 = new MobileSelect({
 
 #### ③json格式-联动
 ```html
-<input type="text" id="area2">
+<div id="area2"></div>
 
 <script type="text/javascript">
   var addressLocation = new MobileSelect({
@@ -157,7 +157,7 @@ var mobileSelect2 = new MobileSelect({
  
 #### 功能函数demo：  
 ```html
-<input type="text" id="day">
+<div id="day"></div>
 
 var mySelect = new MobileSelect({
     trigger: '#day', 
