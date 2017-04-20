@@ -195,10 +195,20 @@ var mySelect = new MobileSelect({
 ![Image text](https://github.com/onlyhom/img-folder/blob/master/gif/limit%E5%87%BD%E6%95%B0.gif?raw=true)
 
 
+## 更新日志  
+### 2017-04-20[修正]    
+鉴于input框在iphone上会出现光标      
+以及由input触发的fixed布局在iphone6P/iphone7P的chrome中打开会出现下移现象     
+舍弃使用input标签,改为由普通div触发    
+选择到的值写进div的innerHTML里    
+可以用jquery的$().text()获取选择到的值    
+也可直接用原生document.getElementById(id).innerHTML获取选择到的值  
 
 ## 许可证
 
 [MIT LICENSE](https://github.com/onlyhom/mobileSelect.js/blob/master/LICENSE)
 
 Copyright (c) 2017-present, LIHONG OU(onlyhom)
+
+
 
