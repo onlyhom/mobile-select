@@ -207,8 +207,17 @@ Use the transitionEnd (), callback (), updateWheel (), locatePostion () function
 ![Image text](https://github.com/onlyhom/img-folder/blob/master/gif/limit%E5%87%BD%E6%95%B0.gif?raw=true)
 
 
-## License
+## Logs  
+### 2017-04-20[update]    
+As the input tag in the iphone, the cursor will flashing.    
+As well as the input tag open in the iphone6P / iphone7P chrome will appear offset phenomenon.    
+So do not use the input tag, instead by the ordinary div trigger.    
+The value selected will be written in the div trigger‘s innerHTML.    
+You can use jquery's $().text() to get the selected value.    
+You can also use the original document.getElementById(id).innerHTML to get the selected value.
 
+
+## License
 
 
 [MIT LICENSE](https://github.com/onlyhom/mobileSelect.js/blob/master/LICENSE)
