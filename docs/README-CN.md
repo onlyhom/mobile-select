@@ -200,8 +200,9 @@ var mySelect = new MobileSelect({
 鉴于input框在iphone上会出现光标      
 以及由input触发的fixed布局在iphone6P/iphone7P的chrome中打开会出现下移现象     
 舍弃使用input标签,改为由普通div触发    
-选择到的值写进div的innerHTML里    
-可以用jquery的$().text()获取选择到的值    
+选择到的值写进div的innerHTML里    
+推荐用callback(indexArr, data)回调函数获取选择到的值
+可以用jquery的$().text()获取选择到的值    
 也可直接用原生document.getElementById(id).innerHTML获取选择到的值  
 
 ## 许可证
