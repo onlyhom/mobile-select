@@ -213,8 +213,7 @@ As the input tag in the iphone, the cursor will flashing.
 As well as the input tag open in the iphone6P / iphone7P chrome will appear offset phenomenon.    
 So do not use the input tag, instead by the ordinary div trigger.    
 The value selected will be written in the div trigger‘s innerHTML.    
-You can use jquery's $().text() to get the selected value.    
-You can also use the original document.getElementById(id).innerHTML to get the selected value.
+It is recommended to use the callback (indexArr, data) function to get the selected value.
 
 
 ## License
