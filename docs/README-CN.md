@@ -128,24 +128,24 @@ var mobileSelect2 = new MobileSelect({
 
 ## 参数
 
-|Option|Default|Type|Description |
+|选项|默认值|类型|描述 |
 | ------ |------|-----|-----|
 |trigger|必填参数 无默认值|String| 触发对象的id/class/tag|
-|wheels|必填参数 无默认值|Array|需要显示的数据|
+|wheels|必填参数 无默认值|Array|数据源,需要显示的数据|
 |title|`''`|String|控件标题|
 |position|[0,0,0,…]|Array|初始化定位|
-| callback|function(indexArr, data){}|function | 选择成功后触发的回调函数，返回indexArr、data|
+|callback|function(indexArr, data){}|function | 选择成功后触发的回调函数，返回indexArr、data|
 |transitionEnd|function(indexArr, data){}|function|每一次手势滑动结束后触发的回调函数,返回indexArr、data|
 
 
 
 
 #### 注：回调函数中返回的参数含义如下
- - indexArr是当前选择的索引数组 如[0,0,1] 
- - data是当前选择的数据json数组 如[{id:'1',value:'hello'},{id:'2',value:'world'}]
+ - indexArr是当前选中的索引数组 如[0,0,1] 代表有三个轮子 选中的数据是第一个轮子的第0个数据、第二个轮子的第0个数据、第三个轮子的第1个数据
+ - data是当前选中的json数据 如[{id:'1',value:'hello'},{id:'2',value:'world'}]
 
 ## 功能函数：
-|Function|Arguments| Description|
+|函数名|参数| 描述|
 | ------ |------| -----|
 |setTitle()| string |设置控件的标题|
 |updateWheel()| sliderIndex, data | 重新渲染指定的轮子 |
