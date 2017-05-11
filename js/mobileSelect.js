@@ -1,3 +1,9 @@
+/*!
+ * mobileSelect.js
+ * (c) 2017-present onlyhom
+ * Released under the MIT License.
+ */
+
 window.MobileSelect = (function() {
 
 	function getClass(dom,string) {
@@ -8,23 +14,23 @@ window.MobileSelect = (function() {
 	function MobileSelect(config) {
 		this.mobileSelect;
 		this.wheelsData = config.wheels;
-	    this.jsonType =  false;
-	    this.jsonData = [];
-	    this.checkDataType();
+		this.jsonType =  false;
+		this.jsonData = [];
+		this.checkDataType();
 		this.renderWheels(this.wheelsData);
-	    this.displayJson = []; 
-	    this.cascade = false;
-	    this.startY;
-	    this.moveEndY;
-	    this.moveY;
-	    this.oldMoveY;
-	    this.offset = 0;
-	    this.offsetSum = 0;
-	    this.oversizeBorder;
-	    this.curDistance = [];
-	    this.clickStatus = false;
+		this.displayJson = []; 
+		this.cascade = false;
+		this.startY;
+		this.moveEndY;
+		this.moveY;
+		this.oldMoveY;
+		this.offset = 0;
+		this.offsetSum = 0;
+		this.oversizeBorder;
+		this.curDistance = [];
+		this.clickStatus = false;
 
-	    this.init(config);
+		this.init(config);
 	}
 	
 	MobileSelect.prototype = {
