@@ -39,18 +39,18 @@ window.MobileSelect = (function() {
 			var _this = this; 
 
 			_this.trigger = document.querySelector(config.trigger);
-		    _this.wheel = getClass(_this.mobileSelect,'wheel');   //wheel 数组
-		    _this.slider = getClass(_this.mobileSelect,'selectContainer'); // slider 数组
-		    _this.wheels = _this.mobileSelect.querySelector('.wheels');   //wheels
-		    _this.liHeight = _this.mobileSelect.querySelector('li').offsetHeight;
-		    _this.ensureBtn = _this.mobileSelect.querySelector('.ensure');
-	    	_this.closeBtn = _this.mobileSelect.querySelector('.cancel');
-		    _this.grayLayer = _this.mobileSelect.querySelector('.grayLayer');
-		    _this.popUp = _this.mobileSelect.querySelector('.content');
-		    _this.callback = config.callback ? config.callback : function(){};
-		    _this.transitionEnd = config.transitionEnd ? config.transitionEnd : function(){};
-		    _this.initPosition = config.position ? config.position : [];
-		    _this.titleText = config.title ? config.title : '';
+			_this.wheel = getClass(_this.mobileSelect,'wheel');   //wheel 数组
+			_this.slider = getClass(_this.mobileSelect,'selectContainer'); // slider 数组
+			_this.wheels = _this.mobileSelect.querySelector('.wheels');   //wheels
+			_this.liHeight = _this.mobileSelect.querySelector('li').offsetHeight;
+			_this.ensureBtn = _this.mobileSelect.querySelector('.ensure');
+			_this.closeBtn = _this.mobileSelect.querySelector('.cancel');
+			_this.grayLayer = _this.mobileSelect.querySelector('.grayLayer');
+			_this.popUp = _this.mobileSelect.querySelector('.content');
+			_this.callback = config.callback ? config.callback : function(){};
+			_this.transitionEnd = config.transitionEnd ? config.transitionEnd : function(){};
+			_this.initPosition = config.position ? config.position : [];
+			_this.titleText = config.title ? config.title : '';
 
 			_this.trigger.style.cursor='pointer';
 			_this.setTitle(_this.titleText);
@@ -71,13 +71,13 @@ window.MobileSelect = (function() {
 			_this.addListenerAll();
 
 			//按钮监听
-		    _this.closeBtn.addEventListener('click',function(){
-		    	_this.mobileSelect.classList.remove('mobileSelect-show');
+			_this.closeBtn.addEventListener('click',function(){
+			_this.mobileSelect.classList.remove('mobileSelect-show');
 		    });
 
 		    _this.ensureBtn.addEventListener('click',function(){
-		    	_this.mobileSelect.classList.remove('mobileSelect-show');
-			    var tempValue ='';
+			_this.mobileSelect.classList.remove('mobileSelect-show');
+			var tempValue ='';
 		    	for(var i=0; i<_this.wheel.length; i++){
 		    		i==_this.wheel.length-1 ? tempValue += _this.getValue(i) : tempValue += _this.getValue(i)+' ';
 		    	}
