@@ -31,7 +31,7 @@
 <script src="js/mobileSelect.js" type="text/javascript"></script>
 ```
 
-## 快速入门
+## 快速使用
 
 #### ①普通数组格式-非联动
 ```html
