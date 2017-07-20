@@ -329,18 +329,9 @@ window.MobileSelect = (function() {
 		updateWheel: function(sliderIndex, data){
 			var _this = this;
 			var tempHTML='';
-			if(_this.jsonType){
-				for(var j=0; j<data.length; j++){
-					tempHTML += '<li data-id="'+data[j].id+'">'+data[j].value+'</li>';
-				}
-			}else{
-				for(var j=0; j<data.length; j++){
-					tempHTML += '<li>'+data[j]+'</li>'
-				}
+			for(var j=0; j<data.length; j++){
+				tempHTML += '<li>'+data[j]+'</li>';
 			}
-
-			//_this.wheelsData[sliderIndex] = {data: data};
-
 			_this.slider[sliderIndex].innerHTML = tempHTML;
 			_this.addListenerLi(sliderIndex);
 		},
