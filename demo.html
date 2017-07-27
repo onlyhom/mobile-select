@@ -9,9 +9,9 @@
     <meta name="viewport" content="width=device-width, minimum-scale=1, maximum-scale=1,user-scalable=no">
     <meta name="keywords" content="">  
     <meta name="description" content="">
-
     <link rel="stylesheet" type="text/css" href="css/public.css">
 
+    <!-- 引入样式和js文件 -->
     <link rel="stylesheet" type="text/css" href="css/mobileSelect.css">
     <script src="js/mobileSelect.js" type="text/javascript"></script>
 
@@ -198,14 +198,37 @@ var UplinkData =
 
 //----------------------------------------------------------
 
-//只有trigger 和 wheels 是必要参数  其他都是选填参数
+/**
+ * 参数说明
+ * @param trigger(必填参数) 触发对象的id/class/tag
+ * @param wheels(必填参数)  数据源,需要显示的数据
+ * @param title 控件标题
+ * @param position 初始化定位
+ * @param callback 选择成功后触发的回调函数，返回indexArr(选中的选项索引)、data(选中的数据)
+ * @param transitionEnd 每一次手势滑动结束后触发的回调函数,返回indexArr(当前选中的选项索引)、data(选中的数据)
+ */
+
+/**
+ * 函数说明(实例化之后才可用,用于更改数据而又不用重新实例化) 使用demo可查看文档 https://github.com/onlyhom/mobileSelect.js
+ * @function setTitle()      参数 string                 设置控件的标题
+ * @function updateWheel()   参数 sliderIndex, data      重新渲染指定的轮子
+ * @function locatePostion() 参数 sliderIndex, posIndex  传入位置数组，重定位轮子的位置
+ */
+ 
+
 var mobileSelect1 = new MobileSelect({
     trigger: '#trigger1', 
     title: '单项选择',  
     wheels: [
                 {data: weekdayArr}
             ],
-    position:[2] //初始化定位 打开时默认选中的哪个  如果不填默认为0
+    position:[2], //初始化定位 打开时默认选中的哪个  如果不填默认为0
+    transitionEnd:function(indexArr, data){
+        console.log(data);
+    },
+    callback:function(indexArr, data){
+        console.log(data);
+    }
 });
 
 
@@ -216,7 +239,13 @@ var mobileSelect2 = new MobileSelect({
                 {data: weekdayArr},
                 {data: timeArr}
             ],
-    position:[1, 2]
+    position:[1, 2],
+    transitionEnd:function(indexArr, data){
+        console.log(data);
+    },
+    callback:function(indexArr, data){
+        console.log(data);
+    }
 });
 
 
@@ -231,9 +260,11 @@ var mobileSelect3 = new MobileSelect({
                 {data: numArr}
             ],
     position:[0, 1, 0, 1, 0], 
-    transitionEnd:function(indexArr, data){ 
+    transitionEnd:function(indexArr, data){
+        console.log(data);
     },
     callback:function(indexArr, data){
+        console.log(data);
     }
 });
 
