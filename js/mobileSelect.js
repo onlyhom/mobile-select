@@ -61,8 +61,9 @@ window.MobileSelect = (function() {
 			}
 
 			//定位 初始位置
-			if(_this.initPosition.length == 0){
-				for(var i=0; i<_this.slider.length; i++){
+			if(_this.initPosition.length < _this.slider.length){
+				var diff = _this.slider.length - _this.initPosition.length;
+				for(var i=0; i<diff; i++){
 					_this.initPosition.push(0);
 				}
 			}
@@ -221,9 +222,11 @@ window.MobileSelect = (function() {
 		initCascade: function(){
 			var _this = this;
 			_this.displayJson.push(_this.generateArrData(_this.jsonData));
-			_this.checkArrDeep(_this.jsonData[0]);
-			//console.log('将要显示的json:'); 
-			//console.log(_this.displayJson);
+			if(_this.initPosition[0]){
+				_this.checkArrDeep(_this.jsonData[_this.initPosition[0]]);
+			}else{
+				_this.checkArrDeep(_this.jsonData[0]);
+			}
 			_this.updateWheels();
 		},
 
@@ -297,7 +300,6 @@ window.MobileSelect = (function() {
 					_this.wheels.removeChild(_this.wheel[_this.wheel.length-1]);
 				}
 			}
-
 			for(var i=0; i<_this.displayJson.length; i++){ //列
 				(function (i) {
 					var tempHTML='';
@@ -529,7 +531,6 @@ window.MobileSelect = (function() {
 			        if(_this.clickStatus){
 				        _this.moveY = event.clientY;
 				        _this.offset = _this.moveY - _this.oldMoveY;
-
 				        _this.updateCurDistance(theSlider, index);
 				        _this.curDistance[index] = _this.curDistance[index] + _this.offset;
 				        _this.movePosition(theSlider, _this.curDistance[index]);
