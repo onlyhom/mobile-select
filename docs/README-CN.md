@@ -203,6 +203,11 @@ var mySelect = new MobileSelect({
 选择到的值写进div的innerHTML里             
 推荐用callback(indexArr, data)回调函数获取选择到的值         
 
+### 2017-07-27[修正]    
+修复issues中【li362692680同学】提出的 
+联动选择时无法初始定位二级选择框的问题
+同时修复了传入的position数组参数长度小于轮子个数无法移动的问题
+
 
 ## 许可证
 
