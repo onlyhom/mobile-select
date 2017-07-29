@@ -215,6 +215,11 @@ So do not use the input tag, instead by the ordinary div trigger.
 The value selected will be written in the div trigger‘s innerHTML.    
 It is recommended to use the callback (indexArr, data) function to get the selected value.
 
+### 2017-07-27[bug fixed]
+Repair the issues raised by [li362692680]：    
+Cascade selection can not initially locate the secondary selection box.    
+At the same time repair the init function of the entry array parameter length is less than the number of wheels can not move the problem.        
+
 
 ## License
 
