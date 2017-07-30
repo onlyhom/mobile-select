@@ -15,7 +15,7 @@ window.MobileSelect = (function() {
 		this.mobileSelect;
 		this.wheelsData = config.wheels;
 		this.jsonType =  false;
-		this.jsonData = [];
+		this.cascadeJsonData = [];
 		this.checkDataType();
 		this.renderWheels(this.wheelsData);
 		this.displayJson = []; 
@@ -77,13 +77,13 @@ window.MobileSelect = (function() {
 		    });
 
 		    _this.ensureBtn.addEventListener('click',function(){
-			_this.mobileSelect.classList.remove('mobileSelect-show');
-			var tempValue ='';
+				_this.mobileSelect.classList.remove('mobileSelect-show');
+				var tempValue ='';
 		    	for(var i=0; i<_this.wheel.length; i++){
 		    		i==_this.wheel.length-1 ? tempValue += _this.getValue(i) : tempValue += _this.getValue(i)+' ';
 		    	}
 		    	_this.trigger.innerHTML = tempValue;
-		    	_this.callback(_this.getIndexArr(),_this.getJson());
+		    	_this.callback(_this.getIndexArr(),_this.getResult());
 		    });
 
 		    _this.trigger.addEventListener('click',function(){
@@ -200,7 +200,7 @@ window.MobileSelect = (function() {
 			var _this = this;
 			if(typeof(_this.wheelsData[0].data[0])=='object'){
 				_this.jsonType = true;
-				_this.jsonData = _this.wheelsData[0].data;
+				_this.cascadeJsonData = _this.wheelsData[0].data;
 			}
 		},
 
@@ -221,13 +221,13 @@ window.MobileSelect = (function() {
 
 		initCascade: function(){
 			var _this = this;
-			_this.displayJson.push(_this.generateArrData(_this.jsonData));
+			_this.displayJson.push(_this.generateArrData(_this.cascadeJsonData));
 			if(_this.initPosition[0]){
-				_this.checkArrDeep(_this.jsonData[_this.initPosition[0]]);
+				_this.checkArrDeep(_this.cascadeJsonData[_this.initPosition[0]]);
 			}else{
-				_this.checkArrDeep(_this.jsonData[0]);
+				_this.checkArrDeep(_this.cascadeJsonData[0]);
 			}
-			_this.updateWheels();
+			_this.reRenderWheels();
 		},
 
 		generateArrData: function (targetArr) {
@@ -258,14 +258,14 @@ window.MobileSelect = (function() {
 			var resultNode;
 			for (var i = 0; i <= index; i++){
 				if (i == 0)
-					resultNode = _this.jsonData[posIndexArr[0]];
+					resultNode = _this.cascadeJsonData[posIndexArr[0]];
 				else {
 					resultNode = resultNode.childs[posIndexArr[i]];
 				}
 			}
 			_this.checkArrDeep(resultNode);
 			//console.log(_this.displayJson);
-			_this.updateWheels();
+			_this.reRenderWheels();
 			_this.fixRowStyle();
 			_this.setCurDistance(_this.resetPostion(index, posIndexArr));
 		},
@@ -291,7 +291,7 @@ window.MobileSelect = (function() {
 			return tempPosArr;
 		},
 
-		updateWheels: function(){
+		reRenderWheels: function(){
 			var _this = this;
 			//删除多余的wheel
 			if(_this.wheel.length > _this.displayJson.length){
@@ -328,12 +328,35 @@ window.MobileSelect = (function() {
 			}
 		},
 
+		updateWheels:function(data){
+			var _this = this;
+			if(_this.cascade){
+				_this.cascadeJsonData = data;
+				_this.displayJson = [];
+				_this.initCascade();
+				_this.setCurDistance(_this.initPosition);
+				_this.fixRowStyle();
+			}
+		},
+
 		updateWheel: function(sliderIndex, data){
 			var _this = this;
 			var tempHTML='';
-			for(var j=0; j<data.length; j++){
-				tempHTML += '<li>'+data[j]+'</li>';
-			}
+	    	if(_this.cascade){
+	    		console.error('级联格式不支持updateWheel(),请使用updateWheels()更新整个数据源');
+				return false;
+	    	}
+	    	else if(_this.jsonType){
+				for(var j=0; j<data.length; j++){
+					tempHTML += '<li data-id="'+data[j].id+'">'+data[j].value+'</li>';
+				}
+				_this.wheelsData[sliderIndex] = {data: data};
+	    	}else{
+				for(var j=0; j<data.length; j++){
+					tempHTML += '<li>'+data[j]+'</li>';
+				}
+				_this.wheelsData[sliderIndex] = data;
+	    	}
 			_this.slider[sliderIndex].innerHTML = tempHTML;
 			_this.addListenerLi(sliderIndex);
 		},
@@ -359,7 +382,7 @@ window.MobileSelect = (function() {
 	    	return temp;
 	    },
 
-	    getJson: function(){
+	    getResult: function(){
 	    	var _this = this;
 	    	var temp = [];
 	    	var positionArr = _this.getIndexArr();
@@ -458,7 +481,7 @@ window.MobileSelect = (function() {
 			        }
 
 
-			        _this.transitionEnd(_this.getIndexArr(),_this.getJson());
+			        _this.transitionEnd(_this.getIndexArr(),_this.getResult());
 
 			        if(_this.cascade){
 				        var tempPosArr = _this.getIndexArr();
@@ -518,7 +541,7 @@ window.MobileSelect = (function() {
 			        }
 
 			        _this.clickStatus = false;
-			        _this.transitionEnd(_this.getIndexArr(),_this.getJson());
+			        _this.transitionEnd(_this.getIndexArr(),_this.getResult());
 			        if(_this.cascade){
 				        var tempPosArr = _this.getIndexArr();
 				        tempPosArr[index] = _this.getIndex(_this.curDistance[index]);

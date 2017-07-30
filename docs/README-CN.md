@@ -208,6 +208,16 @@ var mySelect = new MobileSelect({
 级联选择时无法初始定位二级选择框的问题    
 同时修复init函数中传入的position数组参数长度小于轮子个数无法移动的问题    
 
+### 2017-07-30[更新]    
+修复issues中【leohgbs】同学提出的    
+1.更新没有考虑到 数据是json的问题    
+2.更新之后，缓存的数据没有更新，导致callback数据源错误    
+
+更改变量名:jsonData → cascadeJsonData    
+更改方法名:updateWheels() → reRenderWheels()    
+updateWheel()方法不变    
+新增API：updateWheels(data) 用来在级联数据格式下 更新整个数据源    
+
 
 ## 许可证
 
