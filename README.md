@@ -216,9 +216,20 @@ The value selected will be written in the div trigger‘s innerHTML.
 It is recommended to use the callback (indexArr, data) function to get the selected value.
 
 ### 2017-07-27[bug fixed]
-Repair the issues raised by [li362692680]：    
+Repair the issues raised by [li362692680]:       
 Cascade selection can not initially locate the secondary selection box.    
 At the same time repair the init function of the entry array parameter length is less than the number of wheels can not move the problem.        
+
+
+### 2017-07-30[update]       
+Repair the issues raised by [leohgbs]:       
+1. The update does not take into account the problem that the data is json.       
+2. After the update, the cached data is not updated, resulting in a callback data source error.       
+
+Change the variable name: jsonData → cascadeJsonData       
+Change method name: updateWheels() → reRenderWheels()       
+The updateWheel() method does not change.       
+Add new API: updateWheels(data) is used to update the entire data source in cascading data format.       
 
 
 ## License

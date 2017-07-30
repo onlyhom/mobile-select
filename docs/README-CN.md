@@ -196,7 +196,7 @@ var mySelect = new MobileSelect({
 
 
 ## 更新日志  
-### 2017-04-20[修正]    
+### 2017-04-20[更新]    
 鉴于input框在iphone上会出现光标      
 以及由input触发的fixed布局在iphone6P/iphone7P的chrome中打开会出现下移现象     
 舍弃使用input标签,改为由普通div触发    
