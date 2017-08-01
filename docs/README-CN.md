@@ -148,8 +148,9 @@ var mobileSelect2 = new MobileSelect({
 |函数名|参数| 描述|
 | ------ |------| -----|
 |setTitle()| string |设置控件的标题|
-|updateWheel()| sliderIndex, data | 重新渲染指定的轮子 |
 |locatePostion()|sliderIndex, posIndex|传入位置数组，重定位轮子的位置|
+|updateWheel()| sliderIndex, data | 重新渲染指定的轮子 |
+|updateWheels()| data | 重新渲染所有轮子(仅限级联数据格式使用) |
 
 #### 注：功能函数中需要传递的参数含义如下
  - sliderIndex 代表的是要修改的轮子的索引
@@ -203,7 +204,7 @@ var mySelect = new MobileSelect({
 选择到的值写进div的innerHTML里             
 推荐用callback(indexArr, data)回调函数获取选择到的值         
 
-### 2017-07-27[修正]    
+### 2017-07-27[更新]    
 修复issues中【li362692680】同学提出的    
 级联选择时无法初始定位二级选择框的问题    
 同时修复init函数中传入的position数组参数长度小于轮子个数无法移动的问题    
@@ -212,7 +213,6 @@ var mySelect = new MobileSelect({
 修复issues中【leohgbs】同学提出的    
 1.更新没有考虑到 数据是json的问题    
 2.更新之后，缓存的数据没有更新，导致callback数据源错误    
-
 更改变量名:jsonData → cascadeJsonData    
 更改方法名:updateWheels() → reRenderWheels()    
 updateWheel()方法不变    
