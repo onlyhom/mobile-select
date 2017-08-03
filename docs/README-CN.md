@@ -148,7 +148,7 @@ var mobileSelect2 = new MobileSelect({
 |函数名|参数| 描述|
 | ------ |------| -----|
 |setTitle()| string |设置控件的标题|
-|locatePostion()|sliderIndex, posIndex|传入位置数组，重新定位轮子选中的位置|
+|locatePostion()|sliderIndex, posIndex| 传入位置数组，重新定位轮子选中的位置 |
 |updateWheel()| sliderIndex, data | 重新渲染指定的轮子 |
 |updateWheels()| data | 重新渲染所有轮子(仅限级联数据格式使用) |
 
