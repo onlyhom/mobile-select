@@ -105,6 +105,10 @@ window.MobileSelect = (function() {
 			_this.mobileSelect.querySelector('.title').innerHTML = _this.titleText;
 		},
 
+		show: function(){
+		    this.mobileSelect.classList.add('mobileSelect-show');	
+		},
+
 		renderWheels: function(wheelsData){
 			var _this = this;
 			_this.mobileSelect = document.createElement("div");
