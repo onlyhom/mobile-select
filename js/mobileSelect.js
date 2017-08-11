@@ -245,10 +245,11 @@ window.MobileSelect = (function() {
 			return tempArr;
 		},
 
-		checkArrDeep: function (parent) { //检测子节点深度  修改 displayJson
+		checkArrDeep: function (parent) { 
+			//检测子节点深度  修改 displayJson
 			var _this = this;
 			if ('childs' in parent && parent.childs.length > 0) {
-				_this.displayJson.push(_this.generateArrData(parent.childs)) ; //生成子节点数组
+				_this.displayJson.push(_this.generateArrData(parent.childs)); //生成子节点数组
 				_this.checkArrDeep(parent.childs[0]);//检测下一个子节点
 			}
 		},
