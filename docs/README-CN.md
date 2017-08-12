@@ -151,6 +151,7 @@ var mobileSelect2 = new MobileSelect({
 |locatePostion()|sliderIndex, posIndex| 传入位置数组，重新定位轮子选中的位置 |
 |updateWheel()| sliderIndex, data | 重新渲染指定的轮子 |
 |updateWheels()| data | 重新渲染所有轮子(仅限级联数据格式使用) |
+|show()| 无参 | 唤起弹窗组件  |
 
 #### 注：功能函数中需要传递的参数含义如下
  - sliderIndex 代表的是要修改的轮子的索引
