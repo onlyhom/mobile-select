@@ -163,6 +163,8 @@ var mobileSelect2 = new MobileSelect({
 |locatePostion()|sliderIndex, posIndex|Pass the position array parameter, relocate the position of the wheel|
 |updateWheel()| sliderIndex, data | Re-render the specified wheel |
 |updateWheels()| data | Re-render the all wheel(Only used in cascading data forma) |
+|show()| no-argument | show the compontent  |
+
 
 #### Tips: The function parameters need to be passed as follows
  - SliderIndex represents the index of the wheel to be modified
