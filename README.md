@@ -146,9 +146,17 @@ var mobileSelect2 = new MobileSelect({
 |wheels|Required parameter No default value|Array|The data displayed on the wheel|
 |title|`''`|String|Component title|
 |position|[0,0,0,…]|Array|Initialize positioning|
+|connector|`' '`|string| 多个轮子时，多个值中间的连接符，默认是空格 |
 | callback|function(indexArr, data){}|function | Select the callback function triggered after successful, return parameter (indexArr, data)|
 |transitionEnd|function(indexArr, data){}|function|A callback function that after each gesture sliding, return parameter (indexArr, data)|
-
+|ensureBtnText|`'确认'`|string| The text content of comfirm button |
+|cancelBtnText|`'取消'`|string| The text content of cancel button |
+|ensureBtnColor|`'#1e83d3'`|string| The text color of the comfirm button|
+|cancelBtnColor|`'#666666'`|string| The text color of the cancel button|
+|titleColor|`'#000000'`|string| The text color of the component title |
+|titleBgColor|`'#ffffff'`|string| The background color of the component title |
+|textColor|`'#000000'`|string| The text color of the wheels |
+|bgColor|`'#ffffff'`|string| The Wheels background color |
 
 
 
@@ -164,6 +172,7 @@ var mobileSelect2 = new MobileSelect({
 |updateWheel()| sliderIndex, data | Re-render the specified wheel |
 |updateWheels()| data | Re-render the all wheel(Only used in cascading data forma) |
 |show()| no-argument | show the compontent  |
+|getValue()| no-argument | Gets the value selected by the component |
 
 
 #### Tips: The function parameters need to be passed as follows

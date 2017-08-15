@@ -134,7 +134,9 @@ var mobileSelect2 = new MobileSelect({
 |wheels|必填参数 无默认值|Array|数据源,需要显示的数据|
 |title|`''`|String|控件标题|
 |position|[0,0,0,…]|Array|初始化定位|
-|connector|`' '`|string| 多个轮子时，多个值中间的连接符号，默认是空格 |
+|connector|`' '`|string| 多个轮子时，多个值中间的连接符，默认是空格 |
+|callback|function(indexArr, data){}|function | 选择成功后触发的回调函数，返回indexArr、data|
+|transitionEnd|function(indexArr, data){}|function|每一次手势滑动结束后触发的回调函数,返回indexArr、data|
 |ensureBtnText|`'确认'`|string| 确认按钮的文本内容 |
 |cancelBtnText|`'取消'`|string| 取消按钮的文本内容 |
 |ensureBtnColor|`'#1e83d3'`|string| 确认按钮的文本颜色|
@@ -143,8 +145,7 @@ var mobileSelect2 = new MobileSelect({
 |titleBgColor|`'#ffffff'`|string| 控件标题的背景颜色|
 |textColor|`'#000000'`|string| 轮子内文本的颜色 |
 |bgColor|`'#ffffff'`|string| 轮子背景颜色 |
-|callback|function(indexArr, data){}|function | 选择成功后触发的回调函数，返回indexArr、data|
-|transitionEnd|function(indexArr, data){}|function|每一次手势滑动结束后触发的回调函数,返回indexArr、data|
+
 
 
 #### 注：回调函数中返回的参数含义如下
