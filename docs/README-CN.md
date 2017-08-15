@@ -135,8 +135,8 @@ var mobileSelect2 = new MobileSelect({
 |title|`''`|String|控件标题|
 |position|[0,0,0,…]|Array|初始化定位|
 |connector|`' '`|string| 多个轮子时，多个值中间的连接符号，默认是空格 |
-|ensureBtnText|`' '`|string| 确认按钮的文本内容 |
-|cancelBtnText|`' '`|string| 取消按钮的文本内容 |
+|ensureBtnText|`'确认'`|string| 确认按钮的文本内容 |
+|cancelBtnText|`'取消'`|string| 取消按钮的文本内容 |
 |ensureBtnColor|`'#1e83d3'`|string| 确认按钮的文本颜色|
 |cancelBtnColor|`'#666666'`|string| 取消按钮的文本颜色|
 |titleColor|`'#000000'`|string| 控件标题的文本颜色|
