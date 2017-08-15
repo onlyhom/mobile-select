@@ -3,8 +3,14 @@
   z-index: 0;
   opacity: 0;
   visibility: hidden;
-  -webkit-transition: all 0.4s;
-  transition: all 0.4s;
+  -webkit-transition: opacity 0.4s, z-index 0.4s;
+  transition: opacity 0.4s, z-index 0.4s;
+}
+.mobileSelect * {
+  margin: 0;
+  padding: 0;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
 }
 .mobileSelect .grayLayer {
   position: fixed;
@@ -26,7 +32,7 @@
   -webkit-transition: all 0.4s;
   transition: all 0.4s;
   bottom: -350px;
-  left:0;
+  left: 0;
   background: white;
 }
 .mobileSelect .content .fixWidth {
@@ -67,6 +73,10 @@
 }
 .mobileSelect .content .btnBar .title {
   font-size: 15px;
+  padding: 0 15%;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 .mobileSelect .content .panel:after {
   content: ".";
@@ -115,7 +125,7 @@
   top: 80px;
   pointer-events: none;
   -webkit-box-sizing: border-box;
-          box-sizing: border-box;
+  box-sizing: border-box;
   border-top: 1px solid #DCDCDC;
   border-bottom: 1px solid #DCDCDC;
 }
