@@ -134,10 +134,17 @@ var mobileSelect2 = new MobileSelect({
 |wheels|必填参数 无默认值|Array|数据源,需要显示的数据|
 |title|`''`|String|控件标题|
 |position|[0,0,0,…]|Array|初始化定位|
+|connector|`' '`|string| 多个轮子时，多个值中间的连接符号，默认是空格 |
+|ensureBtnText|`' '`|string| 确认按钮的文本内容 |
+|cancelBtnText|`' '`|string| 取消按钮的文本内容 |
+|ensureBtnColor|`'#1e83d3'`|string| 确认按钮的文本颜色|
+|cancelBtnColor|`'#666666'`|string| 取消按钮的文本颜色|
+|titleColor|`'#000000'`|string| 控件标题的文本颜色|
+|titleBgColor|`'#ffffff'`|string| 控件标题的背景颜色|
+|textColor|`'#000000'`|string| 轮子内文本的颜色 |
+|bgColor|`'#ffffff'`|string| 轮子背景颜色 |
 |callback|function(indexArr, data){}|function | 选择成功后触发的回调函数，返回indexArr、data|
 |transitionEnd|function(indexArr, data){}|function|每一次手势滑动结束后触发的回调函数,返回indexArr、data|
-
-
 
 
 #### 注：回调函数中返回的参数含义如下
@@ -152,6 +159,7 @@ var mobileSelect2 = new MobileSelect({
 |updateWheel()| sliderIndex, data | 重新渲染指定的轮子 |
 |updateWheels()| data | 重新渲染所有轮子(仅限级联数据格式使用) |
 |show()| 无参 | 唤起弹窗组件  |
+|getValue()| 无参 | 获取组件选择的值 |
 
 #### 注：功能函数中需要传递的参数含义如下
  - sliderIndex 代表的是要修改的轮子的索引
