@@ -214,12 +214,12 @@ var mySelect = new MobileSelect({
 选择到的值写进div的innerHTML里             
 推荐用callback(indexArr, data)回调函数获取选择到的值         
 
-### 2017-07-27[更新]    
+### 2017-07-27[修正]    
 修复issues中【li362692680】同学提出的    
 级联选择时无法初始定位二级选择框的问题    
 同时修复init函数中传入的position数组参数长度小于轮子个数无法移动的问题    
 
-### 2017-07-30[更新]    
+### 2017-07-30[修正+更新]    
 修复issues中【leohgbs】同学提出的    
 1.更新没有考虑到 数据是json的问题    
 2.更新之后，缓存的数据没有更新，导致callback数据源错误    
@@ -227,6 +227,25 @@ var mySelect = new MobileSelect({
 更改方法名:updateWheels() → reRenderWheels()    
 updateWheel()方法不变    
 新增API：updateWheels(data) 用来在级联数据格式下 更新整个数据源    
+
+### 2017-08-15[更新]  
+修复级联状态下-单点击失效    
+删除js文件中大括号后面的注释(在php环境中 会有js代码失效的情况)    
+修复ios潜在bug    
+新增API show()    
+新增API getValue()    
+新增选项样式选项(修改连接符/按钮文本/按钮颜色/背景颜色等)：    
+connector    
+ensureBtnText    
+ensureBtnColor    
+cancelBtnText     
+cancelBtnColor    
+titleColor    
+titleBgColor    
+bgColor    
+textColor    
+颜色支持如 #ff0000 rgba(0,255,255,0.5) orange 等格式
+
 
 
 ## 许可证
