@@ -233,7 +233,7 @@ Cascade selection can not initially locate the secondary selection box.
 At the same time repair the init function of the entry array parameter length is less than the number of wheels can not move the problem.        
 
 
-### 2017-07-30[update]       
+### 2017-07-30[bug fixed + update]       
 Repair the issues raised by [leohgbs]:       
 1. The update does not take into account the problem that the data is json.       
 2. After the update, the cached data is not updated, resulting in a callback data source error.       
@@ -242,6 +242,26 @@ Change the variable name: jsonData → cascadeJsonData
 Change method name: updateWheels() → reRenderWheels()       
 The updateWheel() method does not change.       
 Add new API: updateWheels(data) is used to update the entire data source in cascading data format.       
+
+
+### 2017-08-15[update]    
+Repair in cascade state, single click failed.      
+Delete the comment after the brace in the js file(In the php environment there will be js code failure situation).    
+Fix ios potential bug.  
+Add API: show()    
+Add API: getValue()    
+Add option style options(Modify the connector / button text / button color / background color and so on)：    
+connector    
+ensureBtnText    
+ensureBtnColor    
+cancelBtnText     
+cancelBtnColor    
+titleColor    
+titleBgColor    
+bgColor    
+textColor    
+Supports color formats such as #ff0000 rgba(0,255,255,0.5) orange.    
+
 
 
 ## License
