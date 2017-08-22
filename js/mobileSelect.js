@@ -53,40 +53,13 @@ window.MobileSelect = (function() {
 			_this.titleText = config.title ? config.title : '';
 			_this.connector = config.connector ? config.connector : ' ';
 			_this.trigger.style.cursor='pointer';
-
-			if(config.ensureBtnColor){
-				_this.ensureBtn.style.color = config.ensureBtnColor;
-			}
-			if(config.cancelBtnColor){
-				_this.cancelBtn.style.color = config.cancelBtnColor;
-			}
-			if(config.titleColor){
-				_this.title = _this.mobileSelect.querySelector('.title');
-				_this.title.style.color = config.titleColor;
-			}
-			if(config.textColor){
-				_this.panel = _this.mobileSelect.querySelector('.panel');
-				_this.panel.style.color = config.textColor;
-			}
-			if(config.titleBgColor){
-				_this.btnBar = _this.mobileSelect.querySelector('.btnBar');
-				_this.btnBar.style.backgroundColor = config.titleBgColor;
-			}
-			if(config.bgColor){
-				_this.panel = _this.mobileSelect.querySelector('.panel');
-				_this.shadowMask = _this.mobileSelect.querySelector('.shadowMask');
-				_this.panel.style.backgroundColor = config.bgColor;
-				_this.shadowMask.style.background = 'linear-gradient(to bottom, '+ config.bgColor + ', rgba(255, 255, 255, 0), '+ config.bgColor + ')';
-			}
-
+			_this.setStyle(config);
 			_this.setTitle(_this.titleText);
 			_this.checkIsPC();
 			_this.checkCascade();
-
 			if (_this.cascade) {
 				_this.initCascade();
 			}
-
 			//定位 初始位置
 			if(_this.initPosition.length < _this.slider.length){
 				var diff = _this.slider.length - _this.initPosition.length;
@@ -132,8 +105,32 @@ window.MobileSelect = (function() {
 			_this.mobileSelect.querySelector('.title').innerHTML = _this.titleText;
 		},
 
-		setStyle: function(){
-
+		setStyle: function(config){
+			var _this = this;
+			if(config.ensureBtnColor){
+				_this.ensureBtn.style.color = config.ensureBtnColor;
+			}
+			if(config.cancelBtnColor){
+				_this.cancelBtn.style.color = config.cancelBtnColor;
+			}
+			if(config.titleColor){
+				_this.title = _this.mobileSelect.querySelector('.title');
+				_this.title.style.color = config.titleColor;
+			}
+			if(config.textColor){
+				_this.panel = _this.mobileSelect.querySelector('.panel');
+				_this.panel.style.color = config.textColor;
+			}
+			if(config.titleBgColor){
+				_this.btnBar = _this.mobileSelect.querySelector('.btnBar');
+				_this.btnBar.style.backgroundColor = config.titleBgColor;
+			}
+			if(config.bgColor){
+				_this.panel = _this.mobileSelect.querySelector('.panel');
+				_this.shadowMask = _this.mobileSelect.querySelector('.shadowMask');
+				_this.panel.style.backgroundColor = config.bgColor;
+				_this.shadowMask.style.background = 'linear-gradient(to bottom, '+ config.bgColor + ', rgba(255, 255, 255, 0), '+ config.bgColor + ')';
+			}
 		},
 
 		checkIsPC: function(){
@@ -302,9 +299,18 @@ window.MobileSelect = (function() {
 		checkArrDeep: function (parent) { 
 			//检测子节点深度  修改 displayJson
 			var _this = this;
-			if ('childs' in parent && parent.childs.length > 0) {
-				_this.displayJson.push(_this.generateArrData(parent.childs)); //生成子节点数组
-				_this.checkArrDeep(parent.childs[0]);//检测下一个子节点
+			if(parent){
+				if ('childs' in parent && parent.childs.length > 0) {
+					_this.displayJson.push(_this.generateArrData(parent.childs)); //生成子节点数组
+					_this.checkArrDeep(parent.childs[0]);//检测下一个子节点
+
+					// if(_this.initPosition[2]){
+					// 	console.log('初始化的check');
+					// 	_this.checkArrDeep(parent.childs[_this.initPosition[2]]);//检测下一个子节点
+					// }else{
+					// 	_this.checkArrDeep(parent.childs[0]);//检测下一个子节点
+					// }
+				}
 			}
 		},
 
@@ -396,6 +402,12 @@ window.MobileSelect = (function() {
 				_this.cascadeJsonData = data;
 				_this.displayJson = [];
 				_this.initCascade();
+				if(_this.initPosition.length < _this.slider.length){
+					var diff = _this.slider.length - _this.initPosition.length;
+					for(var i=0; i<diff; i++){
+						_this.initPosition.push(0);
+					}
+				}
 				_this.setCurDistance(_this.initPosition);
 				_this.fixRowStyle();
 			}
