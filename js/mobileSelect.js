@@ -255,7 +255,6 @@ window.MobileSelect = (function() {
 			var _this = this;
 			if(typeof(_this.wheelsData[0].data[0])=='object'){
 				_this.jsonType = true;
-				_this.cascadeJsonData = _this.wheelsData[0].data;
 			}
 		},
 
@@ -266,23 +265,13 @@ window.MobileSelect = (function() {
 				for(var i=0; i<node.length; i++){
 					if('childs' in node[i] && node[i].childs.length > 0){
 						_this.cascade = true;
+						_this.cascadeJsonData = _this.wheelsData[0].data;
 						break;
 					}
 				}
 			}else{
 				_this.cascade = false;
 			}
-		},
-
-		initCascade: function(){
-			var _this = this;
-			_this.displayJson.push(_this.generateArrData(_this.cascadeJsonData));
-			if(_this.initPosition[0]){
-				_this.checkArrDeep(_this.cascadeJsonData[_this.initPosition[0]]);
-			}else{
-				_this.checkArrDeep(_this.cascadeJsonData[0]);
-			}
-			_this.reRenderWheels();
 		},
 
 		generateArrData: function (targetArr) {
@@ -296,6 +285,34 @@ window.MobileSelect = (function() {
 			return tempArr;
 		},
 
+		initCascade: function(){
+			var _this = this;
+			_this.displayJson.push(_this.generateArrData(_this.cascadeJsonData));
+			if(_this.initPosition){
+				_this.initDeepCount = 0;
+				_this.initCheckArrDeep(_this.cascadeJsonData[_this.initPosition[0]]);
+			}else{
+				_this.checkArrDeep(_this.cascadeJsonData[0]);
+			}
+			_this.reRenderWheels();
+		},
+
+		initCheckArrDeep: function (parent) {
+			var _this = this;
+			if(parent){
+				if ('childs' in parent && parent.childs.length > 0) {
+					_this.displayJson.push(_this.generateArrData(parent.childs)); 
+					_this.initDeepCount++;
+					var nextNode = parent.childs[_this.initPosition[_this.initDeepCount]];
+					if(nextNode){
+						_this.initCheckArrDeep(nextNode);
+					}else{
+						_this.checkArrDeep(parent.childs[0]);
+					}
+				}
+			}
+		},
+
 		checkArrDeep: function (parent) { 
 			//检测子节点深度  修改 displayJson
 			var _this = this;
@@ -303,13 +320,6 @@ window.MobileSelect = (function() {
 				if ('childs' in parent && parent.childs.length > 0) {
 					_this.displayJson.push(_this.generateArrData(parent.childs)); //生成子节点数组
 					_this.checkArrDeep(parent.childs[0]);//检测下一个子节点
-
-					// if(_this.initPosition[2]){
-					// 	console.log('初始化的check');
-					// 	_this.checkArrDeep(parent.childs[_this.initPosition[2]]);//检测下一个子节点
-					// }else{
-					// 	_this.checkArrDeep(parent.childs[0]);//检测下一个子节点
-					// }
 				}
 			}
 		},
