@@ -146,7 +146,7 @@ var mobileSelect2 = new MobileSelect({
 |wheels|Required parameter No default value|Array|The data displayed on the wheel|
 |title|`''`|String|Component title|
 |position|[0,0,0,…]|Array|Initialize positioning|
-|connector|`' '`|string| 多个轮子时，多个值中间的连接符，默认是空格 |
+|connector|`' '`|string| When there are multiple wheels, set the connection to connect multiple values, the default value is a space |
 | callback|function(indexArr, data){}|function | Select the callback function triggered after successful, return parameter (indexArr, data)|
 |transitionEnd|function(indexArr, data){}|function|A callback function that after each gesture sliding, return parameter (indexArr, data)|
 |ensureBtnText|`'确认'`|string| The text content of comfirm button |
