@@ -30,7 +30,7 @@ A multi-function mobile phone scrolling selector, support single to multi-select
 
 
 
-## Demo
+## Preview
 
 #### Use mobile phone scan code to preview: 
 ![Image text](https://raw.githubusercontent.com/onlyhom/img-folder/master/png/ms_code_url_240.png)
