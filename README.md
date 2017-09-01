@@ -28,8 +28,12 @@ A multi-function mobile phone scrolling selector, support single to multi-select
 
 ## Demo
 
+#### Use mobile phone scan code to preview: 
+![Image text](https://raw.githubusercontent.com/onlyhom/img-folder/master/png/ms_code_url_240.png)
 
+#### Gif preview:   
 ![Image text](http://p1.bqimg.com/4851/0e072a9fae72e0a0.gif)
+
 
 ## Installation
 
