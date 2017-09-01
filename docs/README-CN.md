@@ -21,10 +21,10 @@
 
 ## 演示    
 
-二维码：  
-![Image text](https://raw.githubusercontent.com/onlyhom/img-folder/master/png/ms_code_url.png)
+手机扫描二维码预览：  
+![Image text](https://raw.githubusercontent.com/onlyhom/img-folder/master/png/ms_code_url_240.png)
 
-动态图：   
+动态图预览：   
 ![Image text](http://p1.bqimg.com/4851/0e072a9fae72e0a0.gif)
 
 ## 引入    
