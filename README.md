@@ -14,7 +14,7 @@
 
 A multi-function mobile phone scrolling selector, support single to multi-select, support multi-level cascade, provide custom callback function, provide update function redraw, relocation function, compatible pc drag and so on.
 
-[【中文文档】](https://github.com/onlyhom/mobileSelect.js/blob/master/docs/README-CN.md)
+[【查看中文文档】](https://github.com/onlyhom/mobileSelect.js/blob/master/docs/README-CN.md)
 
 ## Features
 
