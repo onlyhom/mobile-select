@@ -41,12 +41,23 @@ A multi-function mobile phone scrolling selector, support single to multi-select
 
 ## Installation
 
-
-
+#### Method1 tag import：
 ```html
 <link rel="stylesheet" type="text/css" href="css/mobileSelect.css">
 <script src="js/mobileSelect.js" type="text/javascript"></script>
 ```
+
+#### Method2 npm install：
+
+```
+npm install mobile-select -D
+```
+
+Import in your js file：
+```javascript
+import MobileSelect from 'mobile-select'
+```
+
 
 ## Getting Started
 
@@ -107,7 +118,7 @@ var mobileSelect2 = new MobileSelect({
 
 #### ③Json format - Cascade
 ```html
-<div id="area2"></div>
+<div id="area2"></div> <!--Don't forget this trigger in your page-->
 
 <script type="text/javascript">
   var addressLocation = new MobileSelect({

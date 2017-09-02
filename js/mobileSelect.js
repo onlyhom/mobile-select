@@ -4,12 +4,10 @@
  * Released under the MIT License.
  */
 
-window.MobileSelect = (function() {
-
+(function() {
 	function getClass(dom,string) {
 		return dom.getElementsByClassName(string);
 	}
-
 	//构造器
 	function MobileSelect(config) {
 		this.mobileSelect;
@@ -30,18 +28,20 @@ window.MobileSelect = (function() {
 		this.isPC = true;
 		this.init(config);
 	}
-	
 	MobileSelect.prototype = {
 		constructor: MobileSelect,
 		init: function(config){
 			var _this = this; 
 			_this.checkDataType();
 			_this.renderWheels(_this.wheelsData, config.cancelBtnText, config.ensureBtnText);
-
 			_this.trigger = document.querySelector(config.trigger);
-			_this.wheel = getClass(_this.mobileSelect,'wheel');   //wheel 数组
-			_this.slider = getClass(_this.mobileSelect,'selectContainer'); // slider 数组
-			_this.wheels = _this.mobileSelect.querySelector('.wheels');   //wheels
+			if(!_this.trigger){
+				console.error('mobileSelect has been successfully installed, but no trigger found on your page.');
+				return false;
+			}
+			_this.wheel = getClass(_this.mobileSelect,'wheel');
+			_this.slider = getClass(_this.mobileSelect,'selectContainer'); 
+			_this.wheels = _this.mobileSelect.querySelector('.wheels');
 			_this.liHeight = _this.mobileSelect.querySelector('li').offsetHeight;
 			_this.ensureBtn = _this.mobileSelect.querySelector('.ensure');
 			_this.cancelBtn = _this.mobileSelect.querySelector('.cancel');
@@ -662,5 +662,13 @@ window.MobileSelect = (function() {
 
 	};
 
-	return MobileSelect;
+	if (typeof exports == "object") {
+		module.exports = MobileSelect;
+	} else if (typeof define == "function" && define.amd) {
+		define([], function () {
+			return MobileSelect;
+		})
+	} else {
+		window.MobileSelect = MobileSelect;
+	}
 })();

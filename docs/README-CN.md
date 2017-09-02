@@ -39,17 +39,28 @@
 
 ## 引入    
 
-
+#### 方式一 标签引入：
 ```html
 <link rel="stylesheet" type="text/css" href="css/mobileSelect.css">
 <script src="js/mobileSelect.js" type="text/javascript"></script>
+```
+
+#### 方式二 npm：
+
+```
+npm install mobile-select -D
+```
+
+在你的js文件中import：
+```javascript
+import MobileSelect from 'mobile-select'
 ```
 
 ## 快速使用
 
 #### ①普通数组格式-非联动
 ```html
-<div id="day"></div>
+<div id="day"></div> <!--页面中别漏了这个trigger-->
 
 <script type="text/javascript">
 var mobileSelect1 = new MobileSelect({
@@ -259,7 +270,6 @@ titleBgColor
 bgColor    
 textColor    
 颜色支持如 #ff0000 rgba(0,255,255,0.5) orange 等格式
-
 
 
 ## 许可证
