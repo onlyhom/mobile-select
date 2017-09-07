@@ -467,8 +467,8 @@ Supports color formats such as #ff0000 rgba(0,255,255,0.5) orange.
 
 
 ### 2017-09-07[更新]    
-Add keyMap function
-update README
+Add keyMap function      
+update README     
 
 ## License
 
