@@ -65,7 +65,7 @@ import MobileSelect from 'mobile-select'
 
 #### ①Ordinary array format - Non-cascade
 ```html
-<div id="day"></div>
+<div id="day"></div><!--Don't forget this trigger in your page-->
 
 <script type="text/javascript">
 var mobileSelect1 = new MobileSelect({
@@ -118,10 +118,10 @@ var mobileSelect2 = new MobileSelect({
 
 #### ③Json format - Cascade
 ```html
-<div id="area2"></div> <!--Don't forget this trigger in your page-->
+<div id="area2"></div>
 
 <script type="text/javascript">
-  var addressLocation = new MobileSelect({
+  var mobileSelect3 = new MobileSelect({
       trigger: '#area2',
       title: '地区选择-联动',
       wheels: [
@@ -155,6 +155,190 @@ var mobileSelect2 = new MobileSelect({
 ![Image text](https://raw.githubusercontent.com/onlyhom/img-folder/master/gif/%E7%BA%A7%E8%81%94.gif)
 
 
+#### ④ajax asynchronous fill data
+
+```html
+
+<!-- ************ Non-cascade Format ************ -->
+
+<div id="trigger4"></div>
+
+<script type="text/javascript">
+    var mobileSelect4 = new MobileSelect({
+        trigger: '#trigger4',
+        title: 'ajax fill data - non-cascade',
+        wheels: [
+                    {data:[
+                        {id:'1',value:'choose area'},
+                    ]},
+                    {data:[
+                        {id:'1',value:'choose distance'},
+                    ]}
+                ],        
+        callback:function(indexArr, data){
+            console.log(data);
+        }
+    });
+
+    $.ajax({
+        type: "POST",
+        url: "xxxx",
+        data: {},
+        dataType: "json",
+        success: function(res){
+            //Assume that the obtained res.data.area is：
+            // [
+            //     {id:'1',value:'area1'},
+            //     {id:'2',value:'area2'},
+            //     {id:'3',value:'area3'},
+            //     {id:'4',value:'area4'}
+            // ]
+
+            //Assume that the obtained res.data.distance is：
+            // [
+            //     {id:'1',value:'200 metres'},
+            //     {id:'2',value:'300 metres'},
+            //     {id:'3',value:'400 metres'}
+            // ]
+ 
+            mobileSelect4.updateWheel(0, res.data.area); //Update the 0th wheel
+            mobileSelect4.updateWheel(1, res.data.distance); //Update the 1th wheel
+        }
+    });
+</script>
+</script>
+
+
+
+
+<!-- ************ Cascade Format ************ -->
+
+<div id="trigger4"></div>
+
+<script type="text/javascript">
+    var mobileSelect4 = new MobileSelect({
+        trigger: '#trigger4',
+        title: 'ajax fill data - cascade',
+        wheels: [
+                    {data:[
+                        {
+                            id:'1',
+                            value:'',
+                            childs:[
+                                {id:'A1',value:''},
+                            ]
+                        }
+                    ]}
+                ],        
+        callback:function(indexArr, data){
+            console.log(data);
+        }
+    });
+
+    $.ajax({
+        type: "POST",
+        url: "xxxx",
+        data: {},
+        dataType: "json",
+        success: function(res){
+            //Assume that the obtained res.data is：
+            // [{
+            //     id:'1',
+            //     value:'after update',
+            //     childs:[
+            //         {id:'A1',value:'apple'},
+            //         {id:'A2',value:'banana'},
+            //         {id:'A3',value:'orange'}
+            //     ]
+            // }]
+            mobileSelect4.updateWheels(res.data);
+        }
+    });
+</script>
+```
+
+#### ⑤How to use in vue-cli   
+
+```
+npm install mobile-select -D
+```
+
+```html
+<template>
+    <div>
+        <div id="trigger5">vue-cli-demo</div>
+    </div>
+</template>
+
+<script>
+    import MobileSelect from 'mobile-select'
+
+    export default {
+        mounted() {
+            var mobileSelect5 = new MobileSelect({
+                trigger: "#trigger5",
+                title: "vue-cli-demo",
+                wheels: [
+                    {data: ["周日","周一","周二","周三","周四","周五","周六"]}
+                ],
+                callback:function(indexArr, data){
+                    console.log(data);
+                }
+            });
+        }
+    }
+</script>
+```
+
+
+#### ⑥Json format - Data field mapping    
+```html
+<div id="trigger6"></div>
+
+<script type="text/javascript">
+    // If your data field is named id, title, children
+    // does not match the id, value, childs field name of mobileSelect
+    // You can use the keyMap property for field name mapping
+    var mobileSelect6 = new MobileSelect({
+        trigger: '#trigger6',
+        title: 'keyMap',
+        wheels: [
+                    {data:[
+                        {
+                            id:'1',
+                            title:'A',
+                            children:[
+                                {id:'A1',title:'A-a'},
+                                {id:'A2',title:'A-b'},
+                                {id:'A3',title:'A-c'}
+                            ]
+                        },
+                        {
+                            id:'1',
+                            title:'B',
+                            children:[
+                                {id:'B1',title:'B-a'},
+                                {id:'B2',title:'B-b'},
+                                {id:'B3',title:'B-c'}
+                            ]
+                        },
+                    ]}
+                ],
+        keyMap: {
+            id:'id',
+            value: 'title',
+            childs :'children'
+        },         
+        callback:function(indexArr, data){
+            console.log(data);
+        }
+    });
+</script>
+```
+
+
+
+
 
 ## Options
 
@@ -176,7 +360,7 @@ var mobileSelect2 = new MobileSelect({
 |titleBgColor|`'#ffffff'`|string| The background color of the component title |
 |textColor|`'#000000'`|string| The text color of the wheels |
 |bgColor|`'#ffffff'`|string| The Wheels background color |
-
+|keyMap|`{id:'id', value:'value', childs:'childs'`}|object| Field name mapping, applies to field names that do not match id, value, childs |
 
 
 #### Tips: The meaning of the parameters returned in the callback function is as follows
@@ -282,6 +466,9 @@ textColor
 Supports color formats such as #ff0000 rgba(0,255,255,0.5) orange.    
 
 
+### 2017-09-07[更新]    
+Add keyMap function
+update README
 
 ## License
 

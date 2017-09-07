@@ -60,11 +60,11 @@ import MobileSelect from 'mobile-select'
 
 #### ①普通数组格式-非联动
 ```html
-<div id="day"></div> <!--页面中别漏了这个trigger-->
+<div id="trigger1"></div> <!--页面中别漏了这个trigger-->
 
 <script type="text/javascript">
 var mobileSelect1 = new MobileSelect({
-    trigger: '#day', 
+    trigger: '#trigger1', 
     title: '单项选择',  
     wheels: [
                 {data:['周日','周一','周二','周三','周四','周五','周六']}
@@ -78,11 +78,11 @@ var mobileSelect1 = new MobileSelect({
 
 #### ②json格式-非联动
 ```html
-<div id="area"></div>
+<div id="trigger2"></div>
 
 <script type="text/javascript">
 var mobileSelect2 = new MobileSelect({
-    trigger: '#area',
+    trigger: '#trigger2',
     title: '地区选择',
     wheels: [
                 {data:[
@@ -113,11 +113,11 @@ var mobileSelect2 = new MobileSelect({
 
 #### ③json格式-联动
 ```html
-<div id="area2"></div>
+<div id="trigger3"></div>
 
 <script type="text/javascript">
   var mobileSelect3 = new MobileSelect({
-      trigger: '#area2',
+      trigger: '#trigger3',
       title: '地区选择-联动',
       wheels: [
                   {data:[
@@ -146,54 +146,191 @@ var mobileSelect2 = new MobileSelect({
   });
   </script>
 ```
-##### 效果图：
+##### 效果图：  
 ![Image text](https://raw.githubusercontent.com/onlyhom/img-folder/master/gif/%E7%BA%A7%E8%81%94.gif)
 
 
-#### ④json格式-数据字段名映射
+#### ④ajax异步填充数据   
+
 ```html
-<div id="trigger"></div>
+
+<!-- ************ 非级联格式 ************ -->
+
+<div id="trigger4"></div>
 
 <script type="text/javascript">
-  //假如你的数据的字段名为id,title,children
-  //与mobileSelect的id,value,childs字段名不匹配
-  //可以用keyMap属性进行字段名映射
-  var mobileSelect4 = new MobileSelect({
-      trigger: '#trigger',
-      title: '数据字段名映射',
-      wheels: [
-                  {data:[
-                      {
-                          id:'1',
-                          title:'A',
-                          children:[
-                              {id:'A1',title:'A-a'},
-                              {id:'A2',title:'A-b'},
-                              {id:'A3',title:'A-c'}
-                          ]
-                      },
-                      {
-                          id:'1',
-                          title:'B',
-                          children:[
-                              {id:'B1',title:'B-a'},
-                              {id:'B2',title:'B-b'},
-                              {id:'B3',title:'B-c'}
-                          ]
-                      },
-                  ]}
-              ],
-      keyMap: {
-          id:'id',
-          value: 'title',
-          childs :'children'
-      },         
-      callback:function(indexArr, data){
-          console.log(data);
-      }
-  });
+    var mobileSelect4 = new MobileSelect({
+        trigger: '#trigger4',
+        title: 'ajax填充数据-非级联',
+        wheels: [
+                    {data:[
+                        {id:'1',value:'请选择地区'},
+                    ]},
+                    {data:[
+                        {id:'1',value:'请选择距离'},
+                    ]}
+                ],        
+        callback:function(indexArr, data){
+            console.log(data);
+        }
+    });
+
+    $.ajax({
+        type: "POST",
+        url: "xxxx",
+        data: {},
+        dataType: "json",
+        success: function(res){
+            //这里假设获取到的res.data.area为：
+            // [
+            //     {id:'1',value:'附近'},
+            //     {id:'2',value:'福田区'},
+            //     {id:'3',value:'罗湖区'},
+            //     {id:'4',value:'南山区'}
+            // ]
+
+            //这里假设获取到的res.data.distance为：
+            // [
+            //     {id:'1',value:'200米'},
+            //     {id:'2',value:'300米'},
+            //     {id:'3',value:'400米'}
+            // ]
+ 
+            mobileSelect4.updateWheel(0, res.data.area); //更改第0个轮子
+            mobileSelect4.updateWheel(1, res.data.distance); //更改第1个轮子
+        }
+    });
+</script>
+</script>
+
+
+
+
+<!-- ************ 级联格式 ************ -->
+
+<div id="trigger4"></div>
+
+<script type="text/javascript">
+    var mobileSelect4 = new MobileSelect({
+        trigger: '#trigger4',
+        title: 'ajax填充数据-级联',
+        wheels: [
+                    {data:[
+                        {
+                            id:'1',
+                            value:'',
+                            childs:[
+                                {id:'A1',value:''},
+                            ]
+                        }
+                    ]}
+                ],        
+        callback:function(indexArr, data){
+            console.log(data);
+        }
+    });
+
+    $.ajax({
+        type: "POST",
+        url: "xxxx",
+        data: {},
+        dataType: "json",
+        success: function(res){
+            //这里假设获取到的res.data为：
+            // [{
+            //     id:'1',
+            //     value:'更新后数据',
+            //     childs:[
+            //         {id:'A1',value:'apple'},
+            //         {id:'A2',value:'banana'},
+            //         {id:'A3',value:'orange'}
+            //     ]
+            // }]
+            mobileSelect4.updateWheels(res.data);
+        }
+    });
 </script>
 ```
+
+#### ⑤在vue-cli中如何使用   
+
+```
+npm install mobile-select -D
+```
+
+```html
+<template>
+    <div>
+        <div id="trigger5">单项选择</div>
+    </div>
+</template>
+
+<script>
+    import MobileSelect from 'mobile-select'
+
+    export default {
+        mounted() {
+            var mobileSelect5 = new MobileSelect({
+                trigger: "#trigger5",
+                title: "单项选择",
+                wheels: [
+                    {data: ["周日","周一","周二","周三","周四","周五","周六"]}
+                ],
+                callback:function(indexArr, data){
+                    console.log(data);
+                }
+            });
+        }
+    }
+</script>
+```
+
+
+#### ⑥json格式-数据字段名映射    
+```html
+<div id="trigger6"></div>
+
+<script type="text/javascript">
+    //假如你的数据的字段名为id,title,children
+    //与mobileSelect的id,value,childs字段名不匹配
+    //可以用keyMap属性进行字段名映射
+    var mobileSelect6 = new MobileSelect({
+        trigger: '#trigger6',
+        title: '数据字段名映射',
+        wheels: [
+                    {data:[
+                        {
+                            id:'1',
+                            title:'A',
+                            children:[
+                                {id:'A1',title:'A-a'},
+                                {id:'A2',title:'A-b'},
+                                {id:'A3',title:'A-c'}
+                            ]
+                        },
+                        {
+                            id:'1',
+                            title:'B',
+                            children:[
+                                {id:'B1',title:'B-a'},
+                                {id:'B2',title:'B-b'},
+                                {id:'B3',title:'B-c'}
+                            ]
+                        },
+                    ]}
+                ],
+        keyMap: {
+            id:'id',
+            value: 'title',
+            childs :'children'
+        },         
+        callback:function(indexArr, data){
+            console.log(data);
+        }
+    });
+</script>
+```
+
 
 
 ## 参数
@@ -215,7 +352,7 @@ var mobileSelect2 = new MobileSelect({
 |titleBgColor|`'#ffffff'`|string| 控件标题的背景颜色|
 |textColor|`'#000000'`|string| 轮子内文本的颜色 |
 |bgColor|`'#ffffff'`|string| 轮子背景颜色 |
-|keyMap|`{id:'id', value:'value', childs:'childs'`}|string| 字段名映射，适用于字段名不匹配id,value,childs的数据格式 |
+|keyMap|`{id:'id', value:'value', childs:'childs'`}|object| 字段名映射，适用于字段名不匹配id,value,childs的数据格式 |
 
 
 
@@ -315,7 +452,12 @@ titleColor
 titleBgColor    
 bgColor    
 textColor    
-颜色支持如 #ff0000 rgba(0,255,255,0.5) orange 等格式
+颜色支持如 #ff0000 rgba(0,255,255,0.5) orange 等格式    
+
+
+### 2017-09-07[更新]    
+增加数据字段映射功能
+更新README
 
 
 ## 许可证
