@@ -150,109 +150,7 @@ var mobileSelect2 = new MobileSelect({
 ![Image text](https://raw.githubusercontent.com/onlyhom/img-folder/master/gif/%E7%BA%A7%E8%81%94.gif)
 
 
-#### ④ajax异步填充数据   
-
-```html
-
-<!-- ************ 非级联格式 ************ -->
-
-<div id="trigger4"></div>
-
-<script type="text/javascript">
-    var mobileSelect4 = new MobileSelect({
-        trigger: '#trigger4',
-        title: 'ajax填充数据-非级联',
-        wheels: [
-                    {data:[
-                        {id:'1',value:'请选择地区'},
-                    ]},
-                    {data:[
-                        {id:'1',value:'请选择距离'},
-                    ]}
-                ],        
-        callback:function(indexArr, data){
-            console.log(data);
-        }
-    });
-
-    $.ajax({
-        type: "POST",
-        url: "xxxx",
-        data: {},
-        dataType: "json",
-        success: function(res){
-            //这里假设获取到的res.data.area为：
-            // [
-            //     {id:'1',value:'附近'},
-            //     {id:'2',value:'福田区'},
-            //     {id:'3',value:'罗湖区'},
-            //     {id:'4',value:'南山区'}
-            // ]
-
-            //这里假设获取到的res.data.distance为：
-            // [
-            //     {id:'1',value:'200米'},
-            //     {id:'2',value:'300米'},
-            //     {id:'3',value:'400米'}
-            // ]
- 
-            mobileSelect4.updateWheel(0, res.data.area); //更改第0个轮子
-            mobileSelect4.updateWheel(1, res.data.distance); //更改第1个轮子
-        }
-    });
-</script>
-</script>
-
-
-
-
-<!-- ************ 级联格式 ************ -->
-
-<div id="trigger4"></div>
-
-<script type="text/javascript">
-    var mobileSelect4 = new MobileSelect({
-        trigger: '#trigger4',
-        title: 'ajax填充数据-级联',
-        wheels: [
-                    {data:[
-                        {
-                            id:'1',
-                            value:'',
-                            childs:[
-                                {id:'A1',value:''},
-                            ]
-                        }
-                    ]}
-                ],        
-        callback:function(indexArr, data){
-            console.log(data);
-        }
-    });
-
-    $.ajax({
-        type: "POST",
-        url: "xxxx",
-        data: {},
-        dataType: "json",
-        success: function(res){
-            //这里假设获取到的res.data为：
-            // [{
-            //     id:'1',
-            //     value:'更新后数据',
-            //     childs:[
-            //         {id:'A1',value:'apple'},
-            //         {id:'A2',value:'banana'},
-            //         {id:'A3',value:'orange'}
-            //     ]
-            // }]
-            mobileSelect4.updateWheels(res.data);
-        }
-    });
-</script>
-```
-
-#### ⑤在vue-cli中如何使用   
+#### ④在vue-cli中如何使用   
 
 ```
 npm install mobile-select -D
@@ -261,7 +159,7 @@ npm install mobile-select -D
 ```html
 <template>
     <div>
-        <div id="trigger5">单项选择</div>
+        <div id="trigger4">单项选择</div>
     </div>
 </template>
 
@@ -270,8 +168,8 @@ npm install mobile-select -D
 
     export default {
         mounted() {
-            var mobileSelect5 = new MobileSelect({
-                trigger: "#trigger5",
+            var mobileSelect4 = new MobileSelect({
+                trigger: "#trigger4",
                 title: "单项选择",
                 wheels: [
                     {data: ["周日","周一","周二","周三","周四","周五","周六"]}
@@ -286,16 +184,16 @@ npm install mobile-select -D
 ```
 
 
-#### ⑥json格式-数据字段名映射    
+#### ⑤数据字段名映射    
 ```html
-<div id="trigger6"></div>
+<div id="trigger5"></div>
 
 <script type="text/javascript">
     //假如你的数据的字段名为id,title,children
     //与mobileSelect的id,value,childs字段名不匹配
     //可以用keyMap属性进行字段名映射
-    var mobileSelect6 = new MobileSelect({
-        trigger: '#trigger6',
+    var mobileSelect5 = new MobileSelect({
+        trigger: '#trigger5',
         title: '数据字段名映射',
         wheels: [
                     {data:[
@@ -374,7 +272,7 @@ npm install mobile-select -D
  - sliderIndex 代表的是要修改的轮子的索引
  - posIndex 代表位置索引
  
-#### 功能函数demo：  
+#### ①功能函数demo：  
 ```html
 <div id="day"></div>
 
@@ -404,6 +302,111 @@ var mySelect = new MobileSelect({
 
 ![基础实例](https://github.com/onlyhom/img-folder/blob/master/QQscreenshot/before20170306234037.png?raw=true)
 ![功能函数操作后](https://github.com/onlyhom/img-folder/blob/master/QQscreenshot/after-20170306233954.png?raw=true)
+
+
+#### ②ajax异步填充数据demo     
+
+```html
+
+<!-- ************ 非级联格式 ************ -->
+
+<div id="trigger6"></div>
+
+<script type="text/javascript">
+    var mobileSelect6 = new MobileSelect({
+        trigger: '#trigger6',
+        title: 'ajax填充数据-非级联',
+        wheels: [
+                    {data:[
+                        {id:'1',value:'请选择地区'},
+                    ]},
+                    {data:[
+                        {id:'1',value:'请选择距离'},
+                    ]}
+                ],        
+        callback:function(indexArr, data){
+            console.log(data);
+        }
+    });
+
+    $.ajax({
+        type: "POST",
+        url: "xxxx",
+        data: {},
+        dataType: "json",
+        success: function(res){
+            //这里假设获取到的res.data.area为：
+            // [
+            //     {id:'1',value:'附近'},
+            //     {id:'2',value:'福田区'},
+            //     {id:'3',value:'罗湖区'},
+            //     {id:'4',value:'南山区'}
+            // ]
+
+            //这里假设获取到的res.data.distance为：
+            // [
+            //     {id:'1',value:'200米'},
+            //     {id:'2',value:'300米'},
+            //     {id:'3',value:'400米'}
+            // ]
+ 
+            mobileSelect6.updateWheel(0, res.data.area); //更改第0个轮子
+            mobileSelect6.updateWheel(1, res.data.distance); //更改第1个轮子
+        }
+    });
+</script>
+</script>
+
+
+
+
+<!-- ************ 级联格式 ************ -->
+
+<div id="trigger7"></div>
+
+<script type="text/javascript">
+    var mobileSelect7 = new MobileSelect({
+        trigger: '#trigger7',
+        title: 'ajax填充数据-级联',
+        wheels: [
+                    {data:[
+                        {
+                            id:'1',
+                            value:'',
+                            childs:[
+                                {id:'A1',value:''},
+                            ]
+                        }
+                    ]}
+                ],        
+        callback:function(indexArr, data){
+            console.log(data);
+        }
+    });
+
+    $.ajax({
+        type: "POST",
+        url: "xxxx",
+        data: {},
+        dataType: "json",
+        success: function(res){
+            //这里假设获取到的res.data为：
+            // [{
+            //     id:'1',
+            //     value:'更新后数据',
+            //     childs:[
+            //         {id:'A1',value:'apple'},
+            //         {id:'A2',value:'banana'},
+            //         {id:'A3',value:'orange'}
+            //     ]
+            // }]
+            mobileSelect7.updateWheels(res.data);
+        }
+    });
+</script>
+```
+
+
 
 ## 项目demo：
 使用transitionEnd()、callback()、updateWheel()、locatePostion()函数实现如下功能：
