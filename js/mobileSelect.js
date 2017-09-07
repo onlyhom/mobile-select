@@ -32,6 +32,7 @@
 		constructor: MobileSelect,
 		init: function(config){
 			var _this = this; 
+			_this.keyMap = config.keyMap ? config.keyMap : {id:'id', value:'value', childs:'childs'};
 			_this.checkDataType();
 			_this.renderWheels(_this.wheelsData, config.cancelBtnText, config.ensureBtnText);
 			_this.trigger = document.querySelector(config.trigger);
@@ -189,7 +190,7 @@
 				if(_this.jsonType){
 					for(var j=0; j<wheelsData[i].data.length; j++){ 
 					//行
-						tempHTML += '<li data-id="'+wheelsData[i].data[j].id+'">'+wheelsData[i].data[j].value+'</li>';
+						tempHTML += '<li data-id="'+wheelsData[i].data[j][_this.keyMap.id]+'">'+wheelsData[i].data[j][_this.keyMap.value]+'</li>';
 					}
 				}else{
 					for(var j=0; j<wheelsData[i].data.length; j++){ 
@@ -263,7 +264,7 @@
 			if(_this.jsonType){ 
 				var node = _this.wheelsData[0].data;
 				for(var i=0; i<node.length; i++){
-					if('childs' in node[i] && node[i].childs.length > 0){
+					if(_this.keyMap.childs in node[i] && node[i][_this.keyMap.childs].length > 0){
 						_this.cascade = true;
 						_this.cascadeJsonData = _this.wheelsData[0].data;
 						break;
@@ -276,11 +277,13 @@
 
 		generateArrData: function (targetArr) {
 			var tempArr = [];
+			var keyMap_id = this.keyMap.id;
+			var keyMap_value = this.keyMap.value;
 			for(var i=0; i<targetArr.length; i++){
-				tempArr.push({
-					"id": targetArr[i].id,
-					"value": targetArr[i].value
-				});	
+				var tempObj = {}; 
+				tempObj[keyMap_id] = targetArr[i][this.keyMap.id];
+				tempObj[keyMap_value] = targetArr[i][this.keyMap.value];
+				tempArr.push(tempObj);	
 			}
 			return tempArr;
 		},
@@ -288,7 +291,7 @@
 		initCascade: function(){
 			var _this = this;
 			_this.displayJson.push(_this.generateArrData(_this.cascadeJsonData));
-			if(_this.initPosition){
+			if(_this.initPosition.length>0){
 				_this.initDeepCount = 0;
 				_this.initCheckArrDeep(_this.cascadeJsonData[_this.initPosition[0]]);
 			}else{
@@ -300,14 +303,14 @@
 		initCheckArrDeep: function (parent) {
 			var _this = this;
 			if(parent){
-				if ('childs' in parent && parent.childs.length > 0) {
-					_this.displayJson.push(_this.generateArrData(parent.childs)); 
+				if (_this.keyMap.childs in parent && parent[_this.keyMap.childs].length > 0) {
+					_this.displayJson.push(_this.generateArrData(parent[_this.keyMap.childs])); 
 					_this.initDeepCount++;
-					var nextNode = parent.childs[_this.initPosition[_this.initDeepCount]];
+					var nextNode = parent[_this.keyMap.childs][_this.initPosition[_this.initDeepCount]];
 					if(nextNode){
 						_this.initCheckArrDeep(nextNode);
 					}else{
-						_this.checkArrDeep(parent.childs[0]);
+						_this.checkArrDeep(parent[_this.keyMap.childs][0]);
 					}
 				}
 			}
@@ -317,9 +320,9 @@
 			//检测子节点深度  修改 displayJson
 			var _this = this;
 			if(parent){
-				if ('childs' in parent && parent.childs.length > 0) {
-					_this.displayJson.push(_this.generateArrData(parent.childs)); //生成子节点数组
-					_this.checkArrDeep(parent.childs[0]);//检测下一个子节点
+				if (_this.keyMap.childs in parent && parent[_this.keyMap.childs].length > 0) {
+					_this.displayJson.push(_this.generateArrData(parent[_this.keyMap.childs])); //生成子节点数组
+					_this.checkArrDeep(parent[_this.keyMap.childs][0]);//检测下一个子节点
 				}
 			}
 		},
@@ -335,7 +338,7 @@
 				if (i == 0)
 					resultNode = _this.cascadeJsonData[posIndexArr[0]];
 				else {
-					resultNode = resultNode.childs[posIndexArr[i]];
+					resultNode = resultNode[_this.keyMap.childs][posIndexArr[i]];
 				}
 			}
 			_this.checkArrDeep(resultNode);
@@ -383,7 +386,7 @@
 						//console.log('插入Li');
 						for(var j=0; j<_this.displayJson[i].length; j++){ 
 						//行
-							tempHTML += '<li data-id="'+_this.displayJson[i][j].id+'">'+_this.displayJson[i][j].value+'</li>';
+							tempHTML += '<li data-id="'+_this.displayJson[i][j][_this.keyMap.id]+'">'+_this.displayJson[i][j][_this.keyMap.value]+'</li>';
 						}
 						_this.slider[i].innerHTML = tempHTML;
 
@@ -393,7 +396,7 @@
 						tempHTML = '<ul class="selectContainer">';
 						for(var j=0; j<_this.displayJson[i].length; j++){ 
 						//行
-							tempHTML += '<li data-id="'+_this.displayJson[i][j].id+'">'+_this.displayJson[i][j].value+'</li>';
+							tempHTML += '<li data-id="'+_this.displayJson[i][j][_this.keyMap.id]+'">'+_this.displayJson[i][j][_this.keyMap.value]+'</li>';
 						}
 						tempHTML += '</ul>';
 						tempWheel.innerHTML = tempHTML;
@@ -432,7 +435,7 @@
 	    	}
 	    	else if(_this.jsonType){
 				for(var j=0; j<data.length; j++){
-					tempHTML += '<li data-id="'+data[j].id+'">'+data[j].value+'</li>';
+					tempHTML += '<li data-id="'+data[j][_this.keyMap.id]+'">'+data[j][_this.keyMap.value]+'</li>';
 				}
 				_this.wheelsData[sliderIndex] = {data: data};
 	    	}else{

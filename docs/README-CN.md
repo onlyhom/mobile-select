@@ -116,7 +116,7 @@ var mobileSelect2 = new MobileSelect({
 <div id="area2"></div>
 
 <script type="text/javascript">
-  var addressLocation = new MobileSelect({
+  var mobileSelect3 = new MobileSelect({
       trigger: '#area2',
       title: '地区选择-联动',
       wheels: [
@@ -150,6 +150,51 @@ var mobileSelect2 = new MobileSelect({
 ![Image text](https://raw.githubusercontent.com/onlyhom/img-folder/master/gif/%E7%BA%A7%E8%81%94.gif)
 
 
+#### ④json格式-数据字段名映射
+```html
+<div id="trigger"></div>
+
+<script type="text/javascript">
+  //假如你的数据的字段名为id,title,children
+  //与mobileSelect的id,value,childs字段名不匹配
+  //可以用keyMap属性进行字段名映射
+  var mobileSelect4 = new MobileSelect({
+      trigger: '#trigger',
+      title: '数据字段名映射',
+      wheels: [
+                  {data:[
+                      {
+                          id:'1',
+                          title:'A',
+                          children:[
+                              {id:'A1',title:'A-a'},
+                              {id:'A2',title:'A-b'},
+                              {id:'A3',title:'A-c'}
+                          ]
+                      },
+                      {
+                          id:'1',
+                          title:'B',
+                          children:[
+                              {id:'B1',title:'B-a'},
+                              {id:'B2',title:'B-b'},
+                              {id:'B3',title:'B-c'}
+                          ]
+                      },
+                  ]}
+              ],
+      keyMap: {
+          id:'id',
+          value: 'title',
+          childs :'children'
+      },         
+      callback:function(indexArr, data){
+          console.log(data);
+      }
+  });
+</script>
+```
+
 
 ## 参数
 
@@ -170,6 +215,7 @@ var mobileSelect2 = new MobileSelect({
 |titleBgColor|`'#ffffff'`|string| 控件标题的背景颜色|
 |textColor|`'#000000'`|string| 轮子内文本的颜色 |
 |bgColor|`'#ffffff'`|string| 轮子背景颜色 |
+|keyMap|`{id:'id', value:'value', childs:'childs'`}|string| 字段名映射，适用于字段名不匹配id,value,childs的数据格式 |
 
 
 

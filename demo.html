@@ -197,6 +197,7 @@ var UplinkData =
 
 
 //----------------------------------------------------------
+//更多参数详情可查看文档 https://github.com/onlyhom/mobileSelect.js
 
 /**
  * 参数说明
@@ -206,15 +207,20 @@ var UplinkData =
  * @param position 初始化定位
  * @param callback 选择成功后触发的回调函数，返回indexArr(选中的选项索引)、data(选中的数据)
  * @param transitionEnd 每一次手势滑动结束后触发的回调函数,返回indexArr(当前选中的选项索引)、data(选中的数据)
+ * @param keyMap 字段名映射
  */
 
 /**
- * 函数说明(实例化之后才可用,用于更改数据而又不用重新实例化) 使用demo可查看文档 https://github.com/onlyhom/mobileSelect.js
+ * 函数说明(实例化之后才可用)
  * @function setTitle()      参数 string                 设置控件的标题
- * @function updateWheel()   参数 sliderIndex, data      重新渲染指定的轮子
+ * @function updateWheel()   参数 sliderIndex, data      重新渲染指定的轮子(可用于先实例化，后通过ajax获取数据的场景)
+ * @function updateWheels()  参数 data                   重新渲染所有轮子,仅限级联数据格式使用(可用于先实例化，后通过ajax获取数据的场景)
  * @function locatePostion() 参数 sliderIndex, posIndex  传入位置数组，重定位轮子的位置
+ * @function show()          参数 无参                   唤起弹窗组件    
+ * @function getValue()      参数 无参                   获取组件选择的值     
  */
  
+
 
 var mobileSelect1 = new MobileSelect({
     trigger: '#trigger1', 
@@ -291,7 +297,7 @@ var mobileSelect4 = new MobileSelect({
                     {id:'5',value:'拱墅区'},
                     {id:'6',value:'西湖区'}
                 ]}
-            ],  
+            ],
     transitionEnd:function(indexArr, data){
         console.log(data);
     },
@@ -314,6 +320,7 @@ var mobileSelect5 = new MobileSelect({
         console.log(data);
     } 
 });
+
 
 
 </script>
