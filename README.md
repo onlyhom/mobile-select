@@ -371,7 +371,7 @@ npm install mobile-select -D
 |Function|Arguments| Description|
 | ------ |------| -----|
 |setTitle()| string |Set the title of the component|
-|locatePostion()|sliderIndex, posIndex|Pass the position array parameter, relocate the position of the wheel|
+|locatePosition()|sliderIndex, posIndex|Pass the position array parameter, relocate the position of the wheel|
 |updateWheel()| sliderIndex, data | Re-render the specified wheel |
 |updateWheels()| data | Re-render the all wheel(Only used in cascading data forma) |
 |show()| no-argument | show the compontent  |
@@ -404,7 +404,7 @@ mySelect.setTitle('啦啦啦(๑•̀ㅁ•́ฅ)');
 mySelect.updateWheel(0,['sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday']);
 // Update the 0th wheel of the data,the data from the Chinese week to the English week
 
-mySelect.locatePostion(1,0);
+mySelect.locatePosition(1,0);
 // Reposition the position of the first wheel and change the 0th data of the first wheel to the current selection.
 // (The first wheel is the right wheel, the left side of the wheel is the first 0)
 ```   
@@ -414,7 +414,7 @@ Base example → Function after operation
 ![功能函数操作后](https://github.com/onlyhom/img-folder/blob/master/QQscreenshot/after-20170306233954.png?raw=true)
 
 ##  Project demo：
-Use the transitionEnd (), callback (), updateWheel (), locatePostion () functions to do the following:
+Use the transitionEnd (), callback (), updateWheel (), locatePosition () functions to do the following:
 
 - choose the date of the day, not more than today has been too.
 - Select the time to take the car, the car must not exceed the time to take the car (including the date and time).

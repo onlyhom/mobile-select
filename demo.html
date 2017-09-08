@@ -215,7 +215,7 @@ var UplinkData =
  * @function setTitle()      参数 string                 设置控件的标题
  * @function updateWheel()   参数 sliderIndex, data      重新渲染指定的轮子(可用于先实例化，后通过ajax获取数据的场景)
  * @function updateWheels()  参数 data                   重新渲染所有轮子,仅限级联数据格式使用(可用于先实例化，后通过ajax获取数据的场景)
- * @function locatePostion() 参数 sliderIndex, posIndex  传入位置数组，重定位轮子的位置
+ * @function locatePosition() 参数 sliderIndex, posIndex  传入位置数组，重定位轮子的位置
  * @function show()          参数 无参                   唤起弹窗组件    
  * @function getValue()      参数 无参                   获取组件选择的值     
  */
@@ -313,6 +313,7 @@ var mobileSelect5 = new MobileSelect({
     wheels: [
                 {data : UplinkData}
             ],
+    position: [1],
     transitionEnd:function(indexArr, data){
         console.log(data);
     },
@@ -321,7 +322,21 @@ var mobileSelect5 = new MobileSelect({
     } 
 });
 
+var updateData = [{
+    id:'1',
+    value:'更新后数据',
+    childs:[
+        {id:'A1',value:'apple'},
+        {id:'A2',value:'banana'},
+        {id:'A3',value:'orange'}
+    ]
+}];
 
+
+setTimeout(function(){
+    mobileSelect5.updateWheels(updateData);
+    // mobileSelect5.locatePosition(0,2);
+},3000);
 
 </script>
 

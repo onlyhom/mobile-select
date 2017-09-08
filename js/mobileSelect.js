@@ -345,10 +345,10 @@
 			//console.log(_this.displayJson);
 			_this.reRenderWheels();
 			_this.fixRowStyle();
-			_this.setCurDistance(_this.resetPostion(index, posIndexArr));
+			_this.setCurDistance(_this.resetPosition(index, posIndexArr));
 		},
 
-		resetPostion: function(index, posIndexArr){
+		resetPosition: function(index, posIndexArr){
 			var _this = this;
 			var tempPosArr = posIndexArr;
 			var tempCount;
@@ -513,7 +513,7 @@
 	        theSlider.style.transform = 'translate3d(0,' + distance + 'px, 0)';
 	    },
 
-	    locatePostion: function(index, posIndex){
+	    locatePosition: function(index, posIndex){
 	    	this.curDistance[index] = this.calcDistance(posIndex);
 	    	this.movePosition(this.slider[index],this.curDistance[index]);
 	    },

@@ -262,7 +262,7 @@ npm install mobile-select -D
 |函数名|参数| 描述|
 | ------ |------| -----|
 |setTitle()| string |设置控件的标题|
-|locatePostion()|sliderIndex, posIndex| 传入位置数组，重新定位轮子选中的位置 |
+|locatePosition()|sliderIndex, posIndex| 传入位置数组，重新定位轮子选中的位置 |
 |updateWheel()| sliderIndex, data | 重新渲染指定的轮子 |
 |updateWheels()| data | 重新渲染所有轮子(仅限级联数据格式使用) |
 |show()| 无参 | 唤起弹窗组件  |
@@ -294,7 +294,7 @@ var mySelect = new MobileSelect({
 // mySelect.updateWheel(0,['sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday']);
 // 更新第0个轮子的数据，数据变为英文的星期几
 
-// mySelect.locatePostion(1,0);
+// mySelect.locatePosition(1,0);
 // 重新定位第1个轮子的位置，将第1个轮子的第0个数据改为当前选中。
 // (第1个轮子是指右边的轮子，左边的轮子是第0个)
 ```   
@@ -409,7 +409,7 @@ var mySelect = new MobileSelect({
 
 
 ## 项目demo：
-使用transitionEnd()、callback()、updateWheel()、locatePostion()函数实现如下功能：
+使用transitionEnd()、callback()、updateWheel()、locatePosition()函数实现如下功能：
 
 - 选择当天日期时，不得超过今天已过时辰。
 - 选择取车时间后，还车时间不得超过取车时间（包括日期和时间）。
