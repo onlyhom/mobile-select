@@ -349,18 +349,19 @@ npm install mobile-select -D
 |wheels|Required parameter No default value|Array|The data displayed on the wheel|
 |title|`''`|String|Component title|
 |position|[0,0,0,…]|Array|Initialize positioning|
-|connector|`' '`|string| When there are multiple wheels, set the connection to connect multiple values, the default value is a space |
+|connector|`' '`|String| When there are multiple wheels, set the connection to connect multiple values, the default value is a space |
 | callback|function(indexArr, data){}|function | Select the callback function triggered after successful, return parameter (indexArr, data)|
 |transitionEnd|function(indexArr, data){}|function|A callback function that after each gesture sliding, return parameter (indexArr, data)|
-|ensureBtnText|`'确认'`|string| The text content of comfirm button |
-|cancelBtnText|`'取消'`|string| The text content of cancel button |
-|ensureBtnColor|`'#1e83d3'`|string| The text color of the comfirm button|
-|cancelBtnColor|`'#666666'`|string| The text color of the cancel button|
-|titleColor|`'#000000'`|string| The text color of the component title |
-|titleBgColor|`'#ffffff'`|string| The background color of the component title |
-|textColor|`'#000000'`|string| The text color of the wheels |
-|bgColor|`'#ffffff'`|string| The Wheels background color |
-|keyMap|`{id:'id', value:'value', childs:'childs'`}|object| Field name mapping, applies to field names that do not match id, value, childs |
+|ensureBtnText|`'确认'`|String| The text content of comfirm button |
+|cancelBtnText|`'取消'`|String| The text content of cancel button |
+|ensureBtnColor|`'#1e83d3'`|String| The text color of the comfirm button|
+|cancelBtnColor|`'#666666'`|String| The text color of the cancel button|
+|titleColor|`'#000000'`|String| The text color of the component title |
+|titleBgColor|`'#ffffff'`|String| The background color of the component title |
+|textColor|`'#000000'`|String| The text color of the wheels |
+|bgColor|`'#ffffff'`|String| The Wheels background color |
+|keyMap|`{id:'id', value:'value', childs:'childs'`}|Object| Field name mapping, applies to field names that do not match id, value, childs |
+|triggerDisplayData|`true`|Boolean| When the click is confirmed, the trigger's innerHtml becomes the selected data.<br>( If there are other elements in the trigger, you can set it to false. If you need to display data elsewhere, you can use the data returned by callback to stitch yourself )|
 
 
 #### Tips: The meaning of the parameters returned in the callback function is as follows

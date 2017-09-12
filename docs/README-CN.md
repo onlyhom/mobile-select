@@ -239,18 +239,19 @@ npm install mobile-select -D
 |wheels|必填参数 无默认值|Array|数据源,需要显示的数据|
 |title|`''`|String|控件标题|
 |position|[0,0,0,…]|Array|初始化定位|
-|connector|`' '`|string| 多个轮子时，多个值中间的连接符，默认是空格 |
+|connector|`' '`|String| 多个轮子时，多个值中间的连接符，默认是空格 |
 |callback|function(indexArr, data){}|function | 选择成功后触发的回调函数，返回indexArr、data|
 |transitionEnd|function(indexArr, data){}|function|每一次手势滑动结束后触发的回调函数,返回indexArr、data|
-|ensureBtnText|`'确认'`|string| 确认按钮的文本内容 |
-|cancelBtnText|`'取消'`|string| 取消按钮的文本内容 |
-|ensureBtnColor|`'#1e83d3'`|string| 确认按钮的文本颜色|
-|cancelBtnColor|`'#666666'`|string| 取消按钮的文本颜色|
-|titleColor|`'#000000'`|string| 控件标题的文本颜色|
-|titleBgColor|`'#ffffff'`|string| 控件标题的背景颜色|
-|textColor|`'#000000'`|string| 轮子内文本的颜色 |
-|bgColor|`'#ffffff'`|string| 轮子背景颜色 |
-|keyMap|`{id:'id', value:'value', childs:'childs'`}|object| 字段名映射，适用于字段名不匹配id,value,childs的数据格式 |
+|ensureBtnText|`'确认'`|String| 确认按钮的文本内容 |
+|cancelBtnText|`'取消'`|String| 取消按钮的文本内容 |
+|ensureBtnColor|`'#1e83d3'`|String| 确认按钮的文本颜色|
+|cancelBtnColor|`'#666666'`|String| 取消按钮的文本颜色|
+|titleColor|`'#000000'`|String| 控件标题的文本颜色|
+|titleBgColor|`'#ffffff'`|String| 控件标题的背景颜色|
+|textColor|`'#000000'`|String| 轮子内文本的颜色 |
+|bgColor|`'#ffffff'`|String| 轮子背景颜色 |
+|keyMap|`{id:'id', value:'value', childs:'childs'`}|Object| 字段名映射，适用于字段名不匹配id,value,childs的数据格式 |
+|triggerDisplayData|`true`|Boolean| 在点击确认时，trigger的innerHtml是否变为选择的数据。<br>（如果trigger里面还有其他元素，则可以设置为false；如果需要在别的地方显示数据，则可用callback返回的数据自行拼接）|
 
 
 
