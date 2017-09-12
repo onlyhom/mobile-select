@@ -53,6 +53,7 @@
 			_this.initPosition = config.position ? config.position : [];
 			_this.titleText = config.title ? config.title : '';
 			_this.connector = config.connector ? config.connector : ' ';
+			_this.triggerDisplayData = !(typeof(config.triggerDisplayData)=='undefined') ? config.triggerDisplayData : true;
 			_this.trigger.style.cursor='pointer';
 			_this.setStyle(config);
 			_this.setTitle(_this.titleText);
@@ -83,7 +84,9 @@
 		    	for(var i=0; i<_this.wheel.length; i++){
 		    		i==_this.wheel.length-1 ? tempValue += _this.getInnerHtml(i) : tempValue += _this.getInnerHtml(i) + _this.connector;
 		    	}
-		    	_this.trigger.innerHTML = tempValue;
+		    	if(_this.triggerDisplayData){
+		    		_this.trigger.innerHTML = tempValue;
+		    	}
 		    	_this.callback(_this.getIndexArr(),_this.getValue());
 		    });
 
