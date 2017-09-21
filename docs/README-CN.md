@@ -241,7 +241,7 @@ npm install mobile-select -D
 |position|[0,0,0,…]|Array|初始化定位|
 |connector|`' '`|String| 多个轮子时，多个值中间的连接符，默认是空格 |
 |callback|function(indexArr, data){}|function | 选择成功后触发的回调函数，返回indexArr、data|
-|cancel|function(indexArr, data){}|function | 点击取消后触发的回调函数，返回上一次选择成功的ndexArr、data|
+|cancel|function(indexArr, data){}|function | 点击取消后触发的回调函数，返回上一次选择成功的indexArr、data|
 |transitionEnd|function(indexArr, data){}|function|每一次手势滑动结束后触发的回调函数,返回indexArr、data|
 |ensureBtnText|`'确认'`|String| 确认按钮的文本内容 |
 |cancelBtnText|`'取消'`|String| 取消按钮的文本内容 |
