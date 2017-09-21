@@ -351,6 +351,7 @@ npm install mobile-select -D
 |position|[0,0,0,…]|Array|Initialize positioning|
 |connector|`' '`|String| When there are multiple wheels, set the connection to connect multiple values, the default value is a space |
 | callback|function(indexArr, data){}|function | Select the callback function triggered after successful, return parameter (indexArr, data)|
+|cancel|function(indexArr, data){}|function | Click the Cancel button to trigger the callback function and return to the last parameter (indexArr, data)|
 |transitionEnd|function(indexArr, data){}|function|A callback function that after each gesture sliding, return parameter (indexArr, data)|
 |ensureBtnText|`'确认'`|String| The text content of comfirm button |
 |cancelBtnText|`'取消'`|String| The text content of cancel button |
