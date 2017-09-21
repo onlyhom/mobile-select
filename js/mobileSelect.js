@@ -15,6 +15,8 @@
 		this.jsonType =  false;
 		this.cascadeJsonData = [];
 		this.displayJson = []; 
+		this.curValue = null;
+		this.curIndexArr = [];
 		this.cascade = false;
 		this.startY;
 		this.moveEndY;
@@ -49,6 +51,7 @@
 			_this.grayLayer = _this.mobileSelect.querySelector('.grayLayer');
 			_this.popUp = _this.mobileSelect.querySelector('.content');
 			_this.callback = config.callback ? config.callback : function(){};
+			_this.cancel = config.cancel ? config.cancel : function(){};
 			_this.transitionEnd = config.transitionEnd ? config.transitionEnd : function(){};
 			_this.initPosition = config.position ? config.position : [];
 			_this.titleText = config.title ? config.title : '';
@@ -75,7 +78,8 @@
 
 			//按钮监听
 			_this.cancelBtn.addEventListener('click',function(){
-			_this.mobileSelect.classList.remove('mobileSelect-show');
+				_this.mobileSelect.classList.remove('mobileSelect-show');
+				_this.cancel(_this.curIndexArr, _this.curValue);
 		    });
 
 		    _this.ensureBtn.addEventListener('click',function(){
@@ -87,7 +91,9 @@
 		    	if(_this.triggerDisplayData){
 		    		_this.trigger.innerHTML = tempValue;
 		    	}
-		    	_this.callback(_this.getIndexArr(),_this.getValue());
+		    	_this.curIndexArr = _this.getIndexArr();
+		    	_this.curValue = _this.getCurValue();
+		    	_this.callback(_this.curIndexArr, _this.curValue);
 		    });
 
 		    _this.trigger.addEventListener('click',function(){
@@ -472,7 +478,7 @@
 	    	return temp;
 	    },
 
-	    getValue: function(){
+	    getCurValue: function(){
 	    	var _this = this;
 	    	var temp = [];
 	    	var positionArr = _this.getIndexArr();
@@ -491,6 +497,10 @@
 		    	}
 	    	}
 	    	return temp;
+	    },
+
+	    getValue: function(){
+	    	return this.curValue;
 	    },
 
 	    calcDistance: function(index){
@@ -571,7 +581,7 @@
 			        }
 
 
-			        _this.transitionEnd(_this.getIndexArr(),_this.getValue());
+			        _this.transitionEnd(_this.getIndexArr(),_this.getCurValue());
 
 			        if(_this.cascade){
 				        var tempPosArr = _this.getIndexArr();
@@ -631,7 +641,7 @@
 			        }
 
 			        _this.clickStatus = false;
-			        _this.transitionEnd(_this.getIndexArr(),_this.getValue());
+			        _this.transitionEnd(_this.getIndexArr(),_this.getCurValue());
 			        if(_this.cascade){
 				        var tempPosArr = _this.getIndexArr();
 				        tempPosArr[index] = _this.getIndex(_this.curDistance[index]);
