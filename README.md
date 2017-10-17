@@ -468,9 +468,13 @@ textColor
 Supports color formats such as #ff0000 rgba(0,255,255,0.5) orange.    
 
 
-### 2017-09-07[更新]    
+### 2017-09-07[update]    
 Add keyMap function      
 update README     
+
+### 2017-10-17[update]    
+Add cancel callback 
+
 
 ## License
 
