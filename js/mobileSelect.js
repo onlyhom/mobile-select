@@ -101,6 +101,7 @@
 		    });
 		    _this.grayLayer.addEventListener('click',function(){
 		    	_this.mobileSelect.classList.remove('mobileSelect-show');
+		    	_this.cancel(_this.curIndexArr, _this.curValue);
 		    });
 		    _this.popUp.addEventListener('click',function(){
 		    	event.stopPropagation(); 
@@ -154,7 +155,7 @@
 		    var bIsAndroid = sUserAgent.match(/android/i) == "android";
 		    var bIsCE = sUserAgent.match(/windows ce/i) == "windows ce";
 		    var bIsWM = sUserAgent.match(/windows mobile/i) == "windows mobile";
-		    if ((bIsIphoneOs || bIsMidp || bIsUc7 || bIsUc || bIsAndroid || bIsCE || bIsWM)) {
+		    if ((bIsIpad || bIsIphoneOs || bIsMidp || bIsUc7 || bIsUc || bIsAndroid || bIsCE || bIsWM)) {
 		        _this.isPC = false;
 		    }
 		},
