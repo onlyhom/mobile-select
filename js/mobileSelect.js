@@ -530,6 +530,9 @@
 	    locatePosition: function(index, posIndex){
 	    	this.curDistance[index] = this.calcDistance(posIndex);
 	    	this.movePosition(this.slider[index],this.curDistance[index]);
+	        if(_this.cascade){
+		        _this.checkRange(index, _this.getIndexArr());
+		    }
 	    },
 
 	    updateCurDistance: function(theSlider, index){
@@ -585,10 +588,8 @@
 			        _this.transitionEnd(_this.getIndexArr(),_this.getCurValue());
 
 			        if(_this.cascade){
-				        var tempPosArr = _this.getIndexArr();
-				        tempPosArr[index] = _this.getIndex(_this.curDistance[index]);
-			        	_this.checkRange(index, tempPosArr);
-			        }
+				        _this.checkRange(index, _this.getIndexArr());
+				    }
 
 	    			break;
 
@@ -644,10 +645,8 @@
 			        _this.clickStatus = false;
 			        _this.transitionEnd(_this.getIndexArr(),_this.getCurValue());
 			        if(_this.cascade){
-				        var tempPosArr = _this.getIndexArr();
-				        tempPosArr[index] = _this.getIndex(_this.curDistance[index]);
-			        	_this.checkRange(index, tempPosArr);
-			        }
+				        _this.checkRange(index, _this.getIndexArr());
+				    }
 	    			break;
 
 	    		case "mousemove":
