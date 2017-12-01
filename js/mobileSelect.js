@@ -528,11 +528,12 @@
 	    },
 
 	    locatePosition: function(index, posIndex){
+	    	var _this = this;
 	    	this.curDistance[index] = this.calcDistance(posIndex);
 	    	this.movePosition(this.slider[index],this.curDistance[index]);
 	        if(_this.cascade){
-		        _this.checkRange(index, _this.getIndexArr());
-		    }
+		    _this.checkRange(index, _this.getIndexArr());
+		}
 	    },
 
 	    updateCurDistance: function(theSlider, index){
