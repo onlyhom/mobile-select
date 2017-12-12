@@ -351,6 +351,8 @@ npm install mobile-select -D
 |position|[0,0,0,…]|Array|Initialize positioning|
 |connector|`' '`|String| When there are multiple wheels, set the connection to connect multiple values, the default value is a space |
 | callback|function(indexArr, data){}|function | Select the callback function triggered after successful, return parameter (indexArr, data)|
+| onShow|function(){}|function | Display a callback on the window|
+| onHide|function(){}|function | A callback when the window is hidden|
 |cancel|function(indexArr, data){}|function | Click the Cancel button to trigger the callback function and return to the last parameter (indexArr, data)|
 |transitionEnd|function(indexArr, data){}|function|A callback function that after each gesture sliding, return parameter (indexArr, data)|
 |ensureBtnText|`'确认'`|String| The text content of comfirm button |
@@ -377,6 +379,7 @@ npm install mobile-select -D
 |updateWheel()| sliderIndex, data | Re-render the specified wheel |
 |updateWheels()| data | Re-render the all wheel(Only used in cascading data forma) |
 |show()| no-argument | show the compontent  |
+|hide()| no-argument | hide the compontent  |
 |getValue()| no-argument | Gets the value selected by the component |
 
 
