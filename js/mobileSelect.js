@@ -51,8 +51,6 @@
 			_this.grayLayer = _this.mobileSelect.querySelector('.grayLayer');
 			_this.popUp = _this.mobileSelect.querySelector('.content');
 			_this.callback = config.callback ? config.callback : function(){};
-			_this.onShow = config.onShow || function(){};
-			_this.onHide = config.onHide || function(){};
 			_this.cancel = config.cancel ? config.cancel : function(){};
 			_this.transitionEnd = config.transitionEnd ? config.transitionEnd : function(){};
 			_this.initPosition = config.position ? config.position : [];
@@ -80,12 +78,12 @@
 
 			//按钮监听
 			_this.cancelBtn.addEventListener('click',function(){
+				_this.mobileSelect.classList.remove('mobileSelect-show');
 				_this.cancel(_this.curIndexArr, _this.curValue);
-				_this.hide();
 		    });
 
 		    _this.ensureBtn.addEventListener('click',function(){
-				_this.hide();
+				_this.mobileSelect.classList.remove('mobileSelect-show');
 				var tempValue ='';
 		    	for(var i=0; i<_this.wheel.length; i++){
 		    		i==_this.wheel.length-1 ? tempValue += _this.getInnerHtml(i) : tempValue += _this.getInnerHtml(i) + _this.connector;
@@ -99,11 +97,11 @@
 		    });
 
 		    _this.trigger.addEventListener('click',function(){
-		    	_this.show();
+		    	_this.mobileSelect.classList.add('mobileSelect-show');
 		    });
 		    _this.grayLayer.addEventListener('click',function(){
+		    	_this.mobileSelect.classList.remove('mobileSelect-show');
 		    	_this.cancel(_this.curIndexArr, _this.curValue);
-		    	_this.hide();
 		    });
 		    _this.popUp.addEventListener('click',function(){
 		    	event.stopPropagation(); 
@@ -164,16 +162,7 @@
 
 		show: function(){
 		    this.mobileSelect.classList.add('mobileSelect-show');	
-		    if (typeof this.onShow === 'function') {
-	    	    this.onShow(this);
-	    	}
 		},
-	    hide: function() {
-	    	this.mobileSelect.classList.remove('mobileSelect-show');
-	    	if (typeof this.onHide === 'function') {
-	    	    this.onHide(this);
-	    	}
-	    },
 
 		renderWheels: function(wheelsData, cancelBtnText, ensureBtnText){
 			var _this = this;
@@ -539,12 +528,8 @@
 	    },
 
 	    locatePosition: function(index, posIndex){
-	    	var _this = this;
 	    	this.curDistance[index] = this.calcDistance(posIndex);
 	    	this.movePosition(this.slider[index],this.curDistance[index]);
-	        if(_this.cascade){
-		    _this.checkRange(index, _this.getIndexArr());
-		}
 	    },
 
 	    updateCurDistance: function(theSlider, index){
@@ -600,8 +585,10 @@
 			        _this.transitionEnd(_this.getIndexArr(),_this.getCurValue());
 
 			        if(_this.cascade){
-				        _this.checkRange(index, _this.getIndexArr());
-				    }
+				        var tempPosArr = _this.getIndexArr();
+				        tempPosArr[index] = _this.getIndex(_this.curDistance[index]);
+			        	_this.checkRange(index, tempPosArr);
+			        }
 
 	    			break;
 
@@ -657,8 +644,10 @@
 			        _this.clickStatus = false;
 			        _this.transitionEnd(_this.getIndexArr(),_this.getCurValue());
 			        if(_this.cascade){
-				        _this.checkRange(index, _this.getIndexArr());
-				    }
+				        var tempPosArr = _this.getIndexArr();
+				        tempPosArr[index] = _this.getIndex(_this.curDistance[index]);
+			        	_this.checkRange(index, tempPosArr);
+			        }
 	    			break;
 
 	    		case "mousemove":
