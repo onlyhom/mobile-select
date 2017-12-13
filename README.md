@@ -345,16 +345,15 @@ npm install mobile-select -D
 
 |Option|Default|Type|Description |
 | ------ |------|-----|-----|
-|trigger|Required parameter No default value|String| The id/class/tag of the trigger object |
-|wheels|Required parameter No default value|Array|The data displayed on the wheel|
+|trigger|Required parameter. No default value|String| The id/class/tag of the trigger object |
+|wheels|Required parameter. No default value|Array|The data displayed on the wheel|
+|callback|function(indexArr, data){}|function | A callback function after successful selected, return parameter (indexArr, data) |
+|transitionEnd|function(indexArr, data){}|function|A callback function that after each gesture sliding, return parameter (indexArr, data)|
+|onShow|function(e){}|function | A callback when the window is show, return object itself as parameter |
+|onHide|function(e){}|function | A callback when the window is hidden, return object itself as parameter|
 |title|`''`|String|Component title|
 |position|[0,0,0,…]|Array|Initialize positioning|
 |connector|`' '`|String| When there are multiple wheels, set the connection to connect multiple values, the default value is a space |
-| callback|function(indexArr, data){}|function | Select the callback function triggered after successful, return parameter (indexArr, data)|
-| onShow|function(){}|function | Display a callback on the window|
-| onHide|function(){}|function | A callback when the window is hidden|
-|cancel|function(indexArr, data){}|function | Click the Cancel button to trigger the callback function and return to the last parameter (indexArr, data)|
-|transitionEnd|function(indexArr, data){}|function|A callback function that after each gesture sliding, return parameter (indexArr, data)|
 |ensureBtnText|`'确认'`|String| The text content of comfirm button |
 |cancelBtnText|`'取消'`|String| The text content of cancel button |
 |ensureBtnColor|`'#1e83d3'`|String| The text color of the comfirm button|
@@ -374,12 +373,12 @@ npm install mobile-select -D
 ## Functions：
 |Function|Arguments| Description|
 | ------ |------| -----|
+|show()| no-argument | show the compontent  |
+|hide()| no-argument | hide the compontent  |
 |setTitle()| string |Set the title of the component|
 |locatePosition()|sliderIndex, posIndex|Pass the position array parameter, relocate the position of the wheel|
 |updateWheel()| sliderIndex, data | Re-render the specified wheel |
 |updateWheels()| data | Re-render the all wheel(Only used in cascading data forma) |
-|show()| no-argument | show the compontent  |
-|hide()| no-argument | hide the compontent  |
 |getValue()| no-argument | Gets the value selected by the component |
 
 
@@ -428,7 +427,7 @@ Use the transitionEnd (), callback (), updateWheel (), locatePosition () functio
 
 
 ## Logs  
-### 2017-04-20[update]    
+### 2017-04-20[update]    
 As the input tag in the iphone, the cursor will flashing.    
 As well as the input tag open in the iphone6P / iphone7P chrome will appear offset phenomenon.    
 So do not use the input tag, instead by the ordinary div trigger.    
@@ -452,8 +451,8 @@ The updateWheel() method does not change.
 Add new API: updateWheels(data) is used to update the entire data source in cascading data format.       
 
 
-### 2017-08-15[update]    
-Repair in cascade state, single click failed.      
+### 2017-08-15[update]    
+Repair in cascade state, single click failed.      
 Delete the comment after the brace in the js file(In the php environment there will be js code failure situation).    
 Fix ios potential bug.  
 Add API: show()    
@@ -471,13 +470,20 @@ textColor
 Supports color formats such as #ff0000 rgba(0,255,255,0.5) orange.    
 
 
-### 2017-09-07[update]    
+### 2017-09-07[update]    
 Add keyMap function      
-update README     
+Update README     
 
-### 2017-10-17[update]    
+### 2017-10-17[update]    
 Add cancel callback 
 
+### 2017-12-12[update]    
+Remove cancel callback   
+Thanks for [ngdly]:   
+Add onshow callback   
+Add onhide callback   
+Add show function   
+Add hide function   
 
 ## License
 
