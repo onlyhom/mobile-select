@@ -147,32 +147,32 @@
 
 		checkIsPC: function(){
 			var _this = this;
-		    var sUserAgent = navigator.userAgent.toLowerCase();
-		    var bIsIpad = sUserAgent.match(/ipad/i) == "ipad";
-		    var bIsIphoneOs = sUserAgent.match(/iphone os/i) == "iphone os";
-		    var bIsMidp = sUserAgent.match(/midp/i) == "midp";
-		    var bIsUc7 = sUserAgent.match(/rv:1.2.3.4/i) == "rv:1.2.3.4";
-		    var bIsUc = sUserAgent.match(/ucweb/i) == "ucweb";
-		    var bIsAndroid = sUserAgent.match(/android/i) == "android";
-		    var bIsCE = sUserAgent.match(/windows ce/i) == "windows ce";
-		    var bIsWM = sUserAgent.match(/windows mobile/i) == "windows mobile";
-		    if ((bIsIpad || bIsIphoneOs || bIsMidp || bIsUc7 || bIsUc || bIsAndroid || bIsCE || bIsWM)) {
-		        _this.isPC = false;
-		    }
+			var sUserAgent = navigator.userAgent.toLowerCase();
+			var bIsIpad = sUserAgent.match(/ipad/i) == "ipad";
+			var bIsIphoneOs = sUserAgent.match(/iphone os/i) == "iphone os";
+			var bIsMidp = sUserAgent.match(/midp/i) == "midp";
+			var bIsUc7 = sUserAgent.match(/rv:1.2.3.4/i) == "rv:1.2.3.4";
+			var bIsUc = sUserAgent.match(/ucweb/i) == "ucweb";
+			var bIsAndroid = sUserAgent.match(/android/i) == "android";
+			var bIsCE = sUserAgent.match(/windows ce/i) == "windows ce";
+			var bIsWM = sUserAgent.match(/windows mobile/i) == "windows mobile";
+			if ((bIsIpad || bIsIphoneOs || bIsMidp || bIsUc7 || bIsUc || bIsAndroid || bIsCE || bIsWM)) {
+			    _this.isPC = false;
+			}
 		},
 
  		show: function(){
-  		    this.mobileSelect.classList.add('mobileSelect-show');	
-		    if (typeof this.onShow === 'function') {
-	    	    this.onShow(this);
-	    	}
+			this.mobileSelect.classList.add('mobileSelect-show');	
+			if (typeof this.onShow === 'function') {
+				this.onShow(this);
+			}
   		},
 
 	    hide: function() {
-	    	this.mobileSelect.classList.remove('mobileSelect-show');
-	    	if (typeof this.onHide === 'function') {
-	    	    this.onHide(this);
-	    	}
+			this.mobileSelect.classList.remove('mobileSelect-show');
+			if (typeof this.onHide === 'function') {
+				this.onHide(this);
+			}
 	    },
 
 		renderWheels: function(wheelsData, cancelBtnText, ensureBtnText){
@@ -686,6 +686,7 @@
 		        _this.curDistance[sliderIndex] = (2-index)*_this.liHeight;
 		        _this.movePosition(theLi.parentNode, _this.curDistance[sliderIndex]);
 	        }
+	        _this.transitionEnd(_this.getIndexArr(),_this.getCurValue());
 	    }
 
 	};
