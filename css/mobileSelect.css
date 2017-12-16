@@ -148,21 +148,3 @@
 .mobileSelect-show .content {
   bottom: 0;
 }
-@media screen and (min-width: 768px) {
-  .mobileSelect .content {
-    width: 60%;
-    left: 20%;
-    bottom: 50%;
-    border-radius: 10px;
-    -moz-transform: scale(0.4);
-    -o-transform: scale(0.4);
-    -webkit-transform: scale(0.4);
-    transform: scale(0.4);
-  }
-  .mobileSelect-show .content {
-    -moz-transform: scale(1);
-    -o-transform: scale(1);
-    -webkit-transform: scale(1);
-    transform: scale(1);
-  }
-}
