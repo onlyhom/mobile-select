@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="wap-font-scale" content="no">
     <meta name="viewport" content="width=device-width, minimum-scale=1, maximum-scale=1,user-scalable=no">
-    <meta name="keywords" content="">  
+    <meta name="keywords" content="">
     <meta name="description" content="">
     <link rel="stylesheet" type="text/css" href="css/public.css">
 
@@ -63,22 +63,22 @@ var UplinkData =
                         id:'1',
                         value:'标准版'
                     },
-                    { 
+                    {
                         id:'2',
                         value:'加长版'
                     },
-                    { 
+                    {
                         id:'3',
                         value:'巅峰之旅'
                     },
-                    { 
+                    {
                         id:'4',
                         value:'流光熠世'
                     },
-                    { 
+                    {
                         id:'5',
                         value:'都会典藏版'
-                    } 
+                    }
                 ]
             },
             {
@@ -93,11 +93,11 @@ var UplinkData =
                         id:'2',
                         value:'永恒之爱'
                     },
-                    { 
+                    {
                         id:'3',
                         value:'英骥'
                     },
-                    { 
+                    {
                         id:'4',
                         value:'阿尔卑斯典藏版'
                     }
@@ -137,7 +137,7 @@ var UplinkData =
                     }
                 ]
             },
-            { 
+            {
                 id:'2',
                 value:'欧陆',
                 childs:[
@@ -216,21 +216,21 @@ var UplinkData =
  * @function updateWheel()   参数 sliderIndex, data      重新渲染指定的轮子(可用于先实例化，后通过ajax获取数据的场景)
  * @function updateWheels()  参数 data                   重新渲染所有轮子,仅限级联数据格式使用(可用于先实例化，后通过ajax获取数据的场景)
  * @function locatePosition() 参数 sliderIndex, posIndex  传入位置数组，重定位轮子的位置
- * @function show()          参数 无参                   唤起弹窗组件    
- * @function getValue()      参数 无参                   获取组件选择的值     
+ * @function show()          参数 无参                   唤起弹窗组件
+ * @function getValue()      参数 无参                   获取组件选择的值
  */
- 
+
 
 
 var mobileSelect1 = new MobileSelect({
-    trigger: '#trigger1', 
-    title: '单项选择',  
+    trigger: '#trigger1',
+    title: '单项选择',
     wheels: [
                 {data: weekdayArr}
             ],
     position:[2], //初始化定位 打开时默认选中的哪个 如果不填默认为0
     transitionEnd:function(indexArr, data){
-        console.log(data);
+        //console.log(data);
     },
     callback:function(indexArr, data){
         console.log(data);
@@ -247,7 +247,7 @@ var mobileSelect2 = new MobileSelect({
             ],
     position:[1, 2],
     transitionEnd:function(indexArr, data){
-        console.log(data);
+        //console.log(data);
     },
     callback:function(indexArr, data){
         console.log(data);
@@ -265,9 +265,9 @@ var mobileSelect3 = new MobileSelect({
                 {data: numArr},
                 {data: numArr}
             ],
-    position:[0, 1, 0, 1, 0], 
+    position:[0, 1, 0, 1, 0],
     transitionEnd:function(indexArr, data){
-        console.log(data);
+        //console.log(data);
     },
     callback:function(indexArr, data){
         console.log(data);
@@ -299,11 +299,11 @@ var mobileSelect4 = new MobileSelect({
                 ]}
             ],
     transitionEnd:function(indexArr, data){
-        console.log(data);
+        //console.log(data);
     },
     callback:function(indexArr, data){
         console.log(data);
-    }  
+    }
 });
 
 
@@ -315,13 +315,10 @@ var mobileSelect5 = new MobileSelect({
             ],
     position: [2,0],
     transitionEnd:function(indexArr, data){
-        console.log(data);
+        //console.log(data);
     },
     callback:function(indexArr, data){
         console.log(data);
-    },
-    cancel: function(pa1, pa2){
-        console.log(pa1, pa2);
     }
 });
 
