@@ -35,7 +35,7 @@
 <img src="https://github.com/onlyhom/img-folder/blob/master/png/ms_code_url_480.png?raw=true" width="230">
 
 #### 动态图预览：   
-![Image text](http://p1.bqimg.com/4851/0e072a9fae72e0a0.gif)
+![Image text](https://github.com/onlyhom/img-folder/blob/master/gif/ms_preview_all.gif?raw=true)
 
 ## 引入    
 
