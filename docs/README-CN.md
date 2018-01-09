@@ -32,7 +32,7 @@
 ## 演示    
 
 #### 手机扫描二维码预览：  
-<img src="https://github.com/onlyhom/img-folder/blob/master/png/ms_code_url_480.png?raw=true" width="230">
+<img src="https://github.com/onlyhom/img-folder/blob/master/png/ms_code_url_480.png_io.png?raw=true" width="230">
 
 #### 动态图预览：   
 ![Image text](https://github.com/onlyhom/img-folder/blob/master/gif/ms_preview_all.gif?raw=true)
