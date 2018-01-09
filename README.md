@@ -33,7 +33,7 @@ A multi-function mobile phone scrolling selector, support single to multi-select
 ## Preview
 
 #### Use mobile phone scan code to preview: 
-<img src="https://github.com/onlyhom/img-folder/blob/master/png/ms_code_url_480.png?raw=true" width="230">
+<img src="https://github.com/onlyhom/img-folder/blob/master/png/ms_code_url_480_io.png?raw=true" width="230">
 
 #### Gif preview:   
 ![Image text](https://github.com/onlyhom/img-folder/blob/master/gif/ms_preview_all.gif?raw=true)
