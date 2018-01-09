@@ -86,6 +86,9 @@
 
 		    _this.ensureBtn.addEventListener('click',function(){
 				_this.hide();
+			    if(!_this.liHeight) {
+			        _this.liHeight =  _this.mobileSelect.querySelector('li').offsetHeight;
+			    }
 				var tempValue ='';
 		    	for(var i=0; i<_this.wheel.length; i++){
 		    		i==_this.wheel.length-1 ? tempValue += _this.getInnerHtml(i) : tempValue += _this.getInnerHtml(i) + _this.connector;
