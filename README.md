@@ -387,7 +387,7 @@ npm install mobile-select -D
  - PosIndex represents the location index
  
  
-### The second time how to reshow the location of the selection?
+### The second time how to reshow the selected position?
 There is an indexArr parameter in the callback callback function, which is an array that records the currently selected location:     
 After converting this array into a string, you can save it in a hidden field or otherwise, and pass it to the background.     
 Next time you open the page,     
