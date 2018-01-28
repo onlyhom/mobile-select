@@ -411,10 +411,10 @@ var mySelect = new MobileSelect({
 ```
 
 ### 如何回显选择的位置
-callback回调函数里有一个indexArr参数，它是一个数组，记录着当前选中的位置：
-把这个数组转化为字符串之后，可以用<input type="hidden" value="">隐藏域或者别的其他方式保存下来，传给后台。
-下次打开页面时，
-MobileSelect实例化的时候，读取这个字符串，再转成数组，传给position，完成初始化定位即可。
+callback回调函数里有一个indexArr参数，它是一个数组，记录着当前选中的位置：    
+把这个数组转化为字符串之后，可以用<input type="hidden" value="">隐藏域或者别的其他方式保存下来，传给后台。    
+下次打开页面时，    
+MobileSelect实例化的时候，读取这个字符串，再转成数组，传给position，完成初始化定位即可。    
 
 
 ## 项目demo：
@@ -428,66 +428,66 @@ MobileSelect实例化的时候，读取这个字符串，再转成数组，传�
 
 ## 更新日志
 ### 2017-04-20[更新]
-鉴于input框在iphone上会出现光标
-以及由input触发的fixed布局在iphone6P/iphone7P的chrome中打开会出现下移现象
-舍弃使用input标签,改为由普通div触发
-选择到的值写进div的innerHTML里
-推荐用callback(indexArr, data)回调函数获取选择到的值
+鉴于input框在iphone上会出现光标    
+以及由input触发的fixed布局在iphone6P/iphone7P的chrome中打开会出现下移现象    
+舍弃使用input标签,改为由普通div触发    
+选择到的值写进div的innerHTML里    
+推荐用callback(indexArr, data)回调函数获取选择到的值    
 
-### 2017-07-27[修正]
-修复issues中【li362692680】同学提出的
-级联选择时无法初始定位二级选择框的问题
-同时修复init函数中传入的position数组参数长度小于轮子个数无法移动的问题
+### 2017-07-27[修正]    
+修复issues中【li362692680】同学提出的    
+级联选择时无法初始定位二级选择框的问题    
+同时修复init函数中传入的position数组参数长度小于轮子个数无法移动的问题    
 
 ### 2017-07-30[修正+更新]
-修复issues中【leohgbs】同学提出的
-1.更新没有考虑到 数据是json的问题
-2.更新之后，缓存的数据没有更新，导致callback数据源错误
-更改变量名:jsonData → cascadeJsonData
-更改方法名:updateWheels() → reRenderWheels()
-updateWheel()方法不变
-新增API：updateWheels(data) 用来在级联数据格式下 更新整个数据源
+修复issues中【leohgbs】同学提出的    
+1.更新没有考虑到 数据是json的问题    
+2.更新之后，缓存的数据没有更新，导致callback数据源错误    
+更改变量名:jsonData → cascadeJsonData    
+更改方法名:updateWheels() → reRenderWheels()    
+updateWheel()方法不变    
+新增API：updateWheels(data) 用来在级联数据格式下 更新整个数据源    
 
 ### 2017-08-15[更新]
-修复级联状态下-单点击失效
-删除js文件中大括号后面的注释(在php环境中 会有js代码失效的情况)
-修复ios潜在bug
-新增API show()
-新增API getValue()
-新增选项样式选项(修改连接符/按钮文本/按钮颜色/背景颜色等)：
-connector
-ensureBtnText
-ensureBtnColor
-cancelBtnText
-cancelBtnColor
-titleColor
-titleBgColor
-bgColor
-textColor
-颜色支持如 #ff0000 rgba(0,255,255,0.5) orange 等格式
+修复级联状态下-单点击失效    
+删除js文件中大括号后面的注释(在php环境中 会有js代码失效的情况)    
+修复ios潜在bug    
+新增API show()    
+新增API getValue()    
+新增选项样式选项(修改连接符/按钮文本/按钮颜色/背景颜色等)：    
+connector    
+ensureBtnText    
+ensureBtnColor    
+cancelBtnText    
+cancelBtnColor    
+titleColor    
+titleBgColor    
+bgColor    
+textColor    
+颜色支持如 #ff0000 rgba(0,255,255,0.5) orange 等格式    
 
 
 ### 2017-09-07[更新]
-增加数据字段映射功能
-更新README
+增加数据字段映射功能    
+更新README    
 
 ### 2017-10-17[更新]
-增加 cancel 回调函数
+增加 cancel 回调函数    
 
 ### 2017-12-12[更新]
-删除 cancel 回调函数
-感谢【ngdly】同学:
-增加 onshow 回调函数
-增加 onhide 回调函数
-增加 show()
-增加 hide()
+删除 cancel 回调函数    
+感谢【ngdly】同学:    
+增加 onshow 回调函数    
+增加 onhide 回调函数    
+增加 show()    
+增加 hide()    
 
 ### 2018-01-28[优化]
-感谢【aaalog】同学的建议
-改写监听单击事件的方法
-为了修复单击事件时，transitionEnd会被触发两次的情况：
-删除了addListenerLi()、singleClick()内部方法，
-直接在touchend事件做出单击判断。
+感谢【aaalog】同学的建议    
+改写监听单击事件的方法    
+为了修复单击事件时，transitionEnd会被触发两次的情况：    
+删除了addListenerLi()、singleClick()内部方法，    
+直接在touchend事件做出单击判断。    
 
 
 
