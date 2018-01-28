@@ -108,7 +108,7 @@ var mobileSelect2 = new MobileSelect({
 </script>
 ```
 ##### 效果图：
-![Image text](http://p1.bqimg.com/567571/d4e4bac29a9c6e87.gif)
+![Image text](https://github.com/onlyhom/img-folder/blob/master/gif/ms_no_cascade.gif?raw=true)
 
 
 #### ③json格式-联动
