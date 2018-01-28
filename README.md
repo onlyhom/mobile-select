@@ -385,6 +385,14 @@ npm install mobile-select -D
 #### Tips: The function parameters need to be passed as follows
  - SliderIndex represents the index of the wheel to be modified
  - PosIndex represents the location index
+ 
+ 
+### The second time how to reshow the location of the selection?
+There is an indexArr parameter in the callback callback function, which is an array that records the currently selected location:     
+After converting this array into a string, you can save it in a hidden field or otherwise, and pass it to the background.     
+Next time you open the page,     
+When the MobileSelect is instantiated, it reads the string, turns it into an array, passes it to position, and completes the initialization position.     
+
 
 #### Demo of use the function ：
 ```html
