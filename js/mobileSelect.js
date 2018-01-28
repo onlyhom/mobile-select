@@ -233,7 +233,6 @@
 				//手势监听
 				(function (i) {
 					_this.addListenerWheel(_this.wheel[i], i);
-					_this.addListenerLi(i);
 				})(i);
 			}
 		},
@@ -261,18 +260,6 @@
 				theWheel.addEventListener('mouseup', function () {
 					_this.dragClick(event, this.firstChild, index);
 				},true);
-			}
-		},
-
-		addListenerLi:function(sliderIndex){
-			var _this = this;
-			var curWheelLi = _this.slider[sliderIndex].getElementsByTagName('li');
-			for(var j=0; j<curWheelLi.length;j++){
-				(function (j) {
-					curWheelLi[j].addEventListener('click',function(){
-						_this.singleClick(this, j, sliderIndex);
-					},false);
-				})(j);
 			}
 		},
 
@@ -428,7 +415,7 @@
 						_this.addListenerWheel(tempWheel, i);
 				    	_this.wheels.appendChild(tempWheel);
 					}
-					_this.addListenerLi(i);
+					//_this.·(i);
 				})(i);
 			}
 		},
@@ -469,7 +456,6 @@
 				_this.wheelsData[sliderIndex] = data;
 	    	}
 			_this.slider[sliderIndex].innerHTML = tempHTML;
-			_this.addListenerLi(sliderIndex);
 		},
 
 		fixRowStyle: function(){
@@ -578,37 +564,50 @@
 	    	switch(event.type){
 	    		case "touchstart":
 			        _this.startY = event.touches[0].clientY;
+			        _this.startY = parseInt(_this.startY);
 			        _this.oldMoveY = _this.startY;
 	    			break;
 
 	    		case "touchend":
 
-			        _this.moveEndY = event.changedTouches[0].clientY;
+			        _this.moveEndY = parseInt(event.changedTouches[0].clientY);
 			        _this.offsetSum = _this.moveEndY - _this.startY;
+					_this.oversizeBorder = -(theSlider.getElementsByTagName('li').length-3)*_this.liHeight;
 
-					//修正位置
-			        _this.updateCurDistance(theSlider, index);
-			        _this.curDistance[index] = _this.fixPosition(_this.curDistance[index]);
-			        _this.movePosition(theSlider, _this.curDistance[index]);
-			        _this.oversizeBorder = -(theSlider.getElementsByTagName('li').length-3)*_this.liHeight;
+					if(_this.offsetSum == 0){
+						//offsetSum为0,相当于点击事件
+						// 0 1 [2] 3 4
+						var clickOffetNum = parseInt((document.documentElement.clientHeight - _this.moveEndY)/40);
+						if(clickOffetNum!=2){
+							var offset = clickOffetNum - 2;
+							var newDistance = _this.curDistance[index] + (offset*_this.liHeight);
+							if((newDistance <= 2*_this.liHeight) && (newDistance >= _this.oversizeBorder) ){
+								_this.curDistance[index] = newDistance;
+								_this.movePosition(theSlider, _this.curDistance[index]);
+								_this.transitionEnd(_this.getIndexArr(),_this.getCurValue());
+							}
+						}
+					}else{
+						//修正位置
+						_this.updateCurDistance(theSlider, index);
+						_this.curDistance[index] = _this.fixPosition(_this.curDistance[index]);
+						_this.movePosition(theSlider, _this.curDistance[index]);
 
+				        //反弹
+				        if(_this.curDistance[index] + _this.offsetSum > 2*_this.liHeight){
+				            _this.curDistance[index] = 2*_this.liHeight;
+				            setTimeout(function(){
+				                _this.movePosition(theSlider, _this.curDistance[index]);
+				            }, 100);
 
-			        //反弹
-			        if(_this.curDistance[index] + _this.offsetSum > 2*_this.liHeight){
-			            _this.curDistance[index] = 2*_this.liHeight;
-			            setTimeout(function(){
-			                _this.movePosition(theSlider, _this.curDistance[index]);
-			            }, 100);
-
-			        }else if(_this.curDistance[index] + _this.offsetSum < _this.oversizeBorder){
-			            _this.curDistance[index] = _this.oversizeBorder;
-			            setTimeout(function(){
-			                _this.movePosition(theSlider, _this.curDistance[index]);
-			            }, 100);
-			        }
-
-
-			        _this.transitionEnd(_this.getIndexArr(),_this.getCurValue());
+				        }else if(_this.curDistance[index] + _this.offsetSum < _this.oversizeBorder){
+				            _this.curDistance[index] = _this.oversizeBorder;
+				            setTimeout(function(){
+				                _this.movePosition(theSlider, _this.curDistance[index]);
+				            }, 100);
+				        }
+						_this.transitionEnd(_this.getIndexArr(),_this.getCurValue());
+					}
 
  			        if(_this.cascade){
 				        _this.checkRange(index, _this.getIndexArr());
@@ -643,30 +642,43 @@
 
 			        _this.moveEndY = event.clientY;
 			        _this.offsetSum = _this.moveEndY - _this.startY;
+					_this.oversizeBorder = -(theSlider.getElementsByTagName('li').length-3)*_this.liHeight;
 
-					//修正位置
-			        _this.updateCurDistance(theSlider, index);
-			        _this.curDistance[index] = _this.fixPosition(_this.curDistance[index]);
-			        _this.movePosition(theSlider, _this.curDistance[index]);
-			        _this.oversizeBorder = -(theSlider.getElementsByTagName('li').length-3)*_this.liHeight;
+					if(_this.offsetSum == 0){
+						var clickOffetNum = parseInt((document.documentElement.clientHeight - _this.moveEndY)/40);
+						if(clickOffetNum!=2){
+							var offset = clickOffetNum - 2;
+							var newDistance = _this.curDistance[index] + (offset*_this.liHeight);
+							if((newDistance <= 2*_this.liHeight) && (newDistance >= _this.oversizeBorder) ){
+								_this.curDistance[index] = newDistance;
+								_this.movePosition(theSlider, _this.curDistance[index]);
+								_this.transitionEnd(_this.getIndexArr(),_this.getCurValue());
+							}
+						}
+					}else{
+						//修正位置
+						_this.updateCurDistance(theSlider, index);
+						_this.curDistance[index] = _this.fixPosition(_this.curDistance[index]);
+						_this.movePosition(theSlider, _this.curDistance[index]);
 
+						//反弹
+						if(_this.curDistance[index] + _this.offsetSum > 2*_this.liHeight){
+						    _this.curDistance[index] = 2*_this.liHeight;
+						    setTimeout(function(){
+						        _this.movePosition(theSlider, _this.curDistance[index]);
+						    }, 100);
 
-			        //反弹
-			        if(_this.curDistance[index] + _this.offsetSum > 2*_this.liHeight){
-			            _this.curDistance[index] = 2*_this.liHeight;
-			            setTimeout(function(){
-			                _this.movePosition(theSlider, _this.curDistance[index]);
-			            }, 100);
+						}else if(_this.curDistance[index] + _this.offsetSum < _this.oversizeBorder){
+						    _this.curDistance[index] = _this.oversizeBorder;
+						    setTimeout(function(){
+						        _this.movePosition(theSlider, _this.curDistance[index]);
+						    }, 100);
+						}
+						_this.transitionEnd(_this.getIndexArr(),_this.getCurValue());
 
-			        }else if(_this.curDistance[index] + _this.offsetSum < _this.oversizeBorder){
-			            _this.curDistance[index] = _this.oversizeBorder;
-			            setTimeout(function(){
-			                _this.movePosition(theSlider, _this.curDistance[index]);
-			            }, 100);
-			        }
+					}
 
 			        _this.clickStatus = false;
-			        _this.transitionEnd(_this.getIndexArr(),_this.getCurValue());
  			        if(_this.cascade){
 				        _this.checkRange(index, _this.getIndexArr());
 			    	}
@@ -684,20 +696,6 @@
 			        }
 	    			break;
 	    	}
-	    },
-
-	    singleClick: function(theLi, index, sliderIndex){
-	    	var _this = this;
-	        if(_this.cascade){
-		        var tempPosArr = _this.getIndexArr();
-		        tempPosArr[sliderIndex] = index;
-	        	_this.checkRange(sliderIndex, tempPosArr);
-
-	        }else{
-		        _this.curDistance[sliderIndex] = (2-index)*_this.liHeight;
-		        _this.movePosition(theLi.parentNode, _this.curDistance[sliderIndex]);
-	        }
-	        _this.transitionEnd(_this.getIndexArr(),_this.getCurValue());
 	    }
 
 	};

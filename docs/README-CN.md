@@ -12,32 +12,32 @@
   </a>
 </p>
 
-一款多功能的移动端滚动选择器，支持单选到多选、支持多级级联、提供自定义回调函数、提供update函数二次渲染、重定位函数、兼容pc端拖拽等等..    
+一款多功能的移动端滚动选择器，支持单选到多选、支持多级级联、提供自定义回调函数、提供update函数二次渲染、重定位函数、兼容pc端拖拽等等..
 
- [【English documents】](https://github.com/onlyhom/mobileSelect.js) 
+ [【English documents】](https://github.com/onlyhom/mobileSelect.js)
 
 ## 特性
 
-- 原生js移动端选择控件，不依赖任何库  
+- 原生js移动端选择控件，不依赖任何库
 - 可传入普通数组或者json数组
 - 可根据传入的参数长度，自动渲染出对应的列数，支持单项到多项选择
 - 自动识别是否级联
 - 选择成功后，提供自定义回调函数callback()  返回当前选择索引位置、以及选择的数据（数组/json）
 - 每次手势滑动结束后，也提供一个回调函数transitionEnd()  返回当前选择索引位置、以及选择的数据（数组/json）
-- 能够在已经实例化控件后，提供update函数再次渲染，可用于异步获取数据或点击交互后需要改变所选数据的场景   
-- 提供重定位函数   
-- 可以回显（第二次进入页面时，可以显示历史选择的位置）   
+- 能够在已经实例化控件后，提供update函数再次渲染，可用于异步获取数据或点击交互后需要改变所选数据的场景
+- 提供重定位函数
+- 可以回显（第二次进入页面时，可以显示历史选择的位置）
 
 
-## 演示    
+## 演示
 
-#### 手机扫描二维码预览：  
+#### 手机扫描二维码预览：
 <img src="https://github.com/onlyhom/img-folder/blob/master/png/ms_code_url_480.png_io.png?raw=true" width="230">
 
-#### 动态图预览：   
+#### 动态图预览：
 ![Image text](https://github.com/onlyhom/img-folder/blob/master/gif/ms_preview_all.gif?raw=true)
 
-## 引入    
+## 引入
 
 #### 方式一 标签引入：
 ```html
@@ -64,8 +64,8 @@ import MobileSelect from 'mobile-select'
 
 <script type="text/javascript">
 var mobileSelect1 = new MobileSelect({
-    trigger: '#trigger1', 
-    title: '单项选择',  
+    trigger: '#trigger1',
+    title: '单项选择',
     wheels: [
                 {data:['周日','周一','周二','周三','周四','周五','周六']}
             ],
@@ -103,7 +103,7 @@ var mobileSelect2 = new MobileSelect({
             ],
     callback:function(indexArr, data){
         console.log(data); //返回选中的json数据
-    } 
+    }
 });
 </script>
 ```
@@ -142,15 +142,15 @@ var mobileSelect2 = new MobileSelect({
       position:[0,1],
       callback:function(indexArr, data){
           console.log(data); //返回选中的json数据
-      } 
+      }
   });
   </script>
 ```
-##### 效果图：  
+##### 效果图：
 ![Image text](https://raw.githubusercontent.com/onlyhom/img-folder/master/gif/%E7%BA%A7%E8%81%94.gif)
 
 
-#### ④在vue-cli中如何使用   
+#### ④在vue-cli中如何使用
 
 ```
 npm install mobile-select -D
@@ -184,7 +184,7 @@ npm install mobile-select -D
 ```
 
 
-#### ⑤数据字段名映射    
+#### ⑤数据字段名映射
 ```html
 <div id="trigger5"></div>
 
@@ -221,7 +221,7 @@ npm install mobile-select -D
             id:'id',
             value: 'title',
             childs :'children'
-        },         
+        },
         callback:function(indexArr, data){
             console.log(data);
         }
@@ -275,13 +275,13 @@ npm install mobile-select -D
 #### 注：功能函数中需要传递的参数含义如下
  - sliderIndex 代表的是要修改的轮子的索引
  - posIndex 代表位置索引
- 
-#### ①功能函数demo：  
+
+#### ①功能函数demo：
 ```html
 <div id="day"></div>
 
 var mySelect = new MobileSelect({
-    trigger: '#day', 
+    trigger: '#day',
     wheels: [
                 {data:['周日','周一','周二','周三','周四','周五','周六']},
                 {data:['08:00','09:00','10:00','11:00','12:00','13:00','14:00']}
@@ -290,9 +290,9 @@ var mySelect = new MobileSelect({
 });
 
 //----------------------------------------------
-//进行基础的实例化之后，对实例用功能函数操作 
+//进行基础的实例化之后，对实例用功能函数操作
 
-// mySelect.setTitle('啦啦啦(๑•̀ㅁ•́ฅ)'); 
+// mySelect.setTitle('啦啦啦(๑•̀ㅁ•́ฅ)');
 // 设置控件的标题
 
 // mySelect.updateWheel(0,['sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday']);
@@ -301,14 +301,14 @@ var mySelect = new MobileSelect({
 // mySelect.locatePosition(1,0);
 // 重新定位第1个轮子的位置，将第1个轮子的第0个数据改为当前选中。
 // (第1个轮子是指右边的轮子，左边的轮子是第0个)
-```   
-基础实例 → 功能函数操作后   
+```
+基础实例 → 功能函数操作后
 
 ![基础实例](https://github.com/onlyhom/img-folder/blob/master/QQscreenshot/before20170306234037.png?raw=true)
 ![功能函数操作后](https://github.com/onlyhom/img-folder/blob/master/QQscreenshot/after-20170306233954.png?raw=true)
 
 
-#### ②ajax异步填充数据demo     
+#### ②ajax异步填充数据demo
 
 ```html
 
@@ -327,7 +327,7 @@ var mySelect = new MobileSelect({
                     {data:[
                         {id:'1',value:'请选择距离'},
                     ]}
-                ],        
+                ],
         callback:function(indexArr, data){
             console.log(data);
         }
@@ -353,7 +353,7 @@ var mySelect = new MobileSelect({
             //     {id:'2',value:'300米'},
             //     {id:'3',value:'400米'}
             // ]
- 
+
             mobileSelect6.updateWheel(0, res.data.area); //更改第0个轮子
             mobileSelect6.updateWheel(1, res.data.distance); //更改第1个轮子
         }
@@ -382,7 +382,7 @@ var mySelect = new MobileSelect({
                             ]
                         }
                     ]}
-                ],        
+                ],
         callback:function(indexArr, data){
             console.log(data);
         }
@@ -410,11 +410,11 @@ var mySelect = new MobileSelect({
 </script>
 ```
 
-### 如何回显选择的位置     
-callback回调函数里有一个indexArr参数，它是一个数组，记录着当前选中的位置：     
-把这个数组转化为字符串之后，可以用<input type="hidden" value="">隐藏域或者别的其他方式保存下来，传给后台。      
-下次打开页面时，    
-MobileSelect实例化的时候，读取这个字符串，再转成数组，传给position，完成初始化定位即可。      
+### 如何回显选择的位置
+callback回调函数里有一个indexArr参数，它是一个数组，记录着当前选中的位置：
+把这个数组转化为字符串之后，可以用<input type="hidden" value="">隐藏域或者别的其他方式保存下来，传给后台。
+下次打开页面时，
+MobileSelect实例化的时候，读取这个字符串，再转成数组，传给position，完成初始化定位即可。
 
 
 ## 项目demo：
@@ -426,61 +426,70 @@ MobileSelect实例化的时候，读取这个字符串，再转成数组，传�
 ![Image text](https://github.com/onlyhom/img-folder/blob/master/gif/limit%E5%87%BD%E6%95%B0.gif?raw=true)
 
 
-## 更新日志  
-### 2017-04-20[更新]    
-鉴于input框在iphone上会出现光标      
-以及由input触发的fixed布局在iphone6P/iphone7P的chrome中打开会出现下移现象     
-舍弃使用input标签,改为由普通div触发    
-选择到的值写进div的innerHTML里             
-推荐用callback(indexArr, data)回调函数获取选择到的值         
+## 更新日志
+### 2017-04-20[更新]
+鉴于input框在iphone上会出现光标
+以及由input触发的fixed布局在iphone6P/iphone7P的chrome中打开会出现下移现象
+舍弃使用input标签,改为由普通div触发
+选择到的值写进div的innerHTML里
+推荐用callback(indexArr, data)回调函数获取选择到的值
 
-### 2017-07-27[修正]    
-修复issues中【li362692680】同学提出的    
-级联选择时无法初始定位二级选择框的问题    
-同时修复init函数中传入的position数组参数长度小于轮子个数无法移动的问题    
+### 2017-07-27[修正]
+修复issues中【li362692680】同学提出的
+级联选择时无法初始定位二级选择框的问题
+同时修复init函数中传入的position数组参数长度小于轮子个数无法移动的问题
 
-### 2017-07-30[修正+更新]    
-修复issues中【leohgbs】同学提出的    
-1.更新没有考虑到 数据是json的问题    
-2.更新之后，缓存的数据没有更新，导致callback数据源错误    
-更改变量名:jsonData → cascadeJsonData    
-更改方法名:updateWheels() → reRenderWheels()    
-updateWheel()方法不变    
-新增API：updateWheels(data) 用来在级联数据格式下 更新整个数据源    
+### 2017-07-30[修正+更新]
+修复issues中【leohgbs】同学提出的
+1.更新没有考虑到 数据是json的问题
+2.更新之后，缓存的数据没有更新，导致callback数据源错误
+更改变量名:jsonData → cascadeJsonData
+更改方法名:updateWheels() → reRenderWheels()
+updateWheel()方法不变
+新增API：updateWheels(data) 用来在级联数据格式下 更新整个数据源
 
-### 2017-08-15[更新]  
-修复级联状态下-单点击失效    
-删除js文件中大括号后面的注释(在php环境中 会有js代码失效的情况)    
-修复ios潜在bug    
-新增API show()    
-新增API getValue()    
-新增选项样式选项(修改连接符/按钮文本/按钮颜色/背景颜色等)：    
-connector    
-ensureBtnText    
-ensureBtnColor    
-cancelBtnText     
-cancelBtnColor    
-titleColor    
-titleBgColor    
-bgColor    
-textColor    
-颜色支持如 #ff0000 rgba(0,255,255,0.5) orange 等格式    
+### 2017-08-15[更新]
+修复级联状态下-单点击失效
+删除js文件中大括号后面的注释(在php环境中 会有js代码失效的情况)
+修复ios潜在bug
+新增API show()
+新增API getValue()
+新增选项样式选项(修改连接符/按钮文本/按钮颜色/背景颜色等)：
+connector
+ensureBtnText
+ensureBtnColor
+cancelBtnText
+cancelBtnColor
+titleColor
+titleBgColor
+bgColor
+textColor
+颜色支持如 #ff0000 rgba(0,255,255,0.5) orange 等格式
 
 
-### 2017-09-07[更新]    
-增加数据字段映射功能   
-更新README   
+### 2017-09-07[更新]
+增加数据字段映射功能
+更新README
 
-### 2017-10-17[更新]    
-增加 cancel 回调函数   
+### 2017-10-17[更新]
+增加 cancel 回调函数
 
-### 2017-12-12[更新]    
-删除 cancel 回调函数   
-感谢【ngdly】同学:   
-增加 onshow 回调函数    
-增加 onhide 回调函数    
-增加 show()  
+### 2017-12-12[更新]
+删除 cancel 回调函数
+感谢【ngdly】同学:
+增加 onshow 回调函数
+增加 onhide 回调函数
+增加 show()
 增加 hide()
+
+### 2018-01-28[优化]
+感谢【aaalog】同学的建议
+改写监听单击事件的方法
+为了修复单击事件时，transitionEnd会被触发两次的情况：
+删除了addListenerLi()、singleClick()内部方法，
+直接在touchend事件做出单击判断。
+
+
 
 ## 许可证
 
