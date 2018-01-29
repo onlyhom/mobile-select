@@ -362,6 +362,7 @@ npm install mobile-select -D
 |titleBgColor|`'#ffffff'`|String| The background color of the component title |
 |textColor|`'#000000'`|String| The text color of the wheels |
 |bgColor|`'#ffffff'`|String| The Wheels background color |
+|maskOpacity|`0.7`| Number | Mask opacity |
 |keyMap|`{id:'id', value:'value', childs:'childs'`}|Object| Field name mapping, applies to field names that do not match id, value, childs |
 |triggerDisplayData|`true`|Boolean| When the click is confirmed, the trigger's innerHtml becomes the selected data.<br>( If there are other elements in the trigger, you can set it to false. If you need to display data elsewhere, you can use the data returned by callback to stitch yourself )|
 
