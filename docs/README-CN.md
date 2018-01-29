@@ -489,6 +489,8 @@ textColor
 删除了addListenerLi()、singleClick()内部方法，    
 直接在touchend事件做出单击判断。    
 
+### 2018-01-29[更新]    
+增加 maskOpacity 设置遮罩透明度    
 
 
 ## 许可证
