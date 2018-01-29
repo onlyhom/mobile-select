@@ -146,6 +146,10 @@
 				_this.panel.style.backgroundColor = config.bgColor;
 				_this.shadowMask.style.background = 'linear-gradient(to bottom, '+ config.bgColor + ', rgba(255, 255, 255, 0), '+ config.bgColor + ')';
 			}
+			if(!isNaN(config.maskOpacity)){
+				_this.grayMask = _this.mobileSelect.querySelector('.grayLayer');
+				_this.grayMask.style.background = 'rgba(0, 0, 0, '+ config.maskOpacity +')';
+			}
 		},
 
 		checkIsPC: function(){
