@@ -252,6 +252,7 @@ npm install mobile-select -D
 |titleBgColor|`'#ffffff'`|String| 控件标题的背景颜色|
 |textColor|`'#000000'`|String| 轮子内文本的颜色 |
 |bgColor|`'#ffffff'`|String| 轮子背景颜色 |
+|maskOpacity|`0.7`| Number | 遮罩透明度 |
 |keyMap|`{id:'id', value:'value', childs:'childs'`}|Object| 字段名映射，适用于字段名不匹配id,value,childs的数据格式 |
 |triggerDisplayData|`true`|Boolean| 在点击确认时，trigger的innerHtml是否变为选择的数据。<br>（如果trigger里面还有其他元素，则可以设置为false；如果需要在别的地方显示数据，则可用callback返回的数据自行拼接）|
 
