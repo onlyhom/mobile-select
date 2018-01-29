@@ -500,6 +500,8 @@ To fix the click event which will triggered twice the transitionEnd funtion:
 Remove addListenerLi(), singleClick() internal methods,
 Click judgment directly in the touchend event.
 
+### 2018-01-29[update]    
+Add maskOpacity option    
 
 ## License
 
