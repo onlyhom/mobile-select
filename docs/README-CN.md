@@ -239,6 +239,7 @@ npm install mobile-select -D
 |wheels|必填参数 无默认值|Array|数据源,需要显示的数据|
 |callback|function(indexArr, data){}|function | 选择成功后触发的回调函数，返回indexArr、data|
 |transitionEnd|function(indexArr, data){}|function|每一次手势滑动结束后触发的回调函数,返回indexArr、data|
+|cancel|function(indexArr, data){}|function|返回的是indexArr和data是上一次点击确认按钮时的值|
 |onShow|function(e){}|function | 显示控件后触发的回调函数, 返回参数为对象本身 |
 |onHide|function(e){}|function | 隐藏控件后触发的回调函数, 返回参数为对象本身 |
 |title|`''`|String|控件标题|
