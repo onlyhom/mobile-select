@@ -349,6 +349,7 @@ npm install mobile-select -D
 |wheels|Required parameter. No default value|Array|The data displayed on the wheel|
 |callback|function(indexArr, data){}|function | A callback function after successful selected, return parameter (indexArr, data) |
 |transitionEnd|function(indexArr, data){}|function|A callback function that after each gesture sliding, return parameter (indexArr, data)|
+|cancel|function(indexArr, data){}|function|A callback function after cancel selected, return last successful selected parameter (indexArr, data)|
 |onShow|function(e){}|function | A callback when the window is show, return object itself as parameter |
 |onHide|function(e){}|function | A callback when the window is hidden, return object itself as parameter|
 |title|`''`|String|Component title|
