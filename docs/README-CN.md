@@ -244,6 +244,7 @@ npm install mobile-select -D
 |onHide|function(e){}|function | 隐藏控件后触发的回调函数, 返回参数为对象本身 |
 |title|`''`|String|控件标题|
 |position|[0,0,0,…]|Array|初始化定位|
+|colWidth|[1,1,2,…]|Array|列宽度设置|
 |connector|`' '`|String| 多个轮子时，多个值中间的连接符，默认是空格 |
 |ensureBtnText|`'确认'`|String| 确认按钮的文本内容 |
 |cancelBtnText|`'取消'`|String| 取消按钮的文本内容 |
@@ -289,6 +290,7 @@ var mySelect = new MobileSelect({
                 {data:['08:00','09:00','10:00','11:00','12:00','13:00','14:00']}
             ],
     position:[1,1] //初始化定位 两个轮子都选中在索引1的选项
+    colWidth: [1, 2] // 初始化列宽度设置，数字代表每列宽度比例
 });
 
 //----------------------------------------------

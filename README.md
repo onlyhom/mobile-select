@@ -354,6 +354,7 @@ npm install mobile-select -D
 |onHide|function(e){}|function | A callback when the window is hidden, return object itself as parameter|
 |title|`''`|String|Component title|
 |position|[0,0,0,…]|Array|Initialize positioning|
+|colWidth|[1,1,2,…]|Array|col width setting|
 |connector|`' '`|String| When there are multiple wheels, set the connection to connect multiple values, the default value is a space |
 |ensureBtnText|`'确认'`|String| The text content of comfirm button |
 |cancelBtnText|`'取消'`|String| The text content of cancel button |
@@ -407,6 +408,7 @@ var mySelect = new MobileSelect({
                 {data:['08:00','09:00','10:00','11:00','12:00','13:00','14:00']}
             ],
     position:[1,1] //Initialize the positioning of both wheels are selected in the index 1 option
+    colWidth: [1, 2] // initialize the col width setting, The number represents the width ratio of each column
 });
 
 //----------------------------------------------

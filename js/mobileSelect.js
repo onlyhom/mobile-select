@@ -55,6 +55,7 @@
 			_this.onShow = config.onShow || function(){};
 			_this.onHide = config.onHide || function(){};
 			_this.initPosition = config.position || [];
+			_this.initColWidth = config.colWidth || [];
 			_this.titleText = config.title || '';
 			_this.connector = config.connector || ' ';
 			_this.triggerDisplayData = !(typeof(config.triggerDisplayData)=='undefined') ? config.triggerDisplayData : true;
@@ -464,6 +465,15 @@
 
 		fixRowStyle: function(){
 			var _this = this;
+			// 自定义列宽度比例
+			if (_this.initColWidth.length && _this.initColWidth.length === _this.wheel.length) {
+				var widthSum = _this.initColWidth.reduce((cur, pre) => cur + pre, 0)
+				this.initColWidth.forEach((item, index) => {
+					_this.wheel[index].style.width = (item / widthSum * 100).toFixed(2) + '%'
+				})
+
+				return false
+			}
 			var width = (100/_this.wheel.length).toFixed(2);
 			for(var i=0; i<_this.wheel.length; i++){
 				_this.wheel[i].style.width = width+'%';
