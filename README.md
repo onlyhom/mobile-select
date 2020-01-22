@@ -345,7 +345,7 @@ npm install mobile-select -D
 
 |Option|Default|Type|Description |
 | ------ |------|-----|-----|
-|trigger|Required parameter. No default value|String| The id/class/tag of the trigger object |
+|trigger|No default value|String| The id/class/tag/element of the trigger object. If not defined window can be triggered by calling show() method |
 |wheels|Required parameter. No default value|Array|The data displayed on the wheel|
 |callback|function(indexArr, data){}|function | A callback function after successful selected, return parameter (indexArr, data) |
 |transitionEnd|function(indexArr, data){}|function|A callback function that after each gesture sliding, return parameter (indexArr, data)|

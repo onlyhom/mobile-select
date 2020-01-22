@@ -37,11 +37,16 @@
 			_this.keyMap = config.keyMap ? config.keyMap : {id:'id', value:'value', childs:'childs'};
 			_this.checkDataType();
 			_this.renderWheels(_this.wheelsData, config.cancelBtnText, config.ensureBtnText);
-			_this.trigger = document.querySelector(config.trigger);
-			if(!_this.trigger){
-				console.error('mobileSelect has been successfully installed, but no trigger found on your page.');
-				return false;
+			
+			if (config.trigger){
+				_this.trigger = config.trigger instanceof HTMLElement ? config.trigger : document.querySelector(config.trigger);
+				if(!_this.trigger){
+					console.error('mobileSelect has been successfully installed, but no trigger found on your page.');
+					return false;
+				}
+				_this.trigger.style.cursor='pointer';
 			}
+
 			_this.wheel = getClass(_this.mobileSelect,'wheel');
 			_this.slider = getClass(_this.mobileSelect,'selectContainer');
 			_this.wheels = _this.mobileSelect.querySelector('.wheels');
@@ -58,7 +63,6 @@
 			_this.titleText = config.title || '';
 			_this.connector = config.connector || ' ';
 			_this.triggerDisplayData = !(typeof(config.triggerDisplayData)=='undefined') ? config.triggerDisplayData : true;
-			_this.trigger.style.cursor='pointer';
 			_this.setStyle(config);
 			_this.setTitle(_this.titleText);
 			_this.checkIsPC();
@@ -93,7 +97,7 @@
 		    	for(var i=0; i<_this.wheel.length; i++){
 		    		i==_this.wheel.length-1 ? tempValue += _this.getInnerHtml(i) : tempValue += _this.getInnerHtml(i) + _this.connector;
 		    	}
-		    	if(_this.triggerDisplayData){
+		    	if(_this.trigger && _this.triggerDisplayData){
 		    		_this.trigger.innerHTML = tempValue;
 		    	}
 		    	_this.curIndexArr = _this.getIndexArr();
@@ -101,9 +105,11 @@
 		    	_this.callback(_this.curIndexArr, _this.curValue);
 		    });
 
-		    _this.trigger.addEventListener('click',function(){
-		    	_this.show();
-		    });
+			if (_this.trigger) {
+				_this.trigger.addEventListener('click',function(){
+					_this.show();
+				});
+			}
 		    _this.grayLayer.addEventListener('click',function(){
 				_this.hide();
 		    });
