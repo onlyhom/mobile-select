@@ -558,8 +558,8 @@
 
 	    getInnerHtml: function(sliderIndex){
 	    	var _this = this;
-                var lengthOfList = _this.slider[sliderIndex].getElementsByTagName("li").length;
-                var index = _this.getIndex(_this.curDistance[sliderIndex]);
+	    	var lengthOfList = _this.slider[sliderIndex].getElementsByTagName("li").length;
+	    	var index = _this.getIndex(_this.curDistance[sliderIndex]);
 	    	
 	    	if (index >= lengthOfList) {
 	    		index = lengthOfList - 1;
