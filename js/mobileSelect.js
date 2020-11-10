@@ -558,7 +558,14 @@
 
 	    getInnerHtml: function(sliderIndex){
 	    	var _this = this;
+	    	var lengthOfList = _this.slider[sliderIndex].getElementsByTagName("li").length;
 	    	var index = _this.getIndex(_this.curDistance[sliderIndex]);
+	    	
+	    	if (index >= lengthOfList) {
+	    		index = lengthOfList - 1;
+	    	} else if (index < 0) {
+	    		index = 0;
+	    	}
 	    	return _this.slider[sliderIndex].getElementsByTagName('li')[index].innerHTML;
 	    },
 
