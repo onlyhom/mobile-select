@@ -1,5 +1,5 @@
 <p align="center"><img width="130" src="https://github.com/onlyhom/img-folder/blob/master/png/m_logo_orange.png?raw=true"></p>
-<h1 align="center" >mobileSelect.js</h1>
+<h1 align="center" >Mobile Select</h1>
 <p align="center">
   <a href="https://github.com/onlyhom/mobileSelect.js/blob/master/LICENSE" title="LICENSE">
     <img src="https://img.shields.io/npm/l/express.svg" alt="MIT License">
