@@ -37,7 +37,7 @@
 			_this.keyMap = config.keyMap ? config.keyMap : {id:'id', value:'value', childs:'childs'};
 			_this.checkDataType();
 			_this.renderWheels(_this.wheelsData, config.cancelBtnText, config.ensureBtnText);
-			_this.trigger = document.querySelector(config.trigger);
+			_this.trigger = config.trigger instanceof Element?config.trigger:document.querySelector(config.trigger);
 			if(!_this.trigger){
 				console.error('mobileSelect has been successfully installed, but no trigger found on your page.');
 				return false;
@@ -560,7 +560,7 @@
 	    	var _this = this;
 	    	var lengthOfList = _this.slider[sliderIndex].getElementsByTagName("li").length;
 	    	var index = _this.getIndex(_this.curDistance[sliderIndex]);
-	    	
+
 	    	if (index >= lengthOfList) {
 	    		index = lengthOfList - 1;
 	    	} else if (index < 0) {
