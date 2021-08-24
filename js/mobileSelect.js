@@ -588,7 +588,7 @@
 					if(_this.offsetSum == 0){
 						//offsetSum为0,相当于点击事件
 						// 0 1 [2] 3 4
-						var clickOffetNum = parseInt((document.documentElement.clientHeight - _this.moveEndY)/40);
+						var clickOffetNum = parseInt((window.innerHeight - _this.moveEndY)/40);
 						if(clickOffetNum!=2){
 							var offset = clickOffetNum - 2;
 							var newDistance = _this.curDistance[index] + (offset*_this.liHeight);
@@ -656,7 +656,7 @@
 					_this.oversizeBorder = -(theSlider.getElementsByTagName('li').length-3)*_this.liHeight;
 
 					if(_this.offsetSum == 0){
-						var clickOffetNum = parseInt((document.documentElement.clientHeight - _this.moveEndY)/40);
+						var clickOffetNum = parseInt((document.window.innerHeight - _this.moveEndY)/40);
 						if(clickOffetNum!=2){
 							var offset = clickOffetNum - 2;
 							var newDistance = _this.curDistance[index] + (offset*_this.liHeight);
