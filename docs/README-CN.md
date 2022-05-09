@@ -246,10 +246,10 @@ npm install mobile-select -D
 
 ## 参数
 
-| 选项               | 默认值                                      | 类型     | 描述                                                                                                                                                                             |
+| 选项                | 默认值                                      | 类型     | 描述                                                                                                                                                                             |
 | ------------------ | ------------------------------------------- | -------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| trigger            | 必填参数 无默认值                           | String   | 触发对象的 id/class/tag                                                                                                                                                          |
-| wheels             | 必填参数 无默认值                           | Array    | 数据源,需要显示的数据                                                                                                                                                            |
+| trigger            | 必填参数 无默认值                              | String   | 触发对象的 id/class/tag                                                                                                                                                          |
+| wheels             | 必填参数 无默认值                              | Array    | 数据源,需要显示的数据                                                                                                                                                            |
 | callback           | function(indexArr, data){}                  | function | 选择成功后触发的回调函数，返回 indexArr、data                                                                                                                                    |
 | transitionEnd      | function(indexArr, data){}                  | function | 每一次手势滑动结束后触发的回调函数,返回 indexArr、data                                                                                                                           |
 | cancel             | function(indexArr, data){}                  | function | 返回的是 indexArr 和 data 是上一次点击确认按钮时的值                                                                                                                             |
@@ -257,9 +257,10 @@ npm install mobile-select -D
 | onHide             | function(e){}                               | function | 隐藏控件后触发的回调函数, 返回参数为对象本身                                                                                                                                     |
 | title              | `''`                                        | String   | 控件标题                                                                                                                                                                         |
 | position           | [0,0,0,…]                                   | Array    | 初始化定位                                                                                                                                                                       |
-| connector          | `' '`                                       | String   | 多个轮子时，多个值中间的连接符，默认是空格                                                                                                                                       |
-| ensureBtnText      | `'确认'`                                    | String   | 确认按钮的文本内容                                                                                                                                                               |
-| cancelBtnText      | `'取消'`                                    | String   | 取消按钮的文本内容                                                                                                                                                               |
+| colWidth           | [1,1,2,…]                                   | Array    | 列宽度设置                                                                                                                                                                     |
+| connector          | `' '`                                       | String   | 多个轮子时，多个值中间的连接符，默认是空格                                                                                                                                          |
+| ensureBtnText      | `'确认'`                                     | String   | 确认按钮的文本内容                                                                                                                                                               |
+| cancelBtnText      | `'取消'`                                     | String   | 取消按钮的文本内容                                                                                                                                                               |
 | ensureBtnColor     | `'#1e83d3'`                                 | String   | 确认按钮的文本颜色                                                                                                                                                               |
 | cancelBtnColor     | `'#666666'`                                 | String   | 取消按钮的文本颜色                                                                                                                                                               |
 | titleColor         | `'#000000'`                                 | String   | 控件标题的文本颜色                                                                                                                                                               |
@@ -297,17 +298,28 @@ npm install mobile-select -D
 ```html
 <div id="day"></div>
 
-var mySelect = new MobileSelect({ trigger: '#day', wheels: [
-{data:['周日','周一','周二','周三','周四','周五','周六']},
-{data:['08:00','09:00','10:00','11:00','12:00','13:00','14:00']} ],
-position:[1,1] //初始化定位 两个轮子都选中在索引1的选项 });
+
+var mySelect = new MobileSelect({
+    trigger: '#day',
+    wheels: [
+        {data:['周日','周一','周二','周三','周四','周五','周六']},
+        {data:['08:00','09:00','10:00','11:00','12:00','13:00','14:00']}
+    ],
+    position:[1,1] //初始化定位 两个轮子都选中在索引1的选项
+    colWidth: [1, 2] // 初始化列宽度设置，数字代表每列宽度比例
+});
+
 //----------------------------------------------
-//进行基础的实例化之后，对实例用功能函数操作 //
-mySelect.setTitle('啦啦啦(๑•̀ㅁ•́ฅ)'); // 设置控件的标题 //
+// 实例化之后，对实例用功能函数操作 
+
+/** 设置控件的标题 */
+mySelect.setTitle('啦啦啦(๑•̀ㅁ•́ฅ)');
+
+/** 更新第0个轮子的数据，数据变为英文的星期几 */
 mySelect.updateWheel(0,['sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday']);
-// 更新第0个轮子的数据，数据变为英文的星期几 // mySelect.locatePosition(1,0); //
-重新定位第1个轮子的位置，将第1个轮子的第0个数据改为当前选中。 //
-(第1个轮子是指右边的轮子，左边的轮子是第0个)
+
+/** 重新定位第1个轮子的位置，将第1个轮子的第0个数据改为当前选中。*/
+mySelect.locatePosition(1,0);
 ```
 
 基础实例 → 功能函数操作后
@@ -507,6 +519,12 @@ textColor
 ### 2018-01-29[更新]
 
 增加 maskOpacity 设置遮罩透明度
+
+### 2019-05-15[update]
+
+感谢【aaalog】同学的PR 
+增加轮子宽度配置 colWidth
+
 
 ## 许可证
 

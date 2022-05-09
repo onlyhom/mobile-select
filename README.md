@@ -358,6 +358,7 @@ npm install mobile-select -D
 | onHide             | function(e){}                               | function | A callback when the window is hidden, return object itself as parameter                                                                                                                                                                                         |
 | title              | `''`                                        | String   | Component title                                                                                                                                                                                                                                                 |
 | position           | [0,0,0,…]                                   | Array    | Initialize positioning                                                                                                                                                                                                                                          |
+| colWidth           | [1,1,2,…]                                   | Array    | col width setting                                                                                                                                                                                                                                               |
 | connector          | `' '`                                       | String   | When there are multiple wheels, set the connection to connect multiple values, the default value is a space                                                                                                                                                     |
 | ensureBtnText      | `'确认'`                                    | String   | The text content of comfirm button                                                                                                                                                                                                                              |
 | cancelBtnText      | `'取消'`                                    | String   | The text content of cancel button                                                                                                                                                                                                                               |
@@ -405,19 +406,28 @@ When the MobileSelect is instantiated, it reads the string, turns it into an arr
 ```html
 <div id="day"></div>
 
-var mySelect = new MobileSelect({ trigger: '#day', wheels: [
-{data:['周日','周一','周二','周三','周四','周五','周六']},
-{data:['08:00','09:00','10:00','11:00','12:00','13:00','14:00']} ],
-position:[1,1] //Initialize the positioning of both wheels are selected in the
-index 1 option }); //---------------------------------------------- //After the
-basic instantiated, use the functions mySelect.setTitle('啦啦啦(๑•̀ㅁ•́ฅ)'); //
-Set the title of the component
+var mySelect = new MobileSelect({
+    trigger: '#day',
+    wheels: [
+        {data:['周日','周一','周二','周三','周四','周五','周六']},
+        {data:['08:00','09:00','10:00','11:00','12:00','13:00','14:00']}
+    ],
+    position:[1,1] //Initialize the positioning of both wheels are selected in the index 1 option
+    colWidth: [1, 2] // initialize the col width setting, The number represents the width ratio of each column
+});
+
+//----------------------------------------------
+//After the basic instantiated, use the functions
+
+/** Set the title of the component */
+mySelect.setTitle('啦啦啦(๑•̀ㅁ•́ฅ)');
+
+/** Update the 0th wheel of the data,the data from the Chinese week to the English week */
 mySelect.updateWheel(0,['sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday']);
-// Update the 0th wheel of the data,the data from the Chinese week to the
-English week mySelect.locatePosition(1,0); // Reposition the position of the
-first wheel and change the 0th data of the first wheel to the current selection.
-// (The first wheel is the right wheel, the left side of the wheel is the first
-0)
+
+/** Reposition the position of the first wheel and change the 0th data of the first wheel to the current selection. */
+mySelect.locatePosition(1,0);
+
 ```
 
 Base example → Function after operation
@@ -510,6 +520,11 @@ Click judgment directly in the touchend event.
 ### 2018-01-29[update]
 
 Add maskOpacity option
+
+### 2019-05-15[update]
+
+Thanks for [Jackliu007888]:
+Add option colWidth
 
 ## License
 
