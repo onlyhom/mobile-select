@@ -81,11 +81,11 @@
 
 
 			//按钮监听
-			_this.cancelBtn.addEventListener('click',function(){
+			_this.cancelBtn.addEventListener('click',function(event){
 				_this.hide();
 		    });
 
-		    _this.ensureBtn.addEventListener('click',function(){
+		    _this.ensureBtn.addEventListener('click',function(event){
 				_this.hide();
 			    if(!_this.liHeight) {
 			        _this.liHeight =  _this.mobileSelect.querySelector('li').offsetHeight;
@@ -102,13 +102,13 @@
 		    	_this.callback(_this.curIndexArr, _this.curValue);
 		    });
 
-		    _this.trigger.addEventListener('click',function(){
+		    _this.trigger.addEventListener('click',function(event){
 		    	_this.show();
 		    });
-		    _this.grayLayer.addEventListener('click',function(){
+		    _this.grayLayer.addEventListener('click',function(event){
 				_this.hide();
 		    });
-		    _this.popUp.addEventListener('click',function(){
+		    _this.popUp.addEventListener('click',function(event){
 		    	event.stopPropagation();
 		    });
 
@@ -244,25 +244,25 @@
 
 		addListenerWheel: function(theWheel, index){
 			var _this = this;
-			theWheel.addEventListener('touchstart', function () {
+			theWheel.addEventListener('touchstart', function (event) {
 				_this.touch(event, this.firstChild, index);
 			},false);
-			theWheel.addEventListener('touchend', function () {
+			theWheel.addEventListener('touchend', function (event) {
 				_this.touch(event, this.firstChild, index);
 			},false);
-			theWheel.addEventListener('touchmove', function () {
+			theWheel.addEventListener('touchmove', function (event) {
 				_this.touch(event, this.firstChild, index);
 			},false);
 
 			if(_this.isPC){
 				//如果是PC端则再增加拖拽监听 方便调试
-				theWheel.addEventListener('mousedown', function () {
+				theWheel.addEventListener('mousedown', function (event) {
 					_this.dragClick(event, this.firstChild, index);
 				},false);
-				theWheel.addEventListener('mousemove', function () {
+				theWheel.addEventListener('mousemove', function (event) {
 					_this.dragClick(event, this.firstChild, index);
 				},false);
-				theWheel.addEventListener('mouseup', function () {
+				theWheel.addEventListener('mouseup', function (event) {
 					_this.dragClick(event, this.firstChild, index);
 				},true);
 			}
@@ -568,7 +568,14 @@
 
 	    getInnerHtml: function(sliderIndex){
 	    	var _this = this;
+	    	var lengthOfList = _this.slider[sliderIndex].getElementsByTagName("li").length;
 	    	var index = _this.getIndex(_this.curDistance[sliderIndex]);
+	    	
+	    	if (index >= lengthOfList) {
+	    		index = lengthOfList - 1;
+	    	} else if (index < 0) {
+	    		index = 0;
+	    	}
 	    	return _this.slider[sliderIndex].getElementsByTagName('li')[index].innerHTML;
 	    },
 
