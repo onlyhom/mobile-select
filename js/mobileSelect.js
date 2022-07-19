@@ -1,8 +1,10 @@
 /*!
- * mobileSelect.js
+ * mobile-select
  * (c) 2017-present onlyhom
  * Released under the MIT License.
  */
+
+// TODO优化: 优化less 优化其他函数 引入TS 可视化单元测试
 
 (function () {
   function getClass(dom, string) {
@@ -10,28 +12,13 @@
   }
 
   function checkIsPC() {
-    let sUserAgent = navigator.userAgent.toLowerCase();
-    let bIsIpad = sUserAgent.match(/ipad/i) == "ipad";
-    let bIsIphoneOs = sUserAgent.match(/iphone os/i) == "iphone os";
-    let bIsMidp = sUserAgent.match(/midp/i) == "midp";
-    let bIsUc7 = sUserAgent.match(/rv:1.2.3.4/i) == "rv:1.2.3.4";
-    let bIsUc = sUserAgent.match(/ucweb/i) == "ucweb";
-    let bIsAndroid = sUserAgent.match(/android/i) == "android";
-    let bIsCE = sUserAgent.match(/windows ce/i) == "windows ce";
-    let bIsWM = sUserAgent.match(/windows mobile/i) == "windows mobile";
-    if (
-      bIsIpad ||
-      bIsIphoneOs ||
-      bIsMidp ||
-      bIsUc7 ||
-      bIsUc ||
-      bIsAndroid ||
-      bIsCE ||
-      bIsWM
-    ) {
-      return false;
-    }
-    return true;
+    return !Boolean(
+      navigator.userAgent
+        .toLowerCase()
+        .match(
+          /ipad|iphone os|midp|rv:1.2.3.4|ucweb|android|windows ce|windows mobile/
+        )
+    );
   }
 
   //构造器
@@ -59,12 +46,11 @@
     }
 
     init(config) {
-      let _this = this;
       this.keyMap = config.keyMap
         ? config.keyMap
         : { id: "id", value: "value", childs: "childs" };
       this.isJsonType = MobileSelect.checkDataType(this.wheelsData);
-      this.renderWheels(
+      this.renderComponent(
         this.wheelsData,
         config.cancelBtnText,
         config.ensureBtnText
@@ -72,7 +58,7 @@
       this.trigger = document.querySelector(config.trigger);
       if (!this.trigger) {
         console.error(
-          "mobileSelect has been successfully installed, but no trigger found on your page."
+          "mobile-select has been successfully installed, but no trigger found on your page."
         );
         return false;
       }
@@ -117,6 +103,7 @@
         }
       }
       this.setCurDistance(this.initPosition);
+
       this.eventHandleMap = {
         cancelBtn: {
           event: "click",
@@ -248,7 +235,25 @@
       this.mobileSelect.parentNode.removeChild(this.mobileSelect);
     }
 
-    renderWheels(wheelsData, cancelBtnText, ensureBtnText) {
+    getOptionsHtmlStr(childs) {
+      let tempHTML = "";
+      if (this.isJsonType) {
+        for (let j = 0; j < childs.length; j++) {
+          // 行
+          const id = childs[j][this.keyMap.id];
+          const val = childs[j][this.keyMap.value];
+          tempHTML += `<li data-id="${id}">${val}</li>`;
+        }
+      } else {
+        for (let j = 0; j < childs.length; j++) {
+          // 行
+          tempHTML += "<li>" + childs[j] + "</li>";
+        }
+      }
+      return tempHTML;
+    }
+
+    renderComponent(wheelsData, cancelBtnText, ensureBtnText) {
       let cancelText = cancelBtnText ? cancelBtnText : "取消";
       let ensureText = ensureBtnText ? ensureBtnText : "确认";
       this.mobileSelect = document.createElement("div");
@@ -276,64 +281,33 @@
       for (let i = 0; i < wheelsData.length; i++) {
         //列
         tempHTML += `<div class="wheel"><ul class="selectContainer" data-index="${i}">`;
-        if (this.isJsonType) {
-          for (let j = 0; j < wheelsData[i].data.length; j++) {
-            // 行
-            const id = wheelsData[i].data[j][this.keyMap.id];
-            const val = wheelsData[i].data[j][this.keyMap.value];
-            tempHTML += `<li data-id="${id}">${val}</li>`;
-          }
-        } else {
-          for (let j = 0; j < wheelsData[i].data.length; j++) {
-            // 行
-            tempHTML += "<li>" + wheelsData[i].data[j] + "</li>";
-          }
-        }
+        tempHTML += this.getOptionsHtmlStr(wheelsData[i].data);
         tempHTML += "</ul></div>";
       }
       this.mobileSelect.querySelector(".wheels").innerHTML = tempHTML;
     }
 
-    // 优化合并此函数
+    // 级联数据滚动时 右侧列数据的变化
     reRenderWheels() {
-      let _this = this;
-      //删除多余的wheel
-      if (this.wheel.length > this.displayJson.length) {
-        let count = this.wheel.length - this.displayJson.length;
-        for (let i = 0; i < count; i++) {
+      const diff = this.wheel.length - this.displayJson.length;
+      if (diff > 0) {
+        for (let i = 0; i < diff; i++) {
           this.wheels.removeChild(this.wheel[this.wheel.length - 1]);
         }
       }
-      for (let i = 0; i < _this.displayJson.length; i++) {
-        // 列
-        (function (i) {
-          let tempHTML = "";
-          if (_this.wheel[i]) {
-            //console.log('插入Li');
-            for (let j = 0; j < _this.displayJson[i].length; j++) {
-              // 行
-              const id = _this.displayJson[i][j][_this.keyMap.id];
-              const val = _this.displayJson[i][j][_this.keyMap.value];
-
-              tempHTML += `<li data-id="${id}">${val}</li>`;
-            }
-            _this.slider[i].innerHTML = tempHTML;
-          } else {
-            let tempWheel = document.createElement("div");
-            tempWheel.className = "wheel";
-            tempHTML = `<ul class="selectContainer" data-index="${i}">`;
-            for (let j = 0; j < _this.displayJson[i].length; j++) {
-              // 行
-              const id = _this.displayJson[i][j][_this.keyMap.id];
-              const val = _this.displayJson[i][j][_this.keyMap.value];
-              tempHTML += `<li data-id="${id}">${val}</li>`;
-            }
-            tempHTML += "</ul>";
-            tempWheel.innerHTML = tempHTML;
-
-            _this.wheels.appendChild(tempWheel);
-          }
-        })(i);
+      for (let i = 0; i < this.displayJson.length; i++) {
+        if (this.wheel[i]) {
+          this.slider[i].innerHTML = this.getOptionsHtmlStr(
+            this.displayJson[i]
+          );
+        } else {
+          let tempWheel = document.createElement("div");
+          tempWheel.className = "wheel";
+          tempWheel.innerHTML = `<ul class="selectContainer" data-index="${i}">${this.getOptionsHtmlStr(
+            this.displayJson[i]
+          )}</ul>`;
+          this.wheels.appendChild(tempWheel);
+        }
       }
     }
 
@@ -390,21 +364,21 @@
     }
 
     checkArrDeep(parent) {
-      //检测子节点深度  修改 displayJson
+      // 检测子节点深度  修改displayJson
       if (!parent) return;
       if (
         this.keyMap.childs in parent &&
         parent[this.keyMap.childs].length > 0
       ) {
-        this.displayJson.push(parent[this.keyMap.childs]); //生成子节点数组
-        this.checkArrDeep(parent[this.keyMap.childs][0]); //检测下一个子节点
+        this.displayJson.push(parent[this.keyMap.childs]); // 生成子节点数组
+        this.checkArrDeep(parent[this.keyMap.childs][0]); // 检测下一个子节点
       }
     }
 
     checkRange(index, posIndexArr) {
       let deleteNum = this.displayJson.length - 1 - index;
       for (let i = 0; i < deleteNum; i++) {
-        this.displayJson.pop(); //修改 displayJson
+        this.displayJson.pop(); // 修改 displayJson
       }
       let resultNode;
       for (let i = 0; i <= index; i++) {
@@ -414,7 +388,6 @@
         }
       }
       this.checkArrDeep(resultNode);
-      console.log("this.displayJson", this.displayJson);
       this.reRenderWheels();
       this.fixRowStyle();
       this.setCurDistance(this.resetPosition(index, posIndexArr));
@@ -441,19 +414,18 @@
     }
 
     updateWheels(data) {
-      let _this = this;
-      if (_this.isCascade) {
-        _this.cascadeJsonData = data;
-        _this.displayJson = [];
-        _this.initCascade();
-        if (_this.initPosition.length < _this.slider.length) {
-          let diff = _this.slider.length - _this.initPosition.length;
+      if (this.isCascade) {
+        this.cascadeJsonData = data;
+        this.displayJson = [];
+        this.initCascade();
+        if (this.initPosition.length < this.slider.length) {
+          let diff = this.slider.length - this.initPosition.length;
           for (let i = 0; i < diff; i++) {
-            _this.initPosition.push(0);
+            this.initPosition.push(0);
           }
         }
-        _this.setCurDistance(_this.initPosition);
-        _this.fixRowStyle();
+        this.setCurDistance(_this.initPosition);
+        this.fixRowStyle();
       }
     }
 
@@ -466,17 +438,14 @@
         return false;
       } else if (this.isJsonType) {
         for (let j = 0; j < data.length; j++) {
-          tempHTML +=
-            '<li data-id="' +
-            data[j][this.keyMap.id] +
-            '">' +
-            data[j][this.keyMap.value] +
-            "</li>";
+          const id = data[j][this.keyMap.id];
+          const value = data[j][this.keyMap.value];
+          tempHTML += `<li data-id="${id}">${value}</li>`;
         }
         this.wheelsData[sliderIndex] = { data: data };
       } else {
         for (let j = 0; j < data.length; j++) {
-          tempHTML += "<li>" + data[j] + "</li>";
+          tempHTML += `<li>${data[j]}</li>`;
         }
         this.wheelsData[sliderIndex] = data;
       }
@@ -576,10 +545,6 @@
       );
     }
 
-    // getDistance (theSlider) {
-    //   return parseInt(theSlider.style.transform.split(",")[1]);
-    // },
-
     getInnerHtml(sliderIndex) {
       let lengthOfList =
         this.slider[sliderIndex].getElementsByTagName("li").length;
@@ -595,7 +560,7 @@
     }
 
     touch(event) {
-      const theSlider = event.path[1]; // selectContainer
+      const theSlider = event.path[1]; // dom --> selectContainer
       const index = parseInt(theSlider.getAttribute("data-index"));
       const _this = this;
       event = event || window.event;
@@ -625,7 +590,7 @@
             -(theSlider.getElementsByTagName("li").length - 3) * this.liHeight;
 
           if (this.offsetSum == 0) {
-            //offsetSum为0,相当于点击事件
+            // offsetSum为0, 相当于点击事件
             // 0 1 [2] 3 4
             let clickOffetNum = Math.floor(
               (document.documentElement.clientHeight - this.moveEndY) / 40
@@ -644,12 +609,12 @@
               }
             }
           } else {
-            //修正位置
+            // 修正位置
             this.updateCurDistance(theSlider, index);
             this.curDistance[index] = this.fixPosition(this.curDistance[index]);
             this.movePosition(theSlider, this.curDistance[index]);
 
-            //反弹
+            // 反弹
             if (this.curDistance[index] + this.offsetSum > 2 * this.liHeight) {
               this.curDistance[index] = 2 * this.liHeight;
               setTimeout(function () {
@@ -667,7 +632,6 @@
             this.transitionEnd(this.getIndexArr(), this.getCurValue());
           }
 
-          console.log("isCascade", this.isCascade);
           if (event.type === "mouseup") {
             this.clickStatus = false;
           }
