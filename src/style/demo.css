@@ -1,0 +1,253 @@
+@charset "utf-8";
+/*reset*/
+html {
+  -webkit-font-smoothing: antialiased;
+  -ms-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%; /* 2 */
+  margin: 0;
+  padding: 0;
+}
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+ul,
+ol,
+dd,
+form,
+span,
+samp,
+p,
+a {
+  font-size: 12px;
+  font-weight: normal;
+  margin: 0;
+  font-family: "Microsoft YaHei", Helvetica, STHeiTi, "Helvetica Neue",
+    "微软雅黑", SimSun, sans-serif;
+}
+
+html,
+body {
+  background: white;
+  min-height: 100%;
+}
+
+ul,
+ol {
+  padding-left: 0;
+  list-style-type: none;
+}
+
+li {
+  display: inline-block;
+}
+i {
+  font-style: normal;
+}
+
+a {
+  cursor: pointer;
+  color: #333;
+  text-decoration: none;
+  /*消除ie10灰色背景*/
+  background-color: transparent;
+  /*消除火狐虚线*/
+  outline: none;
+}
+
+img {
+  max-width: 100%;
+  /*  cursor: pointer;*/
+  vertical-align: middle;
+  border: 0 none;
+}
+
+body,
+button,
+input,
+select,
+textarea {
+  font-size: 12px;
+  font-family: "Microsoft YaHei", Helvetica, STHeiTi, "Helvetica Neue",
+    "微软雅黑", SimSun, sans-serif;
+  color: #3c3c3c;
+  outline: none;
+  resize: none;
+}
+button,
+input {
+  /* 让 input 和 button 一样高 */
+  line-height: normal;
+}
+
+figure {
+  margin: 0;
+  padding: 0;
+}
+
+figure img {
+  width: 100%;
+}
+
+button::-moz-focus-inner,
+input::-moz-focus-inner {
+  padding: 0;
+  border: 0;
+}
+input[type="button"],
+input[type="reset"],
+input[type="submit"] {
+  -webkit-appearance: none;
+}
+a,
+button,
+input {
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+/* 统一上标和下标 */
+sub,
+sup {
+  font-size: 75%;
+  line-height: 0;
+  position: relative;
+}
+:root sub,
+:root sup {
+  vertical-align: baseline; /* for ie9 and other modern browsers */
+}
+sup {
+  top: -0.5em;
+}
+sub {
+  bottom: -0.25em;
+}
+strong {
+  font-weight: normal;
+}
+mark {
+  background: none;
+}
+/*
+input,button,select,textarea {
+  -webkit-box-sizing: content-box;
+     -moz-box-sizing: content-box;
+          box-sizing: content-box;
+}
+ */
+input[type="checkbox"],
+input[type="radio"] {
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  padding: 0;
+}
+* {
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+*:before,
+*:after {
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+/*原子类*/
+.wrapper:before,
+.wrapper:after,
+.clearfix:before,
+.clearfix:after {
+  display: table;
+  content: "";
+}
+.wrapper:after,
+.clearfix:after {
+  clear: both;
+}
+.wrapper,
+.clearfix {
+  zoom: 1;
+}
+
+.Left {
+  float: left;
+}
+
+.Right {
+  float: right;
+}
+
+html {
+  height: 100%;
+}
+body {
+  min-width: 320px;
+  max-width: 1920px;
+  line-height: 1.6;
+  margin: auto;
+}
+
+.contain {
+  max-width: 640px;
+  margin: 0 auto;
+  position: relative;
+}
+
+.fixWidth {
+  width: 90%;
+  margin: 0 auto;
+  position: relative;
+}
+
+.contain {
+  min-height: 400px;
+  text-align: center;
+}
+
+.contain .demo div {
+  display: block;
+  width: 100%;
+  height: 40px;
+  border-radius: 5px;
+  border: 1px solid #999;
+  margin-bottom: 20px;
+  text-align: center;
+  font-size: 14px;
+  line-height: 40px;
+}
+
+.whiteBG {
+  background: white;
+}
+.fullHeight {
+  height: 100%;
+}
+.guideView:before {
+  display: none;
+}
+.center {
+  text-align: center;
+}
+.blue {
+  color: #1e83d3;
+}
+
+/* --------- nav ------------*/
+.nav {
+  width: 100%;
+  max-width: 640px;
+  text-align: left;
+  line-height: 45px;
+  padding: 25px 0 35px;
+}
+
+.nav h1 {
+  font-size: 2.5em;
+  font-weight: bold;
+}

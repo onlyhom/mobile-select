@@ -1,4 +1,4 @@
-.mobileSelect {
+.ms-mobile-select {
   position: relative;
   z-index: 0;
   opacity: 0;
@@ -6,13 +6,13 @@
   -webkit-transition: opacity 0.4s, z-index 0.4s;
   transition: opacity 0.4s, z-index 0.4s;
 }
-.mobileSelect * {
+.ms-mobile-select * {
   margin: 0;
   padding: 0;
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
 }
-.mobileSelect .grayLayer {
+.ms-mobile-select .ms-gray-layer {
   position: fixed;
   top: 0;
   left: 0;
@@ -23,7 +23,7 @@
   z-index: 888;
   display: block;
 }
-.mobileSelect .content {
+.ms-mobile-select .ms-content {
   width: 100%;
   display: block;
   position: fixed;
@@ -35,19 +35,19 @@
   left: 0;
   background: white;
 }
-.mobileSelect .content .fixWidth {
+.ms-mobile-select .ms-fix-width {
   width: 90%;
   margin: 0 auto;
   position: relative;
 }
-.mobileSelect .content .fixWidth:after {
+.ms-mobile-select .ms-fix-width:after {
   content: ".";
   display: block;
   height: 0;
   clear: both;
   visibility: hidden;
 }
-.mobileSelect .content .btnBar {
+.ms-mobile-select .ms-btn-bar {
   border-bottom: 1px solid #dcdcdc;
   font-size: 15px;
   height: 45px;
@@ -55,42 +55,42 @@
   text-align: center;
   line-height: 45px;
 }
-.mobileSelect .content .btnBar .cancel,
-.mobileSelect .content .btnBar .ensure {
+.ms-mobile-select .ms-cancel,
+.ms-mobile-select .ms-ensure {
   height: 45px;
   width: 55px;
   cursor: pointer;
   position: absolute;
   top: 0;
 }
-.mobileSelect .content .btnBar .cancel {
+.ms-mobile-select .ms-cancel {
   left: 0;
   color: #666;
 }
-.mobileSelect .content .btnBar .ensure {
+.ms-mobile-select .ms-ensure {
   right: 0;
   color: #1e83d3;
 }
-.mobileSelect .content .btnBar .title {
+.ms-mobile-select .ms-title {
   font-size: 15px;
   padding: 0 15%;
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
 }
-.mobileSelect .content .panel:after {
+.ms-mobile-select .ms-panel:after {
   content: ".";
   display: block;
   height: 0;
   clear: both;
   visibility: hidden;
 }
-.mobileSelect .content .panel .wheels {
+.ms-mobile-select .ms-wheels {
   width: 100%;
   height: 200px;
   overflow: hidden;
 }
-.mobileSelect .content .panel .wheel {
+.ms-mobile-select .ms-wheel {
   position: relative;
   z-index: 0;
   float: left;
@@ -100,15 +100,12 @@
   -webkit-transition: width 0.3s ease;
   transition: width 0.3s ease;
 }
-.mobileSelect .content .panel .wheel .selectContainer {
+.ms-mobile-select .ms-select-container {
   display: block;
   text-align: center;
-  -webkit-transition: -webkit-transform 0.18s ease-out;
-  transition: -webkit-transform 0.18s ease-out;
   transition: transform 0.18s ease-out;
-  transition: transform 0.18s ease-out, -webkit-transform 0.18s ease-out;
 }
-.mobileSelect .content .panel .wheel .selectContainer li {
+.ms-mobile-select .ms-select-container li {
   font-size: 15px;
   display: block;
   height: 40px;
@@ -118,7 +115,7 @@
   white-space: nowrap;
   text-overflow: ellipsis;
 }
-.mobileSelect .content .panel .selectLine {
+.ms-mobile-select .ms-selectLine {
   height: 40px;
   width: 100%;
   position: absolute;
@@ -129,39 +126,22 @@
   border-top: 1px solid #dcdcdc;
   border-bottom: 1px solid #dcdcdc;
 }
-.mobileSelect .content .panel .shadowMask {
+.ms-mobile-select .ms-shadow-mask {
   position: absolute;
   top: 0;
   width: 100%;
   height: 200px;
-  background: -webkit-gradient(
-    linear,
-    left top,
-    left bottom,
-    from(#ffffff),
-    color-stop(rgba(255, 255, 255, 0)),
-    to(#ffffff)
-  );
-  background: -webkit-linear-gradient(
-    top,
-    #ffffff,
-    rgba(255, 255, 255, 0),
-    #ffffff
-  );
-  background: linear-gradient(
-    to bottom,
-    #ffffff,
-    rgba(255, 255, 255, 0),
-    #ffffff
-  );
+  background: -webkit-gradient(linear, left top, left bottom, from(#ffffff), color-stop(rgba(255, 255, 255, 0)), to(#ffffff));
+  background: -webkit-linear-gradient(top, #ffffff, rgba(255, 255, 255, 0), #ffffff);
+  background: linear-gradient(to bottom, #ffffff, rgba(255, 255, 255, 0), #ffffff);
   opacity: 0.9;
   pointer-events: none;
 }
-.mobileSelect-show {
+.ms-mobile-select.ms-show {
   opacity: 1;
   z-index: 10000;
   visibility: visible;
 }
-.mobileSelect-show .content {
+.ms-mobile-select.ms-show .ms-content {
   bottom: 0;
 }

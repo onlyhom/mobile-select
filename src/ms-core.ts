@@ -1,47 +1,7 @@
-import { CallbackFn, KeyMap, CascadeData, OptionData } from './types';
+import { MobileSelectConfig, KeyMap, CascadeData, OptionData } from "./types";
+import "./style/mobile-select.less";
 
-type MSConfig = {
-  trigger: string | HTMLElement;
-  wheels: CascadeData[];
-  /** 兼容旧版本 */
-  callback?: CallbackFn;
-  cancel?: CallbackFn;
-  transitionEnd?: CallbackFn;
-  /** 新版本事件回调 */
-  onConfirm?: CallbackFn;
-  onCancel?: CallbackFn;
-  onTransitionEnd?: CallbackFn;
-  /** *********** */
-  onShow?: CallbackFn;
-  onHide?: CallbackFn;
-  position?: number[];
-  colWidth?: number[];
-  title?: string;
-  connector?: string;
-  ensureBtnText?: string;
-  cancelBtnText?: string;
-  ensureBtnColor?: string;
-  cancelBtnColor?: string;
-  titleColor?: string;
-  titleBgColor?: string;
-  textColor?: string;
-  bgColor?: string;
-  maskOpacity?: number;
-  keyMap?: KeyMap;
-  triggerDisplayData?: boolean;
-};
-
-function checkIsPC() {
-  return !Boolean(
-    navigator.userAgent
-      .toLowerCase()
-      .match(
-        /ipad|iphone os|midp|rv:1.2.3.4|ucweb|android|windows ce|windows mobile/
-      )
-  );
-}
-
-export class MobileSelect {
+export default class MobileSelect {
   mobileSelect: any;
   trigger!: HTMLElement;
   wheel!: HTMLCollectionOf<HTMLElement>;
@@ -103,9 +63,9 @@ export class MobileSelect {
 
   initDeepCount!: number;
 
-  config: MSConfig;
+  config: MobileSelectConfig;
 
-  constructor(config: MSConfig) {
+  constructor(config: MobileSelectConfig) {
     this.wheelsData = config.wheels;
     this.isJsonType = false;
     this.cascadeJsonData = [];
@@ -124,25 +84,26 @@ export class MobileSelect {
     this.enableClickStatus = false;
     this.isPC = true;
     this.optionHeight = 0;
-    this.keyMap = { id: 'id', value: 'value', childs: 'childs' };
+    this.keyMap = { id: "id", value: "value", childs: "childs" };
     this.initPosition = config.position || [];
     this.initColWidth = config.colWidth || [];
-    this.titleText = config.title || '';
-    this.connector = config.connector || ' ';
+    this.titleText = config.title || "";
+    this.connector = config.connector || " ";
     this.config = config;
     this.init(config);
   }
 
-  init(config: MSConfig): void {
+  init(config: MobileSelectConfig): void {
+    // 这里需要改为Merge
     this.keyMap = config.keyMap
       ? config.keyMap
-      : { id: 'id', value: 'value', childs: 'childs' };
+      : { id: "id", value: "value", childs: "childs" };
 
     this.isJsonType = MobileSelect.checkDataType(this.wheelsData);
     this.renderComponent(this.wheelsData);
 
     // 兼容旧版传入string的写法
-    if (typeof config.trigger === 'string') {
+    if (typeof config.trigger === "string") {
       //@ts-ignore
       this.trigger = document.querySelector(config.trigger);
     } else {
@@ -150,32 +111,37 @@ export class MobileSelect {
     }
     if (!this.trigger) {
       console.error(
-        'mobile-select has been successfully installed, but no trigger found on your page.'
+        "mobile-select has been successfully installed, but no trigger found on your page."
       );
       return;
     }
 
-    this.wheel = this.mobileSelect.getElementsByClassName('ms-wheel');
+    this.wheel = this.mobileSelect.getElementsByClassName("ms-wheel");
     this.slider = this.mobileSelect.getElementsByClassName(
-      'ms-select-container'
+      "ms-select-container"
     );
-    this.panel = this.mobileSelect.querySelector('.ms-panel');
-    this.wheels = this.mobileSelect.querySelector('.ms-wheels');
-    this.ensureBtn = this.mobileSelect.querySelector('.ms-ensure');
-    this.cancelBtn = this.mobileSelect.querySelector('.ms-cancel');
-    this.grayLayer = this.mobileSelect.querySelector('.ms-gray-layer');
-    this.popUp = this.mobileSelect.querySelector('.ms-content');
-    this.optionHeight = this.mobileSelect.querySelector('li').offsetHeight;
-    this.trigger.style.cursor = 'pointer';
+    this.panel = this.mobileSelect.querySelector(".ms-panel");
+    this.wheels = this.mobileSelect.querySelector(".ms-wheels");
+    this.ensureBtn = this.mobileSelect.querySelector(".ms-ensure");
+    this.cancelBtn = this.mobileSelect.querySelector(".ms-cancel");
+    this.grayLayer = this.mobileSelect.querySelector(".ms-gray-layer");
+    this.popUp = this.mobileSelect.querySelector(".ms-content");
+    this.optionHeight = this.mobileSelect.querySelector("li").offsetHeight;
+    this.trigger.style.cursor = "pointer";
     this.setStyle(config);
-    this.isPC = checkIsPC();
+    this.isPC = MobileSelect.checkIsPC();
 
     this.isCascade = this.checkCascade();
     if (this.isCascade) {
       this.initCascade();
     }
 
-    //定位 初始位置
+    // 在设置之前就被修改了displayjson
+    if (config.initValue) {
+      this.initPosition = this.getPositionByValue();
+    }
+
+    // 定位初始位置
     if (this.initPosition.length < this.slider.length) {
       let diff = this.slider.length - this.initPosition.length;
       for (let i = 0; i < diff; i++) {
@@ -186,7 +152,7 @@ export class MobileSelect {
 
     this.eventHandleMap = {
       cancelBtn: {
-        event: 'click',
+        event: "click",
         fn: () => {
           this.hide();
           this.config.cancel?.(this.curIndexArr, this.curValue);
@@ -194,15 +160,14 @@ export class MobileSelect {
         },
       },
       ensureBtn: {
-        event: 'click',
+        event: "click",
         fn: () => {
           this.hide();
           if (!this.optionHeight) {
-            this.optionHeight = this.mobileSelect.querySelector(
-              'li'
-            ).offsetHeight;
+            this.optionHeight =
+              this.mobileSelect.querySelector("li").offsetHeight;
           }
-          let tempValue = '';
+          let tempValue = "";
           for (let i = 0; i < this.wheel.length; i++) {
             i == this.wheel.length - 1
               ? (tempValue += this.getInnerHtml(i))
@@ -217,42 +182,66 @@ export class MobileSelect {
           this.curIndexArr = this.getIndexArr();
           this.curValue = this.getCurValue();
           this.config.callback?.(this.curIndexArr, this.curValue);
-          this.config.onConfirm?.(this.curIndexArr, this.curValue);
+          this.config.onChange?.(this.curIndexArr, this.curValue);
         },
       },
       trigger: {
-        event: 'click',
+        event: "click",
         fn: () => {
           this.show();
         },
       },
       grayLayer: {
-        event: 'click',
+        event: "click",
         fn: () => this.hide(),
       },
       popUp: {
-        event: 'click',
+        event: "click",
         fn: (event: Event) => event.stopPropagation(),
       },
       panel: {
-        event: ['touchstart', 'touchend', 'touchmove'],
+        event: ["touchstart", "touchend", "touchmove"],
         fn: (event: TouchEvent | MouseEvent) => this.touch(event),
       },
     };
 
     if (this.isPC) {
-      this.eventHandleMap.panel.event = ['mousedown', 'mousemove', 'mouseup'];
+      this.eventHandleMap.panel.event = ["mousedown", "mousemove", "mouseup"];
     }
 
-    this.registerEvents('add');
+    this.registerEvents("add");
     this.fixRowStyle(); // 修正列数
   }
 
-  setTitle(title: string): void {
-    this.mobileSelect.querySelector('.title').innerHTML = title;
+  // TODO 写单测
+  /** 根据initValue 获取initPostion 需要区分级联和非级联情况 注意 此时displayJson还没生成 */
+  getPositionByValue(): number[] {
+    const valueArr = this.config.initValue.split(this.connector);
+    if (this.isJsonType) {
+      let childList = this.wheelsData[0]?.data;
+      return valueArr.reduce((result, cur) => {
+        const posIndex = childList?.findIndex(
+          (item: CascadeData) => item[this.keyMap.value] == cur // 此处使用弱等 因为value有可能是数字类型
+        );
+        result.push(posIndex < 0 ? 0 : posIndex);
+        childList = childList[posIndex]?.[this.keyMap.childs];
+        return result;
+      }, [] as unknown as number[]);
+    }
+    return valueArr.reduce((result, cur, index) => {
+      const posIndex = this.wheelsData[index]?.data?.findIndex(
+        (item: string | number) => item == cur // 此处使用弱等 因为value有可能是数字类型
+      );
+      result.push(posIndex < 0 ? 0 : posIndex);
+      return result;
+    }, [] as unknown as number[]);
   }
 
-  setStyle(config: MSConfig): void {
+  setTitle(title: string): void {
+    this.mobileSelect.querySelector(".ms-title").innerHTML = title;
+  }
+
+  setStyle(config: MobileSelectConfig): void {
     if (config.ensureBtnColor) {
       this.ensureBtn.style.color = config.ensureBtnColor;
     }
@@ -260,58 +249,58 @@ export class MobileSelect {
       this.cancelBtn.style.color = config.cancelBtnColor;
     }
     if (config.titleColor) {
-      const titleDom = this.mobileSelect.querySelector('.title');
+      const titleDom = this.mobileSelect.querySelector(".ms-title");
       titleDom.style.color = config.titleColor;
     }
     if (config.textColor) {
-      this.panel = this.mobileSelect.querySelector('.panel');
+      this.panel = this.mobileSelect.querySelector(".ms-panel");
       this.panel.style.color = config.textColor;
     }
     if (config.titleBgColor) {
-      const btnBar = this.mobileSelect.querySelector('.btnBar');
+      const btnBar = this.mobileSelect.querySelector(".ms-btn-bar");
       btnBar.style.backgroundColor = config.titleBgColor;
     }
     if (config.bgColor) {
-      this.panel = this.mobileSelect.querySelector('.panel');
-      const shadowMask = this.mobileSelect.querySelector('.shadowMask');
+      this.panel = this.mobileSelect.querySelector(".ms-panel");
+      const shadowMask = this.mobileSelect.querySelector(".ms-shadow-mask");
       this.panel.style.backgroundColor = config.bgColor;
       shadowMask.style.background =
-        'linear-gradient(to bottom, ' +
+        "linear-gradient(to bottom, " +
         config.bgColor +
-        ', rgba(255, 255, 255, 0), ' +
+        ", rgba(255, 255, 255, 0), " +
         config.bgColor +
-        ')';
+        ")";
     }
-    if (typeof config.maskOpacity === 'number') {
-      const grayMask = this.mobileSelect.querySelector('.grayLayer');
-      grayMask.style.background = 'rgba(0, 0, 0, ' + config.maskOpacity + ')';
+    if (typeof config.maskOpacity === "number") {
+      const grayMask = this.mobileSelect.querySelector(".ms-gray-layer");
+      grayMask.style.background = "rgba(0, 0, 0, " + config.maskOpacity + ")";
     }
   }
 
   show(): void {
-    this.mobileSelect.classList.add('ms-show');
-    if (typeof this.config.onShow === 'function') {
+    this.mobileSelect.classList.add("ms-show");
+    if (typeof this.config.onShow === "function") {
       this.config.onShow?.();
     }
   }
 
   hide(): void {
-    this.mobileSelect.classList.remove('ms-show');
-    if (typeof this.config.onHide === 'function') {
+    this.mobileSelect.classList.remove("ms-show");
+    if (typeof this.config.onHide === "function") {
       this.config.onHide?.();
     }
   }
 
-  registerEvents(type: 'add' | 'remove'): void {
+  registerEvents(type: "add" | "remove"): void {
     for (const [domName, item] of Object.entries(this.eventHandleMap)) {
-      if (typeof item.event === 'string') {
+      if (typeof item.event === "string") {
         this[domName as keyof MobileSelect][`${type}EventListener`](
           item.event,
           item.fn
         );
       } else {
         // 数组
-        item.event.forEach(eventName => {
+        item.event.forEach((eventName) => {
           this[domName as keyof MobileSelect][`${type}EventListener`](
             eventName,
             item.fn
@@ -322,12 +311,12 @@ export class MobileSelect {
   }
 
   destroy(): void {
-    this.registerEvents('remove');
+    this.registerEvents("remove");
     this.mobileSelect.parentNode.removeChild(this.mobileSelect);
   }
 
   getOptionsHtmlStr(childs: CascadeData): string {
-    let tempHTML = '';
+    let tempHTML = "";
     if (this.isJsonType) {
       for (let j = 0; j < childs.length; j++) {
         // 行
@@ -338,24 +327,26 @@ export class MobileSelect {
     } else {
       for (let j = 0; j < childs.length; j++) {
         // 行
-        tempHTML += '<li>' + childs[j] + '</li>';
+        tempHTML += "<li>" + childs[j] + "</li>";
       }
     }
     return tempHTML;
   }
 
   renderComponent(wheelsData: CascadeData[]): void {
-    this.mobileSelect = document.createElement('div');
-    this.mobileSelect.className = 'ms-mobile-select';
+    this.mobileSelect = document.createElement("div");
+    this.mobileSelect.className = "ms-mobile-select";
     this.mobileSelect.innerHTML = `<div class="ms-gray-layer"></div>
         <div class="ms-content">
-          <div class="ms-btnbar">
+          <div class="ms-btn-bar">
             <div class="ms-fix-width">
-              <div class="ms-cancel">${this.config.cancelBtnText ||
-                '取消'}</div>  
-              <div class="ms-title">${this.config.title || ''}</div>
-              <div class="ms-ensure">${this.config.ensureBtnText ||
-                '确认'}</div>
+              <div class="ms-cancel">${
+                this.config.cancelBtnText || "取消"
+              }</div>  
+              <div class="ms-title">${this.config.title || ""}</div>
+              <div class="ms-ensure">${
+                this.config.ensureBtnText || "确认"
+              }</div>
             </div>
           </div>
           <div class="ms-panel">
@@ -368,14 +359,14 @@ export class MobileSelect {
     document.body.appendChild(this.mobileSelect);
 
     // 根据数据来渲染wheels
-    let tempHTML = '';
+    let tempHTML = "";
     for (let i = 0; i < wheelsData.length; i++) {
       //列
       tempHTML += `<div class="ms-wheel"><ul class="ms-select-container" data-index="${i}">`;
       tempHTML += this.getOptionsHtmlStr(wheelsData[i].data);
-      tempHTML += '</ul></div>';
+      tempHTML += "</ul></div>";
     }
-    this.mobileSelect.querySelector('.ms-wheels').innerHTML = tempHTML;
+    this.mobileSelect.querySelector(".ms-wheels").innerHTML = tempHTML;
   }
 
   // 级联数据滚动时 右侧列数据的变化
@@ -390,8 +381,8 @@ export class MobileSelect {
       if (this.wheel[i]) {
         this.slider[i].innerHTML = this.getOptionsHtmlStr(this.displayJson[i]);
       } else {
-        let tempWheel = document.createElement('div');
-        tempWheel.className = 'ms-wheel';
+        let tempWheel = document.createElement("div");
+        tempWheel.className = "ms-wheel";
         tempWheel.innerHTML = `<ul class="ms-select-container" data-index="${i}">${this.getOptionsHtmlStr(
           this.displayJson[i]
         )}</ul>`;
@@ -400,10 +391,21 @@ export class MobileSelect {
     }
   }
 
-  static checkDataType(wheelsData: CascadeData): boolean {
-    return typeof wheelsData[0].data[0] === 'object';
+  static checkIsPC() {
+    return !Boolean(
+      navigator.userAgent
+        .toLowerCase()
+        .match(
+          /ipad|iphone os|midp|rv:1.2.3.4|ucweb|android|windows ce|windows mobile/
+        )
+    );
   }
 
+  static checkDataType(wheelsData: CascadeData): boolean {
+    return typeof wheelsData[0]?.data?.[0] === "object";
+  }
+
+  // TODO 需要遍历 不能只判断第一位
   checkCascade(): boolean {
     if (this.isJsonType) {
       let node = this.wheelsData[0].data;
@@ -469,7 +471,7 @@ export class MobileSelect {
       resultNode =
         i == 0
           ? this.cascadeJsonData[posIndexArr[0]]
-          : ((resultNode as unknown) as CascadeData)[this.keyMap.childs][
+          : (resultNode as unknown as CascadeData)[this.keyMap.childs][
               posIndexArr[i]
             ];
     }
@@ -518,12 +520,12 @@ export class MobileSelect {
   // TODO 需测试
   updateWheel(
     sliderIndex: number,
-    data: Omit<OptionData, 'CascadeData'>[]
+    data: Omit<OptionData, "CascadeData">[]
   ): void {
-    let tempHTML = '';
+    let tempHTML = "";
     if (this.isCascade) {
       console.error(
-        '级联格式不支持updateWheel(),请使用updateWheels()更新整个数据源'
+        "级联格式不支持updateWheel(),请使用updateWheels()更新整个数据源"
       );
       return;
     }
@@ -541,13 +543,13 @@ export class MobileSelect {
       let widthSum = this.initColWidth.reduce((cur, pre) => cur + pre, 0);
       this.initColWidth.forEach((item, index) => {
         this.wheel[index].style.width =
-          ((item / widthSum) * 100).toFixed(2) + '%';
+          ((item / widthSum) * 100).toFixed(2) + "%";
       });
       return;
     }
     let width = (100 / this.wheel.length).toFixed(2);
     for (let i = 0; i < this.wheel.length; i++) {
-      this.wheel[i].style.width = width + '%';
+      this.wheel[i].style.width = width + "%";
     }
   }
 
@@ -604,7 +606,7 @@ export class MobileSelect {
   }
 
   movePosition(theSlider: HTMLElement, distance: number): void {
-    theSlider.style.transform = 'translate3d(0,' + distance + 'px, 0)';
+    theSlider.style.transform = "translate3d(0," + distance + "px, 0)";
   }
 
   locatePosition(index: number, posIndex: number): void {
@@ -616,12 +618,12 @@ export class MobileSelect {
   }
 
   updateCurDistance(theSlider: HTMLElement, index: number): void {
-    this.curDistance[index] = parseInt(theSlider.style.transform.split(',')[1]);
+    this.curDistance[index] = parseInt(theSlider.style.transform.split(",")[1]);
   }
 
   getInnerHtml(sliderIndex: number): string {
-    let lengthOfList = this.slider[sliderIndex].getElementsByTagName('li')
-      .length;
+    let lengthOfList =
+      this.slider[sliderIndex].getElementsByTagName("li").length;
     let index = this.getIndex(this.curDistance[sliderIndex]);
 
     if (index >= lengthOfList) {
@@ -630,32 +632,29 @@ export class MobileSelect {
       index = 0;
     }
     // TODO 需要优化
-    return this.slider[sliderIndex].getElementsByTagName('li')[index].innerHTML;
+    return this.slider[sliderIndex].getElementsByTagName("li")[index].innerHTML;
   }
 
   touch(event: TouchEvent | MouseEvent): void {
     const path = event.composedPath && event.composedPath();
     const theSlider = path[1] as HTMLElement; // dom --> selectContainer
     const index = parseInt(
-      (theSlider as HTMLUListElement).getAttribute('data-index') || '0'
+      (theSlider as HTMLUListElement).getAttribute("data-index") || "0"
     );
     switch (event.type) {
-      case 'touchstart':
-      case 'mousedown':
-        // this.startY = Math.floor(
-        //   event.type === "touchstart" ? event.touches[0].clientY : event.clientY
-        // );
+      case "touchstart":
+      case "mousedown":
         this.startY = Math.floor(
           event instanceof TouchEvent ? event.touches[0].clientY : event.clientY
         );
         this.preMoveY = this.startY;
-        if (event.type === 'mousedown') {
+        if (event.type === "mousedown") {
           this.enableClickStatus = true;
         }
         break;
 
-      case 'touchend':
-      case 'mouseup':
+      case "touchend":
+      case "mouseup":
         this.moveEndY = Math.floor(
           event instanceof TouchEvent
             ? event.changedTouches[0].clientY
@@ -663,7 +662,7 @@ export class MobileSelect {
         );
         this.offsetSum = this.moveEndY - this.startY;
         this.oversizeBorder =
-          -(theSlider.getElementsByTagName('li').length - 3) *
+          -(theSlider.getElementsByTagName("li").length - 3) *
           this.optionHeight;
 
         if (this.offsetSum == 0) {
@@ -720,7 +719,7 @@ export class MobileSelect {
           this.config.onTransitionEnd?.(this.getIndexArr(), this.getCurValue());
         }
 
-        if (event.type === 'mouseup') {
+        if (event.type === "mouseup") {
           this.enableClickStatus = false;
         }
         if (this.isCascade) {
@@ -729,10 +728,10 @@ export class MobileSelect {
 
         break;
 
-      case 'touchmove':
-      case 'mousemove':
+      case "touchmove":
+      case "mousemove":
         event.preventDefault();
-        if (event.type === 'mousemove' && !this.enableClickStatus) break;
+        if (event.type === "mousemove" && !this.enableClickStatus) break;
         this.moveY = Math.floor(
           event instanceof TouchEvent ? event.touches[0].clientY : event.clientY
         );
@@ -745,5 +744,3 @@ export class MobileSelect {
     }
   }
 }
-
-export default MobileSelect;

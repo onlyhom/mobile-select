@@ -1,0 +1,68 @@
+{
+  "name": "mobile-select",
+  "author": "onlyhom",
+  "license": "MIT",
+  "private": false,
+  "version": "1.2.0",
+  "main": "dist/mobile-select.cjs.js",
+  "module": "dist/mobile-select.es.js",
+  "typings": "dist/mobile-select.d.ts",
+  "type": "module",
+  "entryFileName": "index.ts",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build && pnpm run build:dts && pnpm run build:html && pnpm run build:less && pnpm run build-iife:browserify && pnpm run build-iife:uglifyjs",
+    "build:html": "esno scripts/build-html",
+    "build:less": "esno scripts/build-less",
+    "build:dts": "dts-bundle-generator --config ./dts-generator.config.ts",
+    "build-iife:browserify": "babel dist/mobile-select.iife.js --out-file ./dist/mobile-select.iife.js",
+    "build-iife:uglifyjs": "uglifyjs dist/mobile-select.iife.js --compress --output ./dist/mobile-select.iife.min.js",
+    "preview": "vite preview",
+    "test": "jest --runInBand",
+    "test:coverage": "jest --runInBand --coverage"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.18.9",
+    "@babel/core": "^7.18.9",
+    "@babel/plugin-transform-runtime": "^7.18.9",
+    "@babel/preset-env": "^7.18.9",
+    "@rollup/plugin-babel": "^5.3.1",
+    "@types/jest": "^28.1.6",
+    "@types/less": "^3.0.3",
+    "@types/node": "^18.6.1",
+    "cpy": "^9.0.1",
+    "dts-bundle-generator": "^6.12.0",
+    "fast-glob": "^3.2.11",
+    "jest": "^28.1.3",
+    "less": "^4.1.3",
+    "react-lottie": "^1.2.3",
+    "terser": "^5.14.2",
+    "ts-jest": "^28.0.7",
+    "typescript": "^4.6.4",
+    "uglify-js": "^3.16.3",
+    "url": "^0.11.0",
+    "vite": "^3.0.0",
+    "vite-plugin-static-copy": "^0.7.0"
+  },
+  "browserslist": [
+    "> 0.5%",
+    "not dead"
+  ],
+  "description": "A multi-function mobile phone scrolling selector, support single to multi-select, support multi-level cascade, provide custom callback function, provide update function redraw, relocation function, compatible pc drag and so on.",
+  "keywords": [
+    "mobile-selector",
+    "selector",
+    "mobile-select",
+    "mobile-picker",
+    "picker",
+    "select-component",
+    "picker-component",
+    "mobile-component",
+    "cascade",
+    "cascade-picker"
+  ],
+  "bugs": {
+    "url": "https://github.com/onlyhom/mobile-select/issues"
+  },
+  "homepage": "https://github.com/onlyhom/mobile-select"
+}
