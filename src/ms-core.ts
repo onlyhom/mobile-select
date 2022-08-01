@@ -216,7 +216,7 @@ export default class MobileSelect {
   // TODO 写单测
   /** 根据initValue 获取initPostion 需要区分级联和非级联情况 注意 此时displayJson还没生成 */
   getPositionByValue(): number[] {
-    const valueArr = this.config.initValue.split(this.connector);
+    const valueArr = this.config.initValue?.split(this.connector) || [];
     if (this.isJsonType) {
       let childList = this.wheelsData[0]?.data;
       return valueArr.reduce((result, cur) => {

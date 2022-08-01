@@ -24,7 +24,7 @@ export type MobileSelectConfig = {
   /** *********** */
   onShow?: CallbackFn;
   onHide?: CallbackFn;
-  initValue: string;
+  initValue?: string;
   position?: number[];
   colWidth?: number[];
   title?: string;
