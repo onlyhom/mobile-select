@@ -40,9 +40,9 @@ var __publicField = function __publicField(obj, key, value) {
 var MobileSelect = function () {
   "use strict";
 
-  var MobileSelect2 = /*#__PURE__*/function () {
-    function MobileSelect2(config) {
-      _classCallCheck(this, MobileSelect2);
+  var _MobileSelect = /*#__PURE__*/function () {
+    function _MobileSelect(config) {
+      _classCallCheck(this, _MobileSelect);
 
       __publicField(this, "mobileSelect");
 
@@ -67,8 +67,6 @@ var MobileSelect = function () {
       __publicField(this, "initPosition");
 
       __publicField(this, "initColWidth");
-
-      __publicField(this, "titleText");
 
       __publicField(this, "connector");
 
@@ -116,6 +114,7 @@ var MobileSelect = function () {
 
       __publicField(this, "config");
 
+      this.config = Object.assign(_MobileSelect.defaultConfig, config);
       this.wheelsData = config.wheels;
       this.isJsonType = false;
       this.cascadeJsonData = [];
@@ -134,30 +133,18 @@ var MobileSelect = function () {
       this.enableClickStatus = false;
       this.isPC = true;
       this.optionHeight = 0;
-      this.keyMap = {
-        id: "id",
-        value: "value",
-        childs: "childs"
-      };
       this.initPosition = config.position || [];
       this.initColWidth = config.colWidth || [];
-      this.titleText = config.title || "";
-      this.connector = config.connector || " ";
-      this.config = config;
-      this.init(config);
+      this.init();
     }
 
-    _createClass(MobileSelect2, [{
+    _createClass(_MobileSelect, [{
       key: "init",
-      value: function init(config) {
+      value: function init() {
         var _this = this;
 
-        this.keyMap = config.keyMap ? config.keyMap : {
-          id: "id",
-          value: "value",
-          childs: "childs"
-        };
-        this.isJsonType = MobileSelect2.checkDataType(this.wheelsData);
+        var config = this.config;
+        this.isJsonType = _MobileSelect.checkDataType(this.wheelsData);
         this.renderComponent(this.wheelsData);
 
         if (typeof config.trigger === "string") {
@@ -180,9 +167,13 @@ var MobileSelect = function () {
         this.grayLayer = this.mobileSelect.querySelector(".ms-gray-layer");
         this.popUp = this.mobileSelect.querySelector(".ms-content");
         this.optionHeight = this.mobileSelect.querySelector("li").offsetHeight;
-        this.trigger.style.cursor = "pointer";
+
+        if (config.initValue && config.triggerDisplayValue) {
+          this.trigger.innerText = config.initValue;
+        }
+
         this.setStyle(config);
-        this.isPC = MobileSelect2.checkIsPC();
+        this.isPC = _MobileSelect.checkIsPC();
         this.isCascade = this.checkCascade();
 
         if (this.isCascade) {
@@ -228,11 +219,11 @@ var MobileSelect = function () {
               var tempValue = "";
 
               for (var _i = 0; _i < _this.wheel.length; _i++) {
-                _i == _this.wheel.length - 1 ? tempValue += _this.getInnerHtml(_i) : tempValue += _this.getInnerHtml(_i) + _this.connector;
+                _i == _this.wheel.length - 1 ? tempValue += _this.getInnerHtml(_i) : tempValue += _this.getInnerHtml(_i) + _this.config.connector;
               }
 
-              if (config.triggerDisplayData == void 0 || config.triggerDisplayData) {
-                _this.trigger.innerHTML = tempValue;
+              if (config.triggerDisplayValue) {
+                _this.trigger.innerText = tempValue;
               }
 
               _this.curIndexArr = _this.getIndexArr();
@@ -281,7 +272,11 @@ var MobileSelect = function () {
 
         var _a;
 
-        var valueArr = this.config.initValue.split(this.connector);
+        var _this$config = this.config,
+            keyMap = _this$config.keyMap,
+            connector = _this$config.connector,
+            initValue = _this$config.initValue;
+        var valueArr = (initValue == null ? void 0 : initValue.split(connector)) || [];
 
         if (this.isJsonType) {
           var childList = (_a = this.wheelsData[0]) == null ? void 0 : _a.data;
@@ -289,10 +284,10 @@ var MobileSelect = function () {
             var _a2;
 
             var posIndex = childList == null ? void 0 : childList.findIndex(function (item) {
-              return item[_this2.keyMap.value] == cur;
+              return item[keyMap.value] == cur;
             });
             result.push(posIndex < 0 ? 0 : posIndex);
-            childList = (_a2 = childList[posIndex]) == null ? void 0 : _a2[_this2.keyMap.childs];
+            childList = (_a2 = childList[posIndex]) == null ? void 0 : _a2[keyMap.childs];
             return result;
           }, []);
         }
@@ -404,12 +399,13 @@ var MobileSelect = function () {
     }, {
       key: "getOptionsHtmlStr",
       value: function getOptionsHtmlStr(childs) {
+        var keyMap = this.config.keyMap;
         var tempHTML = "";
 
         if (this.isJsonType) {
           for (var j = 0; j < childs.length; j++) {
-            var id = childs[j][this.keyMap.id];
-            var val = childs[j][this.keyMap.value];
+            var id = childs[j][keyMap.id];
+            var val = childs[j][keyMap.value];
             tempHTML += "<li data-id=\"".concat(id, "\">").concat(val, "</li>");
           }
         } else {
@@ -464,11 +460,13 @@ var MobileSelect = function () {
       value: function checkCascade() {
         var _a;
 
+        var keyMap = this.config.keyMap;
+
         if (this.isJsonType) {
           var node = this.wheelsData[0].data;
 
           for (var i = 0; i < node.length; i++) {
-            if (this.keyMap.childs in node[i] && ((_a = node[i][this.keyMap.childs]) == null ? void 0 : _a.length) > 0) {
+            if (keyMap.childs in node[i] && ((_a = node[i][keyMap.childs]) == null ? void 0 : _a.length) > 0) {
               this.cascadeJsonData = this.wheelsData[0].data;
               return true;
             }
@@ -495,15 +493,17 @@ var MobileSelect = function () {
       key: "initCheckArrDeep",
       value: function initCheckArrDeep(parent) {
         if (parent) {
-          if (this.keyMap.childs in parent && parent[this.keyMap.childs].length > 0) {
-            this.displayJson.push(parent[this.keyMap.childs]);
+          var keyMap = this.config.keyMap;
+
+          if (keyMap.childs in parent && parent[keyMap.childs].length > 0) {
+            this.displayJson.push(parent[keyMap.childs]);
             this.initDeepCount++;
-            var nextNode = parent[this.keyMap.childs][this.initPosition[this.initDeepCount]];
+            var nextNode = parent[keyMap.childs][this.initPosition[this.initDeepCount]];
 
             if (nextNode) {
               this.initCheckArrDeep(nextNode);
             } else {
-              this.checkArrDeep(parent[this.keyMap.childs][0]);
+              this.checkArrDeep(parent[keyMap.childs][0]);
             }
           }
         }
@@ -512,16 +512,20 @@ var MobileSelect = function () {
       key: "checkArrDeep",
       value: function checkArrDeep(parent) {
         if (!parent) return;
+        var keyMap = this.config.keyMap;
 
-        if (this.keyMap.childs in parent && parent[this.keyMap.childs].length > 0) {
-          this.displayJson.push(parent[this.keyMap.childs]);
-          this.checkArrDeep(parent[this.keyMap.childs][0]);
+        if (keyMap.childs in parent && parent[keyMap.childs].length > 0) {
+          this.displayJson.push(parent[keyMap.childs]);
+          this.checkArrDeep(parent[keyMap.childs][0]);
         }
       }
     }, {
       key: "checkRange",
       value: function checkRange(index, posIndexArr) {
+        var _a;
+
         var deleteNum = this.displayJson.length - 1 - index;
+        var keyMap = this.config.keyMap;
 
         for (var i = 0; i < deleteNum; i++) {
           this.displayJson.pop();
@@ -530,7 +534,7 @@ var MobileSelect = function () {
         var resultNode;
 
         for (var _i4 = 0; _i4 <= index; _i4++) {
-          resultNode = _i4 == 0 ? this.cascadeJsonData[posIndexArr[0]] : resultNode[this.keyMap.childs][posIndexArr[_i4]];
+          resultNode = _i4 == 0 ? this.cascadeJsonData[posIndexArr[0]] : (_a = resultNode == null ? void 0 : resultNode[keyMap.childs]) == null ? void 0 : _a[posIndexArr[_i4]];
         }
 
         this.checkArrDeep(resultNode);
@@ -821,8 +825,25 @@ var MobileSelect = function () {
       }
     }]);
 
-    return MobileSelect2;
+    return _MobileSelect;
   }();
+
+  var MobileSelect2 = _MobileSelect;
+
+  __publicField(MobileSelect2, "defaultConfig", {
+    keyMap: {
+      id: "id",
+      value: "value",
+      childs: "childs"
+    },
+    position: [],
+    colWidth: [],
+    title: "",
+    connector: " ",
+    ensureBtnText: "\u786E\u8BA4",
+    cancelBtnText: "\u53D6\u6D88",
+    triggerDisplayValue: true
+  });
 
   return MobileSelect2;
 }();

@@ -12,23 +12,24 @@ export type CascadeData = {
 	[k: string]: any;
 };
 export type OptionData = CascadeData | string | number;
-export type MobileSelectConfig = {
+export type CustomConfig = {
 	trigger: string | HTMLElement;
 	wheels: CascadeData[];
 	/** 兼容旧版本 */
 	callback?: CallbackFn;
 	cancel?: CallbackFn;
 	transitionEnd?: CallbackFn;
-	/** 新版本事件回调 */
+	/** 新版本 */
 	onChange?: CallbackFn;
 	onCancel?: CallbackFn;
 	onTransitionEnd?: CallbackFn;
 	/** *********** */
 	onShow?: CallbackFn;
 	onHide?: CallbackFn;
-	initValue: string;
+	initValue?: string;
 	position?: number[];
 	colWidth?: number[];
+	/** 组件标题 */
 	title?: string;
 	connector?: string;
 	ensureBtnText?: string;
@@ -41,8 +42,9 @@ export type MobileSelectConfig = {
 	bgColor?: string;
 	maskOpacity?: number;
 	keyMap?: KeyMap;
-	triggerDisplayData?: boolean;
+	triggerDisplayValue?: boolean;
 };
+export type MobileSelectConfig = CustomConfig & Required<Pick<CustomConfig, "keyMap" | "position" | "colWidth" | "title" | "connector" | "ensureBtnText" | "cancelBtnText" | "triggerDisplayValue">>;
 declare class MobileSelect {
 	mobileSelect: any;
 	trigger: HTMLElement;
@@ -56,8 +58,6 @@ declare class MobileSelect {
 	popUp: HTMLDivElement;
 	initPosition: number[];
 	initColWidth: number[];
-	/** 组件标题 */
-	titleText: string;
 	/** 拼接值的连接符 */
 	connector: string;
 	/** 数据源 */
@@ -106,8 +106,24 @@ declare class MobileSelect {
 	};
 	initDeepCount: number;
 	config: MobileSelectConfig;
-	constructor(config: MobileSelectConfig);
-	init(config: MobileSelectConfig): void;
+	static checkIsPC(): boolean;
+	static checkDataType(wheelsData: CascadeData): boolean;
+	static defaultConfig: {
+		keyMap: {
+			id: string;
+			value: string;
+			childs: string;
+		};
+		position: never[];
+		colWidth: never[];
+		title: string;
+		connector: string;
+		ensureBtnText: string;
+		cancelBtnText: string;
+		triggerDisplayValue: boolean;
+	};
+	constructor(config: CustomConfig);
+	init(): void;
 	/** 根据initValue 获取initPostion 需要区分级联和非级联情况 注意 此时displayJson还没生成 */
 	getPositionByValue(): number[];
 	setTitle(title: string): void;
@@ -119,8 +135,6 @@ declare class MobileSelect {
 	getOptionsHtmlStr(childs: CascadeData): string;
 	renderComponent(wheelsData: CascadeData[]): void;
 	reRenderWheels(): void;
-	static checkIsPC(): boolean;
-	static checkDataType(wheelsData: CascadeData): boolean;
 	checkCascade(): boolean;
 	initCascade(): void;
 	initCheckArrDeep(parent: CascadeData): void;
