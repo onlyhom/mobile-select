@@ -1,4 +1,10 @@
-import { MobileSelectConfig, KeyMap, CascadeData, OptionData } from "./types";
+import {
+  MobileSelectConfig,
+  CustomConfig,
+  KeyMap,
+  CascadeData,
+  OptionData,
+} from "./types";
 import "./style/mobile-select.less";
 
 export default class MobileSelect {
@@ -14,10 +20,8 @@ export default class MobileSelect {
   popUp!: HTMLDivElement;
   initPosition: number[];
   initColWidth: number[];
-  /** 组件标题 */
-  titleText: string;
   /** 拼接值的连接符 */
-  connector: string;
+  connector!: string;
   /** 数据源 */
   wheelsData: CascadeData[];
   /** 显示json */
@@ -55,7 +59,7 @@ export default class MobileSelect {
   /** 级联数据 相当于wheels[0].data的别名 */
   cascadeJsonData: CascadeData[];
   /** 用户自定义key */
-  keyMap: KeyMap;
+  keyMap!: KeyMap;
 
   eventHandleMap!: {
     [x: string]: { event: string | string[]; fn: Function };
@@ -65,7 +69,33 @@ export default class MobileSelect {
 
   config: MobileSelectConfig;
 
-  constructor(config: MobileSelectConfig) {
+  static checkIsPC() {
+    return !Boolean(
+      navigator.userAgent
+        .toLowerCase()
+        .match(
+          /ipad|iphone os|midp|rv:1.2.3.4|ucweb|android|windows ce|windows mobile/
+        )
+    );
+  }
+  static checkDataType(wheelsData: CascadeData): boolean {
+    return typeof wheelsData[0]?.data?.[0] === "object";
+  }
+  static defaultConfig = {
+    keyMap: { id: "id", value: "value", childs: "childs" },
+    position: [],
+    colWidth: [],
+    title: "",
+    connector: " ",
+    ensureBtnText: "确认",
+    cancelBtnText: "取消",
+    triggerDisplayValue: true,
+  };
+  constructor(config: CustomConfig) {
+    this.config = Object.assign(
+      MobileSelect.defaultConfig,
+      config
+    ) as MobileSelectConfig;
     this.wheelsData = config.wheels;
     this.isJsonType = false;
     this.cascadeJsonData = [];
@@ -84,21 +114,13 @@ export default class MobileSelect {
     this.enableClickStatus = false;
     this.isPC = true;
     this.optionHeight = 0;
-    this.keyMap = { id: "id", value: "value", childs: "childs" };
     this.initPosition = config.position || [];
     this.initColWidth = config.colWidth || [];
-    this.titleText = config.title || "";
-    this.connector = config.connector || " ";
-    this.config = config;
-    this.init(config);
+    this.init();
   }
 
-  init(config: MobileSelectConfig): void {
-    // 这里需要改为Merge
-    this.keyMap = config.keyMap
-      ? config.keyMap
-      : { id: "id", value: "value", childs: "childs" };
-
+  init(): void {
+    const { config } = this;
     this.isJsonType = MobileSelect.checkDataType(this.wheelsData);
     this.renderComponent(this.wheelsData);
 
@@ -127,7 +149,10 @@ export default class MobileSelect {
     this.grayLayer = this.mobileSelect.querySelector(".ms-gray-layer");
     this.popUp = this.mobileSelect.querySelector(".ms-content");
     this.optionHeight = this.mobileSelect.querySelector("li").offsetHeight;
-    this.trigger.style.cursor = "pointer";
+    // 复显初始值
+    if (config.initValue && config.triggerDisplayValue) {
+      this.trigger.innerText = config.initValue;
+    }
     this.setStyle(config);
     this.isPC = MobileSelect.checkIsPC();
 
@@ -150,6 +175,7 @@ export default class MobileSelect {
     }
     this.setCurDistance(this.initPosition);
 
+    // dom事件监听, 方便移除
     this.eventHandleMap = {
       cancelBtn: {
         event: "click",
@@ -171,13 +197,10 @@ export default class MobileSelect {
           for (let i = 0; i < this.wheel.length; i++) {
             i == this.wheel.length - 1
               ? (tempValue += this.getInnerHtml(i))
-              : (tempValue += this.getInnerHtml(i) + this.connector);
+              : (tempValue += this.getInnerHtml(i) + this.config.connector);
           }
-          if (
-            config.triggerDisplayData == undefined ||
-            config.triggerDisplayData
-          ) {
-            this.trigger.innerHTML = tempValue;
+          if (config.triggerDisplayValue) {
+            this.trigger.innerText = tempValue;
           }
           this.curIndexArr = this.getIndexArr();
           this.curValue = this.getCurValue();
@@ -216,15 +239,16 @@ export default class MobileSelect {
   // TODO 写单测
   /** 根据initValue 获取initPostion 需要区分级联和非级联情况 注意 此时displayJson还没生成 */
   getPositionByValue(): number[] {
-    const valueArr = this.config.initValue?.split(this.connector) || [];
+    const { keyMap, connector, initValue } = this.config;
+    const valueArr = initValue?.split(connector) || [];
     if (this.isJsonType) {
       let childList = this.wheelsData[0]?.data;
       return valueArr.reduce((result, cur) => {
         const posIndex = childList?.findIndex(
-          (item: CascadeData) => item[this.keyMap.value] == cur // 此处使用弱等 因为value有可能是数字类型
+          (item: CascadeData) => item[keyMap.value] == cur // 此处使用弱等 因为value有可能是数字类型
         );
         result.push(posIndex < 0 ? 0 : posIndex);
-        childList = childList[posIndex]?.[this.keyMap.childs];
+        childList = childList[posIndex]?.[keyMap.childs];
         return result;
       }, [] as unknown as number[]);
     }
@@ -316,12 +340,13 @@ export default class MobileSelect {
   }
 
   getOptionsHtmlStr(childs: CascadeData): string {
+    const { keyMap } = this.config;
     let tempHTML = "";
     if (this.isJsonType) {
       for (let j = 0; j < childs.length; j++) {
         // 行
-        const id = childs[j][this.keyMap.id];
-        const val = childs[j][this.keyMap.value];
+        const id = childs[j][keyMap.id];
+        const val = childs[j][keyMap.value];
         tempHTML += `<li data-id="${id}">${val}</li>`;
       }
     } else {
@@ -391,29 +416,13 @@ export default class MobileSelect {
     }
   }
 
-  static checkIsPC() {
-    return !Boolean(
-      navigator.userAgent
-        .toLowerCase()
-        .match(
-          /ipad|iphone os|midp|rv:1.2.3.4|ucweb|android|windows ce|windows mobile/
-        )
-    );
-  }
-
-  static checkDataType(wheelsData: CascadeData): boolean {
-    return typeof wheelsData[0]?.data?.[0] === "object";
-  }
-
   // TODO 需要遍历 不能只判断第一位
   checkCascade(): boolean {
+    const { keyMap } = this.config;
     if (this.isJsonType) {
       let node = this.wheelsData[0].data;
       for (let i = 0; i < node.length; i++) {
-        if (
-          this.keyMap.childs in node[i] &&
-          node[i][this.keyMap.childs]?.length > 0
-        ) {
+        if (keyMap.childs in node[i] && node[i][keyMap.childs]?.length > 0) {
           this.cascadeJsonData = this.wheelsData[0].data;
           return true;
         }
@@ -435,18 +444,16 @@ export default class MobileSelect {
 
   initCheckArrDeep(parent: CascadeData): void {
     if (parent) {
-      if (
-        this.keyMap.childs in parent &&
-        parent[this.keyMap.childs].length > 0
-      ) {
-        this.displayJson.push(parent[this.keyMap.childs]);
+      const { keyMap } = this.config;
+      if (keyMap.childs in parent && parent[keyMap.childs].length > 0) {
+        this.displayJson.push(parent[keyMap.childs]);
         this.initDeepCount++;
         let nextNode =
-          parent[this.keyMap.childs][this.initPosition[this.initDeepCount]];
+          parent[keyMap.childs][this.initPosition[this.initDeepCount]];
         if (nextNode) {
           this.initCheckArrDeep(nextNode);
         } else {
-          this.checkArrDeep(parent[this.keyMap.childs][0]);
+          this.checkArrDeep(parent[keyMap.childs][0]);
         }
       }
     }
@@ -455,14 +462,16 @@ export default class MobileSelect {
   checkArrDeep(parent: CascadeData): void {
     // 检测子节点深度  修改displayJson
     if (!parent) return;
-    if (this.keyMap.childs in parent && parent[this.keyMap.childs].length > 0) {
-      this.displayJson.push(parent[this.keyMap.childs]); // 生成子节点数组
-      this.checkArrDeep(parent[this.keyMap.childs][0]); // 检测下一个子节点
+    const { keyMap } = this.config;
+    if (keyMap.childs in parent && parent[keyMap.childs].length > 0) {
+      this.displayJson.push(parent[keyMap.childs]); // 生成子节点数组
+      this.checkArrDeep(parent[keyMap.childs][0]); // 检测下一个子节点
     }
   }
 
   checkRange(index: number, posIndexArr: number[]): void {
     let deleteNum = this.displayJson.length - 1 - index;
+    const { keyMap } = this.config;
     for (let i = 0; i < deleteNum; i++) {
       this.displayJson.pop(); // 修改 displayJson
     }
@@ -471,7 +480,7 @@ export default class MobileSelect {
       resultNode =
         i == 0
           ? this.cascadeJsonData[posIndexArr[0]]
-          : (resultNode as unknown as CascadeData)[this.keyMap.childs][
+          : (resultNode as unknown as CascadeData)?.[keyMap.childs]?.[
               posIndexArr[i]
             ];
     }

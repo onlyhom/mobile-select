@@ -10,14 +10,14 @@ export type CascadeData = {
 
 export type OptionData = CascadeData | string | number;
 
-export type MobileSelectConfig = {
+export type CustomConfig = {
   trigger: string | HTMLElement;
   wheels: CascadeData[];
   /** 兼容旧版本 */
   callback?: CallbackFn;
   cancel?: CallbackFn;
   transitionEnd?: CallbackFn;
-  /** 新版本事件回调 */
+  /** 新版本 */
   onChange?: CallbackFn;
   onCancel?: CallbackFn;
   onTransitionEnd?: CallbackFn;
@@ -27,6 +27,7 @@ export type MobileSelectConfig = {
   initValue?: string;
   position?: number[];
   colWidth?: number[];
+  /** 组件标题 */
   title?: string;
   connector?: string;
   ensureBtnText?: string;
@@ -39,5 +40,20 @@ export type MobileSelectConfig = {
   bgColor?: string;
   maskOpacity?: number;
   keyMap?: KeyMap;
-  triggerDisplayData?: boolean;
+  triggerDisplayValue?: boolean;
 };
+
+export type MobileSelectConfig = CustomConfig &
+  Required<
+    Pick<
+      CustomConfig,
+      | "keyMap"
+      | "position"
+      | "colWidth"
+      | "title"
+      | "connector"
+      | "ensureBtnText"
+      | "cancelBtnText"
+      | "triggerDisplayValue"
+    >
+  >;

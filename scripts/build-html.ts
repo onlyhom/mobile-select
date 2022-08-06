@@ -7,7 +7,7 @@ import glob from "fast-glob";
 const __dirname = fileURLToPath(import.meta.url);
 const sourceDir = resolve(__dirname, "../../");
 const targetDir = resolve(__dirname, "../../dist");
-const packageName = packageJson.name;
+const entryFileName = packageJson.entryFileName;
 
 const buildHtml = async () => {
   //获取文件目录(lib和es一样)
@@ -30,8 +30,7 @@ const buildHtml = async () => {
       <script type="text/javascript">`
       )
       .replace('import "/src/style/demo.css";', "")
-      .replace(`import MobileSelect from "/src/${packageName}";`, "");
-
+      .replace(`import MobileSelect from "/src/${entryFileName}";`, "");
     // format 格式化
 
     await fs.writeFile(resolve(targetDir, "demo.html"), htmlCode);
