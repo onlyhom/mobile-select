@@ -1,5 +1,5 @@
 export interface CallbackFn {
-  (indexArr?: number[], curValue?: number[] | string[]): void;
+  (indexArr?: number[], curValue?: number[] | string[], context?: any): void;
 }
 
 export type KeyMap = { id: string; value: string; childs: string };

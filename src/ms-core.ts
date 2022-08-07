@@ -92,10 +92,7 @@ export default class MobileSelect {
     triggerDisplayValue: true,
   };
   constructor(config: CustomConfig) {
-    this.config = Object.assign(
-      MobileSelect.defaultConfig,
-      config
-    ) as MobileSelectConfig;
+    this.config = Object.assign({}, MobileSelect.defaultConfig, config) as MobileSelectConfig;
     this.wheelsData = config.wheels;
     this.isJsonType = false;
     this.cascadeJsonData = [];
@@ -204,8 +201,8 @@ export default class MobileSelect {
           }
           this.curIndexArr = this.getIndexArr();
           this.curValue = this.getCurValue();
-          this.config.callback?.(this.curIndexArr, this.curValue);
-          this.config.onChange?.(this.curIndexArr, this.curValue);
+          this.config.callback?.(this.curIndexArr, this.curValue, this);
+          this.config.onChange?.(this.curIndexArr, this.curValue, this);
         },
       },
       trigger: {
@@ -365,13 +362,9 @@ export default class MobileSelect {
         <div class="ms-content">
           <div class="ms-btn-bar">
             <div class="ms-fix-width">
-              <div class="ms-cancel">${
-                this.config.cancelBtnText || "取消"
-              }</div>  
+              <div class="ms-cancel">${this.config.cancelBtnText}</div>  
               <div class="ms-title">${this.config.title || ""}</div>
-              <div class="ms-ensure">${
-                this.config.ensureBtnText || "确认"
-              }</div>
+              <div class="ms-ensure">${this.config.ensureBtnText}</div>
             </div>
           </div>
           <div class="ms-panel">
@@ -577,9 +570,14 @@ export default class MobileSelect {
   getCurValue(): string[] | number[] {
     let temp = [];
     let positionArr = this.getIndexArr();
+    const { keyMap } = this.config;
     if (this.isCascade) {
       for (let i = 0; i < this.wheel.length; i++) {
-        temp.push(this.displayJson[i][positionArr[i]]);
+        const tempObj = this.displayJson[i][positionArr[i]];
+        temp.push({
+          [keyMap.id]: tempObj[keyMap.id],
+          [keyMap.value]: tempObj[keyMap.value],
+        });
       }
     } else if (this.isJsonType) {
       for (let i = 0; i < this.curDistance.length; i++) {
@@ -692,11 +690,13 @@ export default class MobileSelect {
               this.movePosition(theSlider, this.curDistance[index]);
               this.config.transitionEnd?.(
                 this.getIndexArr(),
-                this.getCurValue()
+                this.getCurValue(),
+                this
               );
               this.config.onTransitionEnd?.(
                 this.getIndexArr(),
-                this.getCurValue()
+                this.getCurValue(),
+                this
               );
             }
           }
@@ -724,8 +724,8 @@ export default class MobileSelect {
               this.movePosition(theSlider, this.curDistance[index]);
             }, 100);
           }
-          this.config.transitionEnd?.(this.getIndexArr(), this.getCurValue());
-          this.config.onTransitionEnd?.(this.getIndexArr(), this.getCurValue());
+          this.config.transitionEnd?.(this.getIndexArr(), this.getCurValue(), this);
+          this.config.onTransitionEnd?.(this.getIndexArr(), this.getCurValue(), this);
         }
 
         if (event.type === "mouseup") {
