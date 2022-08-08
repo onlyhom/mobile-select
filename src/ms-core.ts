@@ -18,22 +18,22 @@ export default class MobileSelect {
   cancelBtn!: HTMLDivElement;
   grayLayer!: HTMLDivElement;
   popUp!: HTMLDivElement;
-  initPosition: number[];
-  initColWidth: number[];
+  initPosition!: number[];
+  initColWidth!: number[];
   /** 拼接值的连接符 */
   connector!: string;
   /** 数据源 */
-  wheelsData: CascadeData[];
+  wheelsData!: CascadeData[];
   /** 显示json */
-  displayJson: CascadeData[];
+  displayJson!: CascadeData[];
   /** 当前数值 */
   curValue!: string[] | number[];
   /** 当前索引位置 */
-  curIndexArr: number[];
+  curIndexArr!: number[];
   /** 是否级联 */
-  isCascade: boolean;
+  isCascade!: boolean;
   /** 是否JSON格式 */
-  isJsonType: boolean;
+  isJsonType!: boolean;
   /** 开始 Y轴位置 */
   startY!: number;
   /** 结束 Y轴位置 */
@@ -43,21 +43,21 @@ export default class MobileSelect {
   /** 上一次 Y轴位置 */
   preMoveY!: number;
   /** Y轴新旧位移差值 */
-  offsetY: number;
+  offsetY!: number;
   /** 差值总和? */
-  offsetSum: number;
+  offsetSum!: number;
   /** 最大Border? */
   oversizeBorder!: number;
   /** 是否启用点击状态 */
-  enableClickStatus: boolean;
+  enableClickStatus!: boolean;
   /** 是否是PC端 */
-  isPC: boolean;
+  isPC!: boolean;
   /** 选项高度(li元素的高度) */
-  optionHeight: number;
+  optionHeight!: number;
   /** 存放滚动距离的数组 */
-  curDistance: number[];
+  curDistance!: number[];
   /** 级联数据 相当于wheels[0].data的别名 */
-  cascadeJsonData: CascadeData[];
+  cascadeJsonData!: CascadeData[];
   /** 用户自定义key */
   keyMap!: KeyMap;
 
@@ -67,7 +67,7 @@ export default class MobileSelect {
 
   initDeepCount!: number;
 
-  config: MobileSelectConfig;
+  config!: MobileSelectConfig;
 
   static checkIsPC() {
     return !Boolean(
@@ -81,6 +81,9 @@ export default class MobileSelect {
   static checkDataType(wheelsData: CascadeData): boolean {
     return typeof wheelsData[0]?.data?.[0] === "object";
   }
+  static log(type: "error" | "info", tips: string): void {
+    console[type]?.(`[mobile-select][${type}]: ${tips}`);
+  }
   static defaultConfig = {
     keyMap: { id: "id", value: "value", childs: "childs" },
     position: [],
@@ -92,7 +95,26 @@ export default class MobileSelect {
     triggerDisplayValue: true,
   };
   constructor(config: CustomConfig) {
-    this.config = Object.assign({}, MobileSelect.defaultConfig, config) as MobileSelectConfig;
+    if (!config) {
+      MobileSelect.log(
+        "error",
+        "missing required param 'trigger' and 'wheels'."
+      );
+      return;
+    }
+    if (!config.trigger) {
+      MobileSelect.log("error", "missing required param 'trigger'.");
+      return;
+    }
+    if (!config.wheels) {
+      MobileSelect.log("error", "missing required param 'wheels'.");
+      return;
+    }
+    this.config = Object.assign(
+      {},
+      MobileSelect.defaultConfig,
+      config
+    ) as MobileSelectConfig;
     this.wheelsData = config.wheels;
     this.isJsonType = false;
     this.cascadeJsonData = [];
@@ -129,8 +151,9 @@ export default class MobileSelect {
       this.trigger = config.trigger;
     }
     if (!this.trigger) {
-      console.error(
-        "mobile-select has been successfully installed, but no trigger found on your page."
+      MobileSelect.log(
+        "error",
+        "trigger HTMLElement does not found on your document."
       );
       return;
     }
@@ -178,8 +201,8 @@ export default class MobileSelect {
         event: "click",
         fn: () => {
           this.hide();
-          this.config.cancel?.(this.curIndexArr, this.curValue);
-          this.config.onCancel?.(this.curIndexArr, this.curValue);
+          this.config.cancel?.(this.curIndexArr, this.curValue, this);
+          this.config.onCancel?.(this.curValue, this.curIndexArr, this);
         },
       },
       ensureBtn: {
@@ -193,8 +216,8 @@ export default class MobileSelect {
           let tempValue = "";
           for (let i = 0; i < this.wheel.length; i++) {
             i == this.wheel.length - 1
-              ? (tempValue += this.getInnerHtml(i))
-              : (tempValue += this.getInnerHtml(i) + this.config.connector);
+              ? (tempValue += this.getInnerText(i))
+              : (tempValue += this.getInnerText(i) + this.config.connector);
           }
           if (config.triggerDisplayValue) {
             this.trigger.innerText = tempValue;
@@ -202,7 +225,7 @@ export default class MobileSelect {
           this.curIndexArr = this.getIndexArr();
           this.curValue = this.getCurValue();
           this.config.callback?.(this.curIndexArr, this.curValue, this);
-          this.config.onChange?.(this.curIndexArr, this.curValue, this);
+          this.config.onChange?.(this.curValue, this.curIndexArr, this);
         },
       },
       trigger: {
@@ -231,10 +254,12 @@ export default class MobileSelect {
 
     this.registerEvents("add");
     this.fixRowStyle(); // 修正列数
+    if (config.autoFocus) {
+      this.show();
+    }
   }
 
-  // TODO 写单测
-  /** 根据initValue 获取initPostion 需要区分级联和非级联情况 注意 此时displayJson还没生成 */
+  /** 根据initValue 获取initPostion 需要区分级联和非级联情况 注意此时displayJson还没生成 */
   getPositionByValue(): number[] {
     const { keyMap, connector, initValue } = this.config;
     const valueArr = initValue?.split(connector) || [];
@@ -379,7 +404,7 @@ export default class MobileSelect {
     // 根据数据来渲染wheels
     let tempHTML = "";
     for (let i = 0; i < wheelsData.length; i++) {
-      //列
+      // 列
       tempHTML += `<div class="ms-wheel"><ul class="ms-select-container" data-index="${i}">`;
       tempHTML += this.getOptionsHtmlStr(wheelsData[i].data);
       tempHTML += "</ul></div>";
@@ -409,7 +434,6 @@ export default class MobileSelect {
     }
   }
 
-  // TODO 需要遍历 不能只判断第一位
   checkCascade(): boolean {
     const { keyMap } = this.config;
     if (this.isJsonType) {
@@ -519,18 +543,18 @@ export default class MobileSelect {
     }
   }
 
-  // TODO 需测试
   updateWheel(
     sliderIndex: number,
     data: Omit<OptionData, "CascadeData">[]
   ): void {
-    let tempHTML = "";
     if (this.isCascade) {
-      console.error(
-        "级联格式不支持updateWheel(),请使用updateWheels()更新整个数据源"
+      MobileSelect.log(
+        "error",
+        "'updateWheel()' not support cascade json data, please use 'updateWheels()' instead to update the whole data source"
       );
       return;
     }
+    let tempHTML = "";
     tempHTML += this.getOptionsHtmlStr(data);
     this.wheelsData[sliderIndex] = this.isJsonType ? { data } : data;
     this.slider[sliderIndex].innerHTML = tempHTML;
@@ -574,10 +598,12 @@ export default class MobileSelect {
     if (this.isCascade) {
       for (let i = 0; i < this.wheel.length; i++) {
         const tempObj = this.displayJson[i][positionArr[i]];
-        temp.push({
-          [keyMap.id]: tempObj[keyMap.id],
-          [keyMap.value]: tempObj[keyMap.value],
-        });
+        if (tempObj) {
+          temp.push({
+            [keyMap.id]: tempObj[keyMap.id],
+            [keyMap.value]: tempObj[keyMap.value],
+          });
+        }
       }
     } else if (this.isJsonType) {
       for (let i = 0; i < this.curDistance.length; i++) {
@@ -585,7 +611,7 @@ export default class MobileSelect {
       }
     } else {
       for (let i = 0; i < this.curDistance.length; i++) {
-        temp.push(this.getInnerHtml(i));
+        temp.push(this.getInnerText(i));
       }
     }
     return temp;
@@ -628,7 +654,7 @@ export default class MobileSelect {
     this.curDistance[index] = parseInt(theSlider.style.transform.split(",")[1]);
   }
 
-  getInnerHtml(sliderIndex: number): string {
+  getInnerText(sliderIndex: number): string {
     let lengthOfList =
       this.slider[sliderIndex].getElementsByTagName("li").length;
     let index = this.getIndex(this.curDistance[sliderIndex]);
@@ -638,8 +664,10 @@ export default class MobileSelect {
     } else if (index < 0) {
       index = 0;
     }
-    // TODO 需要优化
-    return this.slider[sliderIndex].getElementsByTagName("li")[index].innerHTML;
+    return (
+      this.slider[sliderIndex].getElementsByTagName("li")[index]?.innerText ||
+      ""
+    );
   }
 
   touch(event: TouchEvent | MouseEvent): void {
@@ -694,8 +722,8 @@ export default class MobileSelect {
                 this
               );
               this.config.onTransitionEnd?.(
-                this.getIndexArr(),
                 this.getCurValue(),
+                this.getIndexArr(),
                 this
               );
             }
@@ -724,8 +752,16 @@ export default class MobileSelect {
               this.movePosition(theSlider, this.curDistance[index]);
             }, 100);
           }
-          this.config.transitionEnd?.(this.getIndexArr(), this.getCurValue(), this);
-          this.config.onTransitionEnd?.(this.getIndexArr(), this.getCurValue(), this);
+          this.config.transitionEnd?.(
+            this.getIndexArr(),
+            this.getCurValue(),
+            this
+          );
+          this.config.onTransitionEnd?.(
+            this.getCurValue(),
+            this.getIndexArr(),
+            this
+          );
         }
 
         if (event.type === "mouseup") {

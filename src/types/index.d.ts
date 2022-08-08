@@ -1,4 +1,7 @@
 export interface CallbackFn {
+  (curValue?: number[] | string[], indexArr?: number[], context?: any): void;
+}
+export interface OldCallbackFn {
   (indexArr?: number[], curValue?: number[] | string[], context?: any): void;
 }
 
@@ -14,9 +17,10 @@ export type CustomConfig = {
   trigger: string | HTMLElement;
   wheels: CascadeData[];
   /** 兼容旧版本 */
-  callback?: CallbackFn;
-  cancel?: CallbackFn;
-  transitionEnd?: CallbackFn;
+  callback?: OldCallbackFn;
+  cancel?: OldCallbackFn;
+  transitionEnd?: OldCallbackFn;
+  triggerDisplayData?: boolean;
   /** 新版本 */
   onChange?: CallbackFn;
   onCancel?: CallbackFn;
@@ -41,6 +45,7 @@ export type CustomConfig = {
   maskOpacity?: number;
   keyMap?: KeyMap;
   triggerDisplayValue?: boolean;
+  autoFocus?: boolean;
 };
 
 export type MobileSelectConfig = CustomConfig &
