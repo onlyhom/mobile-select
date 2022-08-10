@@ -224,7 +224,7 @@
 
       /**
        * 参数说明
-       * @param trigger(必填参数) 触发对象的id/class/tag
+       * @param trigger(必填参数) 触发对象的id/class/tag或HTMLElement对象
        * @param wheels(必填参数)  数据源,需要显示的数据
        * @param title 控件标题
        * @param initValue 默认值
@@ -245,7 +245,7 @@
        */
 
       const mobileSelect1 = new MobileSelect({
-        trigger: "#trigger1",
+        trigger: document.querySelector("#trigger1"),
         title: "单项选择",
         wheels: [{ data: weekdayArr }],
         position: [2], //初始化定位 打开时默认选中的哪个 如果不填默认为0

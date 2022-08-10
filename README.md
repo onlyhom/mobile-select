@@ -293,8 +293,8 @@ export default function MsComponent(props) {
 
 
 | Option           | Default                                    | Type     | Version		|   Description   |
-| -----------------| -------------------------------------------| ---------| ---------------| ----------------|
-| trigger          | Required parameter. No default value       | String   | 				| DOM selector string or HTMLElement element <br/> e.g. '#my-trigger' or document.querySelector('#my-trigger')  |
+| -----------------| -------------------------------------------| ---------| -----------| ----------------|
+| trigger          | Required parameter. No default value       | String or HTMLElement |  | DOM selector string or HTMLElement element <br/> e.g. '#my-trigger' or document.querySelector('#my-trigger')  |
 | wheels           | Required parameter. No default value       | Array    | 				| The data displayed on the wheel |
 | onChange         | function(data, indexArr, instance){}       | function |≥1.2.0 | A callback function after successful selected|
 | onTransitionEnd  | function(data, indexArr, instance){}       | function |≥1.2.0 | A callback function that after each gesture sliding|
