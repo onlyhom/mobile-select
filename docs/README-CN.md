@@ -7,13 +7,12 @@
   <img src="https://img.shields.io/badge/dependencies-none-success.svg" alt="dependencies" />
   <a href="https://github.com/onlyhom/mobile-select/issues"><img src="https://img.shields.io/github/issues/onlyhom/mobile-select.svg?logo=codeigniter&logoColor=FFFFFF" alt="GitHub issues" /></a>
   <a href="https://travis-ci.org/onlyhom/mobile-select"><img src="https://img.shields.io/badge/build-passing-success" alt="Build Status" /></a>
-  <a href="https://github.com/onlyhom/mobile-select/releases"><img src="https://img.shields.io/badge/Update%20status-Frequently-009C7C?logo=git&logoColor=FFFFFF" alt="Update Status" /></a>
   <img src="https://img.shields.io/bundlephobia/min/mobile-select" alt="size" />
 </p>
 
 一款多功能的移动端滚动选择器，支持单选到多选、支持多级级联、提供回调函数、提供 update 函数二次渲染、重定位函数、兼容 pc 端拖拽等等..
 
-[【English documents】](https://github.com/onlyhom/mobile-select)
+[English Docs](https://github.com/onlyhom/mobile-select) | 中文文档
 
 ## 特性
 
