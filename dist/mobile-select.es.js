@@ -122,7 +122,8 @@ const r = class {
     (i = console[t]) == null || i.call(console, `[mobile-select]: ${e}`);
   }
   checkTriggerAvailable() {
-    return typeof this.config.trigger == "string" ? this.trigger = document.querySelector(this.config.trigger) : this.trigger = this.config.trigger, this.trigger ? !0 : (r.log("error", "trigger HTMLElement does not found on your document."), !1);
+    const { config: t } = this;
+    return this.trigger = t.trigger instanceof HTMLElement ? t.trigger : document.querySelector(t.trigger), this.trigger ? !0 : (r.log("error", "trigger HTMLElement does not found on your document."), !1);
   }
   getPositionByValue() {
     var n;
@@ -382,7 +383,7 @@ const r = class {
       case "touchend":
       case "mouseup":
         if (this.moveEndY = Math.floor(t instanceof TouchEvent ? t.changedTouches[0].clientY : t.clientY), this.offsetSum = this.moveEndY - this.startY, this.oversizeBorder = -(i.getElementsByTagName("li").length - 3) * this.optionHeight, this.offsetSum == 0) {
-          let y = Math.floor((document.documentElement.clientHeight - this.moveEndY) / 40);
+          let y = Math.floor((window.innerHeight - this.moveEndY) / 40);
           if (y != 2) {
             let v = y - 2, p = this.curDistance[s] + v * this.optionHeight;
             p <= 2 * this.optionHeight && p >= this.oversizeBorder && (this.curDistance[s] = p, this.movePosition(i, this.curDistance[s]), (l = (n = this.config).transitionEnd) == null || l.call(n, this.getIndexArr(), this.getCurValue(), this), (d = (o = this.config).onTransitionEnd) == null || d.call(o, this.getCurValue(), this.getIndexArr(), this));

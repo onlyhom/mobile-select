@@ -166,7 +166,8 @@ var MobileSelect = function () {
     }, {
       key: "checkTriggerAvailable",
       value: function checkTriggerAvailable() {
-        return typeof this.config.trigger == "string" ? this.trigger = document.querySelector(this.config.trigger) : this.trigger = this.config.trigger, this.trigger ? !0 : (l.log("error", "trigger HTMLElement does not found on your document."), !1);
+        var t = this.config;
+        return this.trigger = t.trigger instanceof HTMLElement ? t.trigger : document.querySelector(t.trigger), this.trigger ? !0 : (l.log("error", "trigger HTMLElement does not found on your document."), !1);
       }
     }, {
       key: "getPositionByValue",
@@ -549,7 +550,7 @@ var MobileSelect = function () {
           case "touchend":
           case "mouseup":
             if (this.moveEndY = Math.floor(t instanceof TouchEvent ? t.changedTouches[0].clientY : t.clientY), this.offsetSum = this.moveEndY - this.startY, this.oversizeBorder = -(i.getElementsByTagName("li").length - 3) * this.optionHeight, this.offsetSum == 0) {
-              var y = Math.floor((document.documentElement.clientHeight - this.moveEndY) / 40);
+              var y = Math.floor((window.innerHeight - this.moveEndY) / 40);
 
               if (y != 2) {
                 var v = y - 2,
