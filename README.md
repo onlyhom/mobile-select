@@ -7,13 +7,12 @@
   <img src="https://img.shields.io/badge/dependencies-none-success.svg" alt="dependencies" />
   <a href="https://github.com/onlyhom/mobile-select/issues"><img src="https://img.shields.io/github/issues/onlyhom/mobile-select.svg?logo=codeigniter&logoColor=FFFFFF" alt="GitHub issues" /></a>
   <a href="https://travis-ci.org/onlyhom/mobile-select"><img src="https://img.shields.io/badge/build-passing-success" alt="Build Status" /></a>
-  <a href="https://github.com/onlyhom/mobile-select/releases"><img src="https://img.shields.io/badge/Update%20status-Frequently-009C7C?logo=git&logoColor=FFFFFF" alt="Update Status" /></a>
   <img src="https://img.shields.io/bundlephobia/min/mobile-select" alt="size" />
 </p>
 
 A multi-function mobile phone scrolling selector, support single to multi-select, support multi-level cascade, provide callback function, provide update function redraw, relocation function, compatible pc drag and so on.
 
-[【查看中文文档】](https://github.com/onlyhom/mobile-select/blob/master/docs/README-CN.md)
+English Docs | [中文文档](https://github.com/onlyhom/mobile-select/blob/master/docs/README-CN.md) 
 
 ## Features
 
@@ -293,8 +292,8 @@ export default function MsComponent(props) {
 
 
 | Option           | Default                                    | Type     | Version		|   Description   |
-| -----------------| -------------------------------------------| ---------| ---------------| ----------------|
-| trigger          | Required parameter. No default value       | String   | 				| DOM selector string or HTMLElement element <br/> e.g. '#my-trigger' or document.querySelector('#my-trigger')  |
+| -----------------| -------------------------------------------| ---------| -----------| ----------------|
+| trigger          | Required parameter. No default value       | String or HTMLElement |  | DOM selector string or HTMLElement element <br/> e.g. '#my-trigger' or document.querySelector('#my-trigger')  |
 | wheels           | Required parameter. No default value       | Array    | 				| The data displayed on the wheel |
 | onChange         | function(data, indexArr, instance){}       | function |≥1.2.0 | A callback function after successful selected|
 | onTransitionEnd  | function(data, indexArr, instance){}       | function |≥1.2.0 | A callback function that after each gesture sliding|
