@@ -259,13 +259,12 @@ export default class MobileSelect {
   }
 
   checkTriggerAvailable() {
-    // 兼容旧版传入string的写法
-    if (typeof this.config.trigger === "string") {
-      //@ts-ignore
-      this.trigger = document.querySelector(this.config.trigger);
-    } else {
-      this.trigger = this.config.trigger;
-    }
+    const { config } = this;
+    // @ts-ignore
+    this.trigger =
+      config.trigger instanceof HTMLElement
+        ? config.trigger
+        : document.querySelector(config.trigger);
     if (!this.trigger) {
       MobileSelect.log(
         "error",
