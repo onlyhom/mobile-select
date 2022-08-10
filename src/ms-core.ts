@@ -723,7 +723,7 @@ export default class MobileSelect {
           // offsetSum为0, 相当于点击事件
           // 0 1 [2] 3 4
           let clickOffetNum = Math.floor(
-            (document.documentElement.clientHeight - this.moveEndY) / 40
+            (window.innerHeight - this.moveEndY) / 40
           );
           if (clickOffetNum != 2) {
             let tempOffset = clickOffetNum - 2;
