@@ -1,20 +1,19 @@
 <p align="center"><img width="130" src="https://github.com/onlyhom/img-folder/blob/master/png/m_logo_orange.png?raw=true"></p>
 <h1 align="center" >Mobile Select</h1>
 <p align="center">
-  <a href="https://github.com/onlyhom/mobileSelect.js/blob/master/LICENSE" title="LICENSE">
-    <img src="https://img.shields.io/npm/l/express.svg" alt="MIT License">
-  </a>
-  <a href="" title="downloads">
-    <img src="https://img.shields.io/badge/downloads-1083-green.svg" alt="downloads">
-  </a>
-  <a href="" title="dependencies">
-    <img src="https://img.shields.io/badge/dependencies-none-orange.svg" alt="dependencies">
-  </a>
+  <a href="https://github.com/onlyhom/mobileSelect.js/blob/master/LICENSE" title="LICENSE"><img src="https://img.shields.io/github/license/CKGrafico/Papanasi.svg?logo=creative%20commons&color=8FBFA9&logoColor=FFFFFF" alt="MIT license" /></a>
+  <a href="https://github.com/onlyhom/mobile-select/network"><img src="https://img.shields.io/github/stars/onlyhom/mobile-select.svg?logo=verizon&color=blueviolet" alt="GitHub stars" /></a>
+  <a href="https://github.com/onlyhom/mobile-select/network"><img src="https://img.shields.io/github/forks/onlyhom/mobile-select.svg?logo=github&color=blue" alt="GitHub forks" /></a>
+  <img src="https://img.shields.io/badge/dependencies-none-success.svg" alt="dependencies" />
+  <a href="https://github.com/onlyhom/mobile-select/issues"><img src="https://img.shields.io/github/issues/onlyhom/mobile-select.svg?logo=codeigniter&logoColor=FFFFFF" alt="GitHub issues" /></a>
+  <a href="https://travis-ci.org/onlyhom/mobile-select"><img src="https://img.shields.io/badge/build-passing-success" alt="Build Status" /></a>
+  <a href="https://github.com/onlyhom/mobile-select/releases"><img src="https://img.shields.io/badge/Update%20status-Frequently-009C7C?logo=git&logoColor=FFFFFF" alt="Update Status" /></a>
+  <img src="https://img.shields.io/bundlephobia/min/mobile-select" alt="size" />
 </p>
 
-一款多功能的移动端滚动选择器，支持单选到多选、支持多级级联、提供自定义回调函数、提供 update 函数二次渲染、重定位函数、兼容 pc 端拖拽等等..
+一款多功能的移动端滚动选择器，支持单选到多选、支持多级级联、提供回调函数、提供 update 函数二次渲染、重定位函数、兼容 pc 端拖拽等等..
 
-[【English documents】](https://github.com/onlyhom/mobileSelect.js)
+[【English documents】](https://github.com/onlyhom/mobile-select)
 
 ## 特性
 
@@ -22,11 +21,10 @@
 - 可传入普通数组或者 json 数组
 - 可根据传入的参数长度，自动渲染出对应的列数，支持单项到多项选择
 - 自动识别是否级联
-- 选择成功后，提供自定义回调函数 callback() 返回当前选择索引位置、以及选择的数据（数组/json）
-- 每次手势滑动结束后，也提供一个回调函数 transitionEnd() 返回当前选择索引位置、以及选择的数据（数组/json）
+- 提供回调函数 onChange() 返回当前选择索引位置、以及选择的数据
+- 每次手势滑动结束后，也提供一个回调函数 onTransitionEnd() 返回当前选择索引位置、以及选择的数据
 - 能够在已经实例化控件后，提供 update 函数再次渲染，可用于异步获取数据或点击交互后需要改变所选数据的场景
-- 提供重定位函数
-- 可以回显（第二次进入页面时，可以显示历史选择的位置）
+- 提供initValue支持回显场景
 
 ## 演示
 
@@ -43,14 +41,14 @@
 #### 方式一 标签引入：
 
 ```html
-<link rel="stylesheet" type="text/css" href="css/mobileSelect.css" />
-<script src="js/mobileSelect.js" type="text/javascript"></script>
+<link rel="stylesheet" type="text/css" href="dist/style/mobile-select.css" />
+<script type="text/javascript" src="dist/mobile-select.iife.js" ></script>
 ```
 
 #### 方式二 npm：
 
 ```
-npm install mobile-select -D
+npm install mobile-select
 ```
 
 在你的 js 文件中 import：
@@ -74,7 +72,7 @@ import MobileSelect from "mobile-select";
     wheels: [
       { data: ["周日", "周一", "周二", "周三", "周四", "周五", "周六"] },
     ],
-    position: [2], //初始化定位
+    initValue: "周二", // 初始化值
   });
 </script>
 ```
@@ -109,8 +107,8 @@ import MobileSelect from "mobile-select";
         ],
       },
     ],
-    callback: function (indexArr, data) {
-      console.log(data); //返回选中的json数据
+    onChange: function (data, indexArr, msInstance) {
+      console.log(data);
     },
   });
 </script>
@@ -151,9 +149,9 @@ import MobileSelect from "mobile-select";
         ],
       },
     ],
-    position: [0, 1],
-    callback: function (indexArr, data) {
-      console.log(data); //返回选中的json数据
+    initValue: "附近 2000米", // 初始化值
+    onChange: function (data, indexArr, msInstance) {
+      console.log(data);
     },
   });
 </script>
@@ -163,34 +161,80 @@ import MobileSelect from "mobile-select";
 
 ![Image text](https://raw.githubusercontent.com/onlyhom/img-folder/master/gif/%E7%BA%A7%E8%81%94.gif)
 
-#### ④ 在 vue-cli 中如何使用
-
+#### ④在 react、vue 中使用
 ```
-npm install mobile-select -D
+npm install mobile-select
+```
+##### 在React中的基本使用
+```tsx
+import { useState, useRef, useEffect } from "react";
+import MobileSelect from "mobile-select";
+
+export default function MsComponent(props) {
+  const tirggerRef = useRef(null);
+  const [selectedVal, setSelectedVal] = useState('');
+  let msInstance = null;
+  useEffect(() => {
+    if(!msInstance){
+      msInstance = new MobileSelect({
+          wheels: [
+            { data: ["周日", "周一", "周二", "周三", "周四", "周五", "周六"] },
+          ],
+          trigger: tirggerRef.current,
+          triggerDisplayValue: false, // 如果不想覆盖trigger内的html 这里需要设置为false
+          onChange: (data) => {
+            setSelectedVal(JSON.stringify(data));
+          },
+        });
+    }
+    return () => {
+      msInstance?.destroy();
+      msInstance = null;
+    };
+  }, []);
+  return (
+    <div>
+      <div className="ms-default-trigger" ref={ tirggerRef }>
+        <div className="your-classname">请输入</div>
+      </div>
+    </div>
+  );
+}
 ```
 
+
+##### 在Vue中的基本使用
 ```html
 <template>
   <div>
-    <div id="trigger4">单项选择</div>
+    <div ref="tirggerRef">
+      <div class="your-classname">{{ selectedVal || "请选择" }}</div>
+    </div>
   </div>
 </template>
 
 <script>
   import MobileSelect from "mobile-select";
-
   export default {
+    name: "mobile-select",
+    data: () => ({
+      msInstance: null,
+      selectedVal: "",
+    }),
     mounted() {
-      var mobileSelect4 = new MobileSelect({
-        trigger: "#trigger4",
-        title: "单项选择",
+      this.msInstance = new MobileSelect({
+        trigger: this.$refs.tirggerRef,
         wheels: [
           { data: ["周日", "周一", "周二", "周三", "周四", "周五", "周六"] },
         ],
-        callback: function (indexArr, data) {
-          console.log(data);
+        triggerDisplayValue: false, // 如果不想覆盖trigger内的html 这里需要设置为false
+        onChange: (data) => {
+          this.selectedVal = JSON.stringify(data);
         },
       });
+    },
+    unmounted() {
+      this.msInstance.destroy(); // 销毁组件实例
     },
   };
 </script>
@@ -202,9 +246,11 @@ npm install mobile-select -D
 <div id="trigger5"></div>
 
 <script type="text/javascript">
-  //假如你的数据的字段名为id,title,children
-  //与mobileSelect的id,value,childs字段名不匹配
-  //可以用keyMap属性进行字段名映射
+  /**
+   * 假如你的数据的字段名为id,title,children
+   * 与mobileSelect的id,value,childs字段名不匹配
+   * 可以用keyMap属性进行字段名映射
+   */
   var mobileSelect5 = new MobileSelect({
     trigger: "#trigger5",
     title: "数据字段名映射",
@@ -237,56 +283,55 @@ npm install mobile-select -D
       value: "title",
       childs: "children",
     },
-    callback: function (indexArr, data) {
+    onChange: function (data) {
       console.log(data);
     },
   });
 </script>
 ```
 
-## 参数
+## 配置参数
 
-| 选项                | 默认值                                      | 类型     | 描述                                                                                                                                                                             |
-| ------------------ | ------------------------------------------- | -------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| trigger            | 必填参数 无默认值                              | String   | 触发对象的 id/class/tag                                                                                                                                                          |
-| wheels             | 必填参数 无默认值                              | Array    | 数据源,需要显示的数据                                                                                                                                                            |
-| callback           | function(indexArr, data){}                  | function | 选择成功后触发的回调函数，返回 indexArr、data                                                                                                                                    |
-| transitionEnd      | function(indexArr, data){}                  | function | 每一次手势滑动结束后触发的回调函数,返回 indexArr、data                                                                                                                           |
-| cancel             | function(indexArr, data){}                  | function | 返回的是 indexArr 和 data 是上一次点击确认按钮时的值                                                                                                                             |
-| onShow             | function(e){}                               | function | 显示控件后触发的回调函数, 返回参数为对象本身                                                                                                                                     |
-| onHide             | function(e){}                               | function | 隐藏控件后触发的回调函数, 返回参数为对象本身                                                                                                                                     |
-| title              | `''`                                        | String   | 控件标题                                                                                                                                                                         |
-| position           | [0,0,0,…]                                   | Array    | 初始化定位                                                                                                                                                                       |
-| colWidth           | [1,1,2,…]                                   | Array    | 列宽度设置                                                                                                                                                                     |
-| connector          | `' '`                                       | String   | 多个轮子时，多个值中间的连接符，默认是空格                                                                                                                                          |
-| ensureBtnText      | `'确认'`                                     | String   | 确认按钮的文本内容                                                                                                                                                               |
-| cancelBtnText      | `'取消'`                                     | String   | 取消按钮的文本内容                                                                                                                                                               |
-| ensureBtnColor     | `'#1e83d3'`                                 | String   | 确认按钮的文本颜色                                                                                                                                                               |
-| cancelBtnColor     | `'#666666'`                                 | String   | 取消按钮的文本颜色                                                                                                                                                               |
-| titleColor         | `'#000000'`                                 | String   | 控件标题的文本颜色                                                                                                                                                               |
-| titleBgColor       | `'#ffffff'`                                 | String   | 控件标题的背景颜色                                                                                                                                                               |
-| textColor          | `'#000000'`                                 | String   | 轮子内文本的颜色                                                                                                                                                                 |
-| bgColor            | `'#ffffff'`                                 | String   | 轮子背景颜色                                                                                                                                                                     |
-| maskOpacity        | `0.7`                                       | Number   | 遮罩透明度                                                                                                                                                                       |
-| keyMap             | `{id:'id', value:'value', childs:'childs'`} | Object   | 字段名映射，适用于字段名不匹配 id,value,childs 的数据格式                                                                                                                        |
-| triggerDisplayData | `true`                                      | Boolean  | 在点击确认时，trigger 的 innerHtml 是否变为选择的数据。<br>（如果 trigger 里面还有其他元素，则可以设置为 false；如果需要在别的地方显示数据，则可用 callback 返回的数据自行拼接） |
+| 选项              | 默认值                                      | 类型                 | 版本      	| 描述          |
+| --------------- | ------------------------------------------- | -------------------- | ---------	| ---------------|
+| trigger         | 必填参数                                     | String 或 HTMLElement|           	| DOM的选择器字符串 或 HTMLElement元素 <br/>如：'#my-trigger' 或 document.querySelector('#my-trigger') |
+| wheels          | 必填参数                                     | Array    |     | 选项数据源, 需要显示的数据  |
+| onChange        | function(data, indexArr, instance){}        | function | ≥1.2.0 | 选择成功后触发的回调函数|
+| onTransitionEnd | function(data, indexArr, instance){}        | function | ≥1.2.0 | 每一次手势滑动结束后触发的回调函数|
+| onCancel        | function(data, indexArr, instance){}        | function |    |点击取消的回调函数 返回的data和inderArr 是上一次点击确认按钮时的值  |
+| onShow          | function(instance){}                        | function |    |显示控件后触发的回调函数, 返回参数为对象本身    |
+| onHide          | function(instance){}                        | function |   | 隐藏控件后触发的回调函数, 返回参数为对象本身   |
+| title           | `''`                                        | String  |    | 组件标题  |
+| connector       | `' '`                                       | String  |    | 多项选择的值连接符号，默认是空格（例：如果设为'-', 那返回的多列数据则为'A-B') |
+| initValue       | `'1 2'`                                     | String  | ≥1.2.0 | 初始化值, 一般使用在数据回显的场景。<br/>(如果设置了connector, 那么initValue也需要用对应的connector符号连接) |
+| autoFocus       | `false`                                     | Boolean | ≥1.2.0 | 初始化后自动弹出选择面板   |
+| position        | [0,0,0,…]                                   | Array  |     | 初始化定位  |
+| colWidth        | [1,1,2,…]                                   | Array   |   | 列宽度设置  |
+| ensureBtnText   | `'确认'`                                     | String  |   | 确认按钮的文本内容  |
+| cancelBtnText   | `'取消'`                                     | String  |   | 取消按钮的文本内容   |
+| ensureBtnColor  | `'#1e83d3'`                                 | String  |   | 确认按钮的文本颜色 |
+| cancelBtnColor  | `'#666666'`                                 | String  |   | 取消按钮的文本颜色   |
+| titleColor      | `'#000000'`                                 | String  |   | 组件标题的文本颜色  |
+| titleBgColor    | `'#ffffff'`                                 | String  |   | 组件标题的背景颜色  |
+| textColor       | `'#000000'`                                 | String  |   | 轮子内文本的颜色 |
+| bgColor         | `'#ffffff'`                                 | String  |   | 轮子背景颜色  |
+| maskOpacity     | `0.7`                                       | Number  |   | 遮罩透明度     |
+| keyMap          | `{id:'id', value:'value', childs:'childs'`} | Object  |   | 字段名映射，适用于字段名不匹配 id,value,childs 的数据格式 |
+| triggerDisplayValue | `true`                                  | Boolean | ≥1.2.0  | 在点击确认时，trigger 的 innerHtml 是否变为选择的数据。<br>（如果 trigger 里面还有其他元素，不想覆盖，则可以设置为 false；如果需要在别的地方显示数据，则可用 'onChange()' 回调返回的数据自行拼接） 
 
-#### 注：回调函数中返回的参数含义如下
 
-- indexArr 是当前选中的索引数组 如[0,0,1] 代表有三个轮子 选中的数据是第一个轮子的第 0 个数据、第二个轮子的第 0 个数据、第三个轮子的第 1 个数据
-- data 是当前选中的 json 数据 如[{id:'1',value:'hello'},{id:'2',value:'world'}]
+## 实例方法：
 
-## 功能函数：
-
-| 函数名           | 参数                  | 描述                                   |
-| ---------------- | --------------------- | -------------------------------------- |
-| show()           | 无参                  | 手动显示弹窗组件                       |
-| hide()           | 无参                  | 手动隐藏弹窗组件                       |
-| setTitle()       | string                | 设置控件的标题                         |
-| locatePosition() | sliderIndex, posIndex | 传入位置数组，重新定位轮子选中的位置   |
-| updateWheel()    | sliderIndex, data     | 重新渲染指定的轮子                     |
-| updateWheels()   | data                  | 重新渲染所有轮子(仅限级联数据格式使用) |
-| getValue()       | 无参                  | 获取组件选择的值                       |
+| 函数名           | 参数                  | 版本 | 描述  			  |
+| ---------------- | ---------------------| ----| --------------- |
+| show()           | 无参                  | 	| 手动显示弹窗组件  |
+| hide()           | 无参                  |  	| 手动隐藏弹窗组件 |
+| setTitle()       | string                |  	| 设置控件的标题  |
+| locatePosition() | sliderIndex, posIndex |   	| 传入位置数组，重新定位轮子选中的位置 |
+| updateWheel()    | sliderIndex, data     |   	| 重新渲染指定的轮子 |
+| updateWheels()   | data                  |    | 重新渲染所有轮子(仅限级联数据格式使用) |
+| getValue()       | 无参                  |    	| 获取组件选择的值 |
+| destroy()        | 无参              | ≥1.2.0 | 销毁组件实例 |
 
 #### 注：功能函数中需要传递的参数含义如下
 
@@ -298,14 +343,14 @@ npm install mobile-select -D
 ```html
 <div id="day"></div>
 
-
+<script type="text/javascript">
 var mySelect = new MobileSelect({
     trigger: '#day',
     wheels: [
         {data:['周日','周一','周二','周三','周四','周五','周六']},
         {data:['08:00','09:00','10:00','11:00','12:00','13:00','14:00']}
     ],
-    position:[1,1] //初始化定位 两个轮子都选中在索引1的选项
+    initValue: "周一 09:00",
     colWidth: [1, 2] // 初始化列宽度设置，数字代表每列宽度比例
 });
 
@@ -320,6 +365,10 @@ mySelect.updateWheel(0,['sunday','Monday','Tuesday','Wednesday','Thursday','Frid
 
 /** 重新定位第1个轮子的位置，将第1个轮子的第0个数据改为当前选中。*/
 mySelect.locatePosition(1,0);
+
+/** 销毁组件 */
+mySelect.destroy();
+</script>
 ```
 
 基础实例 → 功能函数操作后
@@ -347,7 +396,7 @@ mySelect.locatePosition(1,0);
                         {id:'1',value:'请选择距离'},
                     ]}
                 ],
-        callback:function(indexArr, data){
+        onChange:function(data, indexArr){
             console.log(data);
         }
     });
@@ -372,15 +421,11 @@ mySelect.locatePosition(1,0);
             //     {id:'2',value:'300米'},
             //     {id:'3',value:'400米'}
             // ]
-
-            mobileSelect6.updateWheel(0, res.data.area); //更改第0个轮子
-            mobileSelect6.updateWheel(1, res.data.distance); //更改第1个轮子
+            mobileSelect6.updateWheel(0, res.data.area); // 更改第0个轮子
+            mobileSelect6.updateWheel(1, res.data.distance); // 更改第1个轮子
         }
     });
 </script>
-</script>
-
-
 
 
 <!-- ************ 级联格式 ************ -->
@@ -429,16 +474,9 @@ mySelect.locatePosition(1,0);
 </script>
 ```
 
-### 如何回显选择的位置
+## 使用场景 demo
 
-callback 回调函数里有一个 indexArr 参数，它是一个数组，记录着当前选中的位置：  
-把这个数组转化为字符串之后，可以用<input type="hidden" value="">隐藏域或者别的其他方式保存下来，传给后台。  
-下次打开页面时，  
-MobileSelect 实例化的时候，读取这个字符串，再转成数组，传给 position，完成初始化定位即可。
-
-## 项目 demo：
-
-使用 transitionEnd()、callback()、updateWheel()、locatePosition()函数实现如下功能：
+使用 onTransitionEnd()、onChange()、updateWheel()、locatePosition()函数实现如下功能：
 
 - 选择当天日期时，不得超过今天已过时辰。
 - 选择取车时间后，还车时间不得超过取车时间（包括日期和时间）。
@@ -520,11 +558,22 @@ textColor
 
 增加 maskOpacity 设置遮罩透明度
 
-### 2019-05-15[update]
+### 2019-05-15[更新]
 
-感谢【aaalog】同学的PR 
+感谢【Jackliu007888】同学的 PR
 增加轮子宽度配置 colWidth
 
+### 2022-08[重构&更新]
+- 使用ts重构、vite构建, 构建规范类型产物(UMD, ESM, IIFE)
+- 增加属性initValue, autoFocus
+- 增加功能函数destroy()
+- 方法和属性名优化:
+callback--> onChange   
+cancel --> onCancel  
+transitionEnd --> onTransitionEnd
+triggerDisplayData --> triggerDisplayValue
+- 添加样式类名前缀，防止样式冲突
+- 文档优化：增加在框架中如何使用的指引
 
 ## 许可证
 

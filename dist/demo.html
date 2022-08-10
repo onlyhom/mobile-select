@@ -223,17 +223,17 @@
       ];
 
       //----------------------------------------------------------
-      //更多参数详情可查看文档 https://github.com/onlyhom/mobileSelect.js
+      //更多参数详情可查看文档 https://github.com/onlyhom/mobile-select
 
       /**
        * 参数说明
        * @param trigger(必填参数) 触发对象的id/class/tag
        * @param wheels(必填参数)  数据源,需要显示的数据
        * @param title 控件标题
-       * @param position 初始化定位
-       * @param callback 选择成功后触发的回调函数，返回indexArr(选中的选项索引)、data(选中的数据)
-       * @param transitionEnd 每一次手势滑动结束后触发的回调函数,返回indexArr(当前选中的选项索引)、data(选中的数据)
-       * @param keyMap 字段名映射
+       * @param initValue 默认值
+       * @param onChange 选择成功后触发的回调函数，返回indexArr(选中的选项索引)、data(选中的数据)
+       * @param ononTransitionEnd 每一次手势滑动结束后触发的回调函数,返回indexArr(当前选中的选项索引)、data(选中的数据)
+       * @param keyMap 数据字段名映射
        */
 
       /**
@@ -244,6 +244,7 @@
        * @function locatePosition() 参数 sliderIndex, posIndex  传入位置数组，重定位轮子的位置
        * @function show()          参数 无参                   唤起弹窗组件
        * @function getValue()      参数 无参                   获取组件选择的值
+       * @function destory()       参数 无参                   销毁组件
        */
 
       const mobileSelect1 = new MobileSelect({
@@ -251,10 +252,10 @@
         title: "单项选择",
         wheels: [{ data: weekdayArr }],
         position: [2], //初始化定位 打开时默认选中的哪个 如果不填默认为0
-        transitionEnd: function (indexArr, data) {
+        onTransitionEnd: function (data, indexArr, msInstance) {
           //console.log(data);
         },
-        callback: function (indexArr, data) {
+        onChange: function (data, indexArr, msInstance) {
           console.log(data);
         },
       });
@@ -265,10 +266,10 @@
         wheels: [{ data: weekdayArr }, { data: timeArr }],
         position: [1, 2],
         colWidth: [2, 1],
-        transitionEnd: function (indexArr, data) {
+        onTransitionEnd: function (data, indexArr, msInstance) {
           //console.log(data);
         },
-        callback: function (indexArr, data) {
+        onChange: function (data, indexArr, msInstance) {
           console.log(data);
         },
       });
@@ -284,17 +285,17 @@
           { data: numArr },
         ],
         position: [0, 1, 0, 1, 0],
-        transitionEnd: function (indexArr, data) {
+        onTransitionEnd: function (data, indexArr, msInstance) {
           //console.log(data);
         },
-        callback: function (indexArr, data) {
+        onChange: function (data, indexArr, msInstance) {
           console.log(data);
         },
       });
 
       const mobileSelect4 = new MobileSelect({
         trigger: "#trigger4",
-        title: "地区选择",
+        title: "级联数据",
         wheels: [
           {
             data: [
@@ -317,31 +318,28 @@
             ],
           },
         ],
-        transitionEnd: function (indexArr, data) {
+        connector: "-",
+        initValue: "附近-3000米",
+        onTransitionEnd: function (data, indexArr, msInstance) {
           //console.log(data);
         },
-        callback: function (indexArr, data) {
+        onChange: function (data, indexArr, msInstance) {
           console.log(data);
         },
       });
 
       const mobileSelect5 = new MobileSelect({
         trigger: "#trigger5",
-        title: "车型选择",
+        title: "级联数据",
         wheels: [{ data: UplinkData }],
-        position: [2, 0],
-        transitionEnd: function (indexArr, data) {
+        initValue: "劳斯莱斯 魅影 标准版",
+        onTransitionEnd: function (data, indexArr, msInstance) {
           //console.log(data);
         },
-        callback: function (indexArr, data) {
+        onChange: function (data, indexArr, msInstance) {
           console.log(data);
         },
       });
-
-      // setTimeout(() => {
-      //   console.log("销毁！");
-      //   mobileSelect5.destroy();
-      // }, 5000);
     </script>
   </body>
 </html>

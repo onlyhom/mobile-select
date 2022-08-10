@@ -69,21 +69,6 @@ export default class MobileSelect {
 
   config!: MobileSelectConfig;
 
-  static checkIsPC() {
-    return !Boolean(
-      navigator.userAgent
-        .toLowerCase()
-        .match(
-          /ipad|iphone os|midp|rv:1.2.3.4|ucweb|android|windows ce|windows mobile/
-        )
-    );
-  }
-  static checkDataType(wheelsData: CascadeData): boolean {
-    return typeof wheelsData[0]?.data?.[0] === "object";
-  }
-  static log(type: "error" | "info", tips: string): void {
-    console[type]?.(`[mobile-select][${type}]: ${tips}`);
-  }
   static defaultConfig = {
     keyMap: { id: "id", value: "value", childs: "childs" },
     position: [],
@@ -94,22 +79,9 @@ export default class MobileSelect {
     cancelBtnText: "取消",
     triggerDisplayValue: true,
   };
+
   constructor(config: CustomConfig) {
-    if (!config) {
-      MobileSelect.log(
-        "error",
-        "missing required param 'trigger' and 'wheels'."
-      );
-      return;
-    }
-    if (!config.trigger) {
-      MobileSelect.log("error", "missing required param 'trigger'.");
-      return;
-    }
-    if (!config.wheels) {
-      MobileSelect.log("error", "missing required param 'wheels'.");
-      return;
-    }
+    if (!MobileSelect.checkRequiredConfig(config)) return;
     this.config = Object.assign(
       {},
       MobileSelect.defaultConfig,
@@ -142,22 +114,7 @@ export default class MobileSelect {
     const { config } = this;
     this.isJsonType = MobileSelect.checkDataType(this.wheelsData);
     this.renderComponent(this.wheelsData);
-
-    // 兼容旧版传入string的写法
-    if (typeof config.trigger === "string") {
-      //@ts-ignore
-      this.trigger = document.querySelector(config.trigger);
-    } else {
-      this.trigger = config.trigger;
-    }
-    if (!this.trigger) {
-      MobileSelect.log(
-        "error",
-        "trigger HTMLElement does not found on your document."
-      );
-      return;
-    }
-
+    if (!this.checkTriggerAvailable()) return;
     this.wheel = this.mobileSelect.getElementsByClassName("ms-wheel");
     this.slider = this.mobileSelect.getElementsByClassName(
       "ms-select-container"
@@ -175,27 +132,31 @@ export default class MobileSelect {
     }
     this.setStyle(config);
     this.isPC = MobileSelect.checkIsPC();
-
     this.isCascade = this.checkCascade();
     if (this.isCascade) {
       this.initCascade();
     }
 
-    // 在设置之前就被修改了displayjson
+    // 在设置之前就被已生成了displayjson
     if (config.initValue) {
       this.initPosition = this.getPositionByValue();
     }
-
-    // 定位初始位置
+    // 补全initPosition
     if (this.initPosition.length < this.slider.length) {
       let diff = this.slider.length - this.initPosition.length;
       for (let i = 0; i < diff; i++) {
         this.initPosition.push(0);
       }
     }
-    this.setCurDistance(this.initPosition);
+    if (this.isCascade) {
+      this.initPosition.forEach((_, index) => {
+        this.checkRange(index, this.initPosition);
+      });
+    } else {
+      this.setCurDistance(this.initPosition);
+    }
 
-    // dom事件监听, 方便移除
+    // dom事件
     this.eventHandleMap = {
       cancelBtn: {
         event: "click",
@@ -257,6 +218,62 @@ export default class MobileSelect {
     if (config.autoFocus) {
       this.show();
     }
+  }
+
+  static checkIsPC() {
+    return !Boolean(
+      navigator.userAgent
+        .toLowerCase()
+        .match(
+          /ipad|iphone os|midp|rv:1.2.3.4|ucweb|android|windows ce|windows mobile/
+        )
+    );
+  }
+  static checkDataType(wheelsData: CascadeData): boolean {
+    return typeof wheelsData[0]?.data?.[0] === "object";
+  }
+
+  static REQUIRED_PARAMS = ["trigger", "wheels"] as (keyof CustomConfig)[];
+
+  static checkRequiredConfig(config: CustomConfig): boolean {
+    const requiredParams = MobileSelect.REQUIRED_PARAMS;
+    if (!config) {
+      const singleQuotesParams = requiredParams.map((item) => `'${item}'`);
+      MobileSelect.log(
+        "error",
+        `missing required param ${singleQuotesParams.join(" and ")}.`
+      );
+      return false;
+    }
+    for (let i = 0; i < requiredParams.length; i++) {
+      const key = requiredParams[i];
+      if (!config[key]) {
+        MobileSelect.log("error", `missing required param '${key}'.`);
+        return false;
+      }
+    }
+    return true;
+  }
+  static log(type: "error" | "info", tips: string): void {
+    console[type]?.(`[mobile-select]: ${tips}`);
+  }
+
+  checkTriggerAvailable() {
+    // 兼容旧版传入string的写法
+    if (typeof this.config.trigger === "string") {
+      //@ts-ignore
+      this.trigger = document.querySelector(this.config.trigger);
+    } else {
+      this.trigger = this.config.trigger;
+    }
+    if (!this.trigger) {
+      MobileSelect.log(
+        "error",
+        "trigger HTMLElement does not found on your document."
+      );
+      return false;
+    }
+    return true;
   }
 
   /** 根据initValue 获取initPostion 需要区分级联和非级联情况 注意此时displayJson还没生成 */
@@ -342,14 +359,16 @@ export default class MobileSelect {
       if (typeof item.event === "string") {
         this[domName as keyof MobileSelect][`${type}EventListener`](
           item.event,
-          item.fn
+          item.fn,
+          { passive: false }
         );
       } else {
         // 数组
         item.event.forEach((eventName) => {
           this[domName as keyof MobileSelect][`${type}EventListener`](
             eventName,
-            item.fn
+            item.fn,
+            { passive: false }
           );
         });
       }
@@ -508,7 +527,7 @@ export default class MobileSelect {
   }
 
   resetPosition(index: number, posIndexArr: number[]): number[] {
-    let tempPosArr = posIndexArr;
+    let tempPosArr = [...posIndexArr];
     let tempCount;
     if (this.slider.length > posIndexArr.length) {
       tempCount = this.slider.length - posIndexArr.length;
