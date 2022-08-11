@@ -44,6 +44,8 @@
 <script type="text/javascript" src="dist/mobile-select.iife.js" ></script>
 ```
 
+CDN
+> https://cdn.jsdelivr.net/npm/mobile-select@latest/dist/
 #### 方式二 npm：
 
 ```

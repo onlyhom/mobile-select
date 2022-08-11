@@ -8,18 +8,16 @@ const __dirname = fileURLToPath(import.meta.url);
 const targetDir = resolve(__dirname, "../../dist");
 const packageVersion = packageJson.version;
 
-const addJSCommentBanner = async () => {
-  const jsFils = await glob("*.js", {
+const addCommentBanner = async () => {
+  const files = await glob("**/mobile-select.*{js,css}", {
     cwd: targetDir,
     onlyFiles: true,
   });
 
-  //遍历含有less的目录
-  for (let path in jsFils) {
-    const sourceFilePath = `${targetDir}/${jsFils[path]}`;
-    //获取less文件字符串
+  for (let path in files) {
+    const sourceFilePath = `${targetDir}/${files[path]}`;
     let jsCode = await fs.readFile(sourceFilePath, "utf-8");
-    jsCode = `/**
+    jsCode = `/*
 * mobile-select v${packageVersion}
 * Homepage: https://github.com/onlyhom/mobile-select
 * Released under the MIT License.
@@ -29,4 +27,4 @@ const addJSCommentBanner = async () => {
     await fs.writeFile(sourceFilePath, jsCode);
   }
 };
-addJSCommentBanner();
+addCommentBanner();

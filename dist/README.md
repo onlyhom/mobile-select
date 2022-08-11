@@ -44,6 +44,9 @@ English Docs | [中文文档](https://github.com/onlyhom/mobile-select/blob/mast
 <script type="text/javascript" src="dist/mobile-select.iife.js" ></script>
 ```
 
+CDN
+> https://cdn.jsdelivr.net/npm/mobile-select@latest/dist/
+
 #### Method2 npm install：
 
 ```
