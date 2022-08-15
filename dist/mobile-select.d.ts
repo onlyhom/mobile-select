@@ -35,6 +35,7 @@ export type CustomConfig = {
 	colWidth?: number[];
 	/** 组件标题 */
 	title?: string;
+	/** 拼接值的连接符 */
 	connector?: string;
 	ensureBtnText?: string;
 	cancelBtnText?: string;
@@ -48,8 +49,9 @@ export type CustomConfig = {
 	keyMap?: KeyMap;
 	triggerDisplayValue?: boolean;
 	autoFocus?: boolean;
+	scrollSpeed?: number;
 };
-export type MobileSelectConfig = CustomConfig & Required<Pick<CustomConfig, "keyMap" | "position" | "colWidth" | "title" | "connector" | "ensureBtnText" | "cancelBtnText" | "triggerDisplayValue">>;
+export type MobileSelectConfig = CustomConfig & Required<Pick<CustomConfig, "keyMap" | "position" | "colWidth" | "title" | "connector" | "ensureBtnText" | "cancelBtnText" | "triggerDisplayValue" | "scrollSpeed">>;
 declare class MobileSelect {
 	mobileSelect: any;
 	trigger: HTMLElement;
@@ -124,6 +126,7 @@ declare class MobileSelect {
 		ensureBtnText: string;
 		cancelBtnText: string;
 		triggerDisplayValue: boolean;
+		scrollSpeed: number;
 	};
 	constructor(config: CustomConfig);
 	init(): void;

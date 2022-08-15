@@ -33,6 +33,7 @@ export type CustomConfig = {
   colWidth?: number[];
   /** 组件标题 */
   title?: string;
+  /** 拼接值的连接符 */
   connector?: string;
   ensureBtnText?: string;
   cancelBtnText?: string;
@@ -46,6 +47,7 @@ export type CustomConfig = {
   keyMap?: KeyMap;
   triggerDisplayValue?: boolean;
   autoFocus?: boolean;
+  scrollSpeed?: number;
 };
 
 export type MobileSelectConfig = CustomConfig &
@@ -60,5 +62,6 @@ export type MobileSelectConfig = CustomConfig &
       | "ensureBtnText"
       | "cancelBtnText"
       | "triggerDisplayValue"
+      | "scrollSpeed"
     >
   >;

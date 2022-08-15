@@ -7,6 +7,7 @@
   <img src="https://img.shields.io/badge/dependencies-none-success.svg" alt="dependencies" />
   <a href="https://github.com/onlyhom/mobile-select/issues"><img src="https://img.shields.io/github/issues/onlyhom/mobile-select.svg?logo=codeigniter&logoColor=FFFFFF" alt="GitHub issues" /></a>
   <a href="https://travis-ci.org/onlyhom/mobile-select"><img src="https://img.shields.io/badge/build-passing-success" alt="Build Status" /></a>
+  <img src="https://img.shields.io/npm/dm/mobile-select.svg" alt="size" />
   <img src="https://img.shields.io/bundlephobia/min/mobile-select" alt="size" />
 </p>
 
@@ -35,25 +36,59 @@ English Docs | [中文文档](https://github.com/onlyhom/mobile-select/blob/mast
 
 ![Image text](https://github.com/onlyhom/img-folder/blob/master/gif/ms_preview_all.gif?raw=true)
 
-## Installation
 
-#### Method1 tag import：
 
-```html
-<link rel="stylesheet" type="text/css" href="dist/style/mobile-select.css" />
-<script type="text/javascript" src="dist/mobile-select.iife.js" ></script>
+## Main npm package files
+
+```text
+dist/
+├── mobile-select.umd.js      (UMD, default)
+├── mobile-select.esm.js      (ECMAScript Module)
+├── mobile-select.iife.js     (Immediately-invoked Function Expression)
+├── mobile-select.iife.min.js (Immediately-invoked Function Expression, compressed)
+├── mobile-select.d.ts        (TypeScript Declaration File)
+├── style/
+  ├── mobile-select.css
+  └── mobile-select.less
 ```
 
-CDN
+## Getting started
+
+### Installation
+
+#### Method1：
+
+Using CDN:
+```html
+<link rel="stylesheet" type="text/css" href="https://unpkg.com/mobile-select@latest/dist/style/mobile-select.css" />
+<script type="text/javascript" src="https://unpkg.com/mobile-select@latest/dist/mobile-select.iife.min.js" ></script>
+```
+
+CDN Path：
+> https://unpkg.com/mobile-select@latest/dist/
 > https://cdn.jsdelivr.net/npm/mobile-select@latest/dist/
 
-#### Method2 npm install：
+#### Method2：
 
-```
+Using npm:
+
+```shell
 npm install mobile-select
 ```
 
-Import in your js file：
+Using pnpm:
+
+```shell
+pnpm add mobile-select
+```
+
+Using Yarn:
+
+```shell
+yarn add mobile-select
+```
+
+Import in your file：
 
 ```javascript
 import MobileSelect from "mobile-select";
@@ -320,7 +355,7 @@ export default function MsComponent(props) {
 | maskOpacity     | `0.7`                                       | Number   | 				| Mask opacity  |
 | keyMap          | `{id:'id', value:'value', childs:'childs'`} | Object   | 				| Field name mapping, applies to field names that do not match id, value, childs |
 | triggerDisplayValue | `true`                                  | Boolean  |≥1.2.0	| When the click is confirmed, the trigger's innerHtml becomes the selected data.<br>( If there are other elements in the trigger, you can set it to false. If you need to display data elsewhere, you can use the data returned by 'onChange()' to stitch yourself ) |
-
+| scrollSpeed     | `1`                                         | Number   |≥1.2.0 	| The (wheels)slider scroll speed  |
 
 #### Tips: The meaning of the parameters returned in the callback function is as follows
 

@@ -78,6 +78,7 @@ export default class MobileSelect {
     ensureBtnText: "确认",
     cancelBtnText: "取消",
     triggerDisplayValue: true,
+    scrollSpeed: 1,
   };
 
   constructor(config: CustomConfig) {
@@ -697,6 +698,7 @@ export default class MobileSelect {
     switch (event.type) {
       case "touchstart":
       case "mousedown":
+        theSlider.style.transition = 'none 0s ease-out';
         this.startY = Math.floor(
           event instanceof TouchEvent ? event.touches[0].clientY : event.clientY
         );
@@ -708,6 +710,7 @@ export default class MobileSelect {
 
       case "touchend":
       case "mouseup":
+        theSlider.style.transition = 'transform 0.18s ease-out';
         this.moveEndY = Math.floor(
           event instanceof TouchEvent
             ? event.changedTouches[0].clientY
@@ -798,7 +801,7 @@ export default class MobileSelect {
         this.moveY = Math.floor(
           event instanceof TouchEvent ? event.touches[0].clientY : event.clientY
         );
-        this.offsetY = this.moveY - this.preMoveY;
+        this.offsetY = (this.moveY - this.preMoveY) * this.config.scrollSpeed;
         this.updateCurDistance(theSlider, index);
         this.curDistance[index] = this.curDistance[index] + this.offsetY;
         this.movePosition(theSlider, this.curDistance[index]);

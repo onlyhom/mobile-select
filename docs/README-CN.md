@@ -319,7 +319,7 @@ export default function MsComponent(props) {
 | maskOpacity     | `0.7`                                       | Number  |   | 遮罩透明度     |
 | keyMap          | `{id:'id', value:'value', childs:'childs'`} | Object  |   | 字段名映射，适用于字段名不匹配 id,value,childs 的数据格式 |
 | triggerDisplayValue | `true`                                  | Boolean | ≥1.2.0  | 在点击确认时，trigger 的 innerHtml 是否变为选择的数据。<br>（如果 trigger 里面还有其他元素，不想覆盖，则可以设置为 false；如果需要在别的地方显示数据，则可用 'onChange()' 回调返回的数据自行拼接） 
-
+| scrollSpeed     | `1`                                         | Number  | ≥1.2.0 	| 滑轮滚动的速度 |
 
 ## 实例方法：
 

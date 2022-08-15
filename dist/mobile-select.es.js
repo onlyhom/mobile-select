@@ -378,11 +378,11 @@ const r = class {
     switch (t.type) {
       case "touchstart":
       case "mousedown":
-        this.startY = Math.floor(t instanceof TouchEvent ? t.touches[0].clientY : t.clientY), this.preMoveY = this.startY, t.type === "mousedown" && (this.enableClickStatus = !0);
+        i.style.transition = "none 0s ease-out", this.startY = Math.floor(t instanceof TouchEvent ? t.touches[0].clientY : t.clientY), this.preMoveY = this.startY, t.type === "mousedown" && (this.enableClickStatus = !0);
         break;
       case "touchend":
       case "mouseup":
-        if (this.moveEndY = Math.floor(t instanceof TouchEvent ? t.changedTouches[0].clientY : t.clientY), this.offsetSum = this.moveEndY - this.startY, this.oversizeBorder = -(i.getElementsByTagName("li").length - 3) * this.optionHeight, this.offsetSum == 0) {
+        if (i.style.transition = "transform 0.18s ease-out", this.moveEndY = Math.floor(t instanceof TouchEvent ? t.changedTouches[0].clientY : t.clientY), this.offsetSum = this.moveEndY - this.startY, this.oversizeBorder = -(i.getElementsByTagName("li").length - 3) * this.optionHeight, this.offsetSum == 0) {
           let y = Math.floor((window.innerHeight - this.moveEndY) / 40);
           if (y != 2) {
             let v = y - 2, p = this.curDistance[s] + v * this.optionHeight;
@@ -400,7 +400,7 @@ const r = class {
       case "mousemove":
         if (t.preventDefault(), t.type === "mousemove" && !this.enableClickStatus)
           break;
-        this.moveY = Math.floor(t instanceof TouchEvent ? t.touches[0].clientY : t.clientY), this.offsetY = this.moveY - this.preMoveY, this.updateCurDistance(i, s), this.curDistance[s] = this.curDistance[s] + this.offsetY, this.movePosition(i, this.curDistance[s]), this.preMoveY = this.moveY;
+        this.moveY = Math.floor(t instanceof TouchEvent ? t.touches[0].clientY : t.clientY), this.offsetY = (this.moveY - this.preMoveY) * this.config.scrollSpeed, this.updateCurDistance(i, s), this.curDistance[s] = this.curDistance[s] + this.offsetY, this.movePosition(i, this.curDistance[s]), this.preMoveY = this.moveY;
         break;
     }
   }
@@ -414,7 +414,8 @@ h(m, "defaultConfig", {
   connector: " ",
   ensureBtnText: "\u786E\u8BA4",
   cancelBtnText: "\u53D6\u6D88",
-  triggerDisplayValue: !0
+  triggerDisplayValue: !0,
+  scrollSpeed: 1
 }), h(m, "REQUIRED_PARAMS", ["trigger", "wheels"]);
 export {
   m as default
