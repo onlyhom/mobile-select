@@ -355,7 +355,7 @@ export default function MsComponent(props) {
 | maskOpacity     | `0.7`                                       | Number   | 				| Mask opacity  |
 | keyMap          | `{id:'id', value:'value', childs:'childs'`} | Object   | 				| Field name mapping, applies to field names that do not match id, value, childs |
 | triggerDisplayValue | `true`                                  | Boolean  |≥1.2.0	| When the click is confirmed, the trigger's innerHtml becomes the selected data.<br>( If there are other elements in the trigger, you can set it to false. If you need to display data elsewhere, you can use the data returned by 'onChange()' to stitch yourself ) |
-
+| scrollSpeed     | `1`                                         | Number   |≥1.2.0 	| The (wheels)slider scroll speed  |
 
 #### Tips: The meaning of the parameters returned in the callback function is as follows
 

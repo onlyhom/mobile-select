@@ -1,5 +1,5 @@
 /*
-* mobile-select v1.2.0-beta.0
+* mobile-select v1.2.0-beta.1
 * Homepage: https://github.com/onlyhom/mobile-select
 * Released under the MIT License.
 * (c) 2017-present
