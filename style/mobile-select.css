@@ -109,7 +109,6 @@
 .ms-mobile-select .ms-select-container {
   display: block;
   text-align: center;
-  transition: transform 0.18s ease-out;
 }
 .ms-mobile-select .ms-select-container li {
   font-size: 15px;
