@@ -40,19 +40,35 @@
 #### 方式一 标签引入：
 
 ```html
-<link rel="stylesheet" type="text/css" href="dist/style/mobile-select.css" />
-<script type="text/javascript" src="dist/mobile-select.iife.js" ></script>
+<link rel="stylesheet" type="text/css" href="https://unpkg.com/mobile-select@latest/dist/style/mobile-select.css" />
+<script type="text/javascript" src="https://unpkg.com/mobile-select@latest/dist/mobile-select.iife.min.js" ></script>
 ```
 
-CDN
+CDN Path：
+> https://unpkg.com/mobile-select@latest/dist/
 > https://cdn.jsdelivr.net/npm/mobile-select@latest/dist/
-#### 方式二 npm：
 
-```
+#### 方式二 npm/pnpm/yarn导入：
+
+Using npm:
+
+```shell
 npm install mobile-select
 ```
 
-在你的 js 文件中 import：
+Using pnpm:
+
+```shell
+pnpm add mobile-select
+```
+
+Using Yarn:
+
+```shell
+yarn add mobile-select
+```
+
+在你的js文件中 import:
 
 ```javascript
 import MobileSelect from "mobile-select";

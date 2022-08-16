@@ -1,5 +1,5 @@
 <p align="center"><img width="130" src="https://github.com/onlyhom/img-folder/blob/master/png/m_logo_orange.png?raw=true"></p>
-<h1 align="center" >Mobile Select</h1>
+<h1 align="center">Mobile Select</h1>
 <p align="center">
   <a href="https://github.com/onlyhom/mobileSelect.js/blob/master/LICENSE" title="LICENSE"><img src="https://img.shields.io/github/license/CKGrafico/Papanasi.svg?logo=creative%20commons&color=8FBFA9&logoColor=FFFFFF" alt="MIT license" /></a>
   <a href="https://github.com/onlyhom/mobile-select/network"><img src="https://img.shields.io/github/stars/onlyhom/mobile-select.svg?logo=verizon&color=blueviolet" alt="GitHub stars" /></a>
@@ -52,23 +52,20 @@ dist/
   └── mobile-select.less
 ```
 
-## Getting started
+## 📚 Setup and scripts
 
-### Installation
+#### script include：
 
-#### Method1：
-
-Using CDN:
 ```html
-<link rel="stylesheet" type="text/css" href="https://unpkg.com/mobile-select@latest/dist/style/mobile-select.css" />
-<script type="text/javascript" src="https://unpkg.com/mobile-select@latest/dist/mobile-select.iife.min.js" ></script>
+<link rel="stylesheet" type="text/css" href="dist/style/mobile-select.css" />
+<script type="text/javascript" src="dist/mobile-select.iife.min.js" ></script>
 ```
 
 CDN Path：
 > https://unpkg.com/mobile-select@latest/dist/
 > https://cdn.jsdelivr.net/npm/mobile-select@latest/dist/
 
-#### Method2：
+#### npm/pnpm/yarn：
 
 Using npm:
 
@@ -94,7 +91,7 @@ Import in your file：
 import MobileSelect from "mobile-select";
 ```
 
-## Getting Started
+## 📗 Quick Start
 
 #### ①Ordinary array format - Non-cascade
 

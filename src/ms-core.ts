@@ -377,7 +377,7 @@ export default class MobileSelect {
 
   destroy(): void {
     this.registerEvents("remove");
-    this.mobileSelect.parentNode.removeChild(this.mobileSelect);
+    this.mobileSelect?.parentNode?.removeChild(this.mobileSelect);
   }
 
   getOptionsHtmlStr(childs: CascadeData): string {
