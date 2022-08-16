@@ -60,6 +60,7 @@ dist/
 
 CDN Path：
 > https://unpkg.com/mobile-select@latest/dist/
+
 > https://cdn.jsdelivr.net/npm/mobile-select@latest/dist/
 
 #### 方式二 npm/pnpm/yarn 引入：
