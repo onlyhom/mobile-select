@@ -14,7 +14,7 @@
 
 [English Docs](https://github.com/onlyhom/mobile-select) | 中文文档
 
-## 特性
+## 🎨 特性
 
 - 原生 js 移动端选择控件，不依赖任何库
 - 可传入普通数组或者 json 数组
@@ -25,7 +25,7 @@
 - 能够在已经实例化控件后，提供 update 函数再次渲染，可用于异步获取数据或点击交互后需要改变所选数据的场景
 - 提供initValue支持回显场景
 
-## 演示
+## 📺 演示
 
 #### 手机扫描二维码预览：
 
@@ -35,7 +35,21 @@
 
 ![Image text](https://github.com/onlyhom/img-folder/blob/master/gif/ms_preview_all.gif?raw=true)
 
-## 引入
+## 🏷️ npm包 文件结构
+
+```text
+dist/
+├── mobile-select.umd.js      (UMD, default)
+├── mobile-select.esm.js      (ECMAScript Module)
+├── mobile-select.iife.js     (Immediately-invoked Function Expression)
+├── mobile-select.iife.min.js (Immediately-invoked Function Expression, compressed)
+├── mobile-select.d.ts        (TypeScript Declaration File)
+├── style/
+  ├── mobile-select.css
+  └── mobile-select.less
+```
+
+## 📚 安装
 
 #### 方式一 标签引入：
 
@@ -48,7 +62,7 @@ CDN Path：
 > https://unpkg.com/mobile-select@latest/dist/
 > https://cdn.jsdelivr.net/npm/mobile-select@latest/dist/
 
-#### 方式二 npm/pnpm/yarn导入：
+#### 方式二 npm/pnpm/yarn 引入：
 
 Using npm:
 
@@ -74,7 +88,35 @@ yarn add mobile-select
 import MobileSelect from "mobile-select";
 ```
 
-## 快速使用
+## 🧩 在线使用Demo
+<table align="center">
+  <tr>
+    <td align="center" width="100">
+      <img src="https://raw.githubusercontent.com/gilbarbara/logos/master/logos/w3c.svg" width="80" title="Web Components"> <br/>
+      <strong>VanillaJS</strong> <br/>
+      <sub>
+        <a href="https://codesandbox.io/s/mobile-select-vanilla-l7gnb3" target="_blank">📦Sandbox</a>
+      </sub>
+    </td>
+    <td align="center" width="100">
+      <img src="https://raw.githubusercontent.com/gilbarbara/logos/master/logos/react.svg" width="50" title="React"> <br/>
+      <strong>React</strong> <br/>
+      <sub>
+        <a href="https://codesandbox.io/s/mobile-select-react-ts-woc5f8" target="_blank">📦Sandbox</a>
+      </sub>
+    </td>
+    <td align="center" width="100">
+      <img src="https://raw.githubusercontent.com/gilbarbara/logos/master/logos/vue.svg" width="50" title="Vue"> <br/>
+      <strong>Vue</strong> <br/>
+      <sub>
+        <a href="https://codesandbox.io/s/mobile-select-vue-el5o6r" target="_blank">📦Sandbox</a>
+      </sub>
+    </td>
+  </tr>
+</table>
+
+
+## 📗快速使用
 
 #### ① 普通数组格式-非联动
 
@@ -179,9 +221,6 @@ import MobileSelect from "mobile-select";
 ![Image text](https://raw.githubusercontent.com/onlyhom/img-folder/master/gif/%E7%BA%A7%E8%81%94.gif)
 
 #### ④在 react、vue 中使用
-```
-npm install mobile-select
-```
 ##### 在React中的基本使用
 ```tsx
 import { useState, useRef, useEffect } from "react";
@@ -491,7 +530,7 @@ mySelect.destroy();
 </script>
 ```
 
-## 使用场景 demo
+## 使用场景 Demo
 
 使用 onTransitionEnd()、onChange()、updateWheel()、locatePosition()函数实现如下功能：
 
@@ -500,7 +539,7 @@ mySelect.destroy();
 
 ![Image text](https://github.com/onlyhom/img-folder/blob/master/gif/limit%E5%87%BD%E6%95%B0.gif?raw=true)
 
-## 更新日志
+## 🥯 更新日志
 
 ### 2017-04-20[更新]
 
@@ -582,8 +621,8 @@ textColor
 
 ### 2022-08[重构&更新]
 - 使用ts重构、vite构建, 构建规范类型产物(UMD, ESM, IIFE)
-- 增加属性initValue, autoFocus
-- 增加功能函数destroy()
+- 增加属性 ```initValue, autoFocus, scrollSpeed```
+- 增加功能函数 ```destroy()```
 - 方法和属性名优化:
 callback--> onChange   
 cancel --> onCancel  
@@ -592,7 +631,7 @@ triggerDisplayData --> triggerDisplayValue
 - 添加样式类名前缀，防止样式冲突
 - 文档优化：增加在框架中如何使用的指引
 
-## 许可证
+## 📘 许可证
 
 [MIT LICENSE](https://github.com/onlyhom/mobileSelect.js/blob/master/LICENSE)
 
