@@ -1,5 +1,5 @@
 /*
-* mobile-select v1.2.0-beta.1
+* mobile-select v1.2.0-beta.2
 * Homepage: https://github.com/onlyhom/mobile-select
 * Released under the MIT License.
 * (c) 2017-present
@@ -179,7 +179,8 @@ const r = class {
       });
   }
   destroy() {
-    this.registerEvents("remove"), this.mobileSelect.parentNode.removeChild(this.mobileSelect);
+    var t, e;
+    this.registerEvents("remove"), (e = (t = this.mobileSelect) == null ? void 0 : t.parentNode) == null || e.removeChild(this.mobileSelect);
   }
   getOptionsHtmlStr(t) {
     const { keyMap: e } = this.config;
