@@ -15,7 +15,7 @@ A multi-function mobile phone scrolling selector, support single to multi-select
 
 English Docs | [中文文档](https://github.com/onlyhom/mobile-select/blob/master/docs/README-CN.md) 
 
-## Features
+## 🎨 Features
 
 - A mobile select component with vanilla js, do not dependent on any library
 - Can be passed to an ordinary array or json array
@@ -26,7 +26,7 @@ English Docs | [中文文档](https://github.com/onlyhom/mobile-select/blob/mast
 - Provide update function, pass the other parameters to render again
 - Provide relocation function
 
-## Preview
+## 📺 Preview
 
 #### Use mobile phone scan code to preview:
 
@@ -38,7 +38,7 @@ English Docs | [中文文档](https://github.com/onlyhom/mobile-select/blob/mast
 
 
 
-## Main npm package files
+## 🏷️ Main npm package files
 
 ```text
 dist/
@@ -63,6 +63,7 @@ dist/
 
 CDN Path：
 > https://unpkg.com/mobile-select@latest/dist/
+
 > https://cdn.jsdelivr.net/npm/mobile-select@latest/dist/
 
 #### npm/pnpm/yarn：
@@ -90,6 +91,33 @@ Import in your file：
 ```javascript
 import MobileSelect from "mobile-select";
 ```
+
+## 🧩 Use in Platforms Demo
+<table align="center">
+  <tr>
+    <td align="center" width="100">
+      <img src="https://raw.githubusercontent.com/gilbarbara/logos/master/logos/w3c.svg" width="80" title="Web Components"> <br/>
+      <strong>VanillaJS</strong> <br/>
+      <sub>
+        <a href="https://codesandbox.io/s/mobile-select-vanilla-l7gnb3" target="_blank">📦Sandbox</a>
+      </sub>
+    </td>
+    <td align="center" width="100">
+      <img src="https://raw.githubusercontent.com/gilbarbara/logos/master/logos/react.svg" width="50" title="React"> <br/>
+      <strong>React</strong> <br/>
+      <sub>
+        <a href="https://codesandbox.io/s/mobile-select-react-ts-woc5f8" target="_blank">📦Sandbox</a>
+      </sub>
+    </td>
+    <td align="center" width="100">
+      <img src="https://raw.githubusercontent.com/gilbarbara/logos/master/logos/vue.svg" width="50" title="Vue"> <br/>
+      <strong>Vue</strong> <br/>
+      <sub>
+        <a href="https://codesandbox.io/s/mobile-select-vue-el5o6r" target="_blank">📦Sandbox</a>
+      </sub>
+    </td>
+  </tr>
+</table>
 
 ## 📗 Quick Start
 
@@ -196,10 +224,6 @@ import MobileSelect from "mobile-select";
 ![Image text](https://raw.githubusercontent.com/onlyhom/img-folder/master/gif/%E7%BA%A7%E8%81%94.gif)
 
 #### ④How to use in React or Vue
-
-```
-npm install mobile-select
-```
 
 ##### Use in React demo:
 ```tsx
@@ -526,7 +550,7 @@ Use the onTransitionEnd (), onChange (), updateWheel (), locatePosition () funct
 
 ![Image text](https://github.com/onlyhom/img-folder/blob/master/gif/limit%E5%87%BD%E6%95%B0.gif?raw=true)
 
-## Logs
+## 🥯 Change Logs
 
 ### 2017-04-20[update]
 
@@ -608,10 +632,10 @@ Add maskOpacity option
 Thanks for [Jackliu007888]:
 Add option colWidth
 
-### 2022-08[重构]
+### 2022-08[refactor]
 - Using TS refactor and vite build tools, build the type production of the specification (UMD, ESM, IIFE).
-- Add the attribute 'initValue', 'autoFocus'
-- Add function 'destroy()'
+- Add the attribute ```initValue, autoFocus, scrollSpeed'```
+- Add function ```destroy()```
 - Optimize method and attribute names:
 callback--> onChange   
 cancel --> onCancel  
@@ -620,7 +644,7 @@ triggerDisplayData --> triggerDisplayValue
 - Add CSS style class name prefix to prevent style conflicts
 - Docs optimization: Add guidance on how to use it in the framework
 
-## License
+## 📘 License
 
 [MIT LICENSE](https://github.com/onlyhom/mobileSelect.js/blob/master/LICENSE)
 
