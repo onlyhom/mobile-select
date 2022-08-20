@@ -121,7 +121,7 @@
   text-overflow: ellipsis;
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
-.ms-mobile-select .ms-selectLine {
+.ms-mobile-select .ms-select-line {
   height: 40px;
   width: 100%;
   position: absolute;
