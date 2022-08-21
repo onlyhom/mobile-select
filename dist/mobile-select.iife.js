@@ -1,5 +1,5 @@
 /*
-* mobile-select v1.2.0-beta.2
+* mobile-select v1.2.0-beta.4
 * Homepage: https://github.com/onlyhom/mobile-select
 * Released under the MIT License.
 * (c) 2017-present
@@ -539,8 +539,9 @@ var MobileSelect = function () {
         var _this5 = this;
 
         var n, r, o, g, c, u, d, m;
-        var i = (t.composedPath && t.composedPath())[1],
-            s = parseInt(i.getAttribute("data-index") || "0");
+        var i = (t.composedPath && t.composedPath())[1];
+        if (!i.hasAttribute("data-index")) return;
+        var s = parseInt(i.getAttribute("data-index") || "0");
 
         switch (t.type) {
           case "touchstart":
