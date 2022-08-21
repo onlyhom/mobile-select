@@ -692,6 +692,7 @@ export default class MobileSelect {
   touch(event: TouchEvent | MouseEvent): void {
     const path = event.composedPath && event.composedPath();
     const theSlider = path[1] as HTMLElement; // dom --> selectContainer
+    if (!(theSlider as HTMLUListElement).hasAttribute("data-index")) return ;
     const index = parseInt(
       (theSlider as HTMLUListElement).getAttribute("data-index") || "0"
     );
