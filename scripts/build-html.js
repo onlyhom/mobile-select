@@ -16,10 +16,8 @@ const buildHtml = async () => {
     onlyFiles: true,
   });
 
-  //遍历含有less的目录
   for (let path in htmlFils) {
     const sourceFilePath = `${sourceDir}/${htmlFils[path]}`;
-    //获取less文件字符串
     let htmlCode = await fs.readFile(sourceFilePath, "utf-8");
     htmlCode = htmlCode
       .replace(
@@ -31,8 +29,7 @@ const buildHtml = async () => {
       )
       .replace('import "/src/style/demo.css";', "")
       .replace(`import MobileSelect from "/src/${entryFileName}";`, "");
-    // format 格式化
-
+      // TODO format 格式化
     await fs.writeFile(resolve(targetDir, "demo.html"), htmlCode);
   }
 };
