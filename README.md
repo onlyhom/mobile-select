@@ -38,7 +38,7 @@ English Docs | [中文文档](https://github.com/onlyhom/mobile-select/blob/mast
 
 
 
-## 🏷️ Main npm package files
+## 🗂 Main npm package files
 
 ```text
 dist/
@@ -52,7 +52,7 @@ dist/
   └── mobile-select.less
 ```
 
-## 📚 Setup and scripts
+## 🥤 Setup and Scripts
 
 #### script include：
 
@@ -66,7 +66,7 @@ CDN Path：
 
 > https://cdn.jsdelivr.net/npm/mobile-select@latest/dist/
 
-#### npm/pnpm/yarn：
+#### npm / pnpm / yarn：
 
 Using npm:
 
@@ -125,11 +125,10 @@ import MobileSelect from "mobile-select";
 
 ```html
 <div id="day"></div>
-<!--Don't forget this trigger in your page-->
 
 <script type="text/javascript">
-  var mobileSelect1 = new MobileSelect({
-    trigger: "#day",
+  let mobileSelect1 = new MobileSelect({
+    trigger: document.querySelector("#day"),
     title: "单项选择",
     wheels: [
       { data: ["周日", "周一", "周二", "周三", "周四", "周五", "周六"] },
@@ -145,7 +144,7 @@ import MobileSelect from "mobile-select";
 <div id="area"></div>
 
 <script type="text/javascript">
-  var mobileSelect2 = new MobileSelect({
+  let mobileSelect2 = new MobileSelect({
     trigger: "#area",
     title: "地区选择",
     wheels: [
@@ -186,7 +185,7 @@ import MobileSelect from "mobile-select";
 <div id="area2"></div>
 
 <script type="text/javascript">
-  var mobileSelect3 = new MobileSelect({
+  let mobileSelect3 = new MobileSelect({
     trigger: "#area2",
     title: "地区选择-联动",
     wheels: [
@@ -308,7 +307,7 @@ export default function MsComponent(props) {
   // If your data field is named id, title, children
   // does not match the id, value, childs field name of mobileSelect
   // You can use the keyMap property for field name mapping
-  var mobileSelect6 = new MobileSelect({
+  let mobileSelect6 = new MobileSelect({
     trigger: "#trigger6",
     title: "keyMap",
     wheels: [
@@ -408,7 +407,7 @@ export default function MsComponent(props) {
 <div id="day"></div>
 
 <script>
-var mySelect = new MobileSelect({
+let mySelect = new MobileSelect({
     trigger: '#day',
     wheels: [
         {data:['周日','周一','周二','周三','周四','周五','周六']},
@@ -449,7 +448,7 @@ Base example → Function after operation
 <div id="trigger6"></div>
 
 <script type="text/javascript">
-    var mobileSelect6 = new MobileSelect({
+    let mobileSelect6 = new MobileSelect({
         trigger: '#trigger6',
         title: 'ajax fill data - non-cascade',
         wheels: [
@@ -461,7 +460,7 @@ Base example → Function after operation
             ]}
         ],
         onChange: function(data, indexArr, msInstance) {
-          console.log(data); //Returns the selected value
+          console.log(data); // Returns the selected value
         },
     });
 
@@ -486,8 +485,8 @@ Base example → Function after operation
             //     {id:'3',value:'400 metres'}
             // ]
 
-            mobileSelect6.updateWheel(0, res.data.area); //Update the 0th wheel
-            mobileSelect6.updateWheel(1, res.data.distance); //Update the 1th wheel
+            mobileSelect6.updateWheel(0, res.data.area); // Update the 0th wheel
+            mobileSelect6.updateWheel(1, res.data.distance); // Update the 1th wheel
         }
     });
 </script>
@@ -500,7 +499,7 @@ Base example → Function after operation
 <div id="trigger7"></div>
 
 <script type="text/javascript">
-    var mobileSelect7 = new MobileSelect({
+    let mobileSelect7 = new MobileSelect({
         trigger: '#trigger7',
         title: 'ajax fill data - cascade',
         wheels: [
@@ -525,7 +524,7 @@ Base example → Function after operation
         data: {},
         dataType: "json",
         success: function(res){
-            //Assume that the obtained res.data is：
+            // Assume that the obtained res.data is：
             // [{
             //     id:'1',
             //     value:'after update',
