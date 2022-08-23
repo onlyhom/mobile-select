@@ -1,12 +1,11 @@
-name: Github Repo Pages Deploy
+name: build and deploy gh-pages
 on:
   push:
     branches:
       - master
-  paths-ignore:
-    - '.github/**'
+
 jobs:
-  build dist and deploy gh-pages:
+  build-and-deploy:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -14,14 +13,15 @@ jobs:
       - name: Setup NodeJS
         uses: actions/setup-node@v3.4.1
         with: 
-          node-version: "14.x"
+          node-version: 14
       - name: Setup pnpm
         uses: pnpm/action-setup@v2.2.2
         with:
-          version: "7.5.x"
+          version: 7
       - name: Install and Build
-        run: pnpm install --frozen-lockfile --silent
-        run: pnpm run build
+        run: |
+          pnpm install --frozen-lockfile --silent
+          pnpm run build
       - name: Deploy
         uses: JamesIves/github-pages-deploy-action@4.1.3
         with:
