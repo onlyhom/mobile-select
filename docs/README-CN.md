@@ -35,7 +35,7 @@
 
 ![Image text](https://github.com/onlyhom/img-folder/blob/master/gif/ms_preview_all.gif?raw=true)
 
-## 🏷️ npm包 文件结构
+## 🗂 npm包结构
 
 ```text
 dist/
@@ -49,7 +49,7 @@ dist/
   └── mobile-select.less
 ```
 
-## 📚 安装
+## 🥤  安装
 
 #### 方式一 标签引入：
 
@@ -63,7 +63,7 @@ CDN Path：
 
 > https://cdn.jsdelivr.net/npm/mobile-select@latest/dist/
 
-#### 方式二 npm/pnpm/yarn 引入：
+#### 方式二 npm / pnpm / yarn 引入：
 
 Using npm:
 
@@ -123,11 +123,10 @@ import MobileSelect from "mobile-select";
 
 ```html
 <div id="trigger1"></div>
-<!--页面中别漏了这个trigger-->
 
 <script type="text/javascript">
-  var mobileSelect1 = new MobileSelect({
-    trigger: "#trigger1",
+  let mobileSelect1 = new MobileSelect({
+    trigger: document.querySelector("#trigger1"),
     title: "单项选择",
     wheels: [
       { data: ["周日", "周一", "周二", "周三", "周四", "周五", "周六"] },
@@ -143,7 +142,7 @@ import MobileSelect from "mobile-select";
 <div id="trigger2"></div>
 
 <script type="text/javascript">
-  var mobileSelect2 = new MobileSelect({
+  let mobileSelect2 = new MobileSelect({
     trigger: "#trigger2",
     title: "地区选择",
     wheels: [
@@ -184,7 +183,7 @@ import MobileSelect from "mobile-select";
 <div id="trigger3"></div>
 
 <script type="text/javascript">
-  var mobileSelect3 = new MobileSelect({
+  let mobileSelect3 = new MobileSelect({
     trigger: "#trigger3",
     title: "地区选择-联动",
     wheels: [
@@ -308,7 +307,7 @@ export default function MsComponent(props) {
    * 与mobileSelect的id,value,childs字段名不匹配
    * 可以用keyMap属性进行字段名映射
    */
-  var mobileSelect5 = new MobileSelect({
+  let mobileSelect5 = new MobileSelect({
     trigger: "#trigger5",
     title: "数据字段名映射",
     wheels: [
@@ -401,7 +400,7 @@ export default function MsComponent(props) {
 <div id="day"></div>
 
 <script type="text/javascript">
-var mySelect = new MobileSelect({
+let mySelect = new MobileSelect({
     trigger: '#day',
     wheels: [
         {data:['周日','周一','周二','周三','周四','周五','周六']},
@@ -442,7 +441,7 @@ mySelect.destroy();
 <div id="trigger6"></div>
 
 <script type="text/javascript">
-    var mobileSelect6 = new MobileSelect({
+    let mobileSelect6 = new MobileSelect({
         trigger: '#trigger6',
         title: 'ajax填充数据-非级联',
         wheels: [
@@ -490,7 +489,7 @@ mySelect.destroy();
 <div id="trigger7"></div>
 
 <script type="text/javascript">
-    var mobileSelect7 = new MobileSelect({
+    let mobileSelect7 = new MobileSelect({
         trigger: '#trigger7',
         title: 'ajax填充数据-级联',
         wheels: [
