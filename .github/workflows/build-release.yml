@@ -1,4 +1,4 @@
-name: Build and release npm package
+name: build and release npm package
 
 on:
   push:
