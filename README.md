@@ -38,7 +38,7 @@ English Docs | [中文文档](https://github.com/onlyhom/mobile-select/blob/mast
 
 
 
-## 🗂 Main npm package files
+## 🗂 Main package files
 
 ```text
 dist/
