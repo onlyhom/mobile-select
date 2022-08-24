@@ -1,9 +1,10 @@
-name: build and deploy gh-pages
+name: build dist and deploy
 on:
   push:
     branches:
       - master
-
+  paths-ignore:
+    - '.github/**'
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
