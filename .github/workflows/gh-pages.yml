@@ -3,8 +3,8 @@ on:
   push:
     branches:
       - master
-  paths-ignore:
-    - ".github/**"
+    paths-ignore:
+      - ".github/**"
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
