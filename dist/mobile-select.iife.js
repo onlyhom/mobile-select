@@ -1,5 +1,5 @@
 /*
-* mobile-select v1.2.0-beta.4
+* mobile-select v1.2.0-beta.5
 * Homepage: https://github.com/onlyhom/mobile-select
 * Released under the MIT License.
 * (c) 2017-present
@@ -50,7 +50,7 @@ var MobileSelect = function () {
     }) : a[l] = f;
   };
 
-  var h = function h(a, l, f) {
+  var n = function n(a, l, f) {
     return D(a, _typeof(l) != "symbol" ? l + "" : l, f), f;
   };
 
@@ -58,41 +58,41 @@ var MobileSelect = function () {
     function l(t) {
       _classCallCheck(this, l);
 
-      h(this, "mobileSelect");
-      h(this, "trigger");
-      h(this, "wheel");
-      h(this, "slider");
-      h(this, "wheels");
-      h(this, "panel");
-      h(this, "ensureBtn");
-      h(this, "cancelBtn");
-      h(this, "grayLayer");
-      h(this, "popUp");
-      h(this, "initPosition");
-      h(this, "initColWidth");
-      h(this, "connector");
-      h(this, "wheelsData");
-      h(this, "displayJson");
-      h(this, "curValue");
-      h(this, "curIndexArr");
-      h(this, "isCascade");
-      h(this, "isJsonType");
-      h(this, "startY");
-      h(this, "moveEndY");
-      h(this, "moveY");
-      h(this, "preMoveY");
-      h(this, "offsetY");
-      h(this, "offsetSum");
-      h(this, "oversizeBorder");
-      h(this, "enableClickStatus");
-      h(this, "isPC");
-      h(this, "optionHeight");
-      h(this, "curDistance");
-      h(this, "cascadeJsonData");
-      h(this, "keyMap");
-      h(this, "eventHandleMap");
-      h(this, "initDeepCount");
-      h(this, "config");
+      n(this, "mobileSelect");
+      n(this, "trigger");
+      n(this, "wheel");
+      n(this, "slider");
+      n(this, "wheels");
+      n(this, "panel");
+      n(this, "ensureBtn");
+      n(this, "cancelBtn");
+      n(this, "grayLayer");
+      n(this, "popUp");
+      n(this, "initPosition");
+      n(this, "initColWidth");
+      n(this, "connector");
+      n(this, "wheelsData");
+      n(this, "displayJson");
+      n(this, "curValue");
+      n(this, "curIndexArr");
+      n(this, "isCascade");
+      n(this, "isJsonType");
+      n(this, "startY");
+      n(this, "moveEndY");
+      n(this, "moveY");
+      n(this, "preMoveY");
+      n(this, "offsetY");
+      n(this, "offsetSum");
+      n(this, "oversizeBorder");
+      n(this, "enableClickStatus");
+      n(this, "isPC");
+      n(this, "optionHeight");
+      n(this, "curDistance");
+      n(this, "cascadeJsonData");
+      n(this, "keyMap");
+      n(this, "eventHandleMap");
+      n(this, "initDeepCount");
+      n(this, "config");
       !l.checkRequiredConfig(t) || (this.config = Object.assign({}, l.defaultConfig, t), this.wheelsData = t.wheels, this.isJsonType = !1, this.cascadeJsonData = [], this.displayJson = [], this.curValue = [], this.curIndexArr = [], this.isCascade = !1, this.startY, this.moveEndY, this.moveY, this.preMoveY, this.offsetY = 0, this.offsetSum = 0, this.oversizeBorder, this.curDistance = [], this.enableClickStatus = !1, this.isPC = !0, this.optionHeight = 0, this.initPosition = t.position || [], this.initColWidth = t.colWidth || [], this.init());
     }
 
@@ -118,14 +118,14 @@ var MobileSelect = function () {
             cancelBtn: {
               event: "click",
               fn: function fn() {
-                var e, i, s, n;
-                _this.hide(), (i = (e = _this.config).cancel) == null || i.call(e, _this.curIndexArr, _this.curValue, _this), (n = (s = _this.config).onCancel) == null || n.call(s, _this.curValue, _this.curIndexArr, _this);
+                var e, i, s, h;
+                _this.hide(), (i = (e = _this.config).cancel) == null || i.call(e, _this.curIndexArr, _this.curValue, _this), (h = (s = _this.config).onCancel) == null || h.call(s, _this.curValue, _this.curIndexArr, _this);
               }
             },
             ensureBtn: {
               event: "click",
               fn: function fn() {
-                var i, s, n, r;
+                var i, s, h, r;
                 _this.hide(), _this.optionHeight || (_this.optionHeight = _this.mobileSelect.querySelector("li").offsetHeight);
                 var e = "";
 
@@ -133,7 +133,7 @@ var MobileSelect = function () {
                   o == _this.wheel.length - 1 ? e += _this.getInnerText(o) : e += _this.getInnerText(o) + _this.config.connector;
                 }
 
-                t.triggerDisplayValue && (_this.trigger.innerText = e), _this.curIndexArr = _this.getIndexArr(), _this.curValue = _this.getCurValue(), (s = (i = _this.config).callback) == null || s.call(i, _this.curIndexArr, _this.curValue, _this), (r = (n = _this.config).onChange) == null || r.call(n, _this.curValue, _this.curIndexArr, _this);
+                t.triggerDisplayValue && (_this.trigger.innerText = e), _this.curIndexArr = _this.getIndexArr(), _this.curValue = _this.getCurValue(), (s = (i = _this.config).callback) == null || s.call(i, _this.curIndexArr, _this.curValue, _this), (r = (h = _this.config).onChange) == null || r.call(h, _this.curValue, _this.curIndexArr, _this);
               }
             },
             trigger: {
@@ -174,7 +174,7 @@ var MobileSelect = function () {
       value: function getPositionByValue() {
         var _this2 = this;
 
-        var n;
+        var h;
         var _this$config = this.config,
             t = _this$config.keyMap,
             e = _this$config.connector,
@@ -182,7 +182,7 @@ var MobileSelect = function () {
             s = (i == null ? void 0 : i.split(e)) || [];
 
         if (this.isJsonType) {
-          var r = (n = this.wheelsData[0]) == null ? void 0 : n.data;
+          var r = (h = this.wheelsData[0]) == null ? void 0 : h.data;
           return s.reduce(function (o, g) {
             var u;
             var c = r == null ? void 0 : r.findIndex(function (d) {
@@ -280,9 +280,9 @@ var MobileSelect = function () {
         var e = this.config.keyMap;
         var i = "";
         if (this.isJsonType) for (var s = 0; s < t.length; s++) {
-          var n = t[s][e.id],
+          var h = t[s][e.id],
               r = t[s][e.value];
-          i += "<li data-id=\"".concat(n, "\">").concat(r, "</li>");
+          i += "<li data-id=\"".concat(h, "\">").concat(r, "</li>");
         } else for (var _s2 = 0; _s2 < t.length; _s2++) {
           i += "<li>" + t[_s2] + "</li>";
         }
@@ -360,43 +360,44 @@ var MobileSelect = function () {
       key: "checkRange",
       value: function checkRange(t, e) {
         var r;
-        var i = this.displayJson.length - 1 - t;
-        var s = this.config.keyMap;
+        var i = this.displayJson.length - 1 - t,
+            s = this.config.keyMap;
 
         for (var o = 0; o < i; o++) {
           this.displayJson.pop();
         }
 
-        var n;
+        var h;
 
         for (var _o = 0; _o <= t; _o++) {
-          n = _o == 0 ? this.cascadeJsonData[e[0]] : (r = n == null ? void 0 : n[s.childs]) == null ? void 0 : r[e[_o]];
+          h = _o == 0 ? this.cascadeJsonData[e[0]] : (r = h == null ? void 0 : h[s.childs]) == null ? void 0 : r[e[_o]];
         }
 
-        this.checkArrDeep(n), this.reRenderWheels(), this.fixRowStyle(), this.setCurDistance(this.resetPosition(t, e));
+        this.checkArrDeep(h), this.reRenderWheels(), this.fixRowStyle(), this.setCurDistance(this.resetPosition(t, e));
       }
     }, {
       key: "resetPosition",
       value: function resetPosition(t, e) {
-        var i = _toConsumableArray(e),
-            s;
+        var i = _toConsumableArray(e);
+
+        var s;
 
         if (this.slider.length > e.length) {
           s = this.slider.length - e.length;
 
-          for (var n = 0; n < s; n++) {
+          for (var h = 0; h < s; h++) {
             i.push(0);
           }
         } else if (this.slider.length < e.length) {
           s = e.length - this.slider.length;
 
-          for (var _n2 = 0; _n2 < s; _n2++) {
+          for (var _h = 0; _h < s; _h++) {
             i.pop();
           }
         }
 
-        for (var _n3 = t + 1; _n3 < i.length; _n3++) {
-          i[_n3] = 0;
+        for (var _h2 = t + 1; _h2 < i.length; _h2++) {
+          i[_h2] = 0;
         }
 
         return i;
@@ -470,13 +471,13 @@ var MobileSelect = function () {
       key: "getCurValue",
       value: function getCurValue() {
         var t = [],
-            e = this.getIndexArr();
-        var i = this.config.keyMap;
+            e = this.getIndexArr(),
+            i = this.config.keyMap;
         if (this.isCascade) for (var s = 0; s < this.wheel.length; s++) {
           var _t$push;
 
-          var n = this.displayJson[s][e[s]];
-          n && t.push((_t$push = {}, _defineProperty(_t$push, i.id, n[i.id]), _defineProperty(_t$push, i.value, n[i.value]), _t$push));
+          var h = this.displayJson[s][e[s]];
+          h && t.push((_t$push = {}, _defineProperty(_t$push, i.id, h[i.id]), _defineProperty(_t$push, i.value, h[i.value]), _t$push));
         } else if (this.isJsonType) for (var _s3 = 0; _s3 < this.curDistance.length; _s3++) {
           t.push(this.wheelsData[_s3].data[this.getIndex(this.curDistance[_s3])]);
         } else for (var _s4 = 0; _s4 < this.curDistance.length; _s4++) {
@@ -529,8 +530,8 @@ var MobileSelect = function () {
       key: "getInnerText",
       value: function getInnerText(t) {
         var s;
-        var e = this.slider[t].getElementsByTagName("li").length,
-            i = this.getIndex(this.curDistance[t]);
+        var e = this.slider[t].getElementsByTagName("li").length;
+        var i = this.getIndex(this.curDistance[t]);
         return i >= e ? i = e - 1 : i < 0 && (i = 0), ((s = this.slider[t].getElementsByTagName("li")[i]) == null ? void 0 : s.innerText) || "";
       }
     }, {
@@ -538,7 +539,7 @@ var MobileSelect = function () {
       value: function touch(t) {
         var _this5 = this;
 
-        var n, r, o, g, c, u, d, m;
+        var h, r, o, g, c, u, d, m;
         var i = (t.composedPath && t.composedPath())[1];
         if (!i.hasAttribute("data-index")) return;
         var s = parseInt(i.getAttribute("data-index") || "0");
@@ -557,7 +558,7 @@ var MobileSelect = function () {
               if (y != 2) {
                 var v = y - 2,
                     p = this.curDistance[s] + v * this.optionHeight;
-                p <= 2 * this.optionHeight && p >= this.oversizeBorder && (this.curDistance[s] = p, this.movePosition(i, this.curDistance[s]), (r = (n = this.config).transitionEnd) == null || r.call(n, this.getIndexArr(), this.getCurValue(), this), (g = (o = this.config).onTransitionEnd) == null || g.call(o, this.getCurValue(), this.getIndexArr(), this));
+                p <= 2 * this.optionHeight && p >= this.oversizeBorder && (this.curDistance[s] = p, this.movePosition(i, this.curDistance[s]), (r = (h = this.config).transitionEnd) == null || r.call(h, this.getIndexArr(), this.getCurValue(), this), (g = (o = this.config).onTransitionEnd) == null || g.call(o, this.getCurValue(), this.getIndexArr(), this));
               }
             } else this.updateCurDistance(i, s), this.curDistance[s] = this.fixPosition(this.curDistance[s]), this.movePosition(i, this.curDistance[s]), this.curDistance[s] + this.offsetSum > 2 * this.optionHeight ? (this.curDistance[s] = 2 * this.optionHeight, setTimeout(function () {
               _this5.movePosition(i, _this5.curDistance[s]);
@@ -578,7 +579,7 @@ var MobileSelect = function () {
     }], [{
       key: "checkIsPC",
       value: function checkIsPC() {
-        return !Boolean(navigator.userAgent.toLowerCase().match(/ipad|iphone os|midp|rv:1.2.3.4|ucweb|android|windows ce|windows mobile/));
+        return !navigator.userAgent.toLowerCase().match(/ipad|iphone os|midp|rv:1.2.3.4|ucweb|android|windows ce|windows mobile/);
       }
     }, {
       key: "checkDataType",
@@ -617,7 +618,7 @@ var MobileSelect = function () {
   }();
 
   var a = l;
-  return h(a, "defaultConfig", {
+  return n(a, "defaultConfig", {
     keyMap: {
       id: "id",
       value: "value",
@@ -631,5 +632,5 @@ var MobileSelect = function () {
     cancelBtnText: "\u53D6\u6D88",
     triggerDisplayValue: !0,
     scrollSpeed: 1
-  }), h(a, "REQUIRED_PARAMS", ["trigger", "wheels"]), a;
+  }), n(a, "REQUIRED_PARAMS", ["trigger", "wheels"]), a;
 }();
