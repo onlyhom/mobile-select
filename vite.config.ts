@@ -37,7 +37,7 @@ export default defineConfig({
     },
     rollupOptions: {
       external: [/\.less/], // 忽略打包文件, 另做处理
-    }
+    },
   },
   plugins: [
     {

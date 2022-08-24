@@ -144,7 +144,7 @@ export default class MobileSelect {
     }
     // 补全initPosition
     if (this.initPosition.length < this.slider.length) {
-      let diff = this.slider.length - this.initPosition.length;
+      const diff = this.slider.length - this.initPosition.length;
       for (let i = 0; i < diff; i++) {
         this.initPosition.push(0);
       }
@@ -222,13 +222,11 @@ export default class MobileSelect {
   }
 
   static checkIsPC() {
-    return !Boolean(
-      navigator.userAgent
-        .toLowerCase()
-        .match(
-          /ipad|iphone os|midp|rv:1.2.3.4|ucweb|android|windows ce|windows mobile/
-        )
-    );
+    return !navigator.userAgent
+      .toLowerCase()
+      .match(
+        /ipad|iphone os|midp|rv:1.2.3.4|ucweb|android|windows ce|windows mobile/
+      );
   }
   static checkDataType(wheelsData: CascadeData): boolean {
     return typeof wheelsData[0]?.data?.[0] === "object";
@@ -443,7 +441,7 @@ export default class MobileSelect {
       if (this.wheel[i]) {
         this.slider[i].innerHTML = this.getOptionsHtmlStr(this.displayJson[i]);
       } else {
-        let tempWheel = document.createElement("div");
+        const tempWheel = document.createElement("div");
         tempWheel.className = "ms-wheel";
         tempWheel.innerHTML = `<ul class="ms-select-container" data-index="${i}">${this.getOptionsHtmlStr(
           this.displayJson[i]
@@ -456,7 +454,7 @@ export default class MobileSelect {
   checkCascade(): boolean {
     const { keyMap } = this.config;
     if (this.isJsonType) {
-      let node = this.wheelsData[0].data;
+      const node = this.wheelsData[0].data;
       for (let i = 0; i < node.length; i++) {
         if (keyMap.childs in node[i] && node[i][keyMap.childs]?.length > 0) {
           this.cascadeJsonData = this.wheelsData[0].data;
@@ -484,7 +482,7 @@ export default class MobileSelect {
       if (keyMap.childs in parent && parent[keyMap.childs].length > 0) {
         this.displayJson.push(parent[keyMap.childs]);
         this.initDeepCount++;
-        let nextNode =
+        const nextNode =
           parent[keyMap.childs][this.initPosition[this.initDeepCount]];
         if (nextNode) {
           this.initCheckArrDeep(nextNode);
@@ -506,7 +504,7 @@ export default class MobileSelect {
   }
 
   checkRange(index: number, posIndexArr: number[]): void {
-    let deleteNum = this.displayJson.length - 1 - index;
+    const deleteNum = this.displayJson.length - 1 - index;
     const { keyMap } = this.config;
     for (let i = 0; i < deleteNum; i++) {
       this.displayJson.pop(); // 修改 displayJson
@@ -527,7 +525,7 @@ export default class MobileSelect {
   }
 
   resetPosition(index: number, posIndexArr: number[]): number[] {
-    let tempPosArr = [...posIndexArr];
+    const tempPosArr = [...posIndexArr];
     let tempCount;
     if (this.slider.length > posIndexArr.length) {
       tempCount = this.slider.length - posIndexArr.length;
@@ -552,7 +550,7 @@ export default class MobileSelect {
       this.displayJson = [];
       this.initCascade();
       if (this.initPosition.length < this.slider.length) {
-        let diff = this.slider.length - this.initPosition.length;
+        const diff = this.slider.length - this.initPosition.length;
         for (let i = 0; i < diff; i++) {
           this.initPosition.push(0);
         }
@@ -585,14 +583,14 @@ export default class MobileSelect {
       this.initColWidth.length &&
       this.initColWidth.length === this.wheel.length
     ) {
-      let widthSum = this.initColWidth.reduce((cur, pre) => cur + pre, 0);
+      const widthSum = this.initColWidth.reduce((cur, pre) => cur + pre, 0);
       this.initColWidth.forEach((item, index) => {
         this.wheel[index].style.width =
           ((item / widthSum) * 100).toFixed(2) + "%";
       });
       return;
     }
-    let width = (100 / this.wheel.length).toFixed(2);
+    const width = (100 / this.wheel.length).toFixed(2);
     for (let i = 0; i < this.wheel.length; i++) {
       this.wheel[i].style.width = width + "%";
     }
@@ -603,7 +601,7 @@ export default class MobileSelect {
   }
 
   getIndexArr(): number[] {
-    let temp = [];
+    const temp = [];
     for (let i = 0; i < this.curDistance.length; i++) {
       temp.push(this.getIndex(this.curDistance[i]));
     }
@@ -611,8 +609,8 @@ export default class MobileSelect {
   }
 
   getCurValue(): string[] | number[] {
-    let temp = [];
-    let positionArr = this.getIndexArr();
+    const temp = [];
+    const positionArr = this.getIndexArr();
     const { keyMap } = this.config;
     if (this.isCascade) {
       for (let i = 0; i < this.wheel.length; i++) {
@@ -645,7 +643,7 @@ export default class MobileSelect {
   }
 
   setCurDistance(indexArr: number[]): void {
-    let temp = [];
+    const temp = [];
     for (let i = 0; i < this.slider.length; i++) {
       temp.push(this.calcDistance(indexArr[i]));
       this.movePosition(this.slider[i], temp[i]);
@@ -674,7 +672,7 @@ export default class MobileSelect {
   }
 
   getInnerText(sliderIndex: number): string {
-    let lengthOfList =
+    const lengthOfList =
       this.slider[sliderIndex].getElementsByTagName("li").length;
     let index = this.getIndex(this.curDistance[sliderIndex]);
 
@@ -692,14 +690,14 @@ export default class MobileSelect {
   touch(event: TouchEvent | MouseEvent): void {
     const path = event.composedPath && event.composedPath();
     const theSlider = path[1] as HTMLElement; // dom --> selectContainer
-    if (!(theSlider as HTMLUListElement).hasAttribute("data-index")) return ;
+    if (!(theSlider as HTMLUListElement).hasAttribute("data-index")) return;
     const index = parseInt(
       (theSlider as HTMLUListElement).getAttribute("data-index") || "0"
     );
     switch (event.type) {
       case "touchstart":
       case "mousedown":
-        theSlider.style.transition = 'none 0s ease-out';
+        theSlider.style.transition = "none 0s ease-out";
         this.startY = Math.floor(
           event instanceof TouchEvent ? event.touches[0].clientY : event.clientY
         );
@@ -711,7 +709,7 @@ export default class MobileSelect {
 
       case "touchend":
       case "mouseup":
-        theSlider.style.transition = 'transform 0.18s ease-out';
+        theSlider.style.transition = "transform 0.18s ease-out";
         this.moveEndY = Math.floor(
           event instanceof TouchEvent
             ? event.changedTouches[0].clientY
@@ -725,12 +723,12 @@ export default class MobileSelect {
         if (this.offsetSum == 0) {
           // offsetSum为0, 相当于点击事件
           // 0 1 [2] 3 4
-          let clickOffetNum = Math.floor(
+          const clickOffetNum = Math.floor(
             (window.innerHeight - this.moveEndY) / 40
           );
           if (clickOffetNum != 2) {
-            let tempOffset = clickOffetNum - 2;
-            let newDistance =
+            const tempOffset = clickOffetNum - 2;
+            const newDistance =
               this.curDistance[index] + tempOffset * this.optionHeight;
             if (
               newDistance <= 2 * this.optionHeight &&
