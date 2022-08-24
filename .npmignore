@@ -1,0 +1,29 @@
+#tests
+test
+coverage
+
+#build tools
+.travis.yml
+.jenkins.yml
+.codeclimate.yml
+pnpm-lock.yaml
+scripts
+
+#tools
+.jscsrc
+.jshintrc
+.eslintrc*
+.github
+
+#editor settings
+.vscode
+.idea
+.editorconfig
+
+#chore
+babel.config.json
+dts-generator.config.ts
+jest.config.ts
+tsconfig.json
+vite.config.ts
+index.html
