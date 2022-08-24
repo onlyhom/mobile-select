@@ -29,7 +29,7 @@ const buildHtml = async () => {
       )
       .replace('import "/src/style/demo.css";', "")
       .replace(`import MobileSelect from "/src/${entryFileName}";`, "");
-      // TODO format 格式化
+    // TODO format 格式化
     await fs.writeFile(resolve(targetDir, "demo.html"), htmlCode);
   }
 };

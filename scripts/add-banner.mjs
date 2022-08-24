@@ -17,7 +17,8 @@ const addCommentBanner = async () => {
   for (let path in files) {
     const sourceFilePath = `${targetDir}/${files[path]}`;
     let jsCode = await fs.readFile(sourceFilePath, "utf-8");
-    jsCode = `/*
+    jsCode =
+      `/*
 * mobile-select v${packageVersion}
 * Homepage: https://github.com/onlyhom/mobile-select
 * Released under the MIT License.
