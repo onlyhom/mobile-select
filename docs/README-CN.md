@@ -35,7 +35,7 @@
 
 ![Image text](https://github.com/onlyhom/img-folder/blob/master/gif/ms_preview_all.gif?raw=true)
 
-## 🗂 npm包结构
+## 🗂 包结构
 
 ```text
 dist/
