@@ -1,0 +1,70 @@
+name: Build and release npm package
+
+on:
+  push:
+    branches: ["master"]
+    paths:
+      - "src/**"
+      - "scripts/**"
+      - "index.html"
+      - "vite.config.ts"
+
+env:
+  GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Setup NodeJS
+        uses: actions/setup-node@v3.4.1
+        with:
+          node-version: 14
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v2.2.2
+        with:
+          version: 7
+
+      - name: Install dependency
+        run: pnpm install --frozen-lockfile --silent
+
+      - name: Update package version
+        run: npm version prerelease --preid=beta --no-git-tag-version
+
+      - name: Build
+        run: pnpm run build
+
+      - name: Get package-version
+        uses: nyaa8/package-version@v1
+
+      # - name: Commit updates and push origin
+      #   run: |
+      #   git config user.name "github-actions[bot]"
+      #   git config user.email "github-actions[bot]@users.noreply.github.com"
+      #   git add --all
+      #   git commit -m "release: v${{ env.PACKAGE_VERSION }}"
+      #   git tag 'v${{ env.PACKAGE_VERSION }}'
+      #   git push https://x-access-token:${{ secrets.GH_TOKEN }}@github.com/${{ github.repository }}.git master --tags
+
+      - uses: EndBug/add-and-commit@v9
+        with:
+          message: "release: v${{ env.PACKAGE_VERSION }}"
+          committer_name: github-actions[bot]
+          committer_email: github-actions[bot]@users.noreply.github.com
+          push: true
+          tag: "v${{ env.PACKAGE_VERSION }}"
+
+      - name: Publish NPM package
+        uses: JS-DevTools/npm-publish@v1
+        with:
+          token: ${{ secrets.NPM_TOKEN }}
+
+      - name: Create GitHub release
+        uses: marvinpinto/action-automatic-releases@latest
+        with:
+          repo_token: ${{ secrets.GH_TOKEN }}
+          automatic_release_tag: ${{ env.PACKAGE_VERSION }}
+          title: "v${{ env.PACKAGE_VERSION }}"
+          prerelease: false
+          files: dist/**
