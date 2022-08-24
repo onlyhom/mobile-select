@@ -13,7 +13,7 @@ env:
   GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
 
 jobs:
-  build:
+  build-and-release:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -30,7 +30,7 @@ jobs:
         run: pnpm install --frozen-lockfile --silent
 
       - name: Update package version
-        run: npm version prerelease --preid=beta --no-git-tag-version
+        run: npm --no-git-tag-version version patch
 
       - name: Build
         run: pnpm run build
@@ -64,7 +64,5 @@ jobs:
         uses: marvinpinto/action-automatic-releases@latest
         with:
           repo_token: ${{ secrets.GH_TOKEN }}
-          automatic_release_tag: ${{ env.PACKAGE_VERSION }}
           title: "v${{ env.PACKAGE_VERSION }}"
           prerelease: false
-          files: dist/**

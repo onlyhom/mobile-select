@@ -5,6 +5,8 @@ on:
       - master
     paths-ignore:
       - ".github/**"
+      - "dist/**"
+
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
