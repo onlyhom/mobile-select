@@ -1,6 +1,7 @@
 name: build and release npm package
 
 on:
+  workflow_dispatch:
   push:
     branches: ["master"]
     paths:
@@ -15,6 +16,10 @@ env:
 jobs:
   build-and-release:
     runs-on: ubuntu-latest
+
+    permissions:
+      actions: read-all|write-all
+
     steps:
       - uses: actions/checkout@v3
       - name: Setup NodeJS

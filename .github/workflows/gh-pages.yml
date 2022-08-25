@@ -1,5 +1,6 @@
 name: build dist and deploy
 on:
+  workflow_dispatch:
   push:
     branches:
       - master
