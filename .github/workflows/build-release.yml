@@ -16,10 +16,6 @@ env:
 jobs:
   build-and-release:
     runs-on: ubuntu-latest
-
-    permissions:
-      actions: read-all|write-all
-
     steps:
       - uses: actions/checkout@v3
       - name: Setup NodeJS
@@ -43,11 +39,10 @@ jobs:
       - name: Get package-version
         uses: nyaa8/package-version@v1
 
-      - name: Generate Changelog
-        uses: saadmk11/changelog-ci@v1.0.0
+      - name: Generate changelog
+        uses: charmixer/auto-changelog-action@v1
         with:
-          release_version: ${{ env.PACKAGE_VERSION }}
-          github_token: ${{ secrets.GH_TOKEN }}
+          token: ${{ secrets.GH_TOKEN }}
 
       # - name: Commit updates and push origin
       #   run: |
