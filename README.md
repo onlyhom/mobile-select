@@ -103,6 +103,13 @@ import MobileSelect from "mobile-select";
       </sub>
     </td>
     <td align="center" width="100">
+      <img src="https://raw.githubusercontent.com/gilbarbara/logos/master/logos/angular-icon.svg" width="50" title="Angular"> <br/>
+      <strong>Angular</strong> <br/>
+      <sub>
+        <a href="https://codesandbox.io/s/mobile-select-angular-esgkil" target="_blank">📦Sandbox</a>
+      </sub>
+    </td>
+    <td align="center" width="100">
       <img src="https://raw.githubusercontent.com/gilbarbara/logos/master/logos/react.svg" width="50" title="React"> <br/>
       <strong>React</strong> <br/>
       <sub>
@@ -114,6 +121,20 @@ import MobileSelect from "mobile-select";
       <strong>Vue</strong> <br/>
       <sub>
         <a href="https://codesandbox.io/s/mobile-select-vue-el5o6r" target="_blank">📦Sandbox</a>
+      </sub>
+    </td>
+    <td align="center" width="100">
+      <img src="https://raw.githubusercontent.com/gilbarbara/logos/master/logos/svelte-icon.svg" width="40" title="Svelte"> <br/>
+      <strong>Svelte</strong> <br/>
+      <sub>
+        <a href="https://codesandbox.io/s/mobile-select-svelte-2m4wz2" target="_blank">📦Sandbox</a>
+      </sub>
+    </td>
+    <td align="center" width="100">
+      <img src="https://raw.githubusercontent.com/gilbarbara/logos/master/logos/solidjs-icon.svg" width="55" title="Solid"> <br/>
+      <strong>Solid</strong> <br/>
+      <sub>
+        <a href="https://codesandbox.io/s/mobile-select-solid-pcd560" target="_blank">📦Sandbox</a>
       </sub>
     </td>
   </tr>
@@ -548,100 +569,6 @@ Use the onTransitionEnd (), onChange (), updateWheel (), locatePosition () funct
 - Select the time to take the car, the car must not exceed the time to take the car (including the date and time).
 
 ![Image text](https://github.com/onlyhom/img-folder/blob/master/gif/limit%E5%87%BD%E6%95%B0.gif?raw=true)
-
-## 🥯 Change Logs
-
-### 2017-04-20[update]
-
-As the input tag in the iphone, the cursor will flashing.
-As well as the input tag open in the iphone6P / iphone7P chrome will appear offset phenomenon.
-So do not use the input tag, instead by the ordinary div trigger.
-The value selected will be written in the div trigger‘s innerHTML.
-It is recommended to use the callback (indexArr, data) function to get the selected value.
-
-### 2017-07-27[bug fixed]
-
-Repair the issues raised by [li362692680]:
-Cascade selection can not initially locate the secondary selection box.
-At the same time repair the init function of the entry array parameter length is less than the number of wheels can not move the problem.
-
-### 2017-07-30[bug fixed + update]
-
-Repair the issues raised by [leohgbs]:
-
-1. The update does not take into account the problem that the data is json.
-2. After the update, the cached data is not updated, resulting in a callback data source error.
-
-Change the variable name: jsonData → cascadeJsonData
-Change method name: updateWheels() → reRenderWheels()
-The updateWheel() method does not change.
-Add new API: updateWheels(data) is used to update the entire data source in cascading data format.
-
-### 2017-08-15[update]
-
-Repair in cascade state, single click failed.
-Delete the comment after the brace in the js file(In the php environment there will be js code failure situation).
-Fix ios potential bug.
-Add API: show()
-Add API: getValue()
-Add option style options(Modify the connector / button text / button color / background color and so on)：
-connector
-ensureBtnText
-ensureBtnColor
-cancelBtnText
-cancelBtnColor
-titleColor
-titleBgColor
-bgColor
-textColor
-Supports color formats such as #ff0000 rgba(0,255,255,0.5) orange.
-
-### 2017-09-07[update]
-
-Add keyMap function
-Update README
-
-### 2017-10-17[update]
-
-Add cancel callback
-
-### 2017-12-12[update]
-
-Remove cancel callback
-Thanks for [ngdly]:
-Add onshow callback
-Add onhide callback
-Add show function
-Add hide function
-
-### 2018-01-28[update]
-
-Thanks for [aaalog]:
-Modify the method for listening to click events.
-To fix the click event which will triggered twice the transitionEnd funtion:
-Remove addListenerLi(), singleClick() internal methods,
-Click judgment directly in the touchend event.
-
-### 2018-01-29[update]
-
-Add maskOpacity option
-
-### 2019-05-15[update]
-
-Thanks for [Jackliu007888]:
-Add option colWidth
-
-### 2022-08[refactor]
-- Using TS refactor and vite build tools, build the type production of the specification (UMD, ESM, IIFE).
-- Add the attribute ```initValue, autoFocus, scrollSpeed'```
-- Add function ```destroy()```
-- Optimize method and attribute names:
-callback--> onChange   
-cancel --> onCancel  
-transitionEnd --> onTransitionEnd
-triggerDisplayData --> triggerDisplayValue
-- Add CSS style class name prefix to prevent style conflicts
-- Docs optimization: Add guidance on how to use it in the framework
 
 ## 📘 License
 

@@ -1,5 +1,5 @@
 /*
-* mobile-select v1.2.0-beta.4
+* mobile-select v1.2.0-beta.5
 * Homepage: https://github.com/onlyhom/mobile-select
 * Released under the MIT License.
 * (c) 2017-present
@@ -41,17 +41,17 @@ var MobileSelect = function () {
 
   var C = Object.defineProperty;
 
-  var D = function D(a, l, f) {
-    return l in a ? C(a, l, {
+  var D = function D(c, l, f) {
+    return l in c ? C(c, l, {
       enumerable: !0,
       configurable: !0,
       writable: !0,
       value: f
-    }) : a[l] = f;
+    }) : c[l] = f;
   };
 
-  var n = function n(a, l, f) {
-    return D(a, _typeof(l) != "symbol" ? l + "" : l, f), f;
+  var n = function n(c, l, f) {
+    return D(c, _typeof(l) != "symbol" ? l + "" : l, f), f;
   };
 
   var l = /*#__PURE__*/function () {
@@ -185,19 +185,19 @@ var MobileSelect = function () {
           var r = (h = this.wheelsData[0]) == null ? void 0 : h.data;
           return s.reduce(function (o, g) {
             var u;
-            var c = r == null ? void 0 : r.findIndex(function (d) {
+            var a = r == null ? void 0 : r.findIndex(function (d) {
               return d[t.value] == g;
             });
-            return o.push(c < 0 ? 0 : c), r = (u = r[c]) == null ? void 0 : u[t.childs], o;
+            return o.push(a < 0 ? 0 : a), r = (u = r[a]) == null ? void 0 : u[t.childs], o;
           }, []);
         }
 
         return s.reduce(function (r, o, g) {
           var u, d;
-          var c = (d = (u = _this2.wheelsData[g]) == null ? void 0 : u.data) == null ? void 0 : d.findIndex(function (m) {
+          var a = (d = (u = _this2.wheelsData[g]) == null ? void 0 : u.data) == null ? void 0 : d.findIndex(function (m) {
             return m == o;
           });
-          return r.push(c < 0 ? 0 : c), r;
+          return r.push(a < 0 ? 0 : a), r;
         }, []);
       }
     }, {
@@ -236,14 +236,14 @@ var MobileSelect = function () {
     }, {
       key: "show",
       value: function show() {
-        var t, e;
-        this.mobileSelect.classList.add("ms-show"), typeof this.config.onShow == "function" && ((e = (t = this.config).onShow) == null || e.call(t));
+        var t, e, i;
+        this.mobileSelect.classList.add("ms-show"), (t = document.querySelector("body")) == null || t.classList.add("ms-show"), typeof this.config.onShow == "function" && ((i = (e = this.config).onShow) == null || i.call(e));
       }
     }, {
       key: "hide",
       value: function hide() {
-        var t, e;
-        this.mobileSelect.classList.remove("ms-show"), typeof this.config.onHide == "function" && ((e = (t = this.config).onHide) == null || e.call(t));
+        var t, e, i;
+        this.mobileSelect.classList.remove("ms-show"), (t = document.querySelector("body")) == null || t.classList.remove("ms-show"), typeof this.config.onHide == "function" && ((i = (e = this.config).onHide) == null || i.call(e));
       }
     }, {
       key: "registerEvents",
@@ -539,7 +539,7 @@ var MobileSelect = function () {
       value: function touch(t) {
         var _this5 = this;
 
-        var h, r, o, g, c, u, d, m;
+        var h, r, o, g, a, u, d, m;
         var i = (t.composedPath && t.composedPath())[1];
         if (!i.hasAttribute("data-index")) return;
         var s = parseInt(i.getAttribute("data-index") || "0");
@@ -564,7 +564,7 @@ var MobileSelect = function () {
               _this5.movePosition(i, _this5.curDistance[s]);
             }, 100)) : this.curDistance[s] + this.offsetSum < this.oversizeBorder && (this.curDistance[s] = this.oversizeBorder, setTimeout(function () {
               _this5.movePosition(i, _this5.curDistance[s]);
-            }, 100)), (u = (c = this.config).transitionEnd) == null || u.call(c, this.getIndexArr(), this.getCurValue(), this), (m = (d = this.config).onTransitionEnd) == null || m.call(d, this.getCurValue(), this.getIndexArr(), this);
+            }, 100)), (u = (a = this.config).transitionEnd) == null || u.call(a, this.getIndexArr(), this.getCurValue(), this), (m = (d = this.config).onTransitionEnd) == null || m.call(d, this.getCurValue(), this.getIndexArr(), this);
 
             t.type === "mouseup" && (this.enableClickStatus = !1), this.isCascade && this.checkRange(s, this.getIndexArr());
             break;
@@ -617,8 +617,8 @@ var MobileSelect = function () {
     return l;
   }();
 
-  var a = l;
-  return n(a, "defaultConfig", {
+  var c = l;
+  return n(c, "defaultConfig", {
     keyMap: {
       id: "id",
       value: "value",
@@ -632,5 +632,5 @@ var MobileSelect = function () {
     cancelBtnText: "\u53D6\u6D88",
     triggerDisplayValue: !0,
     scrollSpeed: 1
-  }), n(a, "REQUIRED_PARAMS", ["trigger", "wheels"]), a;
+  }), n(c, "REQUIRED_PARAMS", ["trigger", "wheels"]), c;
 }();

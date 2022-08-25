@@ -1,5 +1,5 @@
 /*
-* mobile-select v1.2.0-beta.4
+* mobile-select v1.2.0-beta.5
 * Homepage: https://github.com/onlyhom/mobile-select
 * Released under the MIT License.
 * (c) 2017-present
@@ -165,12 +165,12 @@ const r = class {
     }
   }
   show() {
-    var t, e;
-    this.mobileSelect.classList.add("ms-show"), typeof this.config.onShow == "function" && ((e = (t = this.config).onShow) == null || e.call(t));
+    var t, e, i;
+    this.mobileSelect.classList.add("ms-show"), (t = document.querySelector("body")) == null || t.classList.add("ms-show"), typeof this.config.onShow == "function" && ((i = (e = this.config).onShow) == null || i.call(e));
   }
   hide() {
-    var t, e;
-    this.mobileSelect.classList.remove("ms-show"), typeof this.config.onHide == "function" && ((e = (t = this.config).onHide) == null || e.call(t));
+    var t, e, i;
+    this.mobileSelect.classList.remove("ms-show"), (t = document.querySelector("body")) == null || t.classList.remove("ms-show"), typeof this.config.onHide == "function" && ((i = (e = this.config).onHide) == null || i.call(e));
   }
   registerEvents(t) {
     for (const [e, i] of Object.entries(this.eventHandleMap))
