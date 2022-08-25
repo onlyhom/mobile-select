@@ -706,6 +706,20 @@ export default class MobileSelect {
         }
         break;
 
+      case "touchmove":
+      case "mousemove":
+        event.preventDefault();
+        if (event.type === "mousemove" && !this.enableClickStatus) break;
+        this.moveY = Math.floor(
+          event instanceof TouchEvent ? event.touches[0].clientY : event.clientY
+        );
+        this.offsetY = (this.moveY - this.preMoveY) * this.config.scrollSpeed;
+        this.updateCurDistance(theSlider, index);
+        this.curDistance[index] = this.curDistance[index] + this.offsetY;
+        this.movePosition(theSlider, this.curDistance[index]);
+        this.preMoveY = this.moveY;
+        break;
+
       case "touchend":
       case "mouseup":
         theSlider.style.transition = "transform 0.18s ease-out";
@@ -720,8 +734,7 @@ export default class MobileSelect {
           this.optionHeight;
 
         if (this.offsetSum == 0) {
-          // offsetSum为0, 相当于点击事件
-          // 0 1 [2] 3 4
+          // offsetSum为0, 相当于点击事件 点击了中间的选项
           const clickOffetNum = Math.floor(
             (window.innerHeight - this.moveEndY) / 40
           );
@@ -751,26 +764,13 @@ export default class MobileSelect {
           // 修正位置
           this.updateCurDistance(theSlider, index);
           this.curDistance[index] = this.fixPosition(this.curDistance[index]);
+          if (this.curDistance[index] > 2 * this.optionHeight) {
+            this.curDistance[index] = 2 * this.optionHeight;
+          } else if (this.curDistance[index] < this.oversizeBorder) {
+            this.curDistance[index] = this.oversizeBorder;
+          }
           this.movePosition(theSlider, this.curDistance[index]);
 
-          // 反弹
-          if (
-            this.curDistance[index] + this.offsetSum >
-            2 * this.optionHeight
-          ) {
-            this.curDistance[index] = 2 * this.optionHeight;
-            setTimeout(() => {
-              this.movePosition(theSlider, this.curDistance[index]);
-            }, 100);
-          } else if (
-            this.curDistance[index] + this.offsetSum <
-            this.oversizeBorder
-          ) {
-            this.curDistance[index] = this.oversizeBorder;
-            setTimeout(() => {
-              this.movePosition(theSlider, this.curDistance[index]);
-            }, 100);
-          }
           this.config.transitionEnd?.(
             this.getIndexArr(),
             this.getCurValue(),
@@ -790,20 +790,6 @@ export default class MobileSelect {
           this.checkRange(index, this.getIndexArr());
         }
 
-        break;
-
-      case "touchmove":
-      case "mousemove":
-        event.preventDefault();
-        if (event.type === "mousemove" && !this.enableClickStatus) break;
-        this.moveY = Math.floor(
-          event instanceof TouchEvent ? event.touches[0].clientY : event.clientY
-        );
-        this.offsetY = (this.moveY - this.preMoveY) * this.config.scrollSpeed;
-        this.updateCurDistance(theSlider, index);
-        this.curDistance[index] = this.curDistance[index] + this.offsetY;
-        this.movePosition(theSlider, this.curDistance[index]);
-        this.preMoveY = this.moveY;
         break;
     }
   }
