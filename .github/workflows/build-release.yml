@@ -14,7 +14,7 @@ env:
   GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
 
 jobs:
-  build-and-release:
+  build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -30,45 +30,41 @@ jobs:
       - name: Install dependency
         run: pnpm install --frozen-lockfile --silent
 
-      - name: Update package version
-        run: npm --no-git-tag-version version patch
-
       - name: Build
         run: pnpm run build
 
-      - name: Get package-version
-        uses: nyaa8/package-version@v1
-
-      - name: Generate changelog
-        uses: charmixer/auto-changelog-action@v1
-        with:
-          token: ${{ secrets.GH_TOKEN }}
-
-      # - name: Commit updates and push origin
-      #   run: |
-      #   git config user.name "github-actions[bot]"
-      #   git config user.email "github-actions[bot]@users.noreply.github.com"
-      #   git add --all
-      #   git commit -m "release: v${{ env.PACKAGE_VERSION }}"
-      #   git tag 'v${{ env.PACKAGE_VERSION }}'
-      #   git push https://x-access-token:${{ secrets.GH_TOKEN }}@github.com/${{ github.repository }}.git master --tags
-
       - uses: EndBug/add-and-commit@v9
         with:
-          message: "release: v${{ env.PACKAGE_VERSION }}"
+          message: "chore: build dist"
           committer_name: github-actions[bot]
           committer_email: github-actions[bot]@users.noreply.github.com
           push: true
-          tag: "v${{ env.PACKAGE_VERSION }}"
+
+  release-and-publish:
+    runs-on: ubuntu-latest
+    needs: [build]
+    steps:
+      - uses: google-github-actions/release-please-action@v3
+        with:
+          release-type: node
+          token: ${{ secrets.GH_TOKEN }}
+          default-branch: master
+          changelog-types: |
+            [
+              { "type": "feat",      "section": "Features",     "hidden": false },
+              { "type": "fix",       "section": "Bug Fixes",    "hidden": false },
+              { "type": "perf",      "section": "Performance",  "hidden": false },
+              { "type": "refactor",  "section": "Refactor",     "hidden": false },
+              { "type": "docs",      "section": "Documentation","hidden": false },
+              { "type": "ci",        "section": "CI/CD",        "hidden": false },
+              { "type": "revert",    "section": "Reverts",      "hidden": true },
+              { "type": "test",      "section": "Tests",        "hidden": true },
+              { "type": "build",     "section": "Build",        "hidden": true },
+              { "type": "style",     "section": "Styles",       "hidden": true },
+              { "type": "chore",     "section": "Chores",       "hidden": true }
+            ]
 
       - name: Publish NPM package
         uses: JS-DevTools/npm-publish@v1
         with:
           token: ${{ secrets.NPM_TOKEN }}
-
-      - name: Create GitHub release
-        uses: marvinpinto/action-automatic-releases@latest
-        with:
-          repo_token: ${{ secrets.GH_TOKEN }}
-          title: "v${{ env.PACKAGE_VERSION }}"
-          prerelease: false

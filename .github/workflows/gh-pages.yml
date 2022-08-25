@@ -8,6 +8,8 @@ on:
       - ".github/**"
       - "dist/**"
       - "CHANGELOG.md"
+      - "package.json"
+      - "package-lock.json"
 
 jobs:
   build-and-deploy:
