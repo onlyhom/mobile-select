@@ -1,7 +1,6 @@
 import {
   MobileSelectConfig,
   CustomConfig,
-  KeyMap,
   CascadeData,
   OptionData,
 } from "./types";
@@ -18,10 +17,10 @@ export default class MobileSelect {
   cancelBtn!: HTMLDivElement;
   grayLayer!: HTMLDivElement;
   popUp!: HTMLDivElement;
+  /** 初始化滚动位置 由position 或 initValue计算决定 */
   initPosition!: number[];
+  /** 轮子宽度比例 */
   initColWidth!: number[];
-  /** 拼接值的连接符 */
-  connector!: string;
   /** 数据源 */
   wheelsData!: CascadeData[];
   /** 显示json */
@@ -58,17 +57,15 @@ export default class MobileSelect {
   curDistance!: number[];
   /** 级联数据 相当于wheels[0].data的别名 */
   cascadeJsonData!: CascadeData[];
-  /** 用户自定义key */
-  keyMap!: KeyMap;
-
+  /** 事件监听 */
   eventHandleMap!: {
     [x: string]: { event: string | string[]; fn: Function };
   };
-
+  /** 级联数据 级联深度 */
   initDeepCount!: number;
-
+  /** 用户配置项 */
   config!: MobileSelectConfig;
-
+  /** 默认配置 */
   static defaultConfig = {
     keyMap: { id: "id", value: "value", childs: "childs" },
     position: [],

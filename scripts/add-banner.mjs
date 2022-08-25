@@ -9,7 +9,7 @@ const targetDir = resolve(__dirname, "../../dist");
 const packageVersion = packageJson.version;
 
 const addCommentBanner = async () => {
-  const files = await glob("**/mobile-select.*{js,css}", {
+  const files = await glob("**/mobile-select.*{js,css,d.ts}", {
     cwd: targetDir,
     onlyFiles: true,
   });

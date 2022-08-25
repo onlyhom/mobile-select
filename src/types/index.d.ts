@@ -14,40 +14,92 @@ export type CascadeData = {
 export type OptionData = CascadeData | string | number;
 
 export type CustomConfig = {
+  /** 触发面板弹出的元素 */
   trigger: string | HTMLElement;
+
+  /** 数据源 */
   wheels: CascadeData[];
-  /** 兼容旧版本 */
-  callback?: OldCallbackFn;
-  cancel?: OldCallbackFn;
-  transitionEnd?: OldCallbackFn;
-  triggerDisplayData?: boolean;
-  /** 新版本 */
+
+  /** 选择完毕的回调函数 */
   onChange?: CallbackFn;
+
+  /** 取消面板的回调函数 */
   onCancel?: CallbackFn;
+
+  /** 滚动滚动完毕的回调函数 */
   onTransitionEnd?: CallbackFn;
-  /** *********** */
+
+  /** 显示面板 回调函数 */
   onShow?: CallbackFn;
+
+  /** 隐藏面板 回调函数 */
   onHide?: CallbackFn;
+
+  /** 初始值 传入后会自动计算出初始化滚动位置 */
   initValue?: string;
+
+  /** 初始化滚动位置 */
   position?: number[];
+
+  /** 轮子宽度比例 */
   colWidth?: number[];
+
   /** 组件标题 */
   title?: string;
-  /** 拼接值的连接符 */
+
+  /** 拼接值的连接符 默认是空格 */
   connector?: string;
+
+  /** 确认按钮 文案 */
   ensureBtnText?: string;
+
+  /** 取消按钮 文案 */
   cancelBtnText?: string;
+
+  /** 确认按钮 文字颜色 */
   ensureBtnColor?: string;
+
+  /** 取消按钮 文字颜色 */
   cancelBtnColor?: string;
+
+  /** 组件标题 文字颜色 */
   titleColor?: string;
+
+  /** 组件标题 背景颜色 */
   titleBgColor?: string;
+
+  /** 选项文字颜色 */
   textColor?: string;
+
+  /** 遮罩背景色 */
   bgColor?: string;
+
+  /** 遮罩层透明度 */
   maskOpacity?: number;
+
+  /** 数据源, 用户自定义key */
   keyMap?: KeyMap;
+
+  /** onChange后 是否修改trigger的innerText */
   triggerDisplayValue?: boolean;
+
+  /** 是否自动拉起面板 */
   autoFocus?: boolean;
+
+  /** 轮子滚动速度 默认为1 */
   scrollSpeed?: number;
+
+  /** 旧版本 选择完毕的回调函数 */
+  callback?: OldCallbackFn;
+
+  /** 旧版本 取消面板的回调函数  */
+  cancel?: OldCallbackFn;
+
+  /** 旧版本 滚动滚动完毕的回调函数  */
+  transitionEnd?: OldCallbackFn;
+
+  /** 旧版本 onChange后 是否修改trigger的innerText */
+  triggerDisplayData?: boolean;
 };
 
 export type MobileSelectConfig = CustomConfig &
