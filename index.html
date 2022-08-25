@@ -10,6 +10,7 @@
       name="viewport"
       content="width=device-width, minimum-scale=1, maximum-scale=1,user-scalable=no"
     />
+    <link rel="stylesheet" type="text/css" href="/src/style/demo.css" />
   </head>
   <body>
     <div class="contain">
@@ -28,9 +29,7 @@
     </div>
 
     <script type="module">
-      import "/src/style/demo.css";
       import MobileSelect from "/src/index.ts";
-
       const weekdayArr = [
         "周日",
         "周一",
@@ -330,7 +329,7 @@
         title: "级联数据",
         wheels: [{ data: UplinkData }],
         initValue: "劳斯莱斯 魅影 标准版",
-        scrollSpeed: 2,
+        // scrollSpeed: 2,
         onTransitionEnd: function (data, indexArr, msInstance) {
           //console.log(data);
         },

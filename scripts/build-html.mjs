@@ -22,12 +22,14 @@ const buildHtml = async () => {
     htmlCode = htmlCode
       .replace(
         '<script type="module">',
-        `<link rel="stylesheet" type="text/css" href="./style/demo.css" />
-      <link rel="stylesheet" type="text/css" href="./style/mobile-select.css" />
-      <script type="text/javascript" src="./mobile-select.iife.js"></script>
-      <script type="text/javascript">`
+        `<link rel="stylesheet" type="text/css" href="./style/mobile-select.css" />
+          <script type="text/javascript" src="./mobile-select.iife.js"></script>
+          <script type="text/javascript">`
       )
-      .replace('import "/src/style/demo.css";', "")
+      .replace(
+        '<link rel="stylesheet" type="text/css" href="/src/style/demo.css"/>',
+        '<link rel="stylesheet" type="text/css" href="./style/demo.css"/>'
+      )
       .replace(`import MobileSelect from "/src/${entryFileName}";`, "");
     // TODO format 格式化
     await fs.writeFile(resolve(targetDir, "demo.html"), htmlCode);
