@@ -6,6 +6,7 @@ on:
     paths-ignore:
       - ".github/**"
       - "dist/**"
+      - "CHANGELOG.md"
 
 jobs:
   build-and-deploy:

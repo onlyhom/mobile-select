@@ -38,6 +38,12 @@ jobs:
       - name: Get package-version
         uses: nyaa8/package-version@v1
 
+      - name: Generate Changelog
+        uses: saadmk11/changelog-ci@v1.0.0
+        with:
+          release_version: ${{ env.PACKAGE_VERSION }}
+          github_token: ${{ secrets.GH_TOKEN }}
+
       # - name: Commit updates and push origin
       #   run: |
       #   git config user.name "github-actions[bot]"
