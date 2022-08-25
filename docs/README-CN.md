@@ -100,6 +100,13 @@ import MobileSelect from "mobile-select";
       </sub>
     </td>
     <td align="center" width="100">
+      <img src="https://raw.githubusercontent.com/gilbarbara/logos/master/logos/angular-icon.svg" width="50" title="Angular"> <br/>
+      <strong>Angular</strong> <br/>
+      <sub>
+        <a href="https://codesandbox.io/s/mobile-select-angular-esgkil" target="_blank">📦Sandbox</a>
+      </sub>
+    </td>
+    <td align="center" width="100">
       <img src="https://raw.githubusercontent.com/gilbarbara/logos/master/logos/react.svg" width="50" title="React"> <br/>
       <strong>React</strong> <br/>
       <sub>
@@ -111,6 +118,20 @@ import MobileSelect from "mobile-select";
       <strong>Vue</strong> <br/>
       <sub>
         <a href="https://codesandbox.io/s/mobile-select-vue-el5o6r" target="_blank">📦Sandbox</a>
+      </sub>
+    </td>
+    <td align="center" width="100">
+      <img src="https://raw.githubusercontent.com/gilbarbara/logos/master/logos/svelte-icon.svg" width="40" title="Svelte"> <br/>
+      <strong>Svelte</strong> <br/>
+      <sub>
+        <a href="https://codesandbox.io/s/mobile-select-svelte-2m4wz2" target="_blank">📦Sandbox</a>
+      </sub>
+    </td>
+    <td align="center" width="100">
+      <img src="https://raw.githubusercontent.com/gilbarbara/logos/master/logos/solidjs-icon.svg" width="55" title="Solid"> <br/>
+      <strong>Solid</strong> <br/>
+      <sub>
+        <a href="https://codesandbox.io/s/mobile-select-solid-pcd560" target="_blank">📦Sandbox</a>
       </sub>
     </td>
   </tr>
@@ -538,98 +559,6 @@ mySelect.destroy();
 - 选择取车时间后，还车时间不得超过取车时间（包括日期和时间）。
 
 ![Image text](https://github.com/onlyhom/img-folder/blob/master/gif/limit%E5%87%BD%E6%95%B0.gif?raw=true)
-
-## 🥯 更新日志
-
-### 2017-04-20[更新]
-
-鉴于 input 框在 iphone 上会出现光标  
-以及由 input 触发的 fixed 布局在 iphone6P/iphone7P 的 chrome 中打开会出现下移现象  
-舍弃使用 input 标签,改为由普通 div 触发  
-选择到的值写进 div 的 innerHTML 里  
-推荐用 callback(indexArr, data)回调函数获取选择到的值
-
-### 2017-07-27[修正]
-
-修复 issues 中【li362692680】同学提出的  
-级联选择时无法初始定位二级选择框的问题  
-同时修复 init 函数中传入的 position 数组参数长度小于轮子个数无法移动的问题
-
-### 2017-07-30[修正+更新]
-
-修复 issues 中【leohgbs】同学提出的  
-1.更新没有考虑到 数据是 json 的问题  
-2.更新之后，缓存的数据没有更新，导致 callback 数据源错误  
-更改变量名:jsonData → cascadeJsonData  
-更改方法名:updateWheels() → reRenderWheels()  
-updateWheel()方法不变  
-新增 API：updateWheels(data) 用来在级联数据格式下 更新整个数据源
-
-### 2017-08-15[更新]
-
-修复级联状态下-单点击失效  
-删除 js 文件中大括号后面的注释(在 php 环境中 会有 js 代码失效的情况)  
-修复 ios 潜在 bug  
-新增 API show()  
-新增 API getValue()  
-新增选项样式选项(修改连接符/按钮文本/按钮颜色/背景颜色等)：  
-connector  
-ensureBtnText  
-ensureBtnColor  
-cancelBtnText  
-cancelBtnColor  
-titleColor  
-titleBgColor  
-bgColor  
-textColor  
-颜色支持如 #ff0000 rgba(0,255,255,0.5) orange 等格式
-
-### 2017-09-07[更新]
-
-增加数据字段映射功能  
-更新 README
-
-### 2017-10-17[更新]
-
-增加 cancel 回调函数
-
-### 2017-12-12[更新]
-
-删除 cancel 回调函数  
-感谢【ngdly】同学:  
-增加 onshow 回调函数  
-增加 onhide 回调函数  
-增加 show()  
-增加 hide()
-
-### 2018-01-28[优化]
-
-感谢【aaalog】同学的建议  
-改写监听单击事件的方法  
-为了修复单击事件时，transitionEnd 会被触发两次的情况：  
-删除了 addListenerLi()、singleClick()内部方法，  
-直接在 touchend 事件做出单击判断。
-
-### 2018-01-29[更新]
-
-增加 maskOpacity 设置遮罩透明度
-
-### 2019-05-15[更新]
-
-感谢【Jackliu007888】同学的 PR
-增加轮子宽度配置 colWidth
-
-### 2022-08[重构&更新]
-- 使用ts重构、vite构建, 构建规范类型产物(UMD, ESM, IIFE)
-- 增加属性 ```initValue, autoFocus, scrollSpeed```
-- 增加功能函数 ```destroy()```
-- 方法和属性名优化:
-callback--> onChange   
-cancel --> onCancel  
-transitionEnd --> onTransitionEnd
-triggerDisplayData --> triggerDisplayValue
-- 添加样式类名前缀，防止样式冲突
-- 文档优化：增加在框架中如何使用的指引
 
 ## 📘 许可证
 
