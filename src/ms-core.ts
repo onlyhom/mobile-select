@@ -340,6 +340,7 @@ export default class MobileSelect {
 
   show(): void {
     this.mobileSelect.classList.add("ms-show");
+    document.querySelector("body")?.classList.add("ms-show");
     if (typeof this.config.onShow === "function") {
       this.config.onShow?.();
     }
@@ -347,6 +348,7 @@ export default class MobileSelect {
 
   hide(): void {
     this.mobileSelect.classList.remove("ms-show");
+    document.querySelector("body")?.classList.remove("ms-show");
     if (typeof this.config.onHide === "function") {
       this.config.onHide?.();
     }
