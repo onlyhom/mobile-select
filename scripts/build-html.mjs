@@ -27,7 +27,7 @@ const buildHtml = async () => {
           <script type="text/javascript">`
       )
       .replace(
-        '<link rel="stylesheet" type="text/css" href="/src/style/demo.css"/>',
+        '<link rel="stylesheet" type="text/css" href="/src/style/demo.css" />',
         '<link rel="stylesheet" type="text/css" href="./style/demo.css"/>'
       )
       .replace(`import MobileSelect from "/src/${entryFileName}";`, "");
