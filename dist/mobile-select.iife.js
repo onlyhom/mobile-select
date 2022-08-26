@@ -1,5 +1,5 @@
 /*
-* mobile-select v1.2.0
+* mobile-select v1.3.0
 * Homepage: https://github.com/onlyhom/mobile-select
 * Released under the MIT License.
 * (c) 2017-present
@@ -535,11 +535,13 @@ var MobileSelect = function () {
     }, {
       key: "touch",
       value: function touch(t) {
-        var r, o, g, a, u, d, m, v;
+        var r, o, g, a, u, d, m, C;
         var i = (t.composedPath && t.composedPath()).find(function (p) {
-          return p.classList.contains("ms-wheel");
-        }),
-            s = i.firstChild,
+          var y;
+          return (y = p.classList) == null ? void 0 : y.contains("ms-wheel");
+        });
+        if (!i) return;
+        var s = i.firstChild,
             n = parseInt(i.getAttribute("data-index") || "0");
 
         switch (t.type) {
@@ -560,11 +562,11 @@ var MobileSelect = function () {
               var p = Math.floor((window.innerHeight - this.moveEndY) / 40);
 
               if (p != 2) {
-                var C = p - 2,
-                    y = this.curDistance[n] + C * this.optionHeight;
-                y <= 2 * this.optionHeight && y >= this.oversizeBorder && (this.curDistance[n] = y, this.movePosition(s, this.curDistance[n]), (o = (r = this.config).transitionEnd) == null || o.call(r, this.getIndexArr(), this.getCurValue(), this), (a = (g = this.config).onTransitionEnd) == null || a.call(g, this.getCurValue(), this.getIndexArr(), this));
+                var y = p - 2,
+                    v = this.curDistance[n] + y * this.optionHeight;
+                v <= 2 * this.optionHeight && v >= this.oversizeBorder && (this.curDistance[n] = v, this.movePosition(s, this.curDistance[n]), (o = (r = this.config).transitionEnd) == null || o.call(r, this.getIndexArr(), this.getCurValue(), this), (a = (g = this.config).onTransitionEnd) == null || a.call(g, this.getCurValue(), this.getIndexArr(), this));
               }
-            } else this.updateCurDistance(s, n), this.curDistance[n] = this.fixPosition(this.curDistance[n]), this.curDistance[n] > 2 * this.optionHeight ? this.curDistance[n] = 2 * this.optionHeight : this.curDistance[n] < this.oversizeBorder && (this.curDistance[n] = this.oversizeBorder), this.movePosition(s, this.curDistance[n]), (d = (u = this.config).transitionEnd) == null || d.call(u, this.getIndexArr(), this.getCurValue(), this), (v = (m = this.config).onTransitionEnd) == null || v.call(m, this.getCurValue(), this.getIndexArr(), this);
+            } else this.updateCurDistance(s, n), this.curDistance[n] = this.fixPosition(this.curDistance[n]), this.curDistance[n] > 2 * this.optionHeight ? this.curDistance[n] = 2 * this.optionHeight : this.curDistance[n] < this.oversizeBorder && (this.curDistance[n] = this.oversizeBorder), this.movePosition(s, this.curDistance[n]), (d = (u = this.config).transitionEnd) == null || d.call(u, this.getIndexArr(), this.getCurValue(), this), (C = (m = this.config).onTransitionEnd) == null || C.call(m, this.getCurValue(), this.getIndexArr(), this);
 
             t.type === "mouseup" && (this.enableClickStatus = !1), this.isCascade && this.checkRange(n, this.getIndexArr());
             break;

@@ -1,5 +1,5 @@
 /*
-* mobile-select v1.2.0
+* mobile-select v1.3.0
 * Homepage: https://github.com/onlyhom/mobile-select
 * Released under the MIT License.
 * (c) 2017-present
@@ -372,8 +372,14 @@ const r = class {
     return i >= e ? i = e - 1 : i < 0 && (i = 0), ((s = this.slider[t].getElementsByTagName("li")[i]) == null ? void 0 : s.innerText) || "";
   }
   touch(t) {
-    var l, o, d, a, c, u, f, v;
-    const i = (t.composedPath && t.composedPath()).find((m) => m.classList.contains("ms-wheel")), s = i.firstChild, n = parseInt(i.getAttribute("data-index") || "0");
+    var l, o, d, a, c, u, f, C;
+    const i = (t.composedPath && t.composedPath()).find((m) => {
+      var p;
+      return (p = m.classList) == null ? void 0 : p.contains("ms-wheel");
+    });
+    if (!i)
+      return;
+    const s = i.firstChild, n = parseInt(i.getAttribute("data-index") || "0");
     switch (t.type) {
       case "touchstart":
       case "mousedown":
@@ -390,18 +396,18 @@ const r = class {
         if (s.style.transition = "transform 0.18s ease-out", this.moveEndY = Math.floor(t instanceof TouchEvent ? t.changedTouches[0].clientY : t.clientY), this.offsetSum = this.moveEndY - this.startY, this.oversizeBorder = -(s.getElementsByTagName("li").length - 3) * this.optionHeight, this.offsetSum == 0) {
           const m = Math.floor((window.innerHeight - this.moveEndY) / 40);
           if (m != 2) {
-            const C = m - 2, y = this.curDistance[n] + C * this.optionHeight;
-            y <= 2 * this.optionHeight && y >= this.oversizeBorder && (this.curDistance[n] = y, this.movePosition(s, this.curDistance[n]), (o = (l = this.config).transitionEnd) == null || o.call(l, this.getIndexArr(), this.getCurValue(), this), (a = (d = this.config).onTransitionEnd) == null || a.call(d, this.getCurValue(), this.getIndexArr(), this));
+            const p = m - 2, v = this.curDistance[n] + p * this.optionHeight;
+            v <= 2 * this.optionHeight && v >= this.oversizeBorder && (this.curDistance[n] = v, this.movePosition(s, this.curDistance[n]), (o = (l = this.config).transitionEnd) == null || o.call(l, this.getIndexArr(), this.getCurValue(), this), (a = (d = this.config).onTransitionEnd) == null || a.call(d, this.getCurValue(), this.getIndexArr(), this));
           }
         } else
-          this.updateCurDistance(s, n), this.curDistance[n] = this.fixPosition(this.curDistance[n]), this.curDistance[n] > 2 * this.optionHeight ? this.curDistance[n] = 2 * this.optionHeight : this.curDistance[n] < this.oversizeBorder && (this.curDistance[n] = this.oversizeBorder), this.movePosition(s, this.curDistance[n]), (u = (c = this.config).transitionEnd) == null || u.call(c, this.getIndexArr(), this.getCurValue(), this), (v = (f = this.config).onTransitionEnd) == null || v.call(f, this.getCurValue(), this.getIndexArr(), this);
+          this.updateCurDistance(s, n), this.curDistance[n] = this.fixPosition(this.curDistance[n]), this.curDistance[n] > 2 * this.optionHeight ? this.curDistance[n] = 2 * this.optionHeight : this.curDistance[n] < this.oversizeBorder && (this.curDistance[n] = this.oversizeBorder), this.movePosition(s, this.curDistance[n]), (u = (c = this.config).transitionEnd) == null || u.call(c, this.getIndexArr(), this.getCurValue(), this), (C = (f = this.config).onTransitionEnd) == null || C.call(f, this.getCurValue(), this.getIndexArr(), this);
         t.type === "mouseup" && (this.enableClickStatus = !1), this.isCascade && this.checkRange(n, this.getIndexArr());
         break;
     }
   }
 };
-let p = r;
-h(p, "defaultConfig", {
+let y = r;
+h(y, "defaultConfig", {
   keyMap: { id: "id", value: "value", childs: "childs" },
   position: [],
   colWidth: [],
@@ -411,7 +417,7 @@ h(p, "defaultConfig", {
   cancelBtnText: "\u53D6\u6D88",
   triggerDisplayValue: !0,
   scrollSpeed: 1
-}), h(p, "REQUIRED_PARAMS", ["trigger", "wheels"]);
+}), h(y, "REQUIRED_PARAMS", ["trigger", "wheels"]);
 export {
-  p as default
+  y as default
 };
