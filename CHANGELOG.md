@@ -1,5 +1,18 @@
 # Changelog
 
+## [1.3.1](https://github.com/onlyhom/mobile-select/compare/v1.3.0...v1.3.1) (2022-08-26)
+
+
+### Bug Fixes
+
+* ms-wheel undefined error in pc ([04700bc](https://github.com/onlyhom/mobile-select/commit/04700bc55d89e9dae7556d700332704ac4f5bb32))
+* selected value not obvious ([8820a49](https://github.com/onlyhom/mobile-select/commit/8820a49ec2bd175db80aab3ce23ec311d3dbdbda))
+
+
+### Documentation
+
+* update changelog.md ([f65366d](https://github.com/onlyhom/mobile-select/commit/f65366d0c6ca51848518d7c7c27f8396c2d52d3c))
+
 ## [1.3.0](https://github.com/onlyhom/mobile-select/compare/v1.2.0...v1.3.0) (2022-08-26)
 
 
@@ -47,5 +60,3 @@
 ### Documentation
 
 * add platform sandbox demo
-
-
