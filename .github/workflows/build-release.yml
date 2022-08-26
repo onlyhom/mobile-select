@@ -39,11 +39,8 @@ jobs:
           committer_email: github-actions[bot]@users.noreply.github.com
           push: true
 
-  release-and-publish:
-    runs-on: ubuntu-latest
-    needs: [build]
-    steps:
       - uses: google-github-actions/release-please-action@v3
+        id: release
         with:
           release-type: node
           token: ${{ secrets.GH_TOKEN }}
@@ -55,7 +52,7 @@ jobs:
               { "type": "perf",      "section": "Performance",  "hidden": false },
               { "type": "refactor",  "section": "Refactor",     "hidden": false },
               { "type": "docs",      "section": "Documentation","hidden": false },
-              { "type": "ci",        "section": "CI/CD",        "hidden": false },
+              { "type": "ci",        "section": "CI/CD",        "hidden": true },
               { "type": "revert",    "section": "Reverts",      "hidden": true },
               { "type": "test",      "section": "Tests",        "hidden": true },
               { "type": "build",     "section": "Build",        "hidden": true },
@@ -67,3 +64,4 @@ jobs:
         uses: JS-DevTools/npm-publish@v1
         with:
           token: ${{ secrets.NPM_TOKEN }}
+        if: ${{ steps.release.outputs.release_created }}
