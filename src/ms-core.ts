@@ -690,8 +690,10 @@ export default class MobileSelect {
   touch(event: TouchEvent | MouseEvent): void {
     const path = event.composedPath && event.composedPath();
     const currentCol = path.find((domItem) => {
-      return (domItem as HTMLElement).classList.contains("ms-wheel");
+      return (domItem as HTMLElement).classList?.contains("ms-wheel");
     }) as HTMLElement;
+    if (!currentCol) return;
+
     const theSlider = currentCol.firstChild as HTMLElement; // ul.select-container
     const index = parseInt(currentCol.getAttribute("data-index") || "0");
     switch (event.type) {
