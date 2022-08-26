@@ -421,7 +421,7 @@ export default class MobileSelect {
     let tempHTML = "";
     for (let i = 0; i < wheelsData.length; i++) {
       // 列
-      tempHTML += `<div class="ms-wheel"><ul class="ms-select-container" data-index="${i}">`;
+      tempHTML += `<div class="ms-wheel" data-index="${i}"><ul class="ms-select-container">`;
       tempHTML += this.getOptionsHtmlStr(wheelsData[i].data);
       tempHTML += "</ul></div>";
     }
@@ -442,9 +442,10 @@ export default class MobileSelect {
       } else {
         const tempWheel = document.createElement("div");
         tempWheel.className = "ms-wheel";
-        tempWheel.innerHTML = `<ul class="ms-select-container" data-index="${i}">${this.getOptionsHtmlStr(
+        tempWheel.innerHTML = `<ul class="ms-select-container">${this.getOptionsHtmlStr(
           this.displayJson[i]
         )}</ul>`;
+        tempWheel.setAttribute("data-index", i.toString());
         this.wheels.appendChild(tempWheel);
       }
     }
@@ -688,11 +689,11 @@ export default class MobileSelect {
 
   touch(event: TouchEvent | MouseEvent): void {
     const path = event.composedPath && event.composedPath();
-    const theSlider = path[1] as HTMLElement; // dom --> selectContainer
-    if (!(theSlider as HTMLUListElement).hasAttribute("data-index")) return;
-    const index = parseInt(
-      (theSlider as HTMLUListElement).getAttribute("data-index") || "0"
-    );
+    const currentCol = path.find((domItem) => {
+      return (domItem as HTMLElement).classList.contains("ms-wheel");
+    }) as HTMLElement;
+    const theSlider = currentCol.firstChild as HTMLElement; // ul.select-container
+    const index = parseInt(currentCol.getAttribute("data-index") || "0");
     switch (event.type) {
       case "touchstart":
       case "mousedown":
