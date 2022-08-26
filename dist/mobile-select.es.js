@@ -4,47 +4,45 @@
 * Released under the MIT License.
 * (c) 2017-present
 */
-var C = Object.defineProperty;
-var D = (g, t, e) => t in g ? C(g, t, { enumerable: !0, configurable: !0, writable: !0, value: e }) : g[t] = e;
-var n = (g, t, e) => (D(g, typeof t != "symbol" ? t + "" : t, e), e);
+var D = Object.defineProperty;
+var w = (g, t, e) => t in g ? D(g, t, { enumerable: !0, configurable: !0, writable: !0, value: e }) : g[t] = e;
+var h = (g, t, e) => (w(g, typeof t != "symbol" ? t + "" : t, e), e);
 import "./style/mobile-select.css";
 const r = class {
   constructor(t) {
-    n(this, "mobileSelect");
-    n(this, "trigger");
-    n(this, "wheel");
-    n(this, "slider");
-    n(this, "wheels");
-    n(this, "panel");
-    n(this, "ensureBtn");
-    n(this, "cancelBtn");
-    n(this, "grayLayer");
-    n(this, "popUp");
-    n(this, "initPosition");
-    n(this, "initColWidth");
-    n(this, "connector");
-    n(this, "wheelsData");
-    n(this, "displayJson");
-    n(this, "curValue");
-    n(this, "curIndexArr");
-    n(this, "isCascade");
-    n(this, "isJsonType");
-    n(this, "startY");
-    n(this, "moveEndY");
-    n(this, "moveY");
-    n(this, "preMoveY");
-    n(this, "offsetY");
-    n(this, "offsetSum");
-    n(this, "oversizeBorder");
-    n(this, "enableClickStatus");
-    n(this, "isPC");
-    n(this, "optionHeight");
-    n(this, "curDistance");
-    n(this, "cascadeJsonData");
-    n(this, "keyMap");
-    n(this, "eventHandleMap");
-    n(this, "initDeepCount");
-    n(this, "config");
+    h(this, "mobileSelect");
+    h(this, "trigger");
+    h(this, "wheel");
+    h(this, "slider");
+    h(this, "wheels");
+    h(this, "panel");
+    h(this, "ensureBtn");
+    h(this, "cancelBtn");
+    h(this, "grayLayer");
+    h(this, "popUp");
+    h(this, "initPosition");
+    h(this, "initColWidth");
+    h(this, "wheelsData");
+    h(this, "displayJson");
+    h(this, "curValue");
+    h(this, "curIndexArr");
+    h(this, "isCascade");
+    h(this, "isJsonType");
+    h(this, "startY");
+    h(this, "moveEndY");
+    h(this, "moveY");
+    h(this, "preMoveY");
+    h(this, "offsetY");
+    h(this, "offsetSum");
+    h(this, "oversizeBorder");
+    h(this, "enableClickStatus");
+    h(this, "isPC");
+    h(this, "optionHeight");
+    h(this, "curDistance");
+    h(this, "cascadeJsonData");
+    h(this, "eventHandleMap");
+    h(this, "initDeepCount");
+    h(this, "config");
     !r.checkRequiredConfig(t) || (this.config = Object.assign({}, r.defaultConfig, t), this.wheelsData = t.wheels, this.isJsonType = !1, this.cascadeJsonData = [], this.displayJson = [], this.curValue = [], this.curIndexArr = [], this.isCascade = !1, this.startY, this.moveEndY, this.moveY, this.preMoveY, this.offsetY = 0, this.offsetSum = 0, this.oversizeBorder, this.curDistance = [], this.enableClickStatus = !1, this.isPC = !0, this.optionHeight = 0, this.initPosition = t.position || [], this.initColWidth = t.colWidth || [], this.init());
   }
   init() {
@@ -61,19 +59,19 @@ const r = class {
         cancelBtn: {
           event: "click",
           fn: () => {
-            var e, i, s, h;
-            this.hide(), (i = (e = this.config).cancel) == null || i.call(e, this.curIndexArr, this.curValue, this), (h = (s = this.config).onCancel) == null || h.call(s, this.curValue, this.curIndexArr, this);
+            var e, i, s, n;
+            this.hide(), (i = (e = this.config).cancel) == null || i.call(e, this.curIndexArr, this.curValue, this), (n = (s = this.config).onCancel) == null || n.call(s, this.curValue, this.curIndexArr, this);
           }
         },
         ensureBtn: {
           event: "click",
           fn: () => {
-            var i, s, h, l;
+            var i, s, n, l;
             this.hide(), this.optionHeight || (this.optionHeight = this.mobileSelect.querySelector("li").offsetHeight);
             let e = "";
             for (let o = 0; o < this.wheel.length; o++)
               o == this.wheel.length - 1 ? e += this.getInnerText(o) : e += this.getInnerText(o) + this.config.connector;
-            t.triggerDisplayValue && (this.trigger.innerText = e), this.curIndexArr = this.getIndexArr(), this.curValue = this.getCurValue(), (s = (i = this.config).callback) == null || s.call(i, this.curIndexArr, this.curValue, this), (l = (h = this.config).onChange) == null || l.call(h, this.curValue, this.curIndexArr, this);
+            t.triggerDisplayValue && (this.trigger.innerText = e), this.curIndexArr = this.getIndexArr(), this.curValue = this.getCurValue(), (s = (i = this.config).callback) == null || s.call(i, this.curIndexArr, this.curValue, this), (l = (n = this.config).onChange) == null || l.call(n, this.curValue, this.curIndexArr, this);
           }
         },
         trigger: {
@@ -126,10 +124,10 @@ const r = class {
     return this.trigger = t.trigger instanceof HTMLElement ? t.trigger : document.querySelector(t.trigger), this.trigger ? !0 : (r.log("error", "trigger HTMLElement does not found on your document."), !1);
   }
   getPositionByValue() {
-    var h;
+    var n;
     const { keyMap: t, connector: e, initValue: i } = this.config, s = (i == null ? void 0 : i.split(e)) || [];
     if (this.isJsonType) {
-      let l = (h = this.wheelsData[0]) == null ? void 0 : h.data;
+      let l = (n = this.wheelsData[0]) == null ? void 0 : n.data;
       return s.reduce((o, d) => {
         var c;
         const a = l == null ? void 0 : l.findIndex((u) => u[t.value] == d);
@@ -187,8 +185,8 @@ const r = class {
     let i = "";
     if (this.isJsonType)
       for (let s = 0; s < t.length; s++) {
-        const h = t[s][e.id], l = t[s][e.value];
-        i += `<li data-id="${h}">${l}</li>`;
+        const n = t[s][e.id], l = t[s][e.value];
+        i += `<li data-id="${n}">${l}</li>`;
       }
     else
       for (let s = 0; s < t.length; s++)
@@ -214,7 +212,7 @@ const r = class {
         </div>`, document.body.appendChild(this.mobileSelect);
     let e = "";
     for (let i = 0; i < t.length; i++)
-      e += `<div class="ms-wheel"><ul class="ms-select-container" data-index="${i}">`, e += this.getOptionsHtmlStr(t[i].data), e += "</ul></div>";
+      e += `<div class="ms-wheel" data-index="${i}"><ul class="ms-select-container">`, e += this.getOptionsHtmlStr(t[i].data), e += "</ul></div>";
     this.mobileSelect.querySelector(".ms-wheels").innerHTML = e;
   }
   reRenderWheels() {
@@ -227,7 +225,7 @@ const r = class {
         this.slider[e].innerHTML = this.getOptionsHtmlStr(this.displayJson[e]);
       else {
         const i = document.createElement("div");
-        i.className = "ms-wheel", i.innerHTML = `<ul class="ms-select-container" data-index="${e}">${this.getOptionsHtmlStr(this.displayJson[e])}</ul>`, this.wheels.appendChild(i);
+        i.className = "ms-wheel", i.innerHTML = `<ul class="ms-select-container">${this.getOptionsHtmlStr(this.displayJson[e])}</ul>`, i.setAttribute("data-index", e.toString()), this.wheels.appendChild(i);
       }
   }
   checkCascade() {
@@ -265,25 +263,25 @@ const r = class {
     const i = this.displayJson.length - 1 - t, { keyMap: s } = this.config;
     for (let o = 0; o < i; o++)
       this.displayJson.pop();
-    let h;
+    let n;
     for (let o = 0; o <= t; o++)
-      h = o == 0 ? this.cascadeJsonData[e[0]] : (l = h == null ? void 0 : h[s.childs]) == null ? void 0 : l[e[o]];
-    this.checkArrDeep(h), this.reRenderWheels(), this.fixRowStyle(), this.setCurDistance(this.resetPosition(t, e));
+      n = o == 0 ? this.cascadeJsonData[e[0]] : (l = n == null ? void 0 : n[s.childs]) == null ? void 0 : l[e[o]];
+    this.checkArrDeep(n), this.reRenderWheels(), this.fixRowStyle(), this.setCurDistance(this.resetPosition(t, e));
   }
   resetPosition(t, e) {
     const i = [...e];
     let s;
     if (this.slider.length > e.length) {
       s = this.slider.length - e.length;
-      for (let h = 0; h < s; h++)
+      for (let n = 0; n < s; n++)
         i.push(0);
     } else if (this.slider.length < e.length) {
       s = e.length - this.slider.length;
-      for (let h = 0; h < s; h++)
+      for (let n = 0; n < s; n++)
         i.pop();
     }
-    for (let h = t + 1; h < i.length; h++)
-      i[h] = 0;
+    for (let n = t + 1; n < i.length; n++)
+      i[n] = 0;
     return i;
   }
   updateWheels(t) {
@@ -329,10 +327,10 @@ const r = class {
     const t = [], e = this.getIndexArr(), { keyMap: i } = this.config;
     if (this.isCascade)
       for (let s = 0; s < this.wheel.length; s++) {
-        const h = this.displayJson[s][e[s]];
-        h && t.push({
-          [i.id]: h[i.id],
-          [i.value]: h[i.value]
+        const n = this.displayJson[s][e[s]];
+        n && t.push({
+          [i.id]: n[i.id],
+          [i.value]: n[i.value]
         });
       }
     else if (this.isJsonType)
@@ -374,43 +372,36 @@ const r = class {
     return i >= e ? i = e - 1 : i < 0 && (i = 0), ((s = this.slider[t].getElementsByTagName("li")[i]) == null ? void 0 : s.innerText) || "";
   }
   touch(t) {
-    var h, l, o, d, a, c, u, f;
-    const i = (t.composedPath && t.composedPath())[1];
-    if (!i.hasAttribute("data-index"))
-      return;
-    const s = parseInt(i.getAttribute("data-index") || "0");
+    var l, o, d, a, c, u, f, v;
+    const i = (t.composedPath && t.composedPath()).find((m) => m.classList.contains("ms-wheel")), s = i.firstChild, n = parseInt(i.getAttribute("data-index") || "0");
     switch (t.type) {
       case "touchstart":
       case "mousedown":
-        i.style.transition = "none 0s ease-out", this.startY = Math.floor(t instanceof TouchEvent ? t.touches[0].clientY : t.clientY), this.preMoveY = this.startY, t.type === "mousedown" && (this.enableClickStatus = !0);
-        break;
-      case "touchend":
-      case "mouseup":
-        if (i.style.transition = "transform 0.18s ease-out", this.moveEndY = Math.floor(t instanceof TouchEvent ? t.changedTouches[0].clientY : t.clientY), this.offsetSum = this.moveEndY - this.startY, this.oversizeBorder = -(i.getElementsByTagName("li").length - 3) * this.optionHeight, this.offsetSum == 0) {
-          const y = Math.floor((window.innerHeight - this.moveEndY) / 40);
-          if (y != 2) {
-            const v = y - 2, p = this.curDistance[s] + v * this.optionHeight;
-            p <= 2 * this.optionHeight && p >= this.oversizeBorder && (this.curDistance[s] = p, this.movePosition(i, this.curDistance[s]), (l = (h = this.config).transitionEnd) == null || l.call(h, this.getIndexArr(), this.getCurValue(), this), (d = (o = this.config).onTransitionEnd) == null || d.call(o, this.getCurValue(), this.getIndexArr(), this));
-          }
-        } else
-          this.updateCurDistance(i, s), this.curDistance[s] = this.fixPosition(this.curDistance[s]), this.movePosition(i, this.curDistance[s]), this.curDistance[s] + this.offsetSum > 2 * this.optionHeight ? (this.curDistance[s] = 2 * this.optionHeight, setTimeout(() => {
-            this.movePosition(i, this.curDistance[s]);
-          }, 100)) : this.curDistance[s] + this.offsetSum < this.oversizeBorder && (this.curDistance[s] = this.oversizeBorder, setTimeout(() => {
-            this.movePosition(i, this.curDistance[s]);
-          }, 100)), (c = (a = this.config).transitionEnd) == null || c.call(a, this.getIndexArr(), this.getCurValue(), this), (f = (u = this.config).onTransitionEnd) == null || f.call(u, this.getCurValue(), this.getIndexArr(), this);
-        t.type === "mouseup" && (this.enableClickStatus = !1), this.isCascade && this.checkRange(s, this.getIndexArr());
+        s.style.transition = "none 0s ease-out", this.startY = Math.floor(t instanceof TouchEvent ? t.touches[0].clientY : t.clientY), this.preMoveY = this.startY, t.type === "mousedown" && (this.enableClickStatus = !0);
         break;
       case "touchmove":
       case "mousemove":
         if (t.preventDefault(), t.type === "mousemove" && !this.enableClickStatus)
           break;
-        this.moveY = Math.floor(t instanceof TouchEvent ? t.touches[0].clientY : t.clientY), this.offsetY = (this.moveY - this.preMoveY) * this.config.scrollSpeed, this.updateCurDistance(i, s), this.curDistance[s] = this.curDistance[s] + this.offsetY, this.movePosition(i, this.curDistance[s]), this.preMoveY = this.moveY;
+        this.moveY = Math.floor(t instanceof TouchEvent ? t.touches[0].clientY : t.clientY), this.offsetY = (this.moveY - this.preMoveY) * this.config.scrollSpeed, this.updateCurDistance(s, n), this.curDistance[n] = this.curDistance[n] + this.offsetY, this.movePosition(s, this.curDistance[n]), this.preMoveY = this.moveY;
+        break;
+      case "touchend":
+      case "mouseup":
+        if (s.style.transition = "transform 0.18s ease-out", this.moveEndY = Math.floor(t instanceof TouchEvent ? t.changedTouches[0].clientY : t.clientY), this.offsetSum = this.moveEndY - this.startY, this.oversizeBorder = -(s.getElementsByTagName("li").length - 3) * this.optionHeight, this.offsetSum == 0) {
+          const m = Math.floor((window.innerHeight - this.moveEndY) / 40);
+          if (m != 2) {
+            const C = m - 2, y = this.curDistance[n] + C * this.optionHeight;
+            y <= 2 * this.optionHeight && y >= this.oversizeBorder && (this.curDistance[n] = y, this.movePosition(s, this.curDistance[n]), (o = (l = this.config).transitionEnd) == null || o.call(l, this.getIndexArr(), this.getCurValue(), this), (a = (d = this.config).onTransitionEnd) == null || a.call(d, this.getCurValue(), this.getIndexArr(), this));
+          }
+        } else
+          this.updateCurDistance(s, n), this.curDistance[n] = this.fixPosition(this.curDistance[n]), this.curDistance[n] > 2 * this.optionHeight ? this.curDistance[n] = 2 * this.optionHeight : this.curDistance[n] < this.oversizeBorder && (this.curDistance[n] = this.oversizeBorder), this.movePosition(s, this.curDistance[n]), (u = (c = this.config).transitionEnd) == null || u.call(c, this.getIndexArr(), this.getCurValue(), this), (v = (f = this.config).onTransitionEnd) == null || v.call(f, this.getCurValue(), this.getIndexArr(), this);
+        t.type === "mouseup" && (this.enableClickStatus = !1), this.isCascade && this.checkRange(n, this.getIndexArr());
         break;
     }
   }
 };
-let m = r;
-n(m, "defaultConfig", {
+let p = r;
+h(p, "defaultConfig", {
   keyMap: { id: "id", value: "value", childs: "childs" },
   position: [],
   colWidth: [],
@@ -420,7 +411,7 @@ n(m, "defaultConfig", {
   cancelBtnText: "\u53D6\u6D88",
   triggerDisplayValue: !0,
   scrollSpeed: 1
-}), n(m, "REQUIRED_PARAMS", ["trigger", "wheels"]);
+}), h(p, "REQUIRED_PARAMS", ["trigger", "wheels"]);
 export {
-  m as default
+  p as default
 };
