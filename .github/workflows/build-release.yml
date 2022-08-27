@@ -40,10 +40,15 @@ jobs:
 
       - uses: EndBug/add-and-commit@v9
         with:
-          message: "chore: build v${{ env.PACKAGE_VERSION }}"
+          message: "chore: build dist"
           committer_name: github-actions[bot]
           committer_email: github-actions[bot]@users.noreply.github.com
           push: true
+
+      - name: Publish NPM package
+        uses: JS-DevTools/npm-publish@v1
+        with:
+          token: ${{ secrets.NPM_TOKEN }}
 
       - uses: google-github-actions/release-please-action@v3
         id: release
@@ -52,6 +57,7 @@ jobs:
           token: ${{ secrets.GH_TOKEN }}
           default-branch: master
           release-as: ${{ env.PACKAGE_VERSION }}
+          skip-github-release: false
           changelog-types: |
             [
               { "type": "feat",      "section": "Features",     "hidden": false },
@@ -66,9 +72,3 @@ jobs:
               { "type": "style",     "section": "Styles",       "hidden": true },
               { "type": "chore",     "section": "Chores",       "hidden": true }
             ]
-
-      - name: Publish NPM package
-        uses: JS-DevTools/npm-publish@v1
-        with:
-          token: ${{ secrets.NPM_TOKEN }}
-        if: ${{ steps.release.outputs.release_created }}
