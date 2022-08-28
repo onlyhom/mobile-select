@@ -1,5 +1,5 @@
 /*
-* mobile-select v1.3.1
+* mobile-select v1.3.2
 * Homepage: https://github.com/onlyhom/mobile-select
 * Released under the MIT License.
 * (c) 2017-present
@@ -9,12 +9,11 @@
 export type CascadeData = {
 	[k: string]: any;
 };
-export type ResultVal = number | string | CascadeData;
 export interface CallbackFn {
-	(curValue: ResultVal[], indexArr: number[], context: MobileSelect): void;
+	(curValue: string[] | number[] | CascadeData[], indexArr: number[], context: MobileSelect): void;
 }
 export interface OldCallbackFn {
-	(indexArr: number[], curValue: ResultVal[], context: MobileSelect): void;
+	(indexArr: number[], curValue: string[] | number[] | CascadeData[], context: MobileSelect): void;
 }
 export type KeyMap = {
 	id: string;
