@@ -108,7 +108,7 @@ import MobileSelect from "mobile-select";
     </td>
     <td align="center" width="100">
       <img src="https://raw.githubusercontent.com/gilbarbara/logos/master/logos/react.svg" width="50" title="React"> <br/>
-      <strong>React</strong> <br/>
+      <strong>React-ts</strong> <br/>
       <sub>
         <a href="https://codesandbox.io/s/mobile-select-react-ts-woc5f8" target="_blank">📦Sandbox</a>
       </sub>

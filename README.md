@@ -111,7 +111,7 @@ import MobileSelect from "mobile-select";
     </td>
     <td align="center" width="100">
       <img src="https://raw.githubusercontent.com/gilbarbara/logos/master/logos/react.svg" width="50" title="React"> <br/>
-      <strong>React</strong> <br/>
+      <strong>React-ts</strong> <br/>
       <sub>
         <a href="https://codesandbox.io/s/mobile-select-react-ts-woc5f8" target="_blank">📦Sandbox</a>
       </sub>
@@ -376,7 +376,7 @@ export default function MsComponent(props) {
 | wheels           | Required parameter. No default value       | Array    | 				| The data displayed on the wheel |
 | onChange         | function(data, indexArr, instance){}       | function |≥1.2.0 | A callback function after successful selected|
 | onTransitionEnd  | function(data, indexArr, instance){}       | function |≥1.2.0 | A callback function that after each gesture sliding|
-| cancel           | function(data, indexArr, instance){}       | function | 				| A callback function after cancel selected, return last successful selected data|
+| onCancel           | function(data, indexArr, instance){}       | function | 				| A callback function after cancel selected, return last successful selected data|
 | onShow           | function(instance){}                       | function | 				| A callback when the panel is show|
 | onHide           | function(instance){}                       | function | 				| A callback when the panel is hidden|
 | title           | `''`                                        | String   | 				| Component title     |

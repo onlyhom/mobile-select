@@ -1,15 +1,19 @@
-export interface CallbackFn {
-  (curValue?: number[] | string[], indexArr?: number[], context?: any): void;
-}
-export interface OldCallbackFn {
-  (indexArr?: number[], curValue?: number[] | string[], context?: any): void;
-}
-
-export type KeyMap = { id: string; value: string; childs: string };
+import MobileSelect from "../ms-core";
 
 export type CascadeData = {
   [k: string]: any;
 };
+
+export type ResultVal = number | string | CascadeData;
+
+export interface CallbackFn {
+  (curValue: ResultVal[], indexArr: number[], context: MobileSelect): void;
+}
+export interface OldCallbackFn {
+  (indexArr: number[], curValue: ResultVal[], context: MobileSelect): void;
+}
+
+export type KeyMap = { id: string; value: string; childs: string };
 
 export type OptionData = CascadeData | string | number;
 
@@ -89,16 +93,16 @@ export type CustomConfig = {
   /** 轮子滚动速度 默认为1 */
   scrollSpeed?: number;
 
-  /** 旧版本 选择完毕的回调函数 */
+  /** (即将废弃) 选择完毕的回调函数 */
   callback?: OldCallbackFn;
 
-  /** 旧版本 取消面板的回调函数  */
+  /** (即将废弃) 取消面板的回调函数  */
   cancel?: OldCallbackFn;
 
-  /** 旧版本 滚动滚动完毕的回调函数  */
+  /** (即将废弃) 滚动滚动完毕的回调函数  */
   transitionEnd?: OldCallbackFn;
 
-  /** 旧版本 onChange后 是否修改trigger的innerText */
+  /** (即将废弃) onChange后 是否修改trigger的innerText */
   triggerDisplayData?: boolean;
 };
 

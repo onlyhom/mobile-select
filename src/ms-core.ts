@@ -7,11 +7,11 @@ import {
 import "./style/mobile-select.less";
 
 export default class MobileSelect {
-  mobileSelect: any;
+  mobileSelect!: HTMLDivElement;
   trigger!: HTMLElement;
-  wheel!: HTMLCollectionOf<HTMLElement>;
-  slider!: HTMLCollectionOf<HTMLElement>;
-  wheels!: HTMLDivElement;
+  wheelList!: HTMLCollectionOf<HTMLElement>;
+  sliderList!: HTMLCollectionOf<HTMLElement>;
+  wheelsContain!: HTMLDivElement;
   panel!: HTMLDivElement;
   ensureBtn!: HTMLDivElement;
   cancelBtn!: HTMLDivElement;
@@ -113,17 +113,22 @@ export default class MobileSelect {
     this.isJsonType = MobileSelect.checkDataType(this.wheelsData);
     this.renderComponent(this.wheelsData);
     if (!this.checkTriggerAvailable()) return;
-    this.wheel = this.mobileSelect.getElementsByClassName("ms-wheel");
-    this.slider = this.mobileSelect.getElementsByClassName(
+
+    // 这里使用getElementsByClassName(不使用querySelectorAll)的原因：返回一个实时的 HTMLCollection, DOM的更改将在更改发生时反映在数组中
+    this.wheelList = this.mobileSelect.getElementsByClassName(
+      "ms-wheel"
+    ) as HTMLCollectionOf<HTMLElement>;
+    this.sliderList = this.mobileSelect.getElementsByClassName(
       "ms-select-container"
-    );
-    this.panel = this.mobileSelect.querySelector(".ms-panel");
-    this.wheels = this.mobileSelect.querySelector(".ms-wheels");
-    this.ensureBtn = this.mobileSelect.querySelector(".ms-ensure");
-    this.cancelBtn = this.mobileSelect.querySelector(".ms-cancel");
-    this.grayLayer = this.mobileSelect.querySelector(".ms-gray-layer");
-    this.popUp = this.mobileSelect.querySelector(".ms-content");
-    this.optionHeight = this.mobileSelect.querySelector("li").offsetHeight;
+    ) as HTMLCollectionOf<HTMLElement>;
+
+    this.panel = this.mobileSelect.querySelector(".ms-panel")!;
+    this.wheelsContain = this.mobileSelect.querySelector(".ms-wheels")!;
+    this.ensureBtn = this.mobileSelect.querySelector(".ms-ensure")!;
+    this.cancelBtn = this.mobileSelect.querySelector(".ms-cancel")!;
+    this.grayLayer = this.mobileSelect.querySelector(".ms-gray-layer")!;
+    this.popUp = this.mobileSelect.querySelector(".ms-content")!;
+    this.optionHeight = this.mobileSelect.querySelector("li")!.offsetHeight;
     // 复显初始值
     if (config.initValue && config.triggerDisplayValue) {
       this.trigger.innerText = config.initValue;
@@ -140,8 +145,8 @@ export default class MobileSelect {
       this.initPosition = this.getPositionByValue();
     }
     // 补全initPosition
-    if (this.initPosition.length < this.slider.length) {
-      const diff = this.slider.length - this.initPosition.length;
+    if (this.initPosition.length < this.sliderList.length) {
+      const diff = this.sliderList.length - this.initPosition.length;
       for (let i = 0; i < diff; i++) {
         this.initPosition.push(0);
       }
@@ -170,11 +175,11 @@ export default class MobileSelect {
           this.hide();
           if (!this.optionHeight) {
             this.optionHeight =
-              this.mobileSelect.querySelector("li").offsetHeight;
+              this.mobileSelect.querySelector("li")!.offsetHeight;
           }
           let tempValue = "";
-          for (let i = 0; i < this.wheel.length; i++) {
-            i == this.wheel.length - 1
+          for (let i = 0; i < this.wheelList.length; i++) {
+            i == this.wheelList.length - 1
               ? (tempValue += this.getInnerText(i))
               : (tempValue += this.getInnerText(i) + this.config.connector);
           }
@@ -296,7 +301,7 @@ export default class MobileSelect {
   }
 
   setTitle(title: string): void {
-    this.mobileSelect.querySelector(".ms-title").innerHTML = title;
+    this.mobileSelect.querySelector(".ms-title")!.innerHTML = title;
   }
 
   setStyle(config: MobileSelectConfig): void {
@@ -307,20 +312,23 @@ export default class MobileSelect {
       this.cancelBtn.style.color = config.cancelBtnColor;
     }
     if (config.titleColor) {
-      const titleDom = this.mobileSelect.querySelector(".ms-title");
+      const titleDom =
+        this.mobileSelect.querySelector<HTMLDivElement>(".ms-title")!;
       titleDom.style.color = config.titleColor;
     }
     if (config.textColor) {
-      this.panel = this.mobileSelect.querySelector(".ms-panel");
+      this.panel = this.mobileSelect.querySelector(".ms-panel")!;
       this.panel.style.color = config.textColor;
     }
     if (config.titleBgColor) {
-      const btnBar = this.mobileSelect.querySelector(".ms-btn-bar");
+      const btnBar =
+        this.mobileSelect.querySelector<HTMLDivElement>(".ms-btn-bar")!;
       btnBar.style.backgroundColor = config.titleBgColor;
     }
     if (config.bgColor) {
-      this.panel = this.mobileSelect.querySelector(".ms-panel");
-      const shadowMask = this.mobileSelect.querySelector(".ms-shadow-mask");
+      this.panel = this.mobileSelect.querySelector(".ms-panel")!;
+      const shadowMask =
+        this.mobileSelect.querySelector<HTMLDivElement>(".ms-shadow-mask")!;
       this.panel.style.backgroundColor = config.bgColor;
       shadowMask.style.background =
         "linear-gradient(to bottom, " +
@@ -330,7 +338,8 @@ export default class MobileSelect {
         ")";
     }
     if (typeof config.maskOpacity === "number") {
-      const grayMask = this.mobileSelect.querySelector(".ms-gray-layer");
+      const grayMask =
+        this.mobileSelect.querySelector<HTMLDivElement>(".ms-gray-layer")!;
       grayMask.style.background = "rgba(0, 0, 0, " + config.maskOpacity + ")";
     }
   }
@@ -339,7 +348,7 @@ export default class MobileSelect {
     this.mobileSelect.classList.add("ms-show");
     document.querySelector("body")?.classList.add("ms-show");
     if (typeof this.config.onShow === "function") {
-      this.config.onShow?.();
+      this.config.onShow?.(this.curValue, this.curIndexArr, this);
     }
   }
 
@@ -347,26 +356,22 @@ export default class MobileSelect {
     this.mobileSelect.classList.remove("ms-show");
     document.querySelector("body")?.classList.remove("ms-show");
     if (typeof this.config.onHide === "function") {
-      this.config.onHide?.();
+      this.config.onHide?.(this.curValue, this.curIndexArr, this);
     }
   }
 
   registerEvents(type: "add" | "remove"): void {
     for (const [domName, item] of Object.entries(this.eventHandleMap)) {
       if (typeof item.event === "string") {
-        this[domName as keyof MobileSelect][`${type}EventListener`](
-          item.event,
-          item.fn,
-          { passive: false }
-        );
+        (this[domName as keyof MobileSelect] as HTMLElement)[
+          `${type}EventListener`
+        ](item.event, item.fn as EventListener, { passive: false });
       } else {
         // 数组
         item.event.forEach((eventName) => {
-          this[domName as keyof MobileSelect][`${type}EventListener`](
-            eventName,
-            item.fn,
-            { passive: false }
-          );
+          (this[domName as keyof MobileSelect] as HTMLElement)[
+            `${type}EventListener`
+          ](eventName, item.fn as EventListener, { passive: false });
         });
       }
     }
@@ -425,20 +430,24 @@ export default class MobileSelect {
       tempHTML += this.getOptionsHtmlStr(wheelsData[i].data);
       tempHTML += "</ul></div>";
     }
-    this.mobileSelect.querySelector(".ms-wheels").innerHTML = tempHTML;
+    this.mobileSelect.querySelector(".ms-wheels")!.innerHTML = tempHTML;
   }
 
   // 级联数据滚动时 右侧列数据的变化
   reRenderWheels(): void {
-    const diff = this.wheel.length - this.displayJson.length;
+    const diff = this.wheelList.length - this.displayJson.length;
     if (diff > 0) {
       for (let i = 0; i < diff; i++) {
-        this.wheels.removeChild(this.wheel[this.wheel.length - 1]);
+        this.wheelsContain.removeChild(
+          this.wheelList[this.wheelList.length - 1]
+        );
       }
     }
     for (let i = 0; i < this.displayJson.length; i++) {
-      if (this.wheel[i]) {
-        this.slider[i].innerHTML = this.getOptionsHtmlStr(this.displayJson[i]);
+      if (this.wheelList[i]) {
+        this.sliderList[i].innerHTML = this.getOptionsHtmlStr(
+          this.displayJson[i]
+        );
       } else {
         const tempWheel = document.createElement("div");
         tempWheel.className = "ms-wheel";
@@ -446,7 +455,7 @@ export default class MobileSelect {
           this.displayJson[i]
         )}</ul>`;
         tempWheel.setAttribute("data-index", i.toString());
-        this.wheels.appendChild(tempWheel);
+        this.wheelsContain.appendChild(tempWheel);
       }
     }
   }
@@ -527,13 +536,13 @@ export default class MobileSelect {
   resetPosition(index: number, posIndexArr: number[]): number[] {
     const tempPosArr = [...posIndexArr];
     let tempCount;
-    if (this.slider.length > posIndexArr.length) {
-      tempCount = this.slider.length - posIndexArr.length;
+    if (this.sliderList.length > posIndexArr.length) {
+      tempCount = this.sliderList.length - posIndexArr.length;
       for (let i = 0; i < tempCount; i++) {
         tempPosArr.push(0);
       }
-    } else if (this.slider.length < posIndexArr.length) {
-      tempCount = posIndexArr.length - this.slider.length;
+    } else if (this.sliderList.length < posIndexArr.length) {
+      tempCount = posIndexArr.length - this.sliderList.length;
       for (let i = 0; i < tempCount; i++) {
         tempPosArr.pop();
       }
@@ -549,8 +558,8 @@ export default class MobileSelect {
       this.cascadeJsonData = data;
       this.displayJson = [];
       this.initCascade();
-      if (this.initPosition.length < this.slider.length) {
-        const diff = this.slider.length - this.initPosition.length;
+      if (this.initPosition.length < this.sliderList.length) {
+        const diff = this.sliderList.length - this.initPosition.length;
         for (let i = 0; i < diff; i++) {
           this.initPosition.push(0);
         }
@@ -574,25 +583,25 @@ export default class MobileSelect {
     let tempHTML = "";
     tempHTML += this.getOptionsHtmlStr(data);
     this.wheelsData[sliderIndex] = this.isJsonType ? { data } : data;
-    this.slider[sliderIndex].innerHTML = tempHTML;
+    this.sliderList[sliderIndex].innerHTML = tempHTML;
   }
 
   fixRowStyle(): void {
     // 自定义列宽度比例 用width不用flex的原因是可以做transition过渡
     if (
       this.initColWidth.length &&
-      this.initColWidth.length === this.wheel.length
+      this.initColWidth.length === this.wheelList.length
     ) {
       const widthSum = this.initColWidth.reduce((cur, pre) => cur + pre, 0);
       this.initColWidth.forEach((item, index) => {
-        this.wheel[index].style.width =
+        this.wheelList[index].style.width =
           ((item / widthSum) * 100).toFixed(2) + "%";
       });
       return;
     }
-    const width = (100 / this.wheel.length).toFixed(2);
-    for (let i = 0; i < this.wheel.length; i++) {
-      this.wheel[i].style.width = width + "%";
+    const width = (100 / this.wheelList.length).toFixed(2);
+    for (let i = 0; i < this.wheelList.length; i++) {
+      this.wheelList[i].style.width = width + "%";
     }
   }
 
@@ -613,7 +622,7 @@ export default class MobileSelect {
     const positionArr = this.getIndexArr();
     const { keyMap } = this.config;
     if (this.isCascade) {
-      for (let i = 0; i < this.wheel.length; i++) {
+      for (let i = 0; i < this.wheelList.length; i++) {
         const tempObj = this.displayJson[i][positionArr[i]];
         if (tempObj) {
           temp.push({
@@ -644,9 +653,9 @@ export default class MobileSelect {
 
   setCurDistance(indexArr: number[]): void {
     const temp = [];
-    for (let i = 0; i < this.slider.length; i++) {
+    for (let i = 0; i < this.sliderList.length; i++) {
       temp.push(this.calcDistance(indexArr[i]));
-      this.movePosition(this.slider[i], temp[i]);
+      this.movePosition(this.sliderList[i], temp[i]);
     }
     this.curDistance = temp;
   }
@@ -661,7 +670,7 @@ export default class MobileSelect {
 
   locatePosition(index: number, posIndex: number): void {
     this.curDistance[index] = this.calcDistance(posIndex);
-    this.movePosition(this.slider[index], this.curDistance[index]);
+    this.movePosition(this.sliderList[index], this.curDistance[index]);
     if (this.isCascade) {
       this.checkRange(index, this.getIndexArr());
     }
@@ -673,7 +682,7 @@ export default class MobileSelect {
 
   getInnerText(sliderIndex: number): string {
     const lengthOfList =
-      this.slider[sliderIndex].getElementsByTagName("li").length;
+      this.sliderList[sliderIndex].getElementsByTagName("li").length;
     let index = this.getIndex(this.curDistance[sliderIndex]);
 
     if (index >= lengthOfList) {
@@ -682,8 +691,8 @@ export default class MobileSelect {
       index = 0;
     }
     return (
-      this.slider[sliderIndex].getElementsByTagName("li")[index]?.innerText ||
-      ""
+      this.sliderList[sliderIndex].getElementsByTagName("li")[index]
+        ?.innerText || ""
     );
   }
 
