@@ -1,5 +1,5 @@
 /*
-* mobile-select v1.3.0
+* mobile-select v1.3.1
 * Homepage: https://github.com/onlyhom/mobile-select
 * Released under the MIT License.
 * (c) 2017-present
@@ -12,9 +12,9 @@ const r = class {
   constructor(t) {
     h(this, "mobileSelect");
     h(this, "trigger");
-    h(this, "wheel");
-    h(this, "slider");
-    h(this, "wheels");
+    h(this, "wheelList");
+    h(this, "sliderList");
+    h(this, "wheelsContain");
     h(this, "panel");
     h(this, "ensureBtn");
     h(this, "cancelBtn");
@@ -48,8 +48,8 @@ const r = class {
   init() {
     const { config: t } = this;
     if (this.isJsonType = r.checkDataType(this.wheelsData), this.renderComponent(this.wheelsData), !!this.checkTriggerAvailable()) {
-      if (this.wheel = this.mobileSelect.getElementsByClassName("ms-wheel"), this.slider = this.mobileSelect.getElementsByClassName("ms-select-container"), this.panel = this.mobileSelect.querySelector(".ms-panel"), this.wheels = this.mobileSelect.querySelector(".ms-wheels"), this.ensureBtn = this.mobileSelect.querySelector(".ms-ensure"), this.cancelBtn = this.mobileSelect.querySelector(".ms-cancel"), this.grayLayer = this.mobileSelect.querySelector(".ms-gray-layer"), this.popUp = this.mobileSelect.querySelector(".ms-content"), this.optionHeight = this.mobileSelect.querySelector("li").offsetHeight, t.initValue && t.triggerDisplayValue && (this.trigger.innerText = t.initValue), this.setStyle(t), this.isPC = r.checkIsPC(), this.isCascade = this.checkCascade(), this.isCascade && this.initCascade(), t.initValue && (this.initPosition = this.getPositionByValue()), this.initPosition.length < this.slider.length) {
-        const e = this.slider.length - this.initPosition.length;
+      if (this.wheelList = this.mobileSelect.getElementsByClassName("ms-wheel"), this.sliderList = this.mobileSelect.getElementsByClassName("ms-select-container"), this.panel = this.mobileSelect.querySelector(".ms-panel"), this.wheelsContain = this.mobileSelect.querySelector(".ms-wheels"), this.ensureBtn = this.mobileSelect.querySelector(".ms-ensure"), this.cancelBtn = this.mobileSelect.querySelector(".ms-cancel"), this.grayLayer = this.mobileSelect.querySelector(".ms-gray-layer"), this.popUp = this.mobileSelect.querySelector(".ms-content"), this.optionHeight = this.mobileSelect.querySelector("li").offsetHeight, t.initValue && t.triggerDisplayValue && (this.trigger.innerText = t.initValue), this.setStyle(t), this.isPC = r.checkIsPC(), this.isCascade = this.checkCascade(), this.isCascade && this.initCascade(), t.initValue && (this.initPosition = this.getPositionByValue()), this.initPosition.length < this.sliderList.length) {
+        const e = this.sliderList.length - this.initPosition.length;
         for (let i = 0; i < e; i++)
           this.initPosition.push(0);
       }
@@ -69,8 +69,8 @@ const r = class {
             var i, s, n, l;
             this.hide(), this.optionHeight || (this.optionHeight = this.mobileSelect.querySelector("li").offsetHeight);
             let e = "";
-            for (let o = 0; o < this.wheel.length; o++)
-              o == this.wheel.length - 1 ? e += this.getInnerText(o) : e += this.getInnerText(o) + this.config.connector;
+            for (let o = 0; o < this.wheelList.length; o++)
+              o == this.wheelList.length - 1 ? e += this.getInnerText(o) : e += this.getInnerText(o) + this.config.connector;
             t.triggerDisplayValue && (this.trigger.innerText = e), this.curIndexArr = this.getIndexArr(), this.curValue = this.getCurValue(), (s = (i = this.config).callback) == null || s.call(i, this.curIndexArr, this.curValue, this), (l = (n = this.config).onChange) == null || l.call(n, this.curValue, this.curIndexArr, this);
           }
         },
@@ -164,11 +164,11 @@ const r = class {
   }
   show() {
     var t, e, i;
-    this.mobileSelect.classList.add("ms-show"), (t = document.querySelector("body")) == null || t.classList.add("ms-show"), typeof this.config.onShow == "function" && ((i = (e = this.config).onShow) == null || i.call(e));
+    this.mobileSelect.classList.add("ms-show"), (t = document.querySelector("body")) == null || t.classList.add("ms-show"), typeof this.config.onShow == "function" && ((i = (e = this.config).onShow) == null || i.call(e, this.curValue, this.curIndexArr, this));
   }
   hide() {
     var t, e, i;
-    this.mobileSelect.classList.remove("ms-show"), (t = document.querySelector("body")) == null || t.classList.remove("ms-show"), typeof this.config.onHide == "function" && ((i = (e = this.config).onHide) == null || i.call(e));
+    this.mobileSelect.classList.remove("ms-show"), (t = document.querySelector("body")) == null || t.classList.remove("ms-show"), typeof this.config.onHide == "function" && ((i = (e = this.config).onHide) == null || i.call(e, this.curValue, this.curIndexArr, this));
   }
   registerEvents(t) {
     for (const [e, i] of Object.entries(this.eventHandleMap))
@@ -216,16 +216,16 @@ const r = class {
     this.mobileSelect.querySelector(".ms-wheels").innerHTML = e;
   }
   reRenderWheels() {
-    const t = this.wheel.length - this.displayJson.length;
+    const t = this.wheelList.length - this.displayJson.length;
     if (t > 0)
       for (let e = 0; e < t; e++)
-        this.wheels.removeChild(this.wheel[this.wheel.length - 1]);
+        this.wheelsContain.removeChild(this.wheelList[this.wheelList.length - 1]);
     for (let e = 0; e < this.displayJson.length; e++)
-      if (this.wheel[e])
-        this.slider[e].innerHTML = this.getOptionsHtmlStr(this.displayJson[e]);
+      if (this.wheelList[e])
+        this.sliderList[e].innerHTML = this.getOptionsHtmlStr(this.displayJson[e]);
       else {
         const i = document.createElement("div");
-        i.className = "ms-wheel", i.innerHTML = `<ul class="ms-select-container">${this.getOptionsHtmlStr(this.displayJson[e])}</ul>`, i.setAttribute("data-index", e.toString()), this.wheels.appendChild(i);
+        i.className = "ms-wheel", i.innerHTML = `<ul class="ms-select-container">${this.getOptionsHtmlStr(this.displayJson[e])}</ul>`, i.setAttribute("data-index", e.toString()), this.wheelsContain.appendChild(i);
       }
   }
   checkCascade() {
@@ -271,12 +271,12 @@ const r = class {
   resetPosition(t, e) {
     const i = [...e];
     let s;
-    if (this.slider.length > e.length) {
-      s = this.slider.length - e.length;
+    if (this.sliderList.length > e.length) {
+      s = this.sliderList.length - e.length;
       for (let n = 0; n < s; n++)
         i.push(0);
-    } else if (this.slider.length < e.length) {
-      s = e.length - this.slider.length;
+    } else if (this.sliderList.length < e.length) {
+      s = e.length - this.sliderList.length;
       for (let n = 0; n < s; n++)
         i.pop();
     }
@@ -286,8 +286,8 @@ const r = class {
   }
   updateWheels(t) {
     if (this.isCascade) {
-      if (this.cascadeJsonData = t, this.displayJson = [], this.initCascade(), this.initPosition.length < this.slider.length) {
-        const e = this.slider.length - this.initPosition.length;
+      if (this.cascadeJsonData = t, this.displayJson = [], this.initCascade(), this.initPosition.length < this.sliderList.length) {
+        const e = this.sliderList.length - this.initPosition.length;
         for (let i = 0; i < e; i++)
           this.initPosition.push(0);
       }
@@ -300,19 +300,19 @@ const r = class {
       return;
     }
     let i = "";
-    i += this.getOptionsHtmlStr(e), this.wheelsData[t] = this.isJsonType ? { data: e } : e, this.slider[t].innerHTML = i;
+    i += this.getOptionsHtmlStr(e), this.wheelsData[t] = this.isJsonType ? { data: e } : e, this.sliderList[t].innerHTML = i;
   }
   fixRowStyle() {
-    if (this.initColWidth.length && this.initColWidth.length === this.wheel.length) {
+    if (this.initColWidth.length && this.initColWidth.length === this.wheelList.length) {
       const e = this.initColWidth.reduce((i, s) => i + s, 0);
       this.initColWidth.forEach((i, s) => {
-        this.wheel[s].style.width = (i / e * 100).toFixed(2) + "%";
+        this.wheelList[s].style.width = (i / e * 100).toFixed(2) + "%";
       });
       return;
     }
-    const t = (100 / this.wheel.length).toFixed(2);
-    for (let e = 0; e < this.wheel.length; e++)
-      this.wheel[e].style.width = t + "%";
+    const t = (100 / this.wheelList.length).toFixed(2);
+    for (let e = 0; e < this.wheelList.length; e++)
+      this.wheelList[e].style.width = t + "%";
   }
   getIndex(t) {
     return Math.round((2 * this.optionHeight - t) / this.optionHeight);
@@ -326,7 +326,7 @@ const r = class {
   getCurValue() {
     const t = [], e = this.getIndexArr(), { keyMap: i } = this.config;
     if (this.isCascade)
-      for (let s = 0; s < this.wheel.length; s++) {
+      for (let s = 0; s < this.wheelList.length; s++) {
         const n = this.displayJson[s][e[s]];
         n && t.push({
           [i.id]: n[i.id],
@@ -349,8 +349,8 @@ const r = class {
   }
   setCurDistance(t) {
     const e = [];
-    for (let i = 0; i < this.slider.length; i++)
-      e.push(this.calcDistance(t[i])), this.movePosition(this.slider[i], e[i]);
+    for (let i = 0; i < this.sliderList.length; i++)
+      e.push(this.calcDistance(t[i])), this.movePosition(this.sliderList[i], e[i]);
     this.curDistance = e;
   }
   fixPosition(t) {
@@ -360,19 +360,19 @@ const r = class {
     t.style.transform = "translate3d(0," + e + "px, 0)";
   }
   locatePosition(t, e) {
-    this.curDistance[t] = this.calcDistance(e), this.movePosition(this.slider[t], this.curDistance[t]), this.isCascade && this.checkRange(t, this.getIndexArr());
+    this.curDistance[t] = this.calcDistance(e), this.movePosition(this.sliderList[t], this.curDistance[t]), this.isCascade && this.checkRange(t, this.getIndexArr());
   }
   updateCurDistance(t, e) {
     this.curDistance[e] = parseInt(t.style.transform.split(",")[1]);
   }
   getInnerText(t) {
     var s;
-    const e = this.slider[t].getElementsByTagName("li").length;
+    const e = this.sliderList[t].getElementsByTagName("li").length;
     let i = this.getIndex(this.curDistance[t]);
-    return i >= e ? i = e - 1 : i < 0 && (i = 0), ((s = this.slider[t].getElementsByTagName("li")[i]) == null ? void 0 : s.innerText) || "";
+    return i >= e ? i = e - 1 : i < 0 && (i = 0), ((s = this.sliderList[t].getElementsByTagName("li")[i]) == null ? void 0 : s.innerText) || "";
   }
   touch(t) {
-    var l, o, d, a, c, u, f, C;
+    var l, o, d, a, c, u, f, v;
     const i = (t.composedPath && t.composedPath()).find((m) => {
       var p;
       return (p = m.classList) == null ? void 0 : p.contains("ms-wheel");
@@ -396,11 +396,11 @@ const r = class {
         if (s.style.transition = "transform 0.18s ease-out", this.moveEndY = Math.floor(t instanceof TouchEvent ? t.changedTouches[0].clientY : t.clientY), this.offsetSum = this.moveEndY - this.startY, this.oversizeBorder = -(s.getElementsByTagName("li").length - 3) * this.optionHeight, this.offsetSum == 0) {
           const m = Math.floor((window.innerHeight - this.moveEndY) / 40);
           if (m != 2) {
-            const p = m - 2, v = this.curDistance[n] + p * this.optionHeight;
-            v <= 2 * this.optionHeight && v >= this.oversizeBorder && (this.curDistance[n] = v, this.movePosition(s, this.curDistance[n]), (o = (l = this.config).transitionEnd) == null || o.call(l, this.getIndexArr(), this.getCurValue(), this), (a = (d = this.config).onTransitionEnd) == null || a.call(d, this.getCurValue(), this.getIndexArr(), this));
+            const p = m - 2, C = this.curDistance[n] + p * this.optionHeight;
+            C <= 2 * this.optionHeight && C >= this.oversizeBorder && (this.curDistance[n] = C, this.movePosition(s, this.curDistance[n]), (o = (l = this.config).transitionEnd) == null || o.call(l, this.getIndexArr(), this.getCurValue(), this), (a = (d = this.config).onTransitionEnd) == null || a.call(d, this.getCurValue(), this.getIndexArr(), this));
           }
         } else
-          this.updateCurDistance(s, n), this.curDistance[n] = this.fixPosition(this.curDistance[n]), this.curDistance[n] > 2 * this.optionHeight ? this.curDistance[n] = 2 * this.optionHeight : this.curDistance[n] < this.oversizeBorder && (this.curDistance[n] = this.oversizeBorder), this.movePosition(s, this.curDistance[n]), (u = (c = this.config).transitionEnd) == null || u.call(c, this.getIndexArr(), this.getCurValue(), this), (C = (f = this.config).onTransitionEnd) == null || C.call(f, this.getCurValue(), this.getIndexArr(), this);
+          this.updateCurDistance(s, n), this.curDistance[n] = this.fixPosition(this.curDistance[n]), this.curDistance[n] > 2 * this.optionHeight ? this.curDistance[n] = 2 * this.optionHeight : this.curDistance[n] < this.oversizeBorder && (this.curDistance[n] = this.oversizeBorder), this.movePosition(s, this.curDistance[n]), (u = (c = this.config).transitionEnd) == null || u.call(c, this.getIndexArr(), this.getCurValue(), this), (v = (f = this.config).onTransitionEnd) == null || v.call(f, this.getCurValue(), this.getIndexArr(), this);
         t.type === "mouseup" && (this.enableClickStatus = !1), this.isCascade && this.checkRange(n, this.getIndexArr());
         break;
     }

@@ -1,5 +1,5 @@
 /*
-* mobile-select v1.3.0
+* mobile-select v1.3.1
 * Homepage: https://github.com/onlyhom/mobile-select
 * Released under the MIT License.
 * (c) 2017-present
@@ -60,9 +60,9 @@ var MobileSelect = function () {
 
       h(this, "mobileSelect");
       h(this, "trigger");
-      h(this, "wheel");
-      h(this, "slider");
-      h(this, "wheels");
+      h(this, "wheelList");
+      h(this, "sliderList");
+      h(this, "wheelsContain");
       h(this, "panel");
       h(this, "ensureBtn");
       h(this, "cancelBtn");
@@ -102,8 +102,8 @@ var MobileSelect = function () {
         var t = this.config;
 
         if (this.isJsonType = l.checkDataType(this.wheelsData), this.renderComponent(this.wheelsData), !!this.checkTriggerAvailable()) {
-          if (this.wheel = this.mobileSelect.getElementsByClassName("ms-wheel"), this.slider = this.mobileSelect.getElementsByClassName("ms-select-container"), this.panel = this.mobileSelect.querySelector(".ms-panel"), this.wheels = this.mobileSelect.querySelector(".ms-wheels"), this.ensureBtn = this.mobileSelect.querySelector(".ms-ensure"), this.cancelBtn = this.mobileSelect.querySelector(".ms-cancel"), this.grayLayer = this.mobileSelect.querySelector(".ms-gray-layer"), this.popUp = this.mobileSelect.querySelector(".ms-content"), this.optionHeight = this.mobileSelect.querySelector("li").offsetHeight, t.initValue && t.triggerDisplayValue && (this.trigger.innerText = t.initValue), this.setStyle(t), this.isPC = l.checkIsPC(), this.isCascade = this.checkCascade(), this.isCascade && this.initCascade(), t.initValue && (this.initPosition = this.getPositionByValue()), this.initPosition.length < this.slider.length) {
-            var e = this.slider.length - this.initPosition.length;
+          if (this.wheelList = this.mobileSelect.getElementsByClassName("ms-wheel"), this.sliderList = this.mobileSelect.getElementsByClassName("ms-select-container"), this.panel = this.mobileSelect.querySelector(".ms-panel"), this.wheelsContain = this.mobileSelect.querySelector(".ms-wheels"), this.ensureBtn = this.mobileSelect.querySelector(".ms-ensure"), this.cancelBtn = this.mobileSelect.querySelector(".ms-cancel"), this.grayLayer = this.mobileSelect.querySelector(".ms-gray-layer"), this.popUp = this.mobileSelect.querySelector(".ms-content"), this.optionHeight = this.mobileSelect.querySelector("li").offsetHeight, t.initValue && t.triggerDisplayValue && (this.trigger.innerText = t.initValue), this.setStyle(t), this.isPC = l.checkIsPC(), this.isCascade = this.checkCascade(), this.isCascade && this.initCascade(), t.initValue && (this.initPosition = this.getPositionByValue()), this.initPosition.length < this.sliderList.length) {
+            var e = this.sliderList.length - this.initPosition.length;
 
             for (var i = 0; i < e; i++) {
               this.initPosition.push(0);
@@ -127,8 +127,8 @@ var MobileSelect = function () {
                 _this.hide(), _this.optionHeight || (_this.optionHeight = _this.mobileSelect.querySelector("li").offsetHeight);
                 var e = "";
 
-                for (var o = 0; o < _this.wheel.length; o++) {
-                  o == _this.wheel.length - 1 ? e += _this.getInnerText(o) : e += _this.getInnerText(o) + _this.config.connector;
+                for (var o = 0; o < _this.wheelList.length; o++) {
+                  o == _this.wheelList.length - 1 ? e += _this.getInnerText(o) : e += _this.getInnerText(o) + _this.config.connector;
                 }
 
                 t.triggerDisplayValue && (_this.trigger.innerText = e), _this.curIndexArr = _this.getIndexArr(), _this.curValue = _this.getCurValue(), (s = (i = _this.config).callback) == null || s.call(i, _this.curIndexArr, _this.curValue, _this), (r = (n = _this.config).onChange) == null || r.call(n, _this.curValue, _this.curIndexArr, _this);
@@ -235,13 +235,13 @@ var MobileSelect = function () {
       key: "show",
       value: function show() {
         var t, e, i;
-        this.mobileSelect.classList.add("ms-show"), (t = document.querySelector("body")) == null || t.classList.add("ms-show"), typeof this.config.onShow == "function" && ((i = (e = this.config).onShow) == null || i.call(e));
+        this.mobileSelect.classList.add("ms-show"), (t = document.querySelector("body")) == null || t.classList.add("ms-show"), typeof this.config.onShow == "function" && ((i = (e = this.config).onShow) == null || i.call(e, this.curValue, this.curIndexArr, this));
       }
     }, {
       key: "hide",
       value: function hide() {
         var t, e, i;
-        this.mobileSelect.classList.remove("ms-show"), (t = document.querySelector("body")) == null || t.classList.remove("ms-show"), typeof this.config.onHide == "function" && ((i = (e = this.config).onHide) == null || i.call(e));
+        this.mobileSelect.classList.remove("ms-show"), (t = document.querySelector("body")) == null || t.classList.remove("ms-show"), typeof this.config.onHide == "function" && ((i = (e = this.config).onHide) == null || i.call(e, this.curValue, this.curIndexArr, this));
       }
     }, {
       key: "registerEvents",
@@ -301,15 +301,15 @@ var MobileSelect = function () {
     }, {
       key: "reRenderWheels",
       value: function reRenderWheels() {
-        var t = this.wheel.length - this.displayJson.length;
+        var t = this.wheelList.length - this.displayJson.length;
         if (t > 0) for (var e = 0; e < t; e++) {
-          this.wheels.removeChild(this.wheel[this.wheel.length - 1]);
+          this.wheelsContain.removeChild(this.wheelList[this.wheelList.length - 1]);
         }
 
         for (var _e4 = 0; _e4 < this.displayJson.length; _e4++) {
-          if (this.wheel[_e4]) this.slider[_e4].innerHTML = this.getOptionsHtmlStr(this.displayJson[_e4]);else {
+          if (this.wheelList[_e4]) this.sliderList[_e4].innerHTML = this.getOptionsHtmlStr(this.displayJson[_e4]);else {
             var i = document.createElement("div");
-            i.className = "ms-wheel", i.innerHTML = "<ul class=\"ms-select-container\">".concat(this.getOptionsHtmlStr(this.displayJson[_e4]), "</ul>"), i.setAttribute("data-index", _e4.toString()), this.wheels.appendChild(i);
+            i.className = "ms-wheel", i.innerHTML = "<ul class=\"ms-select-container\">".concat(this.getOptionsHtmlStr(this.displayJson[_e4]), "</ul>"), i.setAttribute("data-index", _e4.toString()), this.wheelsContain.appendChild(i);
           }
         }
       }
@@ -380,14 +380,14 @@ var MobileSelect = function () {
 
         var s;
 
-        if (this.slider.length > e.length) {
-          s = this.slider.length - e.length;
+        if (this.sliderList.length > e.length) {
+          s = this.sliderList.length - e.length;
 
           for (var n = 0; n < s; n++) {
             i.push(0);
           }
-        } else if (this.slider.length < e.length) {
-          s = e.length - this.slider.length;
+        } else if (this.sliderList.length < e.length) {
+          s = e.length - this.sliderList.length;
 
           for (var _n2 = 0; _n2 < s; _n2++) {
             i.pop();
@@ -404,8 +404,8 @@ var MobileSelect = function () {
       key: "updateWheels",
       value: function updateWheels(t) {
         if (this.isCascade) {
-          if (this.cascadeJsonData = t, this.displayJson = [], this.initCascade(), this.initPosition.length < this.slider.length) {
-            var e = this.slider.length - this.initPosition.length;
+          if (this.cascadeJsonData = t, this.displayJson = [], this.initCascade(), this.initPosition.length < this.sliderList.length) {
+            var e = this.sliderList.length - this.initPosition.length;
 
             for (var i = 0; i < e; i++) {
               this.initPosition.push(0);
@@ -426,27 +426,27 @@ var MobileSelect = function () {
         var i = "";
         i += this.getOptionsHtmlStr(e), this.wheelsData[t] = this.isJsonType ? {
           data: e
-        } : e, this.slider[t].innerHTML = i;
+        } : e, this.sliderList[t].innerHTML = i;
       }
     }, {
       key: "fixRowStyle",
       value: function fixRowStyle() {
         var _this4 = this;
 
-        if (this.initColWidth.length && this.initColWidth.length === this.wheel.length) {
+        if (this.initColWidth.length && this.initColWidth.length === this.wheelList.length) {
           var e = this.initColWidth.reduce(function (i, s) {
             return i + s;
           }, 0);
           this.initColWidth.forEach(function (i, s) {
-            _this4.wheel[s].style.width = (i / e * 100).toFixed(2) + "%";
+            _this4.wheelList[s].style.width = (i / e * 100).toFixed(2) + "%";
           });
           return;
         }
 
-        var t = (100 / this.wheel.length).toFixed(2);
+        var t = (100 / this.wheelList.length).toFixed(2);
 
-        for (var _e5 = 0; _e5 < this.wheel.length; _e5++) {
-          this.wheel[_e5].style.width = t + "%";
+        for (var _e5 = 0; _e5 < this.wheelList.length; _e5++) {
+          this.wheelList[_e5].style.width = t + "%";
         }
       }
     }, {
@@ -471,7 +471,7 @@ var MobileSelect = function () {
         var t = [],
             e = this.getIndexArr(),
             i = this.config.keyMap;
-        if (this.isCascade) for (var s = 0; s < this.wheel.length; s++) {
+        if (this.isCascade) for (var s = 0; s < this.wheelList.length; s++) {
           var _t$push;
 
           var n = this.displayJson[s][e[s]];
@@ -498,8 +498,8 @@ var MobileSelect = function () {
       value: function setCurDistance(t) {
         var e = [];
 
-        for (var i = 0; i < this.slider.length; i++) {
-          e.push(this.calcDistance(t[i])), this.movePosition(this.slider[i], e[i]);
+        for (var i = 0; i < this.sliderList.length; i++) {
+          e.push(this.calcDistance(t[i])), this.movePosition(this.sliderList[i], e[i]);
         }
 
         this.curDistance = e;
@@ -517,7 +517,7 @@ var MobileSelect = function () {
     }, {
       key: "locatePosition",
       value: function locatePosition(t, e) {
-        this.curDistance[t] = this.calcDistance(e), this.movePosition(this.slider[t], this.curDistance[t]), this.isCascade && this.checkRange(t, this.getIndexArr());
+        this.curDistance[t] = this.calcDistance(e), this.movePosition(this.sliderList[t], this.curDistance[t]), this.isCascade && this.checkRange(t, this.getIndexArr());
       }
     }, {
       key: "updateCurDistance",
@@ -528,14 +528,14 @@ var MobileSelect = function () {
       key: "getInnerText",
       value: function getInnerText(t) {
         var s;
-        var e = this.slider[t].getElementsByTagName("li").length;
+        var e = this.sliderList[t].getElementsByTagName("li").length;
         var i = this.getIndex(this.curDistance[t]);
-        return i >= e ? i = e - 1 : i < 0 && (i = 0), ((s = this.slider[t].getElementsByTagName("li")[i]) == null ? void 0 : s.innerText) || "";
+        return i >= e ? i = e - 1 : i < 0 && (i = 0), ((s = this.sliderList[t].getElementsByTagName("li")[i]) == null ? void 0 : s.innerText) || "";
       }
     }, {
       key: "touch",
       value: function touch(t) {
-        var r, o, g, a, u, d, m, C;
+        var r, o, g, a, u, d, m, v;
         var i = (t.composedPath && t.composedPath()).find(function (p) {
           var y;
           return (y = p.classList) == null ? void 0 : y.contains("ms-wheel");
@@ -563,10 +563,10 @@ var MobileSelect = function () {
 
               if (p != 2) {
                 var y = p - 2,
-                    v = this.curDistance[n] + y * this.optionHeight;
-                v <= 2 * this.optionHeight && v >= this.oversizeBorder && (this.curDistance[n] = v, this.movePosition(s, this.curDistance[n]), (o = (r = this.config).transitionEnd) == null || o.call(r, this.getIndexArr(), this.getCurValue(), this), (a = (g = this.config).onTransitionEnd) == null || a.call(g, this.getCurValue(), this.getIndexArr(), this));
+                    C = this.curDistance[n] + y * this.optionHeight;
+                C <= 2 * this.optionHeight && C >= this.oversizeBorder && (this.curDistance[n] = C, this.movePosition(s, this.curDistance[n]), (o = (r = this.config).transitionEnd) == null || o.call(r, this.getIndexArr(), this.getCurValue(), this), (a = (g = this.config).onTransitionEnd) == null || a.call(g, this.getCurValue(), this.getIndexArr(), this));
               }
-            } else this.updateCurDistance(s, n), this.curDistance[n] = this.fixPosition(this.curDistance[n]), this.curDistance[n] > 2 * this.optionHeight ? this.curDistance[n] = 2 * this.optionHeight : this.curDistance[n] < this.oversizeBorder && (this.curDistance[n] = this.oversizeBorder), this.movePosition(s, this.curDistance[n]), (d = (u = this.config).transitionEnd) == null || d.call(u, this.getIndexArr(), this.getCurValue(), this), (C = (m = this.config).onTransitionEnd) == null || C.call(m, this.getCurValue(), this.getIndexArr(), this);
+            } else this.updateCurDistance(s, n), this.curDistance[n] = this.fixPosition(this.curDistance[n]), this.curDistance[n] > 2 * this.optionHeight ? this.curDistance[n] = 2 * this.optionHeight : this.curDistance[n] < this.oversizeBorder && (this.curDistance[n] = this.oversizeBorder), this.movePosition(s, this.curDistance[n]), (d = (u = this.config).transitionEnd) == null || d.call(u, this.getIndexArr(), this.getCurValue(), this), (v = (m = this.config).onTransitionEnd) == null || v.call(m, this.getCurValue(), this.getIndexArr(), this);
 
             t.type === "mouseup" && (this.enableClickStatus = !1), this.isCascade && this.checkRange(n, this.getIndexArr());
             break;
