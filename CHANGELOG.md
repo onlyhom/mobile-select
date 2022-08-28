@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.3.3](https://github.com/onlyhom/mobile-select/compare/v1.3.1...v1.3.3) (2022-08-28)
+
+
+### Bug Fixes
+
+* types fix and variable naming conventions ([5799ce3](https://github.com/onlyhom/mobile-select/commit/5799ce3d0fc74c0467e8ae42049fd7f984a07ddc))
+* **types:** result val type fix ([c7471b9](https://github.com/onlyhom/mobile-select/commit/c7471b936f1cd4523618ec26455587767296b486))
+
 ## [1.3.1](https://github.com/onlyhom/mobile-select/compare/v1.3.0...v1.3.1) (2022-08-26)
 
 
