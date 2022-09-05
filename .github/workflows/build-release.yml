@@ -20,7 +20,7 @@ jobs:
       - name: Setup NodeJS
         uses: actions/setup-node@v3.4.1
         with:
-          node-version: 14
+          node-version: 18
       - name: Setup pnpm
         uses: pnpm/action-setup@v2.2.2
         with:

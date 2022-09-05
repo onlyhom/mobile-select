@@ -1,7 +1,7 @@
 import { resolve } from "path";
 import { promises as fs } from "fs";
 import { fileURLToPath } from "url";
-import packageJson from "../package.json";
+import packageJson from "../package.json" assert { type: "json" }; // Import assertions became required after v17.5.0 (related to this change:github.com/nodejs/node/pull/40785).
 import glob from "fast-glob";
 
 const __dirname = fileURLToPath(import.meta.url);
