@@ -1,14 +1,14 @@
 <p align="center"><img width="130" src="https://github.com/onlyhom/img-folder/blob/master/png/m_logo_orange.png?raw=true"></p>
 <h1 align="center">Mobile Select</h1>
 <p align="center">
-  <a href="https://github.com/onlyhom/mobileSelect.js/blob/master/LICENSE" title="LICENSE"><img src="https://img.shields.io/github/license/CKGrafico/Papanasi.svg?logo=creative%20commons&color=8FBFA9&logoColor=FFFFFF" alt="MIT license" /></a>
-  <a href="https://github.com/onlyhom/mobile-select/network"><img src="https://img.shields.io/github/stars/onlyhom/mobile-select.svg?logo=verizon&color=blueviolet" alt="GitHub stars" /></a>
+  <a href="https://www.npmjs.com/package/mobile-select"><img src="https://img.shields.io/npm/v/mobile-select?color=cb0303&logo=npm&label=version" alt="Package version" /></a>
+  <a href="https://github.com/onlyhom/mobile-select/network"><img src="https://img.shields.io/github/stars/onlyhom/mobile-select.svg?logo=apachespark&logoColor=white&color=blueviolet" alt="GitHub stars" /></a>
   <a href="https://github.com/onlyhom/mobile-select/network"><img src="https://img.shields.io/github/forks/onlyhom/mobile-select.svg?logo=github&color=blue" alt="GitHub forks" /></a>
   <img src="https://img.shields.io/badge/dependencies-none-success.svg" alt="dependencies" />
   <a href="https://github.com/onlyhom/mobile-select/issues"><img src="https://img.shields.io/github/issues/onlyhom/mobile-select.svg?logo=codeigniter&logoColor=FFFFFF" alt="GitHub issues" /></a>
-  <a href="https://travis-ci.org/onlyhom/mobile-select"><img src="https://img.shields.io/badge/build-passing-success" alt="Build Status" /></a>
   <img src="https://img.shields.io/npm/dm/mobile-select.svg" alt="size" />
   <img src="https://img.shields.io/bundlephobia/min/mobile-select" alt="size" />
+  <a href="https://github.com/onlyhom/mobile-select/blob/master/LICENSE" title="LICENSE"><img src="https://img.shields.io/github/license/onlyhom/mobile-select.svg?logo=creative%20commons&color=8FBFA9&logoColor=FFFFFF" alt="MIT license" /></a>
 </p>
 
 A multi-function mobile phone scrolling selector, support single to multi-select, support multi-level cascade, provide callback function, provide update function redraw, relocation function, compatible pc drag and so on.
@@ -96,14 +96,14 @@ import MobileSelect from "mobile-select";
 <table align="center">
   <tr>
     <td align="center" width="100">
-      <img src="https://raw.githubusercontent.com/gilbarbara/logos/master/logos/w3c.svg" width="80" title="Web Components"> <br/>
+      <img src="https://raw.githubusercontent.com/gilbarbara/logos/master/logos/w3c.svg" width="85" title="Web Components"> <br/>
       <strong>VanillaJS</strong> <br/>
       <sub>
         <a href="https://codesandbox.io/s/mobile-select-vanilla-l7gnb3" target="_blank">📦Sandbox</a>
       </sub>
     </td>
     <td align="center" width="100">
-      <img src="https://raw.githubusercontent.com/gilbarbara/logos/master/logos/angular-icon.svg" width="50" title="Angular"> <br/>
+      <img src="https://raw.githubusercontent.com/gilbarbara/logos/master/logos/angular-icon.svg" width="40" title="Angular"> <br/>
       <strong>Angular</strong> <br/>
       <sub>
         <a href="https://codesandbox.io/s/mobile-select-angular-esgkil" target="_blank">📦Sandbox</a>
@@ -131,7 +131,7 @@ import MobileSelect from "mobile-select";
       </sub>
     </td>
     <td align="center" width="100">
-      <img src="https://raw.githubusercontent.com/gilbarbara/logos/master/logos/solidjs-icon.svg" width="55" title="Solid"> <br/>
+      <img src="https://raw.githubusercontent.com/gilbarbara/logos/master/logos/solidjs-icon.svg" width="50" title="Solid"> <br/>
       <strong>Solid</strong> <br/>
       <sub>
         <a href="https://codesandbox.io/s/mobile-select-solid-pcd560" target="_blank">📦Sandbox</a>
