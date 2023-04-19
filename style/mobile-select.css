@@ -5,12 +5,17 @@
 * (c) 2017-present
 */
 .ms-mobile-select {
-  position: relative;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
   z-index: 0;
   opacity: 0;
   visibility: hidden;
   -webkit-transition: opacity 0.4s, z-index 0.4s;
   transition: opacity 0.4s, z-index 0.4s;
+  transform: translate(0, 0);
 }
 .ms-mobile-select * {
   margin: 0;
