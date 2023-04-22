@@ -4,6 +4,7 @@ import {
   CascadeData,
   OptionData,
 } from "./types";
+import { checkIsPC } from "./utils/tools";
 import "./style/mobile-select.less";
 
 export default class MobileSelect {
@@ -49,8 +50,6 @@ export default class MobileSelect {
   oversizeBorder!: number;
   /** 是否启用点击状态 */
   enableClickStatus!: boolean;
-  /** 是否是PC端 */
-  isPC!: boolean;
   /** 选项高度(li元素的高度) */
   optionHeight!: number;
   /** 存放滚动距离的数组 */
@@ -101,7 +100,6 @@ export default class MobileSelect {
     this.oversizeBorder;
     this.curDistance = [];
     this.enableClickStatus = false;
-    this.isPC = true;
     this.optionHeight = 0;
     this.initPosition = config.position || [];
     this.initColWidth = config.colWidth || [];
@@ -109,10 +107,11 @@ export default class MobileSelect {
   }
 
   init(): void {
+    if (!this.checkTriggerAvailable()) return;
+
     const { config } = this;
     this.isJsonType = MobileSelect.checkDataType(this.wheelsData);
     this.renderComponent(this.wheelsData);
-    if (!this.checkTriggerAvailable()) return;
 
     // 这里使用getElementsByClassName(不使用querySelectorAll)的原因：返回一个实时的 HTMLCollection, DOM的更改将在更改发生时反映在数组中
     this.wheelList = this.mobileSelect.getElementsByClassName(
@@ -134,11 +133,8 @@ export default class MobileSelect {
       this.trigger.innerText = config.initValue;
     }
     this.setStyle(config);
-    this.isPC = MobileSelect.checkIsPC();
     this.isCascade = this.checkCascade();
-    if (this.isCascade) {
-      this.initCascade();
-    }
+    this.isCascade && this.initCascade();
 
     // 在设置之前就被已生成了displayjson
     if (config.initValue) {
@@ -212,24 +208,14 @@ export default class MobileSelect {
       },
     };
 
-    if (this.isPC) {
-      this.eventHandleMap.panel.event = ["mousedown", "mousemove", "mouseup"];
-    }
+    checkIsPC() &&
+      (this.eventHandleMap.panel.event = ["mousedown", "mousemove", "mouseup"]);
 
     this.registerEvents("add");
     this.fixRowStyle(); // 修正列数
-    if (config.autoFocus) {
-      this.show();
-    }
+    config.autoFocus && this.show();
   }
 
-  static checkIsPC() {
-    return !navigator.userAgent
-      .toLowerCase()
-      .match(
-        /ipad|iphone os|midp|rv:1.2.3.4|ucweb|android|windows ce|windows mobile/
-      );
-  }
   static checkDataType(wheelsData: CascadeData): boolean {
     return typeof wheelsData[0]?.data?.[0] === "object";
   }
