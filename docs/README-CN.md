@@ -407,8 +407,9 @@ export default function MsComponent(props) {
 | setTitle()       | string                |  	| 设置控件的标题  |
 | locatePosition() | sliderIndex, posIndex |   	| 传入位置数组，重新定位轮子选中的位置 |
 | updateWheel()    | sliderIndex, data     |   	| 重新渲染指定的轮子 |
-| updateWheels()   | data                  |    | 重新渲染所有轮子(仅限级联数据格式使用) |
+| updateWheels()   | data                  |    | 重新渲染所有轮子(仅限级联数据格式使用)   |
 | getValue()       | 无参                  |    	| 获取组件选择的值 |
+| setValue()       | data (参数格式需与`getValue()`返回的格式相同)                  |    	| 设置组件选择的值 |
 | destroy()        | 无参              | ≥1.2.0 | 销毁组件实例 |
 
 #### 注：功能函数中需要传递的参数含义如下

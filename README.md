@@ -414,6 +414,7 @@ export default function MsComponent(props) {
 | updateWheel()    | sliderIndex, data     |		| Re-render the specified wheel  |
 | updateWheels()   | data                  |		| Re-render the all wheel(Only used in cascading data forma)  |
 | getValue()       | no-argument           | 		| Gets the value selected by the component  |
+| setValue()       | data (the parameter format should be same with `getValue()` return) | ≥1.4.0 | Set the value for the component  |
 | destroy()        | no-argument           |≥1.2.0 | Destroying a component instance   |
 
 #### Tips: The function parameters need to be passed as follows

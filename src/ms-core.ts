@@ -27,7 +27,7 @@ export default class MobileSelect {
   /** 显示json */
   displayJson!: CascadeData[];
   /** 当前数值 */
-  curValue!: string[] | number[];
+  curValue!: string[] | number[] | CascadeData[];
   /** 当前索引位置 */
   curIndexArr!: number[];
   /** 是否级联 */
@@ -129,16 +129,15 @@ export default class MobileSelect {
     this.popUp = this.mobileSelect.querySelector(".ms-content")!;
     this.optionHeight = this.mobileSelect.querySelector("li")!.offsetHeight;
     // 复显初始值
-    if (config.initValue && config.triggerDisplayValue) {
-      this.trigger.innerText = config.initValue;
-    }
+    config.initValue && this.setTriggerInnerText(config.initValue);
+
     this.setStyle(config);
     this.isCascade = this.checkCascade();
     this.isCascade && this.initCascade();
 
     // 在设置之前就被已生成了displayjson
     if (config.initValue) {
-      this.initPosition = this.getPositionByValue();
+      this.initPosition = this.getPositionByInitValue();
     }
     // 补全initPosition
     if (this.initPosition.length < this.sliderList.length) {
@@ -173,15 +172,7 @@ export default class MobileSelect {
             this.optionHeight =
               this.mobileSelect.querySelector("li")!.offsetHeight;
           }
-          let tempValue = "";
-          for (let i = 0; i < this.wheelList.length; i++) {
-            i == this.wheelList.length - 1
-              ? (tempValue += this.getInnerText(i))
-              : (tempValue += this.getInnerText(i) + this.config.connector);
-          }
-          if (config.triggerDisplayValue) {
-            this.trigger.innerText = tempValue;
-          }
+          this.setTriggerInnerText(this.getConnectedString());
           this.curIndexArr = this.getIndexArr();
           this.curValue = this.getCurValue();
           this.config.callback?.(this.curIndexArr, this.curValue, this);
@@ -263,7 +254,7 @@ export default class MobileSelect {
   }
 
   /** 根据initValue 获取initPostion 需要区分级联和非级联情况 注意此时displayJson还没生成 */
-  getPositionByValue(): number[] {
+  getPositionByInitValue(): number[] {
     const { keyMap, connector, initValue } = this.config;
     const valueArr = initValue?.split(connector) || [];
     if (this.isJsonType) {
@@ -284,6 +275,56 @@ export default class MobileSelect {
       result.push(posIndex < 0 ? 0 : posIndex);
       return result;
     }, [] as unknown as number[]);
+  }
+
+  getConnectedString() {
+    let connectedStr = "";
+    for (let i = 0; i < this.wheelList.length; i++) {
+      i == this.wheelList.length - 1
+        ? (connectedStr += this.getInnerText(i))
+        : (connectedStr += this.getInnerText(i) + this.config.connector);
+    }
+    return connectedStr;
+  }
+
+  setTriggerInnerText(value: string) {
+    if (this.config.triggerDisplayValue) {
+      this.trigger.textContent = value;
+    }
+  }
+
+  setValue(valList: string[] | number[] | CascadeData[]) {
+    if (!valList || !valList.length) return;
+    if (
+      (this.isJsonType && typeof valList[0] !== "object") ||
+      (!this.isJsonType && typeof valList[0] === "object")
+    ) {
+      MobileSelect.log(
+        "error",
+        `The setValue() input format should be same with getValue(), like: ${JSON.stringify(
+          this.getValue()
+        )}`
+      );
+      return;
+    }
+    const { keyMap } = this.config;
+    valList.forEach((targetVal, sliderIndex) => {
+      const sliderData = this.isCascade
+        ? this.displayJson[sliderIndex]
+        : this.wheelsData[sliderIndex]?.data;
+      const targetIndex = sliderData?.findIndex(
+        (item: string | number | CascadeData) => {
+          return this.isJsonType
+            ? (targetVal as CascadeData)[keyMap.id] ==
+                (item as CascadeData)[keyMap.id] ||
+                (targetVal as CascadeData)[keyMap.value] ==
+                  (item as CascadeData)[keyMap.value]
+            : targetVal == item;
+        }
+      );
+      this.locatePosition(sliderIndex, targetIndex);
+    });
+    this.setTriggerInnerText(this.getConnectedString());
   }
 
   setTitle(title: string): void {
@@ -603,7 +644,7 @@ export default class MobileSelect {
     return temp;
   }
 
-  getCurValue(): string[] | number[] {
+  getCurValue(): string[] | number[] | CascadeData[] {
     const temp = [];
     const positionArr = this.getIndexArr();
     const { keyMap } = this.config;
@@ -629,8 +670,8 @@ export default class MobileSelect {
     return temp;
   }
 
-  getValue(): string[] | number[] {
-    return this.curValue;
+  getValue(): string[] | number[] | CascadeData[] {
+    return this.getCurValue();
   }
 
   calcDistance(index: number): number {
@@ -654,11 +695,17 @@ export default class MobileSelect {
     theSlider.style.transform = "translate3d(0," + distance + "px, 0)";
   }
 
-  locatePosition(index: number, posIndex: number): void {
-    this.curDistance[index] = this.calcDistance(posIndex);
-    this.movePosition(this.sliderList[index], this.curDistance[index]);
+  locatePosition(sliderIndex: number, posIndex: number): void {
+    if (sliderIndex === undefined || posIndex === undefined || posIndex < 0)
+      return;
+
+    this.curDistance[sliderIndex] = this.calcDistance(posIndex);
+    this.movePosition(
+      this.sliderList[sliderIndex],
+      this.curDistance[sliderIndex]
+    );
     if (this.isCascade) {
-      this.checkRange(index, this.getIndexArr());
+      this.checkRange(sliderIndex, this.getIndexArr());
     }
   }
 
@@ -678,7 +725,7 @@ export default class MobileSelect {
     }
     return (
       this.sliderList[sliderIndex].getElementsByTagName("li")[index]
-        ?.innerText || ""
+        ?.textContent || ""
     );
   }
 
