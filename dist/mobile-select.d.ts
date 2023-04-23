@@ -1,5 +1,5 @@
 /*
-* mobile-select v1.3.3
+* mobile-select v1.4.0
 * Homepage: https://github.com/onlyhom/mobile-select
 * Released under the MIT License.
 * (c) 2017-present
@@ -102,7 +102,7 @@ declare class MobileSelect {
 	/** 显示json */
 	displayJson: CascadeData[];
 	/** 当前数值 */
-	curValue: string[] | number[];
+	curValue: string[] | number[] | CascadeData[];
 	/** 当前索引位置 */
 	curIndexArr: number[];
 	/** 是否级联 */
@@ -125,8 +125,6 @@ declare class MobileSelect {
 	oversizeBorder: number;
 	/** 是否启用点击状态 */
 	enableClickStatus: boolean;
-	/** 是否是PC端 */
-	isPC: boolean;
 	/** 选项高度(li元素的高度) */
 	optionHeight: number;
 	/** 存放滚动距离的数组 */
@@ -162,14 +160,16 @@ declare class MobileSelect {
 	};
 	constructor(config: CustomConfig);
 	init(): void;
-	static checkIsPC(): boolean;
 	static checkDataType(wheelsData: CascadeData): boolean;
 	static REQUIRED_PARAMS: (keyof CustomConfig)[];
 	static checkRequiredConfig(config: CustomConfig): boolean;
 	static log(type: "error" | "info", tips: string): void;
 	checkTriggerAvailable(): boolean;
 	/** 根据initValue 获取initPostion 需要区分级联和非级联情况 注意此时displayJson还没生成 */
-	getPositionByValue(): number[];
+	getPositionByInitValue(): number[];
+	getConnectedString(): string;
+	setTriggerInnerText(value: string): void;
+	setValue(valList: string[] | number[] | CascadeData[]): void;
 	setTitle(title: string): void;
 	setStyle(config: MobileSelectConfig): void;
 	show(): void;
@@ -190,13 +190,13 @@ declare class MobileSelect {
 	fixRowStyle(): void;
 	getIndex(distance: number): number;
 	getIndexArr(): number[];
-	getCurValue(): string[] | number[];
-	getValue(): string[] | number[];
+	getCurValue(): string[] | number[] | CascadeData[];
+	getValue(): string[] | number[] | CascadeData[];
 	calcDistance(index: number): number;
 	setCurDistance(indexArr: number[]): void;
 	fixPosition(distance: number): number;
 	movePosition(theSlider: HTMLElement, distance: number): void;
-	locatePosition(index: number, posIndex: number): void;
+	locatePosition(sliderIndex: number, posIndex: number): void;
 	updateCurDistance(theSlider: HTMLElement, index: number): void;
 	getInnerText(sliderIndex: number): string;
 	touch(event: TouchEvent | MouseEvent): void;
