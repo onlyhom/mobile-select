@@ -5,9 +5,7 @@ on:
   push:
     branches: ["master"]
     paths:
-      - "src/**"
-      - "index.html"
-      - "vite.config.ts"
+      - "package.json"
 
 env:
   GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
@@ -32,15 +30,12 @@ jobs:
       - name: Build
         run: pnpm run build
 
-      - name: Update package version
-        run: npm --no-git-tag-version version patch
-
       - name: Get package-version
         uses: nyaa8/package-version@v1
 
       - uses: EndBug/add-and-commit@v9
         with:
-          message: "chore: build dist"
+          message: "release: v${{ env.PACKAGE_VERSION }}"
           committer_name: github-actions[bot]
           committer_email: github-actions[bot]@users.noreply.github.com
           push: true

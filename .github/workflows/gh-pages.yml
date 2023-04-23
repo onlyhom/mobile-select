@@ -1,4 +1,4 @@
-name: build dist and deploy
+name: build and deploy gh pages
 on:
   workflow_dispatch:
   push:
