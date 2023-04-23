@@ -1,5 +1,27 @@
 # Changelog
 
+## [1.4.0](https://github.com/onlyhom/mobile-select/compare/v1.3.3...v1.4.0) (2023-04-23)
+
+
+### Features
+
+* add new method setValue ([191b25e](https://github.com/onlyhom/mobile-select/commit/191b25e4d3158b4c4b7f57341c8eab8a367da87f))
+
+
+### Bug Fixes
+
+* **style:** cannot show correctly under safari ([#104](https://github.com/onlyhom/mobile-select/issues/104)) ([ffad433](https://github.com/onlyhom/mobile-select/commit/ffad43350a224b2798c3846f936511b740f4dc94))
+
+
+### Documentation
+
+* update shields status ([6bd8d81](https://github.com/onlyhom/mobile-select/commit/6bd8d81ed4ec4bd0dd134c65e20a29172a99c33e))
+
+
+### Performance
+
+* reduce mounting methods ([5eab693](https://github.com/onlyhom/mobile-select/commit/5eab6933a0e247ce5a05d41e57e698c0ce910e52))
+
 ## [1.3.3](https://github.com/onlyhom/mobile-select/compare/v1.3.1...v1.3.3) (2022-08-28)
 
 
