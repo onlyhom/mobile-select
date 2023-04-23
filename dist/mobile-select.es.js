@@ -1,14 +1,17 @@
 /*
-* mobile-select v1.3.3
+* mobile-select v1.4.0
 * Homepage: https://github.com/onlyhom/mobile-select
 * Released under the MIT License.
 * (c) 2017-present
 */
-var D = Object.defineProperty;
-var w = (g, t, e) => t in g ? D(g, t, { enumerable: !0, configurable: !0, writable: !0, value: e }) : g[t] = e;
-var h = (g, t, e) => (w(g, typeof t != "symbol" ? t + "" : t, e), e);
+var S = Object.defineProperty;
+var D = (g, t, e) => t in g ? S(g, t, { enumerable: !0, configurable: !0, writable: !0, value: e }) : g[t] = e;
+var h = (g, t, e) => (D(g, typeof t != "symbol" ? t + "" : t, e), e);
 import "./style/mobile-select.css";
-const r = class {
+function w() {
+  return !navigator.userAgent.toLowerCase().match(/ipad|iphone os|midp|rv:1.2.3.4|ucweb|android|windows ce|windows mobile/);
+}
+const l = class {
   constructor(t) {
     h(this, "mobileSelect");
     h(this, "trigger");
@@ -36,82 +39,74 @@ const r = class {
     h(this, "offsetSum");
     h(this, "oversizeBorder");
     h(this, "enableClickStatus");
-    h(this, "isPC");
     h(this, "optionHeight");
     h(this, "curDistance");
     h(this, "cascadeJsonData");
     h(this, "eventHandleMap");
     h(this, "initDeepCount");
     h(this, "config");
-    !r.checkRequiredConfig(t) || (this.config = Object.assign({}, r.defaultConfig, t), this.wheelsData = t.wheels, this.isJsonType = !1, this.cascadeJsonData = [], this.displayJson = [], this.curValue = [], this.curIndexArr = [], this.isCascade = !1, this.startY, this.moveEndY, this.moveY, this.preMoveY, this.offsetY = 0, this.offsetSum = 0, this.oversizeBorder, this.curDistance = [], this.enableClickStatus = !1, this.isPC = !0, this.optionHeight = 0, this.initPosition = t.position || [], this.initColWidth = t.colWidth || [], this.init());
+    !l.checkRequiredConfig(t) || (this.config = Object.assign({}, l.defaultConfig, t), this.wheelsData = t.wheels, this.isJsonType = !1, this.cascadeJsonData = [], this.displayJson = [], this.curValue = [], this.curIndexArr = [], this.isCascade = !1, this.startY, this.moveEndY, this.moveY, this.preMoveY, this.offsetY = 0, this.offsetSum = 0, this.oversizeBorder, this.curDistance = [], this.enableClickStatus = !1, this.optionHeight = 0, this.initPosition = t.position || [], this.initColWidth = t.colWidth || [], this.init());
   }
   init() {
+    if (!this.checkTriggerAvailable())
+      return;
     const { config: t } = this;
-    if (this.isJsonType = r.checkDataType(this.wheelsData), this.renderComponent(this.wheelsData), !!this.checkTriggerAvailable()) {
-      if (this.wheelList = this.mobileSelect.getElementsByClassName("ms-wheel"), this.sliderList = this.mobileSelect.getElementsByClassName("ms-select-container"), this.panel = this.mobileSelect.querySelector(".ms-panel"), this.wheelsContain = this.mobileSelect.querySelector(".ms-wheels"), this.ensureBtn = this.mobileSelect.querySelector(".ms-ensure"), this.cancelBtn = this.mobileSelect.querySelector(".ms-cancel"), this.grayLayer = this.mobileSelect.querySelector(".ms-gray-layer"), this.popUp = this.mobileSelect.querySelector(".ms-content"), this.optionHeight = this.mobileSelect.querySelector("li").offsetHeight, t.initValue && t.triggerDisplayValue && (this.trigger.innerText = t.initValue), this.setStyle(t), this.isPC = r.checkIsPC(), this.isCascade = this.checkCascade(), this.isCascade && this.initCascade(), t.initValue && (this.initPosition = this.getPositionByValue()), this.initPosition.length < this.sliderList.length) {
-        const e = this.sliderList.length - this.initPosition.length;
-        for (let i = 0; i < e; i++)
-          this.initPosition.push(0);
-      }
-      this.isCascade ? this.initPosition.forEach((e, i) => {
-        this.checkRange(i, this.initPosition);
-      }) : this.setCurDistance(this.initPosition), this.eventHandleMap = {
-        cancelBtn: {
-          event: "click",
-          fn: () => {
-            var e, i, s, n;
-            this.hide(), (i = (e = this.config).cancel) == null || i.call(e, this.curIndexArr, this.curValue, this), (n = (s = this.config).onCancel) == null || n.call(s, this.curValue, this.curIndexArr, this);
-          }
-        },
-        ensureBtn: {
-          event: "click",
-          fn: () => {
-            var i, s, n, l;
-            this.hide(), this.optionHeight || (this.optionHeight = this.mobileSelect.querySelector("li").offsetHeight);
-            let e = "";
-            for (let o = 0; o < this.wheelList.length; o++)
-              o == this.wheelList.length - 1 ? e += this.getInnerText(o) : e += this.getInnerText(o) + this.config.connector;
-            t.triggerDisplayValue && (this.trigger.innerText = e), this.curIndexArr = this.getIndexArr(), this.curValue = this.getCurValue(), (s = (i = this.config).callback) == null || s.call(i, this.curIndexArr, this.curValue, this), (l = (n = this.config).onChange) == null || l.call(n, this.curValue, this.curIndexArr, this);
-          }
-        },
-        trigger: {
-          event: "click",
-          fn: () => {
-            this.show();
-          }
-        },
-        grayLayer: {
-          event: "click",
-          fn: () => this.hide()
-        },
-        popUp: {
-          event: "click",
-          fn: (e) => e.stopPropagation()
-        },
-        panel: {
-          event: ["touchstart", "touchend", "touchmove"],
-          fn: (e) => this.touch(e)
-        }
-      }, this.isPC && (this.eventHandleMap.panel.event = ["mousedown", "mousemove", "mouseup"]), this.registerEvents("add"), this.fixRowStyle(), t.autoFocus && this.show();
+    if (this.isJsonType = l.checkDataType(this.wheelsData), this.renderComponent(this.wheelsData), this.wheelList = this.mobileSelect.getElementsByClassName("ms-wheel"), this.sliderList = this.mobileSelect.getElementsByClassName("ms-select-container"), this.panel = this.mobileSelect.querySelector(".ms-panel"), this.wheelsContain = this.mobileSelect.querySelector(".ms-wheels"), this.ensureBtn = this.mobileSelect.querySelector(".ms-ensure"), this.cancelBtn = this.mobileSelect.querySelector(".ms-cancel"), this.grayLayer = this.mobileSelect.querySelector(".ms-gray-layer"), this.popUp = this.mobileSelect.querySelector(".ms-content"), this.optionHeight = this.mobileSelect.querySelector("li").offsetHeight, t.initValue && this.setTriggerInnerText(t.initValue), this.setStyle(t), this.isCascade = this.checkCascade(), this.isCascade && this.initCascade(), t.initValue && (this.initPosition = this.getPositionByInitValue()), this.initPosition.length < this.sliderList.length) {
+      const e = this.sliderList.length - this.initPosition.length;
+      for (let i = 0; i < e; i++)
+        this.initPosition.push(0);
     }
-  }
-  static checkIsPC() {
-    return !navigator.userAgent.toLowerCase().match(/ipad|iphone os|midp|rv:1.2.3.4|ucweb|android|windows ce|windows mobile/);
+    this.isCascade ? this.initPosition.forEach((e, i) => {
+      this.checkRange(i, this.initPosition);
+    }) : this.setCurDistance(this.initPosition), this.eventHandleMap = {
+      cancelBtn: {
+        event: "click",
+        fn: () => {
+          var e, i, s, n;
+          this.hide(), (i = (e = this.config).cancel) == null || i.call(e, this.curIndexArr, this.curValue, this), (n = (s = this.config).onCancel) == null || n.call(s, this.curValue, this.curIndexArr, this);
+        }
+      },
+      ensureBtn: {
+        event: "click",
+        fn: () => {
+          var e, i, s, n;
+          this.hide(), this.optionHeight || (this.optionHeight = this.mobileSelect.querySelector("li").offsetHeight), this.setTriggerInnerText(this.getConnectedString()), this.curIndexArr = this.getIndexArr(), this.curValue = this.getCurValue(), (i = (e = this.config).callback) == null || i.call(e, this.curIndexArr, this.curValue, this), (n = (s = this.config).onChange) == null || n.call(s, this.curValue, this.curIndexArr, this);
+        }
+      },
+      trigger: {
+        event: "click",
+        fn: () => {
+          this.show();
+        }
+      },
+      grayLayer: {
+        event: "click",
+        fn: () => this.hide()
+      },
+      popUp: {
+        event: "click",
+        fn: (e) => e.stopPropagation()
+      },
+      panel: {
+        event: ["touchstart", "touchend", "touchmove"],
+        fn: (e) => this.touch(e)
+      }
+    }, w() && (this.eventHandleMap.panel.event = ["mousedown", "mousemove", "mouseup"]), this.registerEvents("add"), this.fixRowStyle(), t.autoFocus && this.show();
   }
   static checkDataType(t) {
     var e, i;
     return typeof ((i = (e = t[0]) == null ? void 0 : e.data) == null ? void 0 : i[0]) == "object";
   }
   static checkRequiredConfig(t) {
-    const e = r.REQUIRED_PARAMS;
+    const e = l.REQUIRED_PARAMS;
     if (!t) {
       const i = e.map((s) => `'${s}'`);
-      return r.log("error", `missing required param ${i.join(" and ")}.`), !1;
+      return l.log("error", `missing required param ${i.join(" and ")}.`), !1;
     }
     for (let i = 0; i < e.length; i++) {
       const s = e[i];
       if (!t[s])
-        return r.log("error", `missing required param '${s}'.`), !1;
+        return l.log("error", `missing required param '${s}'.`), !1;
     }
     return !0;
   }
@@ -121,24 +116,47 @@ const r = class {
   }
   checkTriggerAvailable() {
     const { config: t } = this;
-    return this.trigger = t.trigger instanceof HTMLElement ? t.trigger : document.querySelector(t.trigger), this.trigger ? !0 : (r.log("error", "trigger HTMLElement does not found on your document."), !1);
+    return this.trigger = t.trigger instanceof HTMLElement ? t.trigger : document.querySelector(t.trigger), this.trigger ? !0 : (l.log("error", "trigger HTMLElement does not found on your document."), !1);
   }
-  getPositionByValue() {
+  getPositionByInitValue() {
     var n;
     const { keyMap: t, connector: e, initValue: i } = this.config, s = (i == null ? void 0 : i.split(e)) || [];
     if (this.isJsonType) {
-      let l = (n = this.wheelsData[0]) == null ? void 0 : n.data;
-      return s.reduce((o, d) => {
-        var c;
-        const a = l == null ? void 0 : l.findIndex((u) => u[t.value] == d);
-        return o.push(a < 0 ? 0 : a), l = (c = l[a]) == null ? void 0 : c[t.childs], o;
+      let o = (n = this.wheelsData[0]) == null ? void 0 : n.data;
+      return s.reduce((r, c) => {
+        var u;
+        const a = o == null ? void 0 : o.findIndex((d) => d[t.value] == c);
+        return r.push(a < 0 ? 0 : a), o = (u = o[a]) == null ? void 0 : u[t.childs], r;
       }, []);
     }
-    return s.reduce((l, o, d) => {
-      var c, u;
-      const a = (u = (c = this.wheelsData[d]) == null ? void 0 : c.data) == null ? void 0 : u.findIndex((f) => f == o);
-      return l.push(a < 0 ? 0 : a), l;
+    return s.reduce((o, r, c) => {
+      var u, d;
+      const a = (d = (u = this.wheelsData[c]) == null ? void 0 : u.data) == null ? void 0 : d.findIndex((f) => f == r);
+      return o.push(a < 0 ? 0 : a), o;
     }, []);
+  }
+  getConnectedString() {
+    let t = "";
+    for (let e = 0; e < this.wheelList.length; e++)
+      e == this.wheelList.length - 1 ? t += this.getInnerText(e) : t += this.getInnerText(e) + this.config.connector;
+    return t;
+  }
+  setTriggerInnerText(t) {
+    this.config.triggerDisplayValue && (this.trigger.textContent = t);
+  }
+  setValue(t) {
+    if (!t || !t.length)
+      return;
+    if (this.isJsonType && typeof t[0] != "object" || !this.isJsonType && typeof t[0] == "object") {
+      l.log("error", `The setValue() input format should be same with getValue(), like: ${JSON.stringify(this.getValue())}`);
+      return;
+    }
+    const { keyMap: e } = this.config;
+    t.forEach((i, s) => {
+      var r;
+      const n = this.isCascade ? this.displayJson[s] : (r = this.wheelsData[s]) == null ? void 0 : r.data, o = n == null ? void 0 : n.findIndex((c) => this.isJsonType ? i[e.id] == c[e.id] || i[e.value] == c[e.value] : i == c);
+      this.locatePosition(s, o);
+    }), this.setTriggerInnerText(this.getConnectedString());
   }
   setTitle(t) {
     this.mobileSelect.querySelector(".ms-title").innerHTML = t;
@@ -185,8 +203,8 @@ const r = class {
     let i = "";
     if (this.isJsonType)
       for (let s = 0; s < t.length; s++) {
-        const n = t[s][e.id], l = t[s][e.value];
-        i += `<li data-id="${n}">${l}</li>`;
+        const n = t[s][e.id], o = t[s][e.value];
+        i += `<li data-id="${n}">${o}</li>`;
       }
     else
       for (let s = 0; s < t.length; s++)
@@ -259,13 +277,13 @@ const r = class {
     e.childs in t && t[e.childs].length > 0 && (this.displayJson.push(t[e.childs]), this.checkArrDeep(t[e.childs][0]));
   }
   checkRange(t, e) {
-    var l;
+    var o;
     const i = this.displayJson.length - 1 - t, { keyMap: s } = this.config;
-    for (let o = 0; o < i; o++)
+    for (let r = 0; r < i; r++)
       this.displayJson.pop();
     let n;
-    for (let o = 0; o <= t; o++)
-      n = o == 0 ? this.cascadeJsonData[e[0]] : (l = n == null ? void 0 : n[s.childs]) == null ? void 0 : l[e[o]];
+    for (let r = 0; r <= t; r++)
+      n = r == 0 ? this.cascadeJsonData[e[0]] : (o = n == null ? void 0 : n[s.childs]) == null ? void 0 : o[e[r]];
     this.checkArrDeep(n), this.reRenderWheels(), this.fixRowStyle(), this.setCurDistance(this.resetPosition(t, e));
   }
   resetPosition(t, e) {
@@ -296,7 +314,7 @@ const r = class {
   }
   updateWheel(t, e) {
     if (this.isCascade) {
-      r.log("error", "'updateWheel()' not support cascade json data, please use 'updateWheels()' instead to update the whole data source");
+      l.log("error", "'updateWheel()' not support cascade json data, please use 'updateWheels()' instead to update the whole data source");
       return;
     }
     let i = "";
@@ -342,7 +360,7 @@ const r = class {
     return t;
   }
   getValue() {
-    return this.curValue;
+    return this.getCurValue();
   }
   calcDistance(t) {
     return 2 * this.optionHeight - t * this.optionHeight;
@@ -360,7 +378,7 @@ const r = class {
     t.style.transform = "translate3d(0," + e + "px, 0)";
   }
   locatePosition(t, e) {
-    this.curDistance[t] = this.calcDistance(e), this.movePosition(this.sliderList[t], this.curDistance[t]), this.isCascade && this.checkRange(t, this.getIndexArr());
+    t === void 0 || e === void 0 || e < 0 || (this.curDistance[t] = this.calcDistance(e), this.movePosition(this.sliderList[t], this.curDistance[t]), this.isCascade && this.checkRange(t, this.getIndexArr()));
   }
   updateCurDistance(t, e) {
     this.curDistance[e] = parseInt(t.style.transform.split(",")[1]);
@@ -369,10 +387,10 @@ const r = class {
     var s;
     const e = this.sliderList[t].getElementsByTagName("li").length;
     let i = this.getIndex(this.curDistance[t]);
-    return i >= e ? i = e - 1 : i < 0 && (i = 0), ((s = this.sliderList[t].getElementsByTagName("li")[i]) == null ? void 0 : s.innerText) || "";
+    return i >= e ? i = e - 1 : i < 0 && (i = 0), ((s = this.sliderList[t].getElementsByTagName("li")[i]) == null ? void 0 : s.textContent) || "";
   }
   touch(t) {
-    var l, o, d, a, c, u, f, v;
+    var o, r, c, a, u, d, f, v;
     const i = (t.composedPath && t.composedPath()).find((m) => {
       var p;
       return (p = m.classList) == null ? void 0 : p.contains("ms-wheel");
@@ -397,16 +415,16 @@ const r = class {
           const m = Math.floor((window.innerHeight - this.moveEndY) / 40);
           if (m != 2) {
             const p = m - 2, C = this.curDistance[n] + p * this.optionHeight;
-            C <= 2 * this.optionHeight && C >= this.oversizeBorder && (this.curDistance[n] = C, this.movePosition(s, this.curDistance[n]), (o = (l = this.config).transitionEnd) == null || o.call(l, this.getIndexArr(), this.getCurValue(), this), (a = (d = this.config).onTransitionEnd) == null || a.call(d, this.getCurValue(), this.getIndexArr(), this));
+            C <= 2 * this.optionHeight && C >= this.oversizeBorder && (this.curDistance[n] = C, this.movePosition(s, this.curDistance[n]), (r = (o = this.config).transitionEnd) == null || r.call(o, this.getIndexArr(), this.getCurValue(), this), (a = (c = this.config).onTransitionEnd) == null || a.call(c, this.getCurValue(), this.getIndexArr(), this));
           }
         } else
-          this.updateCurDistance(s, n), this.curDistance[n] = this.fixPosition(this.curDistance[n]), this.curDistance[n] > 2 * this.optionHeight ? this.curDistance[n] = 2 * this.optionHeight : this.curDistance[n] < this.oversizeBorder && (this.curDistance[n] = this.oversizeBorder), this.movePosition(s, this.curDistance[n]), (u = (c = this.config).transitionEnd) == null || u.call(c, this.getIndexArr(), this.getCurValue(), this), (v = (f = this.config).onTransitionEnd) == null || v.call(f, this.getCurValue(), this.getIndexArr(), this);
+          this.updateCurDistance(s, n), this.curDistance[n] = this.fixPosition(this.curDistance[n]), this.curDistance[n] > 2 * this.optionHeight ? this.curDistance[n] = 2 * this.optionHeight : this.curDistance[n] < this.oversizeBorder && (this.curDistance[n] = this.oversizeBorder), this.movePosition(s, this.curDistance[n]), (d = (u = this.config).transitionEnd) == null || d.call(u, this.getIndexArr(), this.getCurValue(), this), (v = (f = this.config).onTransitionEnd) == null || v.call(f, this.getCurValue(), this.getIndexArr(), this);
         t.type === "mouseup" && (this.enableClickStatus = !1), this.isCascade && this.checkRange(n, this.getIndexArr());
         break;
     }
   }
 };
-let y = r;
+let y = l;
 h(y, "defaultConfig", {
   keyMap: { id: "id", value: "value", childs: "childs" },
   position: [],
