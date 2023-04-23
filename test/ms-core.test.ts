@@ -12,6 +12,6 @@ describe("add", () => {
   });
 
   test("config initValue is workable", () => {
-    expect(msInstance.getPositionByValue()).toEqual([1]);
+    expect(msInstance.getPositionByInitValue()).toEqual([1]);
   });
 });
