@@ -14,8 +14,8 @@ const config: Config.InitialOptions = {
   preset: "ts-jest",
   transform: {
     "^.+\\.(ts|tsx)$": "ts-jest",
-    "\\.(less|css)$": "jest-less-loader", // 支持less
-  },
+    "\\.(less|css)$": "jest-less-loader" // 支持less
+  }
 };
 
 module.exports = config;

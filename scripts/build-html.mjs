@@ -13,7 +13,7 @@ const buildHtml = async () => {
   //获取文件目录(lib和es一样)
   const htmlFils = await glob("index.html", {
     cwd: sourceDir,
-    onlyFiles: true,
+    onlyFiles: true
   });
 
   for (let path in htmlFils) {

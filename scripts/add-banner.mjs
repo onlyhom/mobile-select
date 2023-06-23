@@ -11,7 +11,7 @@ const packageVersion = packageJson.version;
 const addCommentBanner = async () => {
   const files = await glob("**/mobile-select.*{js,css,d.ts}", {
     cwd: targetDir,
-    onlyFiles: true,
+    onlyFiles: true
   });
 
   for (let path in files) {

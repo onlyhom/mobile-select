@@ -8,9 +8,9 @@ const config = {
     {
       filePath: `src/${entryFileName}`,
       outFile: `dist/${packageName}.d.ts`,
-      noCheck: false,
-    },
-  ],
+      noCheck: false
+    }
+  ]
 };
 
 module.exports = config;

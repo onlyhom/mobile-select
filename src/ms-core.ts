@@ -2,7 +2,7 @@ import {
   MobileSelectConfig,
   CustomConfig,
   CascadeData,
-  OptionData,
+  OptionData
 } from "./types";
 import { checkIsPC } from "./utils/tools";
 import "./style/mobile-select.less";
@@ -74,7 +74,7 @@ export default class MobileSelect {
     ensureBtnText: "确认",
     cancelBtnText: "取消",
     triggerDisplayValue: true,
-    scrollSpeed: 1,
+    scrollSpeed: 1
   };
 
   constructor(config: CustomConfig) {
@@ -162,7 +162,7 @@ export default class MobileSelect {
           this.hide();
           this.config.cancel?.(this.curIndexArr, this.curValue, this);
           this.config.onCancel?.(this.curValue, this.curIndexArr, this);
-        },
+        }
       },
       ensureBtn: {
         event: "click",
@@ -177,26 +177,26 @@ export default class MobileSelect {
           this.curValue = this.getCurValue();
           this.config.callback?.(this.curIndexArr, this.curValue, this);
           this.config.onChange?.(this.curValue, this.curIndexArr, this);
-        },
+        }
       },
       trigger: {
         event: "click",
         fn: () => {
           this.show();
-        },
+        }
       },
       grayLayer: {
         event: "click",
-        fn: () => this.hide(),
+        fn: () => this.hide()
       },
       popUp: {
         event: "click",
-        fn: (event: Event) => event.stopPropagation(),
+        fn: (event: Event) => event.stopPropagation()
       },
       panel: {
         event: ["touchstart", "touchend", "touchmove"],
-        fn: (event: TouchEvent | MouseEvent) => this.touch(event),
-      },
+        fn: (event: TouchEvent | MouseEvent) => this.touch(event)
+      }
     };
 
     checkIsPC() &&
@@ -654,7 +654,7 @@ export default class MobileSelect {
         if (tempObj) {
           temp.push({
             [keyMap.id]: tempObj[keyMap.id],
-            [keyMap.value]: tempObj[keyMap.value],
+            [keyMap.value]: tempObj[keyMap.value]
           });
         }
       }

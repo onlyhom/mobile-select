@@ -21,7 +21,7 @@ const getPackageNameCamelCase = () => {
 const fileName = {
   es: `${packageName}.es.js`,
   umd: `${packageName}.umd.js`,
-  iife: `${packageName}.iife.js`,
+  iife: `${packageName}.iife.js`
 };
 
 export default defineConfig({
@@ -33,11 +33,11 @@ export default defineConfig({
       entry: path.resolve(__dirname, `src/${entryFileName}`),
       name: getPackageNameCamelCase(),
       formats: ["es", "umd", "iife"],
-      fileName: (format) => fileName[format],
+      fileName: (format) => fileName[format]
     },
     rollupOptions: {
-      external: [/\.less/], // 忽略打包文件, 另做处理
-    },
+      external: [/\.less/] // 忽略打包文件, 另做处理
+    }
   },
   plugins: [
     {
@@ -52,13 +52,13 @@ export default defineConfig({
           this.emitFile({
             type: "asset",
             fileName: key, // 文件名名不变
-            source: bundler.code.replace(/\.less/g, ".css"),
+            source: bundler.code.replace(/\.less/g, ".css")
           });
         }
-      },
+      }
     },
     viteStaticCopy({
-      targets: [{ src: "src/style/demo.css", dest: "style" }],
-    }),
-  ],
+      targets: [{ src: "src/style/demo.css", dest: "style" }]
+    })
+  ]
 });

@@ -24,7 +24,7 @@ const buildLess = async () => {
 
     const code = await less.render(lessCode, {
       //指定src下对应less文件的文件夹为目录
-      paths: [sourceDir, dirname(filePath)],
+      paths: [sourceDir, dirname(filePath)]
     });
 
     //拿到.css后缀path
