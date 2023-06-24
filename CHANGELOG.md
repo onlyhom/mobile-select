@@ -1,5 +1,19 @@
 # Changelog
 
+## [1.4.0](https://github.com/onlyhom/mobile-select/compare/v1.4.0...v1.4.0) (2023-06-24)
+
+
+### Bug Fixes
+
+* onTransitionEnd() callback return unexpected data on cascade mode ([9dc2c37](https://github.com/onlyhom/mobile-select/commit/9dc2c374bcd70e947da7b8d99c0d39becdca1ea1))
+* pop-up position problem in long page ([88954ca](https://github.com/onlyhom/mobile-select/commit/88954ca1a5951c26e2a1abd91dba50cebef9882a))
+* the last column is not display when column sum is 6 ([7965ff5](https://github.com/onlyhom/mobile-select/commit/7965ff525519ed50d3bfbf143cc21bbde0286ff5))
+
+
+### Documentation
+
+* update README.md ([202cc94](https://github.com/onlyhom/mobile-select/commit/202cc94f79bfc9edc570370ad765a779358353cc))
+
 ## [1.4.0](https://github.com/onlyhom/mobile-select/compare/v1.3.3...v1.4.0) (2023-04-23)
 
 
