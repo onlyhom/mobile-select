@@ -2,5 +2,13 @@
   "tabWidth": 2,
   "singleQuote": false,
   "trailingComma": "none",
-  "endOfLine": "auto"
+  "endOfLine": "auto",
+  "overrides": [
+    {
+      "files": ["*.html"],
+      "options": {
+        "trailingComma": "none"
+      }
+    }
+  ]
 }
