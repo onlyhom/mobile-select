@@ -736,6 +736,7 @@ export default class MobileSelect {
       return (domItem as HTMLElement).classList?.contains("ms-wheel");
     }) as HTMLElement;
     if (!currentCol) return;
+    let hasMoved = false;
 
     const theSlider = currentCol.firstChild as HTMLElement; // ul.select-container
     const index = parseInt(currentCol.getAttribute("data-index") || "0");
@@ -780,7 +781,7 @@ export default class MobileSelect {
           this.optionHeight;
 
         if (this.offsetSum == 0) {
-          // offsetSum为0, 相当于点击事件 点击了中间的选项
+          // 点击
           const clickOffetNum = Math.floor(
             (window.innerHeight - this.moveEndY) / 40
           );
@@ -794,20 +795,11 @@ export default class MobileSelect {
             ) {
               this.curDistance[index] = newDistance;
               this.movePosition(theSlider, this.curDistance[index]);
-              this.config.transitionEnd?.(
-                this.getIndexArr(),
-                this.getCurValue(),
-                this
-              );
-              this.config.onTransitionEnd?.(
-                this.getCurValue(),
-                this.getIndexArr(),
-                this
-              );
+              hasMoved = true;
             }
           }
         } else {
-          // 修正位置
+          // 滑动
           this.updateCurDistance(theSlider, index);
           this.curDistance[index] = this.fixPosition(this.curDistance[index]);
           if (this.curDistance[index] > 2 * this.optionHeight) {
@@ -816,7 +808,16 @@ export default class MobileSelect {
             this.curDistance[index] = this.oversizeBorder;
           }
           this.movePosition(theSlider, this.curDistance[index]);
+          hasMoved = true;
+        }
 
+        if (event.type === "mouseup") {
+          this.enableClickStatus = false;
+        }
+        if (this.isCascade) {
+          this.checkRange(index, this.getIndexArr());
+        }
+        if (hasMoved) {
           this.config.transitionEnd?.(
             this.getIndexArr(),
             this.getCurValue(),
@@ -828,15 +829,6 @@ export default class MobileSelect {
             this
           );
         }
-
-        if (event.type === "mouseup") {
-          this.enableClickStatus = false;
-        }
-        if (this.isCascade) {
-          this.checkRange(index, this.getIndexArr());
-        }
-
-        break;
     }
   }
 }
