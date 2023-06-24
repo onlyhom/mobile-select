@@ -4,54 +4,57 @@
 * Released under the MIT License.
 * (c) 2017-present
 */
-var S = Object.defineProperty;
-var D = (g, t, e) => t in g ? S(g, t, { enumerable: !0, configurable: !0, writable: !0, value: e }) : g[t] = e;
-var h = (g, t, e) => (D(g, typeof t != "symbol" ? t + "" : t, e), e);
+var C = Object.defineProperty;
+var v = (g, t, e) => t in g ? C(g, t, { enumerable: !0, configurable: !0, writable: !0, value: e }) : g[t] = e;
+var o = (g, t, e) => (v(g, typeof t != "symbol" ? t + "" : t, e), e);
 import "./style/mobile-select.css";
-function w() {
+function S() {
   return !navigator.userAgent.toLowerCase().match(/ipad|iphone os|midp|rv:1.2.3.4|ucweb|android|windows ce|windows mobile/);
 }
-const l = class {
+function y(g, t = 2) {
+  return (Math.floor(g * 100) / 100).toFixed(t);
+}
+const r = class {
   constructor(t) {
-    h(this, "mobileSelect");
-    h(this, "trigger");
-    h(this, "wheelList");
-    h(this, "sliderList");
-    h(this, "wheelsContain");
-    h(this, "panel");
-    h(this, "ensureBtn");
-    h(this, "cancelBtn");
-    h(this, "grayLayer");
-    h(this, "popUp");
-    h(this, "initPosition");
-    h(this, "initColWidth");
-    h(this, "wheelsData");
-    h(this, "displayJson");
-    h(this, "curValue");
-    h(this, "curIndexArr");
-    h(this, "isCascade");
-    h(this, "isJsonType");
-    h(this, "startY");
-    h(this, "moveEndY");
-    h(this, "moveY");
-    h(this, "preMoveY");
-    h(this, "offsetY");
-    h(this, "offsetSum");
-    h(this, "oversizeBorder");
-    h(this, "enableClickStatus");
-    h(this, "optionHeight");
-    h(this, "curDistance");
-    h(this, "cascadeJsonData");
-    h(this, "eventHandleMap");
-    h(this, "initDeepCount");
-    h(this, "config");
-    !l.checkRequiredConfig(t) || (this.config = Object.assign({}, l.defaultConfig, t), this.wheelsData = t.wheels, this.isJsonType = !1, this.cascadeJsonData = [], this.displayJson = [], this.curValue = [], this.curIndexArr = [], this.isCascade = !1, this.startY, this.moveEndY, this.moveY, this.preMoveY, this.offsetY = 0, this.offsetSum = 0, this.oversizeBorder, this.curDistance = [], this.enableClickStatus = !1, this.optionHeight = 0, this.initPosition = t.position || [], this.initColWidth = t.colWidth || [], this.init());
+    o(this, "mobileSelect");
+    o(this, "trigger");
+    o(this, "wheelList");
+    o(this, "sliderList");
+    o(this, "wheelsContain");
+    o(this, "panel");
+    o(this, "ensureBtn");
+    o(this, "cancelBtn");
+    o(this, "grayLayer");
+    o(this, "popUp");
+    o(this, "initPosition");
+    o(this, "initColWidth");
+    o(this, "wheelsData");
+    o(this, "displayJson");
+    o(this, "curValue");
+    o(this, "curIndexArr");
+    o(this, "isCascade");
+    o(this, "isJsonType");
+    o(this, "startY");
+    o(this, "moveEndY");
+    o(this, "moveY");
+    o(this, "preMoveY");
+    o(this, "offsetY");
+    o(this, "offsetSum");
+    o(this, "oversizeBorder");
+    o(this, "enableClickStatus");
+    o(this, "optionHeight");
+    o(this, "curDistance");
+    o(this, "cascadeJsonData");
+    o(this, "eventHandleMap");
+    o(this, "initDeepCount");
+    o(this, "config");
+    !r.checkRequiredConfig(t) || (this.config = Object.assign({}, r.defaultConfig, t), this.wheelsData = t.wheels, this.isJsonType = !1, this.cascadeJsonData = [], this.displayJson = [], this.curValue = [], this.curIndexArr = [], this.isCascade = !1, this.startY, this.moveEndY, this.moveY, this.preMoveY, this.offsetY = 0, this.offsetSum = 0, this.oversizeBorder, this.curDistance = [], this.enableClickStatus = !1, this.optionHeight = 0, this.initPosition = t.position || [], this.initColWidth = t.colWidth || [], this.init());
   }
   init() {
     if (!this.checkTriggerAvailable())
       return;
     const { config: t } = this;
-    if (this.isJsonType = l.checkDataType(this.wheelsData), this.renderComponent(this.wheelsData), this.wheelList = this.mobileSelect.getElementsByClassName("ms-wheel"), this.sliderList = this.mobileSelect.getElementsByClassName("ms-select-container"), this.panel = this.mobileSelect.querySelector(".ms-panel"), this.wheelsContain = this.mobileSelect.querySelector(".ms-wheels"), this.ensureBtn = this.mobileSelect.querySelector(".ms-ensure"), this.cancelBtn = this.mobileSelect.querySelector(".ms-cancel"), this.grayLayer = this.mobileSelect.querySelector(".ms-gray-layer"), this.popUp = this.mobileSelect.querySelector(".ms-content"), this.optionHeight = this.mobileSelect.querySelector("li").offsetHeight, t.initValue && this.setTriggerInnerText(t.initValue), this.setStyle(t), this.isCascade = this.checkCascade(), this.isCascade && this.initCascade(), t.initValue && (this.initPosition = this.getPositionByInitValue()), this.initPosition.length < this.sliderList.length) {
+    if (this.isJsonType = r.checkDataType(this.wheelsData), this.renderComponent(this.wheelsData), this.wheelList = this.mobileSelect.getElementsByClassName("ms-wheel"), this.sliderList = this.mobileSelect.getElementsByClassName("ms-select-container"), this.panel = this.mobileSelect.querySelector(".ms-panel"), this.wheelsContain = this.mobileSelect.querySelector(".ms-wheels"), this.ensureBtn = this.mobileSelect.querySelector(".ms-ensure"), this.cancelBtn = this.mobileSelect.querySelector(".ms-cancel"), this.grayLayer = this.mobileSelect.querySelector(".ms-gray-layer"), this.popUp = this.mobileSelect.querySelector(".ms-content"), this.optionHeight = this.mobileSelect.querySelector("li").offsetHeight, t.initValue && this.setTriggerInnerText(t.initValue), this.setStyle(t), this.isCascade = this.checkCascade(), this.isCascade && this.initCascade(), t.initValue && (this.initPosition = this.getPositionByInitValue()), this.initPosition.length < this.sliderList.length) {
       const e = this.sliderList.length - this.initPosition.length;
       for (let i = 0; i < e; i++)
         this.initPosition.push(0);
@@ -91,22 +94,22 @@ const l = class {
         event: ["touchstart", "touchend", "touchmove"],
         fn: (e) => this.touch(e)
       }
-    }, w() && (this.eventHandleMap.panel.event = ["mousedown", "mousemove", "mouseup"]), this.registerEvents("add"), this.fixRowStyle(), t.autoFocus && this.show();
+    }, S() && (this.eventHandleMap.panel.event = ["mousedown", "mousemove", "mouseup"]), this.registerEvents("add"), this.fixRowStyle(), t.autoFocus && this.show();
   }
   static checkDataType(t) {
     var e, i;
     return typeof ((i = (e = t[0]) == null ? void 0 : e.data) == null ? void 0 : i[0]) == "object";
   }
   static checkRequiredConfig(t) {
-    const e = l.REQUIRED_PARAMS;
+    const e = r.REQUIRED_PARAMS;
     if (!t) {
       const i = e.map((s) => `'${s}'`);
-      return l.log("error", `missing required param ${i.join(" and ")}.`), !1;
+      return r.log("error", `missing required param ${i.join(" and ")}.`), !1;
     }
     for (let i = 0; i < e.length; i++) {
       const s = e[i];
       if (!t[s])
-        return l.log("error", `missing required param '${s}'.`), !1;
+        return r.log("error", `missing required param '${s}'.`), !1;
     }
     return !0;
   }
@@ -116,23 +119,23 @@ const l = class {
   }
   checkTriggerAvailable() {
     const { config: t } = this;
-    return this.trigger = t.trigger instanceof HTMLElement ? t.trigger : document.querySelector(t.trigger), this.trigger ? !0 : (l.log("error", "trigger HTMLElement does not found on your document."), !1);
+    return this.trigger = t.trigger instanceof HTMLElement ? t.trigger : document.querySelector(t.trigger), this.trigger ? !0 : (r.log("error", "trigger HTMLElement does not found on your document."), !1);
   }
   getPositionByInitValue() {
     var n;
     const { keyMap: t, connector: e, initValue: i } = this.config, s = (i == null ? void 0 : i.split(e)) || [];
     if (this.isJsonType) {
-      let o = (n = this.wheelsData[0]) == null ? void 0 : n.data;
-      return s.reduce((r, c) => {
-        var u;
-        const a = o == null ? void 0 : o.findIndex((d) => d[t.value] == c);
-        return r.push(a < 0 ? 0 : a), o = (u = o[a]) == null ? void 0 : u[t.childs], r;
+      let h = (n = this.wheelsData[0]) == null ? void 0 : n.data;
+      return s.reduce((l, c) => {
+        var d;
+        const a = h == null ? void 0 : h.findIndex((u) => u[t.value] == c);
+        return l.push(a < 0 ? 0 : a), h = (d = h[a]) == null ? void 0 : d[t.childs], l;
       }, []);
     }
-    return s.reduce((o, r, c) => {
-      var u, d;
-      const a = (d = (u = this.wheelsData[c]) == null ? void 0 : u.data) == null ? void 0 : d.findIndex((f) => f == r);
-      return o.push(a < 0 ? 0 : a), o;
+    return s.reduce((h, l, c) => {
+      var d, u;
+      const a = (u = (d = this.wheelsData[c]) == null ? void 0 : d.data) == null ? void 0 : u.findIndex((f) => f == l);
+      return h.push(a < 0 ? 0 : a), h;
     }, []);
   }
   getConnectedString() {
@@ -148,14 +151,14 @@ const l = class {
     if (!t || !t.length)
       return;
     if (this.isJsonType && typeof t[0] != "object" || !this.isJsonType && typeof t[0] == "object") {
-      l.log("error", `The setValue() input format should be same with getValue(), like: ${JSON.stringify(this.getValue())}`);
+      r.log("error", `The setValue() input format should be same with getValue(), like: ${JSON.stringify(this.getValue())}`);
       return;
     }
     const { keyMap: e } = this.config;
     t.forEach((i, s) => {
-      var r;
-      const n = this.isCascade ? this.displayJson[s] : (r = this.wheelsData[s]) == null ? void 0 : r.data, o = n == null ? void 0 : n.findIndex((c) => this.isJsonType ? i[e.id] == c[e.id] || i[e.value] == c[e.value] : i == c);
-      this.locatePosition(s, o);
+      var l;
+      const n = this.isCascade ? this.displayJson[s] : (l = this.wheelsData[s]) == null ? void 0 : l.data, h = n == null ? void 0 : n.findIndex((c) => this.isJsonType ? i[e.id] == c[e.id] || i[e.value] == c[e.value] : i == c);
+      this.locatePosition(s, h);
     }), this.setTriggerInnerText(this.getConnectedString());
   }
   setTitle(t) {
@@ -203,8 +206,8 @@ const l = class {
     let i = "";
     if (this.isJsonType)
       for (let s = 0; s < t.length; s++) {
-        const n = t[s][e.id], o = t[s][e.value];
-        i += `<li data-id="${n}">${o}</li>`;
+        const n = t[s][e.id], h = t[s][e.value];
+        i += `<li data-id="${n}">${h}</li>`;
       }
     else
       for (let s = 0; s < t.length; s++)
@@ -277,13 +280,13 @@ const l = class {
     e.childs in t && t[e.childs].length > 0 && (this.displayJson.push(t[e.childs]), this.checkArrDeep(t[e.childs][0]));
   }
   checkRange(t, e) {
-    var o;
+    var h;
     const i = this.displayJson.length - 1 - t, { keyMap: s } = this.config;
-    for (let r = 0; r < i; r++)
+    for (let l = 0; l < i; l++)
       this.displayJson.pop();
     let n;
-    for (let r = 0; r <= t; r++)
-      n = r == 0 ? this.cascadeJsonData[e[0]] : (o = n == null ? void 0 : n[s.childs]) == null ? void 0 : o[e[r]];
+    for (let l = 0; l <= t; l++)
+      n = l == 0 ? this.cascadeJsonData[e[0]] : (h = n == null ? void 0 : n[s.childs]) == null ? void 0 : h[e[l]];
     this.checkArrDeep(n), this.reRenderWheels(), this.fixRowStyle(), this.setCurDistance(this.resetPosition(t, e));
   }
   resetPosition(t, e) {
@@ -314,7 +317,7 @@ const l = class {
   }
   updateWheel(t, e) {
     if (this.isCascade) {
-      l.log("error", "'updateWheel()' not support cascade json data, please use 'updateWheels()' instead to update the whole data source");
+      r.log("error", "'updateWheel()' not support cascade json data, please use 'updateWheels()' instead to update the whole data source");
       return;
     }
     let i = "";
@@ -324,13 +327,13 @@ const l = class {
     if (this.initColWidth.length && this.initColWidth.length === this.wheelList.length) {
       const e = this.initColWidth.reduce((i, s) => i + s, 0);
       this.initColWidth.forEach((i, s) => {
-        this.wheelList[s].style.width = (i / e * 100).toFixed(2) + "%";
+        this.wheelList[s].style.width = y(i / e) + "%";
       });
       return;
     }
-    const t = (100 / this.wheelList.length).toFixed(2);
+    const t = y(100 / this.wheelList.length) + "%";
     for (let e = 0; e < this.wheelList.length; e++)
-      this.wheelList[e].style.width = t + "%";
+      this.wheelList[e].style.width = t;
   }
   getIndex(t) {
     return Math.round((2 * this.optionHeight - t) / this.optionHeight);
@@ -390,42 +393,42 @@ const l = class {
     return i >= e ? i = e - 1 : i < 0 && (i = 0), ((s = this.sliderList[t].getElementsByTagName("li")[i]) == null ? void 0 : s.textContent) || "";
   }
   touch(t) {
-    var o, r, c, a, u, d, f, v;
-    const i = (t.composedPath && t.composedPath()).find((m) => {
-      var p;
-      return (p = m.classList) == null ? void 0 : p.contains("ms-wheel");
+    var l, c, a, d;
+    const i = (t.composedPath && t.composedPath()).find((u) => {
+      var f;
+      return (f = u.classList) == null ? void 0 : f.contains("ms-wheel");
     });
     if (!i)
       return;
-    const s = i.firstChild, n = parseInt(i.getAttribute("data-index") || "0");
+    let s = !1;
+    const n = i.firstChild, h = parseInt(i.getAttribute("data-index") || "0");
     switch (t.type) {
       case "touchstart":
       case "mousedown":
-        s.style.transition = "none 0s ease-out", this.startY = Math.floor(t instanceof TouchEvent ? t.touches[0].clientY : t.clientY), this.preMoveY = this.startY, t.type === "mousedown" && (this.enableClickStatus = !0);
+        n.style.transition = "none 0s ease-out", this.startY = Math.floor(t instanceof TouchEvent ? t.touches[0].clientY : t.clientY), this.preMoveY = this.startY, t.type === "mousedown" && (this.enableClickStatus = !0);
         break;
       case "touchmove":
       case "mousemove":
         if (t.preventDefault(), t.type === "mousemove" && !this.enableClickStatus)
           break;
-        this.moveY = Math.floor(t instanceof TouchEvent ? t.touches[0].clientY : t.clientY), this.offsetY = (this.moveY - this.preMoveY) * this.config.scrollSpeed, this.updateCurDistance(s, n), this.curDistance[n] = this.curDistance[n] + this.offsetY, this.movePosition(s, this.curDistance[n]), this.preMoveY = this.moveY;
+        this.moveY = Math.floor(t instanceof TouchEvent ? t.touches[0].clientY : t.clientY), this.offsetY = (this.moveY - this.preMoveY) * this.config.scrollSpeed, this.updateCurDistance(n, h), this.curDistance[h] = this.curDistance[h] + this.offsetY, this.movePosition(n, this.curDistance[h]), this.preMoveY = this.moveY;
         break;
       case "touchend":
       case "mouseup":
-        if (s.style.transition = "transform 0.18s ease-out", this.moveEndY = Math.floor(t instanceof TouchEvent ? t.changedTouches[0].clientY : t.clientY), this.offsetSum = this.moveEndY - this.startY, this.oversizeBorder = -(s.getElementsByTagName("li").length - 3) * this.optionHeight, this.offsetSum == 0) {
-          const m = Math.floor((window.innerHeight - this.moveEndY) / 40);
-          if (m != 2) {
-            const p = m - 2, C = this.curDistance[n] + p * this.optionHeight;
-            C <= 2 * this.optionHeight && C >= this.oversizeBorder && (this.curDistance[n] = C, this.movePosition(s, this.curDistance[n]), (r = (o = this.config).transitionEnd) == null || r.call(o, this.getIndexArr(), this.getCurValue(), this), (a = (c = this.config).onTransitionEnd) == null || a.call(c, this.getCurValue(), this.getIndexArr(), this));
+        if (n.style.transition = "transform 0.18s ease-out", this.moveEndY = Math.floor(t instanceof TouchEvent ? t.changedTouches[0].clientY : t.clientY), this.offsetSum = this.moveEndY - this.startY, this.oversizeBorder = -(n.getElementsByTagName("li").length - 3) * this.optionHeight, this.offsetSum == 0) {
+          const u = Math.floor((window.innerHeight - this.moveEndY) / 40);
+          if (u != 2) {
+            const f = u - 2, p = this.curDistance[h] + f * this.optionHeight;
+            p <= 2 * this.optionHeight && p >= this.oversizeBorder && (this.curDistance[h] = p, this.movePosition(n, this.curDistance[h]), s = !0);
           }
         } else
-          this.updateCurDistance(s, n), this.curDistance[n] = this.fixPosition(this.curDistance[n]), this.curDistance[n] > 2 * this.optionHeight ? this.curDistance[n] = 2 * this.optionHeight : this.curDistance[n] < this.oversizeBorder && (this.curDistance[n] = this.oversizeBorder), this.movePosition(s, this.curDistance[n]), (d = (u = this.config).transitionEnd) == null || d.call(u, this.getIndexArr(), this.getCurValue(), this), (v = (f = this.config).onTransitionEnd) == null || v.call(f, this.getCurValue(), this.getIndexArr(), this);
-        t.type === "mouseup" && (this.enableClickStatus = !1), this.isCascade && this.checkRange(n, this.getIndexArr());
-        break;
+          this.updateCurDistance(n, h), this.curDistance[h] = this.fixPosition(this.curDistance[h]), this.curDistance[h] > 2 * this.optionHeight ? this.curDistance[h] = 2 * this.optionHeight : this.curDistance[h] < this.oversizeBorder && (this.curDistance[h] = this.oversizeBorder), this.movePosition(n, this.curDistance[h]), s = !0;
+        t.type === "mouseup" && (this.enableClickStatus = !1), this.isCascade && this.checkRange(h, this.getIndexArr()), s && ((c = (l = this.config).transitionEnd) == null || c.call(l, this.getIndexArr(), this.getCurValue(), this), (d = (a = this.config).onTransitionEnd) == null || d.call(a, this.getCurValue(), this.getIndexArr(), this));
     }
   }
 };
-let y = l;
-h(y, "defaultConfig", {
+let m = r;
+o(m, "defaultConfig", {
   keyMap: { id: "id", value: "value", childs: "childs" },
   position: [],
   colWidth: [],
@@ -435,7 +438,7 @@ h(y, "defaultConfig", {
   cancelBtnText: "\u53D6\u6D88",
   triggerDisplayValue: !0,
   scrollSpeed: 1
-}), h(y, "REQUIRED_PARAMS", ["trigger", "wheels"]);
+}), o(m, "REQUIRED_PARAMS", ["trigger", "wheels"]);
 export {
-  y as default
+  m as default
 };

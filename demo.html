@@ -39,7 +39,7 @@
         "周三",
         "周四",
         "周五",
-        "周六",
+        "周六"
       ];
       const timeArr = [
         "08:30",
@@ -67,7 +67,7 @@
         "19:30",
         "20:00",
         "20:30",
-        "21:00",
+        "21:00"
       ];
       const numArr = ["1", "2", "3", "4", "5"];
       const UplinkData = [
@@ -78,7 +78,7 @@
           childs: [
             {
               id: "1",
-              value: "曜影",
+              value: "曜影"
             },
             {
               id: "2",
@@ -86,25 +86,25 @@
               childs: [
                 {
                   id: "1",
-                  value: "标准版",
+                  value: "标准版"
                 },
                 {
                   id: "2",
-                  value: "加长版",
+                  value: "加长版"
                 },
                 {
                   id: "3",
-                  value: "巅峰之旅",
+                  value: "巅峰之旅"
                 },
                 {
                   id: "4",
-                  value: "流光熠世",
+                  value: "流光熠世"
                 },
                 {
                   id: "5",
-                  value: "都会典藏版",
-                },
-              ],
+                  value: "都会典藏版"
+                }
+              ]
             },
             {
               id: "3",
@@ -112,21 +112,21 @@
               childs: [
                 {
                   id: "1",
-                  value: "加长版",
+                  value: "加长版"
                 },
                 {
                   id: "2",
-                  value: "永恒之爱",
+                  value: "永恒之爱"
                 },
                 {
                   id: "3",
-                  value: "英骥",
+                  value: "英骥"
                 },
                 {
                   id: "4",
-                  value: "阿尔卑斯典藏版",
-                },
-              ],
+                  value: "阿尔卑斯典藏版"
+                }
+              ]
             },
             {
               id: "4",
@@ -134,15 +134,15 @@
               childs: [
                 {
                   id: "1",
-                  value: "标准版",
+                  value: "标准版"
                 },
                 {
                   id: "2",
-                  value: "Black Badge",
-                },
-              ],
-            },
-          ],
+                  value: "Black Badge"
+                }
+              ]
+            }
+          ]
         },
         {
           id: "3",
@@ -154,13 +154,13 @@
               childs: [
                 {
                   id: "1",
-                  value: "标准版",
+                  value: "标准版"
                 },
                 {
                   id: "2",
-                  value: "极致版",
-                },
-              ],
+                  value: "极致版"
+                }
+              ]
             },
             {
               id: "2",
@@ -168,19 +168,19 @@
               childs: [
                 {
                   id: "1",
-                  value: "尊贵版",
+                  value: "尊贵版"
                 },
                 {
                   id: "2",
-                  value: "敞篷标准版",
+                  value: "敞篷标准版"
                 },
                 {
                   id: "3",
-                  value: "敞篷尊贵版",
-                },
-              ],
-            },
-          ],
+                  value: "敞篷尊贵版"
+                }
+              ]
+            }
+          ]
         },
         {
           id: "4",
@@ -188,17 +188,17 @@
           childs: [
             {
               id: "1",
-              value: "LaFerrari",
+              value: "LaFerrari"
             },
             {
               id: "2",
-              value: "法拉利488",
+              value: "法拉利488"
             },
             {
               id: "3",
-              value: "GTC4Lusso",
-            },
-          ],
+              value: "GTC4Lusso"
+            }
+          ]
         },
         {
           id: "5",
@@ -206,18 +206,18 @@
           childs: [
             {
               id: "1",
-              value: "总裁",
+              value: "总裁"
             },
             {
               id: "2",
-              value: "玛莎拉蒂GT",
+              value: "玛莎拉蒂GT"
             },
             {
               id: "3",
-              value: "Levante",
-            },
-          ],
-        },
+              value: "Levante"
+            }
+          ]
+        }
       ];
 
       //----------------------------------------------------------
@@ -255,7 +255,7 @@
         },
         onChange: function (data, indexArr, msInstance) {
           console.log(data);
-        },
+        }
       });
 
       const mobileSelect2 = new MobileSelect({
@@ -269,7 +269,7 @@
         },
         onChange: function (data, indexArr, msInstance) {
           console.log(data);
-        },
+        }
       });
 
       const mobileSelect3 = new MobileSelect({
@@ -281,6 +281,7 @@
           { data: numArr },
           { data: numArr },
           { data: numArr },
+          { data: numArr }
         ],
         position: [0, 1, 0, 1, 0],
         onTransitionEnd: function (data, indexArr, msInstance) {
@@ -288,7 +289,7 @@
         },
         onChange: function (data, indexArr, msInstance) {
           console.log(data);
-        },
+        }
       });
 
       const mobileSelect4 = new MobileSelect({
@@ -305,16 +306,16 @@
                   { id: "2", value: "2000米" },
                   { id: "3", value: "3000米" },
                   { id: "4", value: "5000米" },
-                  { id: "5", value: "10000米" },
-                ],
+                  { id: "5", value: "10000米" }
+                ]
               },
               { id: "2", value: "上城区" },
               { id: "3", value: "下城区" },
               { id: "4", value: "江干区" },
               { id: "5", value: "拱墅区" },
-              { id: "6", value: "西湖区" },
-            ],
-          },
+              { id: "6", value: "西湖区" }
+            ]
+          }
         ],
         connector: "-",
         initValue: "附近-3000米",
@@ -323,7 +324,7 @@
         },
         onChange: function (data, indexArr, msInstance) {
           console.log(data);
-        },
+        }
       });
 
       const mobileSelect5 = new MobileSelect({
@@ -337,7 +338,7 @@
         },
         onChange: function (data, indexArr, msInstance) {
           console.log(data);
-        },
+        }
       });
     </script>
   </body>
