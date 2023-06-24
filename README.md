@@ -1,14 +1,48 @@
-<p align="center"><img width="130" src="https://github.com/onlyhom/img-folder/blob/master/png/m_logo_orange.png?raw=true"></p>
+<p align="center">
+  <img
+    width="130"
+    src="https://github.com/onlyhom/img-folder/blob/master/png/m_logo_orange.png?raw=true"
+  />
+</p>
 <h1 align="center">Mobile Select</h1>
 <p align="center">
-  <a href="https://www.npmjs.com/package/mobile-select"><img src="https://img.shields.io/npm/v/mobile-select?color=cb0303&logo=npm&label=version" alt="Package version" /></a>
-  <a href="https://github.com/onlyhom/mobile-select/network"><img src="https://img.shields.io/github/stars/onlyhom/mobile-select.svg?logo=apachespark&logoColor=white&color=blueviolet" alt="GitHub stars" /></a>
-  <a href="https://github.com/onlyhom/mobile-select/network"><img src="https://img.shields.io/github/forks/onlyhom/mobile-select.svg?logo=github&color=blue" alt="GitHub forks" /></a>
-  <img src="https://img.shields.io/badge/dependencies-none-success.svg" alt="dependencies" />
-  <a href="https://github.com/onlyhom/mobile-select/issues"><img src="https://img.shields.io/github/issues/onlyhom/mobile-select.svg?logo=codeigniter&logoColor=FFFFFF" alt="GitHub issues" /></a>
-  <img src="https://img.shields.io/npm/dm/mobile-select.svg" alt="size" />
-  <img src="https://img.shields.io/bundlephobia/min/mobile-select" alt="size" />
-  <a href="https://github.com/onlyhom/mobile-select/blob/master/LICENSE" title="LICENSE"><img src="https://img.shields.io/github/license/onlyhom/mobile-select.svg?logo=creative%20commons&color=8FBFA9&logoColor=FFFFFF" alt="MIT license" /></a>
+  <a href="https://www.npmjs.com/package/mobile-select"
+    ><img
+      src="https://img.shields.io/npm/v/mobile-select?color=cb0303&logo=npm&label=version"
+      alt="Package version"
+  /></a>
+  <a href="https://github.com/onlyhom/mobile-select/network"
+    ><img
+      src="https://img.shields.io/github/stars/onlyhom/mobile-select.svg?logo=apachespark&logoColor=white&color=blueviolet"
+      alt="GitHub stars"
+  /></a>
+  <a href="https://github.com/onlyhom/mobile-select/network"
+    ><img
+      src="https://img.shields.io/github/forks/onlyhom/mobile-select.svg?logo=github&color=blue"
+      alt="GitHub forks"
+  /></a>
+  <img
+    src="https://img.shields.io/badge/dependencies-none-success.svg"
+    alt="dependencies"
+  />
+  <a href="https://github.com/onlyhom/mobile-select/issues"
+    ><img
+      src="https://img.shields.io/github/issues/onlyhom/mobile-select.svg?logo=codeigniter&logoColor=FFFFFF"
+      alt="GitHub issues"
+  /></a>
+  <br/>
+  <img src="https://img.shields.io/npm/dm/mobile-select.svg" alt="download/months" />
+  <img
+    src="https://img.shields.io/bundlephobia/min/mobile-select"
+    alt="size"
+  />
+  <a
+    href="https://github.com/onlyhom/mobile-select/blob/master/LICENSE"
+    title="LICENSE"
+    ><img
+      src="https://img.shields.io/github/license/onlyhom/mobile-select.svg?logo=creative%20commons&color=8FBFA9&logoColor=FFFFFF"
+      alt="MIT license"
+  /></a>
 </p>
 
 A multi-function mobile phone scrolling selector, support single to multi-select, support multi-level cascade, provide callback function, provide update function redraw, relocation function, compatible pc drag and so on.
