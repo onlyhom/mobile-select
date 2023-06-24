@@ -4,7 +4,7 @@ import {
   CascadeData,
   OptionData
 } from "./types";
-import { checkIsPC } from "./utils/tools";
+import { checkIsPC, getFloorFloatStr } from "./utils/tools";
 import "./style/mobile-select.less";
 
 export default class MobileSelect {
@@ -614,7 +614,8 @@ export default class MobileSelect {
   }
 
   fixRowStyle(): void {
-    // 自定义列宽度比例 用width不用flex的原因是可以做transition过渡
+    // 自定义列宽度比例
+    // 用width而不用flex的原因: flex虽然可以从num1到num2做transition宽度过渡, 但新增一列时，存量列的宽度无过渡效果
     if (
       this.initColWidth.length &&
       this.initColWidth.length === this.wheelList.length
@@ -622,13 +623,13 @@ export default class MobileSelect {
       const widthSum = this.initColWidth.reduce((cur, pre) => cur + pre, 0);
       this.initColWidth.forEach((item, index) => {
         this.wheelList[index].style.width =
-          ((item / widthSum) * 100).toFixed(2) + "%";
+          getFloorFloatStr(item / widthSum) + "%";
       });
       return;
     }
-    const width = (100 / this.wheelList.length).toFixed(2);
+    const itemWidthStyle = getFloorFloatStr(100 / this.wheelList.length) + "%";
     for (let i = 0; i < this.wheelList.length; i++) {
-      this.wheelList[i].style.width = width + "%";
+      this.wheelList[i].style.width = itemWidthStyle;
     }
   }
 
