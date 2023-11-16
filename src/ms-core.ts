@@ -9,7 +9,7 @@ import "./style/mobile-select.less";
 
 export default class MobileSelect {
   mobileSelect!: HTMLDivElement;
-  trigger!: HTMLElement;
+  trigger?: HTMLElement;
   wheelList!: HTMLCollectionOf<HTMLElement>;
   sliderList!: HTMLCollectionOf<HTMLElement>;
   wheelsContain!: HTMLDivElement;
@@ -211,7 +211,7 @@ export default class MobileSelect {
     return typeof wheelsData[0]?.data?.[0] === "object";
   }
 
-  static REQUIRED_PARAMS = ["trigger", "wheels"] as (keyof CustomConfig)[];
+  static REQUIRED_PARAMS = ["wheels"] as (keyof CustomConfig)[];
 
   static checkRequiredConfig(config: CustomConfig): boolean {
     const requiredParams = MobileSelect.REQUIRED_PARAMS;
@@ -238,6 +238,11 @@ export default class MobileSelect {
 
   checkTriggerAvailable() {
     const { config } = this;
+
+    if (!config.trigger) {
+      return true;
+    }
+
     // @ts-ignore
     this.trigger =
       config.trigger instanceof HTMLElement
@@ -246,7 +251,7 @@ export default class MobileSelect {
     if (!this.trigger) {
       MobileSelect.log(
         "error",
-        "trigger HTMLElement does not found on your document."
+        "trigger parameter must be valid dom element or selector."
       );
       return false;
     }
@@ -288,7 +293,7 @@ export default class MobileSelect {
   }
 
   setTriggerInnerText(value: string) {
-    if (this.config.triggerDisplayValue) {
+    if (this.trigger && this.config.triggerDisplayValue) {
       this.trigger.textContent = value;
     }
   }
@@ -389,16 +394,20 @@ export default class MobileSelect {
 
   registerEvents(type: "add" | "remove"): void {
     for (const [domName, item] of Object.entries(this.eventHandleMap)) {
+      const target = this[domName as keyof MobileSelect] as HTMLElement;
+
+      if (!target) continue;
+
       if (typeof item.event === "string") {
-        (this[domName as keyof MobileSelect] as HTMLElement)[
-          `${type}EventListener`
-        ](item.event, item.fn as EventListener, { passive: false });
+        target[`${type}EventListener`](item.event, item.fn as EventListener, {
+          passive: false
+        });
       } else {
         // 数组
         item.event.forEach((eventName) => {
-          (this[domName as keyof MobileSelect] as HTMLElement)[
-            `${type}EventListener`
-          ](eventName, item.fn as EventListener, { passive: false });
+          target[`${type}EventListener`](eventName, item.fn as EventListener, {
+            passive: false
+          });
         });
       }
     }
